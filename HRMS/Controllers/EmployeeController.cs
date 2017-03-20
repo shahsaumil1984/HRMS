@@ -7,7 +7,10 @@ namespace ControllerFile
   {   
      public ActionResult Index()
         {
+            int a = 0;
+            int b = a + 5;
             return View();
+
         }
   }
 }
