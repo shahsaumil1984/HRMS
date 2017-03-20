@@ -1,0 +1,322 @@
+
+		@model ViewModel.MasterViewModel
+		@using Model
+
+		<div id="employeeDetailsWindow" class="detailsWindow" >
+
+		<form id="employeeDetailsForm"
+		name="employeeDetailsForm"
+		data-ui-binding="true"
+		data-service-object="employeeService"
+		data-associated-list="employeeGrid"
+		method="get" action="" class="form-horizontal" role="form">
+
+		<div class="modal-body container-fluid">
+
+		<div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
+
+		<fieldset>
+		<legend>General Information</legend>
+
+		
+
+			<div class="form-group">
+			
+							<input type="hidden" ng-model="model.EmployeeID" />
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">First Name</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_FirstName" id="em_FirstName" ng-model="model.FirstName" class="required form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Last Name</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_LastName" id="em_LastName" ng-model="model.LastName" class="required form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Full Name</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Permanent Address Line1</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PermanentAddressLine1" id="em_PermanentAddressLine1" ng-model="model.PermanentAddressLine1" class="form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Permanent Address Line2</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PermanentAddressLine2" id="em_PermanentAddressLine2" ng-model="model.PermanentAddressLine2" class="form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Permanent Address Line3</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PermanentAddressLine3" id="em_PermanentAddressLine3" ng-model="model.PermanentAddressLine3" class="form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Permanent Address State</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Permanent Address Country</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PermanentAddressCountry" id="em_PermanentAddressCountry" ng-model="model.PermanentAddressCountry" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Permanent Address Zip</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PermanentAddressZip" id="em_PermanentAddressZip" ng-model="model.PermanentAddressZip" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Address Line1</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_AddressLine1" id="em_AddressLine1" ng-model="model.AddressLine1" class="form-control" maxlength="100"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Address Line2</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_AddressLine2" id="em_AddressLine2" ng-model="model.AddressLine2" class="form-control" maxlength="100"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Address Line3</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_AddressLine3" id="em_AddressLine3" ng-model="model.AddressLine3" class="form-control" maxlength="100"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Address State</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Address Country</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_AddressCountry" id="em_AddressCountry" ng-model="model.AddressCountry" class="form-control" maxlength="10"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Address Zip</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_AddressZip" id="em_AddressZip" ng-model="model.AddressZip" class="form-control" maxlength="10"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Date Of Birth</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_DateOfBirth" id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Date Ofjoining</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Probation Period End Date</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_ProbationPeriodEndDate" id="em_ProbationPeriodEndDate" ng-model="model.ProbationPeriodEndDate" class="required form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Has Resigned</label>
+							<div class="col-sm-10">
+							<input type="checkbox" id="em_HasResigned" name="em_HasResigned" ng-model="model.HasResigned" ng-true-value="true" ng-false-value="false"/>
+							</div>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Date Of Resignation</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_DateOfResignation" id="em_DateOfResignation" ng-model="model.DateOfResignation" class="form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Last Working Day</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_LastWorkingDay" id="em_LastWorkingDay" ng-model="model.LastWorkingDay" class="form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">PAN</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_PAN" id="em_PAN" ng-model="model.PAN" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">IDCard Number</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_IDCardNumber" id="em_IDCardNumber" ng-model="model.IDCardNumber" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">IDCard Type</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_IDCardType" id="em_IDCardType" ng-model="model.IDCardType" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Salary Account Number</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_SalaryAccountNumber" id="em_SalaryAccountNumber" ng-model="model.SalaryAccountNumber" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Salary Account Bank</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_SalaryAccountBank" id="em_SalaryAccountBank" ng-model="model.SalaryAccountBank" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Salary Account Bank Address</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_SalaryAccountBankAddress" id="em_SalaryAccountBankAddress" ng-model="model.SalaryAccountBankAddress" class="form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Salary Account IFSCCode</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="em_SalaryAccountIFSCCode" id="em_SalaryAccountIFSCCode" ng-model="model.SalaryAccountIFSCCode" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+		</fieldset>
+		</div>
+
+		<div class="modal-footer">
+		<div class="editor-label">
+		<button class="btn btn-primary btn-sm">Save</button>
+		<button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+		</div>
+		</div>
+		</form>
+		</div>
+
+	

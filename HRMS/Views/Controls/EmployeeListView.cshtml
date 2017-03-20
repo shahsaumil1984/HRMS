@@ -1,0 +1,117 @@
+      
+@model ViewModel.MasterViewModel
+@using Model
+
+<div id="employeeListView" class="listView">
+      
+
+    <form class="form-inline">
+
+      	
+
+      	<input type="text"
+          data-search-fields="HRMS"
+          data-search-list="employeeGrid" 
+	  data-default-focus="true"/>
+      </form>
+ 
+      <table
+        id="employeeGrid"
+        data-ui-binding="true"
+        data-entity-key="EmployeeID"
+        data-service-object="employeeService"
+        data-default-orderby="FirstName"
+        class="table table-condensed table-hover">
+    
+	 <tr>
+                  <th>
+                     <button type="button" class="btn" ng-click="ub.NewForm('employeeDetailsForm', true, null)">New Employee</button>
+                  </th>
+              </tr>
+	
+            <tr>
+            <th><a href="#" data-sort-field="EmployeeID">Employee ID</a></th>
+            <th><a href="#" data-sort-field="FirstName">First Name</a></th>
+            <th><a href="#" data-sort-field="LastName">Last Name</a></th>
+            <th><a href="#" data-sort-field="FullName">Full Name</a></th>
+            <th><a href="#" data-sort-field="PermanentAddressLine1">Permanent Address Line1</a></th>
+            <th><a href="#" data-sort-field="PermanentAddressLine2">Permanent Address Line2</a></th>
+            <th><a href="#" data-sort-field="PermanentAddressLine3">Permanent Address Line3</a></th>
+            <th><a href="#" data-sort-field="PermanentAddressState">Permanent Address State</a></th>
+            <th><a href="#" data-sort-field="PermanentAddressCountry">Permanent Address Country</a></th>
+            <th><a href="#" data-sort-field="PermanentAddressZip">Permanent Address Zip</a></th>
+            <th><a href="#" data-sort-field="AddressLine1">Address Line1</a></th>
+            <th><a href="#" data-sort-field="AddressLine2">Address Line2</a></th>
+            <th><a href="#" data-sort-field="AddressLine3">Address Line3</a></th>
+            <th><a href="#" data-sort-field="AddressState">Address State</a></th>
+            <th><a href="#" data-sort-field="AddressCountry">Address Country</a></th>
+            <th><a href="#" data-sort-field="AddressZip">Address Zip</a></th>
+            <th><a href="#" data-sort-field="DateOfBirth">Date Of Birth</a></th>
+            <th><a href="#" data-sort-field="DateOfjoining">Date Ofjoining</a></th>
+            <th><a href="#" data-sort-field="ProbationPeriodEndDate">Probation Period End Date</a></th>
+            <th><a href="#" data-sort-field="HasResigned">Has Resigned</a></th>
+            <th><a href="#" data-sort-field="DateOfResignation">Date Of Resignation</a></th>
+            <th><a href="#" data-sort-field="LastWorkingDay">Last Working Day</a></th>
+            <th><a href="#" data-sort-field="PAN">PAN</a></th>
+            <th><a href="#" data-sort-field="IDCardNumber">IDCard Number</a></th>
+            <th><a href="#" data-sort-field="IDCardType">IDCard Type</a></th>
+            <th><a href="#" data-sort-field="SalaryAccountNumber">Salary Account Number</a></th>
+            <th><a href="#" data-sort-field="SalaryAccountBank">Salary Account Bank</a></th>
+            <th><a href="#" data-sort-field="SalaryAccountBankAddress">Salary Account Bank Address</a></th>
+            <th><a href="#" data-sort-field="SalaryAccountIFSCCode">Salary Account IFSCCode</a></th>
+            
+		<th></th>
+            </tr>
+            <tbody ng-repeat="r in rows">
+
+             
+              <tr alt=$index%2 ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, null)">            
+              <td class="col-md-1"> <span >{{r.EmployeeID}}</span></td>
+              <td class="col-md-1"> <span >{{r.FirstName}}</span></td>
+              <td class="col-md-1"> <span >{{r.LastName}}</span></td>
+              <td class="col-md-1"> <span >{{r.FullName}}</span></td>
+              <td class="col-md-1"> <span >{{r.PermanentAddressLine1}}</span></td>
+              <td class="col-md-1"> <span >{{r.PermanentAddressLine2}}</span></td>
+              <td class="col-md-1"> <span >{{r.PermanentAddressLine3}}</span></td>
+              <td class="col-md-1"> <span >{{r.PermanentAddressState}}</span></td>
+              <td class="col-md-1"> <span >{{r.PermanentAddressCountry}}</span></td>
+              <td class="col-md-1"> <span >{{r.PermanentAddressZip}}</span></td>
+              <td class="col-md-1"> <span >{{r.AddressLine1}}</span></td>
+              <td class="col-md-1"> <span >{{r.AddressLine2}}</span></td>
+              <td class="col-md-1"> <span >{{r.AddressLine3}}</span></td>
+              <td class="col-md-1"> <span >{{r.AddressState}}</span></td>
+              <td class="col-md-1"> <span >{{r.AddressCountry}}</span></td>
+              <td class="col-md-1"> <span >{{r.AddressZip}}</span></td>
+              <td class="col-md-1"> <span >{{r.DateOfBirth}}</span></td>
+              <td class="col-md-1"> <span >{{r.DateOfjoining}}</span></td>
+              <td class="col-md-1"> <span >{{r.ProbationPeriodEndDate}}</span></td>
+              <td class="col-md-1"> <span >{{r.HasResigned}}</span></td>
+              <td class="col-md-1"> <span >{{r.DateOfResignation}}</span></td>
+              <td class="col-md-1"> <span >{{r.LastWorkingDay}}</span></td>
+              <td class="col-md-1"> <span >{{r.PAN}}</span></td>
+              <td class="col-md-1"> <span >{{r.IDCardNumber}}</span></td>
+              <td class="col-md-1"> <span >{{r.IDCardType}}</span></td>
+              <td class="col-md-1"> <span >{{r.SalaryAccountNumber}}</span></td>
+              <td class="col-md-1"> <span >{{r.SalaryAccountBank}}</span></td>
+              <td class="col-md-1"> <span >{{r.SalaryAccountBankAddress}}</span></td>
+              <td class="col-md-1"> <span >{{r.SalaryAccountIFSCCode}}</span></td>
+              
+
+              <td class="col-md-1">
+                  <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeGrid',  EmployeeID() , true, null)"/>
+              </td>
+
+            </tr>
+          </tbody>
+	<tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <div id="employeePagination">
+                        @Html.Partial("~/Views/Controls/PaginationControl.cshtml")
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+      </table>
+</div>
+  

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Affirma framework</title>
+    
+    
+
+    @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css")
+    @System.Web.Optimization.Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Affirma framework", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+           
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @System.Web.Optimization.Scripts.Render("~/Content/bootstrap/js")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryui")
+    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/Scripts/affirma")
+	@RenderSection("HeaderIncludes", required: false)
+    @RenderSection("scripts", required: false)
+</body>
+</html>

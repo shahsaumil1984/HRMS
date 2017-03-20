@@ -1,0 +1,102 @@
+
+		@model ViewModel.MasterViewModel
+		@using Model
+
+		<div id="holidayCalendarDetailsWindow" class="detailsWindow" >
+
+		<form id="holidayCalendarDetailsForm"
+		name="holidayCalendarDetailsForm"
+		data-ui-binding="true"
+		data-service-object="holidayCalendarService"
+		data-associated-list="holidayCalendarGrid"
+		method="get" action="" class="form-horizontal" role="form">
+
+		<div class="modal-body container-fluid">
+
+		<div id="holidayCalendarErrorDisplay" class="holidayCalendarErrorDisplay" data-error-display="true"></div>
+
+		<fieldset>
+		<legend>General Information</legend>
+
+		
+
+			<div class="form-group">
+			
+							<input type="hidden" ng-model="model.ID" />
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Holiday Date</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="ho_HolidayDate" id="ho_HolidayDate" ng-model="model.HolidayDate" class="form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Description</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="ho_Description" id="ho_Description" ng-model="model.Description" class="form-control" maxlength="500"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Created By</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="ho_CreatedBy" id="ho_CreatedBy" ng-model="model.CreatedBy" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Created</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="ho_Created" id="ho_Created" ng-model="model.Created" class="form-control" maxlength="8"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Modified By</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="ho_ModifiedBy" id="ho_ModifiedBy" ng-model="model.ModifiedBy" class="form-control" maxlength="50"/>
+						
+			</div>
+		
+
+			<div class="form-group">
+			
+							<label  class="col-sm-2 control-label">Modified</label>
+							<div class="col-sm-10">
+							</div>
+							<input type="text" name="ho_Modified" id="ho_Modified" ng-model="model.Modified" class="form-control" maxlength="8"/>
+						
+			</div>
+		
+
+		</fieldset>
+		</div>
+
+		<div class="modal-footer">
+		<div class="editor-label">
+		<button class="btn btn-primary btn-sm">Save</button>
+		<button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+		</div>
+		</div>
+		</form>
+		</div>
+
+	

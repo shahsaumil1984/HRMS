@@ -1,0 +1,73 @@
+      
+@model ViewModel.MasterViewModel
+@using Model
+
+<div id="holidayCalendarListView" class="listView">
+      
+
+    <form class="form-inline">
+
+      	
+
+      	<input type="text"
+          data-search-fields="HRMS"
+          data-search-list="holidayCalendarGrid" 
+	  data-default-focus="true"/>
+      </form>
+ 
+      <table
+        id="holidayCalendarGrid"
+        data-ui-binding="true"
+        data-entity-key="ID"
+        data-service-object="holidayCalendarService"
+        data-default-orderby="HolidayDate"
+        class="table table-condensed table-hover">
+    
+	 <tr>
+                  <th>
+                     <button type="button" class="btn" ng-click="ub.NewForm('holidayCalendarDetailsForm', true, null)">New HolidayCalendar</button>
+                  </th>
+              </tr>
+	
+            <tr>
+            <th><a href="#" data-sort-field="ID">ID</a></th>
+            <th><a href="#" data-sort-field="HolidayDate">Holiday Date</a></th>
+            <th><a href="#" data-sort-field="Description">Description</a></th>
+            <th><a href="#" data-sort-field="CreatedBy">Created By</a></th>
+            <th><a href="#" data-sort-field="Created">Created</a></th>
+            <th><a href="#" data-sort-field="ModifiedBy">Modified By</a></th>
+            <th><a href="#" data-sort-field="Modified">Modified</a></th>
+            
+		<th></th>
+            </tr>
+            <tbody ng-repeat="r in rows">
+
+             
+              <tr alt=$index%2 ng-click="ub.LoadForm('holidayCalendarDetailsForm',  r.ID , true, null)">            
+              <td class="col-md-1"> <span >{{r.ID}}</span></td>
+              <td class="col-md-1"> <span >{{r.HolidayDate}}</span></td>
+              <td class="col-md-1"> <span >{{r.Description}}</span></td>
+              <td class="col-md-1"> <span >{{r.CreatedBy}}</span></td>
+              <td class="col-md-1"> <span >{{r.Created}}</span></td>
+              <td class="col-md-1"> <span >{{r.ModifiedBy}}</span></td>
+              <td class="col-md-1"> <span >{{r.Modified}}</span></td>
+              
+
+              <td class="col-md-1">
+                  <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('holidayCalendarGrid',  ID() , true, null)"/>
+              </td>
+
+            </tr>
+          </tbody>
+	<tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <div id="holidayCalendarPagination">
+                        @Html.Partial("~/Views/Controls/PaginationControl.cshtml")
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+      </table>
+</div>
+  

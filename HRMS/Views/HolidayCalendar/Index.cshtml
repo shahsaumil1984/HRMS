@@ -1,0 +1,22 @@
+
+@model ViewModel.MasterViewModel
+@using Model
+
+@{
+    ViewBag.Title = "HolidayCalendars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderIncludes
+{
+  <script type="text/javascript" src="/Scripts/Services/HolidayCalendarService.js"></script>
+  <script type="text/javascript" src="/Scripts/Controllers/HolidayCalendarController.js"></script>
+}
+<h2>HolidayCalendars</h2>
+@Html.Partial("~/Views/Controls/HolidayCalendarListView.cshtml")
+
+@Html.Partial("~/Views/Controls/HolidayCalendarDetailsView.cshtml")
+      
+      
+      
+  

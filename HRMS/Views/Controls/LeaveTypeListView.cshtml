@@ -1,0 +1,65 @@
+      
+@model ViewModel.MasterViewModel
+@using Model
+
+<div id="leaveTypeListView" class="listView">
+      
+
+    <form class="form-inline">
+
+      	
+
+      	<input type="text"
+          data-search-fields="Name"
+          data-search-list="leaveTypeGrid" 
+	  data-default-focus="true"/>
+      </form>
+ 
+      <table
+        id="leaveTypeGrid"
+        data-ui-binding="true"
+        data-entity-key="ID"
+        data-service-object="leaveTypeService"
+        data-default-orderby="Name"
+        class="table table-condensed table-hover">
+    
+	 <tr>
+                  <th>
+                     <button type="button" class="btn" ng-click="ub.NewForm('leaveTypeDetailsForm', true, null)">New LeaveType</button>
+                  </th>
+              </tr>
+	
+            <tr>
+            <th><a href="#" data-sort-field="ID">ID</a></th>
+            <th><a href="#" data-sort-field="Name">Name</a></th>
+            <th><a href="#" data-sort-field="Symbol">Symbol</a></th>
+            
+		<th></th>
+            </tr>
+            <tbody ng-repeat="r in rows">
+
+             
+              <tr alt=$index%2 ng-click="ub.LoadForm('leaveTypeDetailsForm',  r.ID , true, null)">            
+              <td class="col-md-1"> <span >{{r.ID}}</span></td>
+              <td class="col-md-1"> <span >{{r.Name}}</span></td>
+              <td class="col-md-1"> <span >{{r.Symbol}}</span></td>
+              
+
+              <td class="col-md-1">
+                  <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('leaveTypeGrid',  ID() , true, null)"/>
+              </td>
+
+            </tr>
+          </tbody>
+	<tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <div id="leaveTypePagination">
+                        @Html.Partial("~/Views/Controls/PaginationControl.cshtml")
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+      </table>
+</div>
+  

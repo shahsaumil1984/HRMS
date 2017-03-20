@@ -1,0 +1,26 @@
+﻿@model ViewModel.MasterViewModel
+@using Model;
+
+<div id="fileUploadPopUp" class="modal fade" role="dialog" aria-hidden="true">
+    <form id="ajaxUploadForm" action="@Url.Action("AjaxUpload", "Upload")" method="post" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4> Upload a file</h4>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <label>File to Upload: <input type="file"  name="file" id="fileUpload" class="required" />(10MB max size)</label>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <input id="ajaxUploadButton" type="submit"
+                           onclick="if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
+                    <input id="uploadPath" name="uploadPath" type="hidden" value="" />
+                    <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
