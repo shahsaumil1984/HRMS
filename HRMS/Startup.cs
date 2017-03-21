@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(WebTest.Startup))]
-namespace WebTest
+[assembly: OwinStartupAttribute(typeof(HRMS.Startup))]
+namespace HRMS
 {
     public partial class Startup
     {

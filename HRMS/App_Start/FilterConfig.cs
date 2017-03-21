@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace WebTest
+namespace HRMS
 {
     public class FilterConfig
     {

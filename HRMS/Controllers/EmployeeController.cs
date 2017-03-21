@@ -1,7 +1,7 @@
 
 using System.Web.Mvc;
 
-namespace ControllerFile
+namespace HRMS
 {
   public class EmployeeController : Controller
   {   

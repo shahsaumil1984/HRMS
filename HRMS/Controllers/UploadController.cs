@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.DirectoryServices.AccountManagement;
-namespace WebProject.Controllers
+namespace HRMS
 {
     public class UploadController : Controller
     {
