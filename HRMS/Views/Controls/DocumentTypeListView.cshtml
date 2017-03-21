@@ -1,0 +1,59 @@
+﻿
+@model ViewModel.MasterViewModel
+@using Model
+
+<div id="documentTypeListView" class="listView">
+
+
+    <form class="form-inline">
+
+
+
+        <input type="text"
+               data-search-fields="HRMS"
+               data-search-list="documentTypeGrid"
+               data-default-focus="true" />
+    </form>
+
+    <table id="documentTypeGrid"
+           data-ui-binding="true"
+           data-entity-key="DocumentTypeID"
+           data-service-object="documentTypeService"
+           data-default-orderby="Description"
+           class="table table-condensed table-hover">
+
+        <tr>
+            <th>
+                <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button>
+            </th>
+        </tr>
+
+        <tr>
+            <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>
+            <th><a href="#" data-sort-field="Description">Description</a></th>
+            <th></th>
+        </tr>
+        <tbody ng-repeat="r in rows">
+
+
+            <tr alt=$index%2 ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)">
+                <td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>
+                <td class="col-md-1"> <span>{{r.Description}}</span></td>
+                <td class="col-md-1">
+                    <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('documentTypeGrid',  DocumentTypeID() , true, null)" />
+                </td>
+
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <div id="documentTypePagination">
+                        @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+

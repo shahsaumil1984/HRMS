@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="876d2a87b3344931a6f30a178191b699" Name="Diagram1">
+      <Diagram DiagramId="876d2a87b3344931a6f30a178191b699" Name="Diagram1" ZoomLevel="68">
         <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
@@ -15,6 +15,7 @@
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
