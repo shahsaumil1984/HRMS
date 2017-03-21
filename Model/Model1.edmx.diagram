@@ -15,6 +15,12 @@
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="0.75" PointY="15.375" />
+        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="3" PointY="9" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Document" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_DocumentType" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

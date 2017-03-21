@@ -31,5 +31,8 @@ namespace Model
         public virtual DbSet<LeaveTaken> LeaveTakens { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<SettingTable> SettingTables { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<EmployeeDocument> EmployeeDocuments { get; set; }
     }
 }
