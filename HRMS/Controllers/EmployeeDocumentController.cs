@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ViewModel;
 using Service;
+using Model;
 namespace HRMS
 {
     public class EmployeeDocumentController : Controller
@@ -12,14 +13,14 @@ namespace HRMS
         // GET: EmployeeDocument
         public ActionResult Index()
         {
-            
+
             MasterViewModel obj = new MasterViewModel();
             Service.DocumentTypeService service = new Service.DocumentTypeService();
             obj.DocumentTypes = service.Get().ToList();
 
 
             return View(obj);
-            
+
         }
 
         public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID)
@@ -50,13 +51,14 @@ namespace HRMS
             byte[] fileData;
             string fileName;
 
-            var record = from p in dbContext.Documents
-                         where p.DocumentID == id
-                         select p;
+            DocumentService service = new DocumentService();
+
+            var record = service.GetById(id);
+
             //only one record will be returned from database as expression uses condtion on primary field
             //so get first record from returned values and retrive file content (binary) and filename
-            fileData = (byte[])record.First().DocumentContent.ToArray();
-            fileName = record.First().DocumentName;
+            fileData = (byte[])record.DocumentContent.ToArray();
+            fileName = record.DocumentName;
             //return file and provide byte file content and file name
             return File(fileData, "text", fileName);
 
