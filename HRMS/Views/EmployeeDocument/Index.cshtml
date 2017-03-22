@@ -55,7 +55,7 @@
             @*<tr alt=$index%2 ng-click="ub.LoadForm(employeeDocumentDetailsForm',  r.EmployeeDocumentID , true, null)">*@
             <tr >
                 <td class="col-md-1"> <span>{{r.DocumentType.Description}}</span></td>
-                <td class="col-md-1"> <span>{{r.DocumentName}}</span></td>
+                <td class="col-md-1"> <span><a href="FileDownload/{{r.DocumentID}}">{{r.DocumentName}}</a></span></td>
                 @*<td class="col-md-1">
                     <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeDocumentGrid',  EmployeeDocumentID() , true, null)" />
                 </td>*@

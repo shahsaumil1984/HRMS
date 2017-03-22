@@ -11,14 +11,14 @@ namespace HRMS
     public class EmployeeDocumentController : Controller
     {
         // GET: EmployeeDocument
-        public ActionResult Index()
+        public ActionResult Index(int EmployeeID)
         {
 
             MasterViewModel obj = new MasterViewModel();
             Service.DocumentTypeService service = new Service.DocumentTypeService();
             obj.DocumentTypes = service.Get().ToList();
 
-
+            ViewBag.EmployeeID = EmployeeID;
             return View(obj);
 
         }
