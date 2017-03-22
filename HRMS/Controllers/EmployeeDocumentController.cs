@@ -34,19 +34,22 @@ namespace HRMS
             file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
             entity.DocumentName = file.FileName;
             entity.CreatedBy = "jpithadiya@affirma.com";
+            entity.ModifiedBy = "jpithadiya@affirma.com";
             entity.CreatedDate = DateTime.Now;
+            entity.ModifiedDate = DateTime.Now;
             documentService.Create(entity);
-            int id = documentService.SaveChangesReturnId(entity);
+            long id = documentService.SaveChangesReturnId(entity);
 
             
             ed.EmployeeID = EmployeeID;
+            ed.DocumentID = id;
             ed.DocumentTypeID = DocumentTypeID;
             ed.DocumentName = file.FileName;
             ed.CreatedBy = "jpithadiya@affirma.com";
             ed.CreatedDate = DateTime.Now;
 
             employeeDocumentService.Create(ed);
-            documentService.SaveChanges();
+            employeeDocumentService.SaveChanges();
 
             return Json("Success", JsonRequestBehavior.AllowGet);
         }

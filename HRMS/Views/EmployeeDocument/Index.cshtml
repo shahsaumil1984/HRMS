@@ -14,7 +14,7 @@
 }
 <h2>Employee Document</h2>
 
-<input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" />
+<input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
 
 <div id="employeeDocumentListView" class="listView">
 
@@ -24,10 +24,10 @@
 
 
         @*<input type="text"
-               data-search-fields="HRMS"
-               data-search-list="employeeDocumentGrid"
-               data-default-focus="true" />*@
-    
+            data-search-fields="HRMS"
+            data-search-list="employeeDocumentGrid"
+            data-default-focus="true" />*@
+
         <select id="filterEmployeeID" style="display:none;"
                 data-filter-field="EmployeeID"
                 data-filter-list="employeeDocumenteGrid">
@@ -42,25 +42,25 @@
            data-default-orderby="DocumentName"
            class="table table-condensed table-hover">
         @*<tr>
-            <th>
-                <button type="button" class="btn" ng-click="ub.NewForm('employeeDetailsForm', true, null)">New Employee</button>
-            </th>
-        </tr>*@
+                <th>
+                    <button type="button" class="btn" ng-click="ub.NewForm('employeeDetailsForm', true, null)">New Employee</button>
+                </th>
+            </tr>*@
         <tr>
-            <th><a href="#" data-sort-field="DocumentTypeID">Document Type</a></th>
+            <th><a href="#" data-sort-field="DocumentType.Description">Document Type</a></th>
             <th><a href="#" data-sort-field="DocumentName">Document Name</a></th>
-            <th></th>
+            
         </tr>
         <tbody ng-repeat="r in rows">
 
 
             @*<tr alt=$index%2 ng-click="ub.LoadForm(employeeDocumentDetailsForm',  r.EmployeeDocumentID , true, null)">*@
-            <tr >
+            <tr>
                 <td class="col-md-1"> <span>{{r.DocumentType.Description}}</span></td>
                 <td class="col-md-1"> <span><a href="FileDownload/{{r.DocumentID}}">{{r.DocumentName}}</a></span></td>
                 @*<td class="col-md-1">
-                    <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeDocumentGrid',  EmployeeDocumentID() , true, null)" />
-                </td>*@
+                        <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeDocumentGrid',  EmployeeDocumentID() , true, null)" />
+                    </td>*@
 
             </tr>
         </tbody>
@@ -82,10 +82,10 @@
 
 
 
-<h2>This is Document Uploader Page</h2>
+
 <div id="fileUploadPopUp" class="modal" role="dialog" aria-hidden="true">
 
-    <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "DocumentUpload",Model)" method="post" enctype="multipart/form-data">
+    <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "EmployeeDocument",Model)" method="post" enctype="multipart/form-data">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,7 +94,7 @@
                 <div class="modal-body">
                     <fieldset>
                         <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
-                        <input type="hidden" id="EmployeeID" name="EmployeeID" value="5" />
+                        <input type="hidden" id="EmployeeID" name="EmployeeID" value="@ViewBag.EmployeeID" />
                     </fieldset>
                 </div>
                 <div>
@@ -123,26 +123,31 @@
 @section scripts
 {
     <script type="text/javascript">
+        
 
-    $("#EmployeeID").val(employeeID);
 
+        $(document).ready(function () {
 
-    $("#uploadDocument").
-    $("#ajaxUploadButton").click(function () {
-        $("#ajaxUploadForm1").ajaxForm({
-            iframe: true,
-            dataType: "json",
-            beforeSubmit: function () {
-                $("#ajaxUploadForm1").block({ message: 'Uploading file...' });
-            },
-            success: function (result) {
-                alert("Document uploaded successfully");
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert("error");
-            }
+            $("#ajaxUploadForm1").ajaxForm({
+                iframe: true,
+                dataType: "json",
+                beforeSubmit: function () {
+                    $("#ajaxUploadForm1").block({ message: 'Uploading file...' });
+                },
+                success: function (result) {
+                    alert("Document uploaded successfully");
+                    $("#ajaxUploadForm1").unblock();
+                    employeeDocumenteGrid.RefreshData();
+                    $("#fileUploadPopUp").modal("hide");
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                }
+            });
         });
-    })
+
+        
+
 
     </script>
 }

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HRMS.Api
 {
-    public class EmployeeDocumentController : GenericApiController<EmployeeDocumentService, EmployeeDocument, int>, IGetList
+    public class EmployeeDocumentController : GenericApiController<EmployeeDocumentService, EmployeeDocument, long>, IGetList
     {
         //// GET: EmployeeDocument
         //public ActionResult Index()
@@ -25,7 +25,7 @@ namespace HRMS.Api
             return obj;
         }
 
-        public override EmployeeDocument GetById(int id)
+        public override EmployeeDocument GetById(long id)
         {
             EmployeeDocument obj = (from o in service.Context.EmployeeDocuments
                                     where o.EmployeeDocumentID == id

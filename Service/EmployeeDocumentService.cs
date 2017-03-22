@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class EmployeeDocumentService : GenericService<EmployeeDocument, int>
+    public class EmployeeDocumentService : GenericService<EmployeeDocument, long>
     {
         public override void Create(EmployeeDocument entity)
         {
