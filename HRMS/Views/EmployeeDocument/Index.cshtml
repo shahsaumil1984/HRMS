@@ -14,6 +14,8 @@
 }
 <h2>Employee Document</h2>
 
+<input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" />
+
 <div id="employeeDocumentListView" class="listView">
 
 
@@ -124,6 +126,8 @@
 
     $("#EmployeeID").val(employeeID);
 
+
+    $("#uploadDocument").
     $("#ajaxUploadButton").click(function () {
         $("#ajaxUploadForm1").ajaxForm({
             iframe: true,
@@ -139,15 +143,6 @@
             }
         });
     })
-
-
-
-
-
-
-
-
-
 
     </script>
 }

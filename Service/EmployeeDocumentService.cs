@@ -12,7 +12,7 @@ namespace Service
         public override void Create(EmployeeDocument entity)
         {
             //entity.ModifiedDate = DateTime.Today;
-            entity.CreatedDate = DateTime.Today;
+            
             base.Create(entity);
         }
 

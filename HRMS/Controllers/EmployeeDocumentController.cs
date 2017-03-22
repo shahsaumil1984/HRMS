@@ -23,26 +23,32 @@ namespace HRMS
 
         }
 
-        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID)
+        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID=1)
         {
             Document entity = new Document();
+            EmployeeDocument ed = new EmployeeDocument();
+            DocumentService documentService = new DocumentService();
+            EmployeeDocumentService employeeDocumentService = new EmployeeDocumentService();
+
             entity.DocumentContent = new byte[file.InputStream.Length];
             file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
             entity.DocumentName = file.FileName;
+            entity.CreatedBy = "jpithadiya@affirma.com";
+            entity.CreatedDate = DateTime.Now;
+            documentService.Create(entity);
+            int id = documentService.SaveChangesReturnId(entity);
 
-            DocumentService service = new DocumentService();
-            service.Create(entity);
-            int id = service.SaveChangesReturnId(entity);
-
-            EmployeeDocument ed = new EmployeeDocument();
+            
             ed.EmployeeID = EmployeeID;
             ed.DocumentTypeID = DocumentTypeID;
             ed.DocumentName = file.FileName;
+            ed.CreatedBy = "jpithadiya@affirma.com";
+            ed.CreatedDate = DateTime.Now;
 
+            employeeDocumentService.Create(ed);
+            documentService.SaveChanges();
 
             return Json("Success", JsonRequestBehavior.AllowGet);
-
-
         }
 
         public FileContentResult FileDownload(int id)
