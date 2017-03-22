@@ -1,23 +1,20 @@
-
-  
-// Properties
-//----------------------------------------------
-  
-// Methods
-//----------------------------------------------
-
+﻿/// <reference path="../jquery-1.10.2.min.js" />
+/// <reference path="../jquery-1.10.2.min.js" />
 // Event Handlers
 //----------------------------------------------
 $(document).ready(function () {
-  _.Initialize(function(status, msg){
-    
-    // Initialization Code Goes Here
-    
-  });
+
+    _.Initialize(function (status, msg) {
+        
+    });
+
+   
 });
 
-// Form Validation
-//----------------------------------------------
+function EmployeeNewCallback(status, data) {
+    debugger;
+    $("#employeeListView").hide();
+    $("#employeeDetailsWindow").show();
+}
 
 
-  

@@ -27,28 +27,26 @@ namespace HRMS
                        "~/Scripts/knockout*"));
 
             bundles.Add(new ScriptBundle("~/Scripts/affirma").Include(
-                       "~/Scripts/affirma-*",
+                       "~/Scripts/affirma-framework-2.0.0.js",
                        "~/Scripts/jquery.form.js",
                        "~/Scripts/moment.min.js",
                        "~/Scripts/jquery.blockUI.js",
                        "~/Scripts/toastr.js"));
 
-            bundles.Add(new ScriptBundle("~/Content/bootstrap/js").Include(
-                        "~/Content/bootstrap/js/bootstrap.js",
-                        "~/Content/bootstrap/js/bootstrap-clockpicker.min.js",
-                        "~/Scripts/bootstrap-datepicker.js"));
+            bundles.Add(new ScriptBundle("~/Script/bootstrap").Include(
+                        "~/Script/bootstrap.min.js",
+                        "~/Script/bootstrap-datepicker.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/css/fullcalendar.css",
                         "~/Content/css/toastr.css",
+                        "~/Content/css/bootstrap.min.css",
+                         "~/Content/css/style.css",
+                        "~/Content/css/bootstrap-select.css",
                         "~/Content/css/build.css"));
 
             //bundles.Add(new StyleBundle("~/Content/allCSS").IncludeDirectory("~/Content", "*.css"));
-            bundles.Add(new StyleBundle("~/Content/bootstrap/css").Include(
-                        "~/Content/bootstrap/css/bootstrap.min.css",
-                         "~/Content/css/main.css",
-                        "~/Content/bootstrap/css/bootstrap-clockpicker.min.css",
-                        "~/Content/bootstrap/css/datepicker.css"));
+            
 
 
         }

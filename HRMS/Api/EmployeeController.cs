@@ -9,7 +9,8 @@ using System.Web;
 using System.Web.Http;
 using Service;
 using Model;
-
+using Microsoft.AspNet.Identity;
+using HRMS;
 
 namespace Api
 {
@@ -139,6 +140,19 @@ namespace Api
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
 
             return pQuery;
+        }
+
+        public override HttpResponseMessage Create(Employee entity)
+        {
+            HttpResponseMessage obj = base.Create(entity);
+            var user = new ApplicationUser { UserName = entity.FirstName, Email = "", EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };            
+
+            return obj;   
+        }
+
+        public override HttpResponseMessage Update(Employee entity)
+        {
+            return base.Update(entity); 
         }
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
@@ -229,8 +229,12 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-	<Compile Include="Api\EmployeeController.cs"/><Compile Include="Api\HolidayCalendarController.cs"/><Compile Include="Api\LeaveTypeController.cs"/>
-	<Compile Include="Controllers\EmployeeController.cs"/><Compile Include="Controllers\HolidayCalendarController.cs"/><Compile Include="Controllers\LeaveTypeController.cs"/>	
+    <Compile Include="Api\EmployeeController.cs" />
+    <Compile Include="Api\HolidayCalendarController.cs" />
+    <Compile Include="Api\LeaveTypeController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HolidayCalendarController.cs" />
+    <Compile Include="Controllers\LeaveTypeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -300,8 +304,11 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\ProjectService.js" />
-	<Content Include="Scripts\Controllers\EmployeeController.js" /><Content Include="Scripts\Controllers\HolidayCalendarController.js" /><Content Include="Scripts\Controllers\LeaveTypeController.js" />
-	<Content Include="Scripts\Services\EmployeeService.js" /><Content Include="Scripts\Services\HolidayCalendarService.js" /><Content Include="Scripts\Services\LeaveTypeService.js" />
+    <Content Include="Scripts\Controllers\HolidayCalendarController.js" />
+    <Content Include="Scripts\Controllers\LeaveTypeController.js" />
+    <Content Include="Scripts\Services\EmployeeService.js" />
+    <Content Include="Scripts\Services\HolidayCalendarService.js" />
+    <Content Include="Scripts\Services\LeaveTypeService.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -321,9 +328,15 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Controls\UploadControl.cshtml" />
-	<Content Include="Views\Employee\Index.cshtml" /><Content Include="Views\HolidayCalendar\Index.cshtml" /><Content Include="Views\LeaveType\Index.cshtml" />	
-	<Content Include="Views\Controls\EmployeeListView.cshtml" /><Content Include="Views\Controls\HolidayCalendarListView.cshtml" /><Content Include="Views\Controls\LeaveTypeListView.cshtml" />	
-	<Content Include="Views\Controls\EmployeeDetailsView.cshtml" /><Content Include="Views\Controls\HolidayCalendarDetailsView.cshtml" /><Content Include="Views\Controls\LeaveTypeDetailsView.cshtml" />	
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\HolidayCalendar\Index.cshtml" />
+    <Content Include="Views\LeaveType\Index.cshtml" />
+    <Content Include="Views\Controls\EmployeeListView.cshtml" />
+    <Content Include="Views\Controls\HolidayCalendarListView.cshtml" />
+    <Content Include="Views\Controls\LeaveTypeListView.cshtml" />
+    <Content Include="Views\Controls\EmployeeDetailsView.cshtml" />
+    <Content Include="Views\Controls\HolidayCalendarDetailsView.cshtml" />
+    <Content Include="Views\Controls\LeaveTypeDetailsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

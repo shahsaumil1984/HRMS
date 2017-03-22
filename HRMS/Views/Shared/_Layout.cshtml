@@ -1,47 +1,77 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Affirma framework</title>
-    
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Alept Employee Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-    @System.Web.Optimization.Styles.Render("~/Content/bootstrap/css")
-    @System.Web.Optimization.Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css")
 
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-    <div class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Affirma framework", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="container bodywrap">
+        <header>
+            <div class="header_top">
+                <div class="container">
+                    <!-- Contact Details -->
+                    <div id="contact-details">
+                        <ul>
+                            <li><i class="icon-envelope"></i><a href="#">info@alept.com</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-           
+            <div class="container">
+                <div style="float: left; margin-left: 20px;">
+                    <!-- Logo -->
+                    <h1 class="brand"> <a href="index.html"> <img src="~/Content/images/logo.png"> </a> </h1>
+                    <!-- Search Field -->
+                    <div style="float: left; margin-left: 20px;">
+                        <h2> Alept Consulting Private Limited </h2>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container banner"> <img src="~/Content/images/jobopenings.png"> </div>
+
+        <div class="container">
+            @RenderBody()
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        <footer id="footer">
+            <div class="container"> Copyright 2017. All Rights Reserved. </div>
         </footer>
-    </div>
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-    @System.Web.Optimization.Scripts.Render("~/Content/bootstrap/js")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryui")
-    @System.Web.Optimization.Scripts.Render("~/bundles/jqueryval")
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    @System.Web.Optimization.Scripts.Render("~/Scripts/affirma")
-	@RenderSection("HeaderIncludes", required: false)
-    @RenderSection("scripts", required: false)
+        @Styles.Render("~/Script/bootstrap")
+
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        @System.Web.Optimization.Scripts.Render("~/Scripts/affirma")
+        @RenderSection("HeaderIncludes", required: false)
+        @RenderSection("scripts", required: false)
+
 </body>
 </html>
+
+
+
