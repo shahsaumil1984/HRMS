@@ -17,6 +17,7 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
+            this.EmployeeDocuments = new HashSet<EmployeeDocument>();
             this.LeaveMasters = new HashSet<LeaveMaster>();
             this.LeaveTakens = new HashSet<LeaveTaken>();
         }
@@ -51,6 +52,8 @@ namespace Model
         public string SalaryAccountBankAddress { get; set; }
         public string SalaryAccountIFSCCode { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

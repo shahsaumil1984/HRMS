@@ -8,7 +8,7 @@ namespace ViewModel
 {
     public class MasterViewModel
     {
-        
+        public List<DocumentType> DocumentTypes { get; set; }
     }
 
     public class PagedQueryable

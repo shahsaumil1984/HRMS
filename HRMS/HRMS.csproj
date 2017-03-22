@@ -213,6 +213,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\DocumentTypeController.cs" />
+    <Compile Include="Api\EmployeeDocumentController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -220,6 +222,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DocumentTypeController.cs" />
+    <Compile Include="Controllers\EmployeeDocumentController.cs" />
+    <Compile Include="Controllers\DocumentUploadController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -279,7 +284,9 @@
     <Content Include="Content\css\toastr.less" />
     <Content Include="Content\css\toastr.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\DocumentTypeController.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
+    <Content Include="Scripts\Controllers\EmployeeDocumentController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -302,8 +309,11 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Services\DocumentTypeService.js" />
+    <Content Include="Scripts\Services\EmployeeDocumentService.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\ProjectService.js" />
+    <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\HolidayCalendarController.js" />
     <Content Include="Scripts\Controllers\LeaveTypeController.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
@@ -337,11 +347,16 @@
     <Content Include="Views\Controls\EmployeeDetailsView.cshtml" />
     <Content Include="Views\Controls\HolidayCalendarDetailsView.cshtml" />
     <Content Include="Views\Controls\LeaveTypeDetailsView.cshtml" />
+    <Content Include="Views\DocumentType\Index.cshtml" />
+    <Content Include="Views\Controls\DocumentTypeListView.cshtml" />
+    <Content Include="Views\Controls\DocumentTypeDetailsView.cshtml" />
+    <Content Include="Views\EmployeeDocument\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\DocumentUpload\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

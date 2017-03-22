@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Model;
+using ViewModel;
+using Service;
+namespace HRMS.Controllers
+{
+    public class DocumentUploadController : Controller
+    {
+        // GET: DocumentUpload
+        HRMSEntities dbContext = new HRMSEntities();
+        public ActionResult Index()
+        {
+            MasterViewModel obj = new MasterViewModel();
+            Service.DocumentTypeService service = new Service.DocumentTypeService();
+            obj.DocumentTypes = service.Get().ToList();
+
+
+            return View(obj);
+        }
+
+       
+
+    }
+}

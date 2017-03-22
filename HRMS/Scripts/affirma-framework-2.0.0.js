@@ -892,7 +892,7 @@ UserInterfaceBinder.prototype.InitializeList = function (listName, service) {
 
 
         var lb = this.ListBindings[listName];
-
+        window[listName] = lb;
         var mastList = $('#' + listName);
         lb.initialLoad = mastList.attr('data-default-initial-load');
         if (lb.initialLoad != 'false') {
