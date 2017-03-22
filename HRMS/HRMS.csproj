@@ -338,7 +338,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Controls\UploadControl.cshtml" />
-
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\HolidayCalendar\Index.cshtml" />
     <Content Include="Views\LeaveType\Index.cshtml" />
@@ -351,6 +350,8 @@
     <Content Include="Views\DocumentType\Index.cshtml" />
     <Content Include="Views\Controls\DocumentTypeListView.cshtml" />
     <Content Include="Views\Controls\DocumentTypeDetailsView.cshtml" />
+    <Content Include="Views\EmployeeDocuments\Index.cshtml" />
+    <Content Include="Views\EmployeeDocument\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
