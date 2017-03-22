@@ -14,7 +14,7 @@
 }
 <h2>Employee Document</h2>
 
-<input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
+<input type="button" name="UploadDocument" value="Upload Document" class="btn btn-primary" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
 
 <div id="employeeDocumentListView" class="listView">
 
@@ -98,7 +98,8 @@
                     </fieldset>
                 </div>
                 <div>
-                    <select id="DocumentTypeID" name="DocumentTypeID">
+                    <select id="DocumentTypeID"  class="form-control" style="width:30%;margin:12px;" name="DocumentTypeID">
+                        <option value="0">--- Select ---</option>
                         @foreach (var item in Model.DocumentTypes)
                         {
                             <option value="@(item.DocumentTypeID)">@(item.Description)</option>
@@ -106,8 +107,7 @@
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <input id="ajaxUploadButton" type="submit"
-                           onclick="if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
+                    <input id="ajaxUploadButton" type="submit" onclick="if ($('#DocumentTypeID').val() == 0) { alert('Please select document type first'); }if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
                     <input id="uploadPath" name="uploadPath" type="hidden" value="" />
                     <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
 
