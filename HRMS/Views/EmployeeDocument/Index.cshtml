@@ -73,3 +73,81 @@
         </tfoot>
     </table>
 </div>
+
+
+
+
+
+
+
+<h2>This is Document Uploader Page</h2>
+<div id="fileUploadPopUp" class="modal" role="dialog" aria-hidden="true">
+
+    <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "DocumentUpload",Model)" method="post" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4> Upload a file</h4>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
+                        <input type="hidden" id="EmployeeID" name="EmployeeID" value="5" />
+                    </fieldset>
+                </div>
+                <div>
+                    <select id="DocumentTypeID" name="DocumentTypeID">
+                        @foreach (var item in Model.DocumentTypes)
+                        {
+                            <option value="@(item.DocumentTypeID)">@(item.Description)</option>
+                        }
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <input id="ajaxUploadButton" type="submit"
+                           onclick="if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
+                    <input id="uploadPath" name="uploadPath" type="hidden" value="" />
+                    <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+    $("#EmployeeID").val(employeeID);
+
+    $("#ajaxUploadButton").click(function () {
+        $("#ajaxUploadForm1").ajaxForm({
+            iframe: true,
+            dataType: "json",
+            beforeSubmit: function () {
+                $("#ajaxUploadForm1").block({ message: 'Uploading file...' });
+            },
+            success: function (result) {
+                alert("Document uploaded successfully");
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert("error");
+            }
+        });
+    })
+
+
+
+
+
+
+
+
+
+
+    </script>
+}
