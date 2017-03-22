@@ -357,6 +357,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\DocumentUpload\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
