@@ -5,7 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model;
-
+using ViewModel;
+using Service;
 namespace HRMS.Controllers
 {
     public class DocumentUploadController : Controller
@@ -14,24 +15,52 @@ namespace HRMS.Controllers
         HRMSEntities dbContext = new HRMSEntities();
         public ActionResult Index()
         {
-            return View();
+            MasterViewModel obj = new MasterViewModel();
+            Service.DocumentTypeService service = new Service.DocumentTypeService();
+            obj.DocumentTypes = service.Get().ToList();
+
+
+            return View(obj);
         }
 
-        public ActionResult AjaxUpload(HttpPostedFileBase file,Document entity)
+        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID)
         {
-            var fileName = file.FileName;
-            
+            Document entity = new Document();
             entity.DocumentContent = new byte[file.InputStream.Length];
             file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
-            
-            dbContext.Documents.Add(entity);
-            dbContext.SaveChanges();
+            entity.DocumentName = file.FileName;
+
+            DocumentService service = new DocumentService();
+            service.Create(entity);
+            int id = service.SaveChangesReturnId(entity);
+
+            EmployeeDocument ed = new EmployeeDocument();
+            ed.EmployeeID = EmployeeID;
+            ed.DocumentTypeID = DocumentTypeID;
+            ed.DocumentName = file.FileName;
 
 
-            // now you could pass the byte array to your model and store wherever 
-            // you intended to store it
+            return Json("Success", JsonRequestBehavior.AllowGet);
 
-            return Content("Thanks for uploading the file: "+ file.FileName);
+
+        }
+
+        public FileContentResult FileDownload(int id)
+        {
+            //declare byte array to get file content from database and string to store file name
+            byte[] fileData;
+            string fileName;
+
+            var record = from p in dbContext.Documents
+                         where p.DocumentID == id
+                         select p;
+            //only one record will be returned from database as expression uses condtion on primary field
+            //so get first record from returned values and retrive file content (binary) and filename
+            fileData = (byte[])record.First().DocumentContent.ToArray();
+            fileName = record.First().DocumentName;
+            //return file and provide byte file content and file name
+            return File(fileData, "text", fileName);
+
         }
 
     }

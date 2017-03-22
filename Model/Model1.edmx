@@ -11,6 +11,11 @@
           </Key>
           <Property Name="DocumentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DocumentContent" Type="varbinary(max)" />
+          <Property Name="DocumentName" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DocumentType">
           <Key>
@@ -69,7 +74,7 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
-          <Property Name="ModifiedDate" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="HolidayCalendar">
           <Key>
@@ -117,14 +122,6 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Symbol" Type="nvarchar" MaxLength="5" />
-        </EntityType>
-        <EntityType Name="SettingTable">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="LeavesPerMonth" Type="numeric" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="LeavesToBeCarriedForward" Type="numeric" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <Association Name="FK_EmployeeDocument_Document">
           <End Role="Document" Type="Self.Document" Multiplicity="1" />
@@ -219,7 +216,6 @@
           <EntitySet Name="LeaveMaster" EntityType="Self.LeaveMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveTaken" EntityType="Self.LeaveTaken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SettingTable" EntityType="Self.SettingTable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_EmployeeDocument_Document" Association="Self.FK_EmployeeDocument_Document">
             <End Role="Document" EntitySet="Document" />
             <End Role="EmployeeDocument" EntitySet="EmployeeDocument" />
@@ -253,6 +249,18 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HRMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="DocumentTypeID" />
+          </Key>
+          <Property Name="DocumentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_DocumentType" FromRole="DocumentType" ToRole="EmployeeDocument" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
@@ -343,14 +351,6 @@
           <NavigationProperty Name="LeaveMasters" Relationship="Self.FK_LeaveMaster_LeaveType" FromRole="LeaveType" ToRole="LeaveMaster" />
           <NavigationProperty Name="LeaveTakens" Relationship="Self.FK_LeaveTaken_LeaveType" FromRole="LeaveType" ToRole="LeaveTaken" />
         </EntityType>
-        <EntityType Name="SettingTable">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="LeavesPerMonth" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="LeavesToBeCarriedForward" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-        </EntityType>
         <Association Name="FK_LeaveMaster_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="LeaveMaster" Type="Self.LeaveMaster" Multiplicity="*" />
@@ -400,12 +400,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HRMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DocumentTypes" EntityType="Self.DocumentType" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="HolidayCalendars" EntityType="Self.HolidayCalendar" />
           <EntitySet Name="LeaveMasters" EntityType="Self.LeaveMaster" />
           <EntitySet Name="LeaveTakens" EntityType="Self.LeaveTaken" />
           <EntitySet Name="LeaveTypes" EntityType="Self.LeaveType" />
-          <EntitySet Name="SettingTables" EntityType="Self.SettingTable" />
           <AssociationSet Name="FK_LeaveMaster_Employee" Association="Self.FK_LeaveMaster_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="LeaveMaster" EntitySet="LeaveMasters" />
@@ -423,7 +423,6 @@
             <End Role="LeaveTaken" EntitySet="LeaveTakens" />
           </AssociationSet>
           <EntitySet Name="Documents" EntityType="HRMSModel.Document" />
-          <EntitySet Name="DocumentTypes" EntityType="HRMSModel.DocumentType" />
           <EntitySet Name="EmployeeDocuments" EntityType="HRMSModel.EmployeeDocument" />
           <AssociationSet Name="FK_EmployeeDocument_Document" Association="HRMSModel.FK_EmployeeDocument_Document">
             <End Role="Document" EntitySet="Documents" />
@@ -444,19 +443,12 @@
           </Key>
           <Property Name="DocumentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DocumentContent" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Document" FromRole="Document" ToRole="EmployeeDocument" />
-        </EntityType>
-        <EntityType Name="DocumentType">
-          <Key>
-            <PropertyRef Name="DocumentTypeID" />
-          </Key>
-          <Property Name="DocumentTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_DocumentType" FromRole="DocumentType" ToRole="EmployeeDocument" />
+          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Document" FromRole="Document" ToRole="EmployeeDocument" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -470,7 +462,7 @@
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedDate" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Document" Relationship="HRMSModel.FK_EmployeeDocument_Document" FromRole="EmployeeDocument" ToRole="Document" />
           <NavigationProperty Name="DocumentType" Relationship="HRMSModel.FK_EmployeeDocument_DocumentType" FromRole="EmployeeDocument" ToRole="DocumentType" />
           <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="EmployeeDocument" ToRole="Employee" />
@@ -517,6 +509,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HRMSModelStoreContainer" CdmEntityContainer="HRMSEntities">
+          <EntitySetMapping Name="DocumentTypes">
+            <EntityTypeMapping TypeName="HRMSModel.DocumentType">
+              <MappingFragment StoreEntitySet="DocumentType">
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="HRMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
@@ -603,32 +607,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SettingTables">
-            <EntityTypeMapping TypeName="HRMSModel.SettingTable">
-              <MappingFragment StoreEntitySet="SettingTable">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
-                <ScalarProperty Name="LeavesToBeCarriedForward" ColumnName="LeavesToBeCarriedForward" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="HRMSModel.Document">
               <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="DocumentContent" ColumnName="DocumentContent" />
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DocumentTypes">
-            <EntityTypeMapping TypeName="HRMSModel.DocumentType">
-              <MappingFragment StoreEntitySet="DocumentType">
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="DocumentContent" ColumnName="DocumentContent" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

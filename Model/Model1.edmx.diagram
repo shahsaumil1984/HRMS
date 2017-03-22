@@ -4,19 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="876d2a87b3344931a6f30a178191b699" Name="Diagram1">
-        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="d96671bca7c24b9798c6cc5843886fbd" Name="Diagram1">
+        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="5.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="0.75" PointY="15.375" />
-        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="0.75" PointY="18.375" />
         <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="3" PointY="9" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Document" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_DocumentType" />

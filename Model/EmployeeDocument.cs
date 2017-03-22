@@ -22,7 +22,7 @@ namespace Model
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public string ModifiedDate { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
         public virtual Document Document { get; set; }
         public virtual DocumentType DocumentType { get; set; }

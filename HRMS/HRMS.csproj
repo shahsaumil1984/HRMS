@@ -213,6 +213,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\DocumentTypeController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DocumentTypeController.cs" />
     <Compile Include="Controllers\DocumentUploadController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
@@ -280,6 +282,7 @@
     <Content Include="Content\css\toastr.less" />
     <Content Include="Content\css\toastr.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\DocumentTypeController.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -303,6 +306,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Services\DocumentTypeService.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\ProjectService.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
@@ -330,6 +334,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Controls\UploadControl.cshtml" />
+
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\HolidayCalendar\Index.cshtml" />
     <Content Include="Views\LeaveType\Index.cshtml" />
@@ -339,7 +344,10 @@
     <Content Include="Views\Controls\EmployeeDetailsView.cshtml" />
     <Content Include="Views\Controls\HolidayCalendarDetailsView.cshtml" />
     <Content Include="Views\Controls\LeaveTypeDetailsView.cshtml" />
-    <Content Include="Views\DocumentUpload\Index.cshtml" />
+    <Content Include="Views\DocumentType\Index.cshtml" />
+    <Content Include="Views\Controls\DocumentTypeListView.cshtml" />
+    <Content Include="Views\Controls\DocumentTypeDetailsView.cshtml" />
+	 <Content Include="Views\DocumentUpload\Index.cshtml" />
     <Content Include="Views\DocumentUpload\_Uploader.cshtml" />
   </ItemGroup>
   <ItemGroup>

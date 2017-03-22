@@ -1,17 +1,17 @@
-﻿@model Document
+﻿@model ViewModel.MasterViewModel
 
 @using Model;
 @using HRMS;
+
 
 @{
     ViewBag.Title = "Document Uploader";
 }
 
 <h2>This is Document Uploader Page</h2>
+<div id="fileUploadPopUp" class="modal" role="dialog" aria-hidden="true">
 
-
-
-    <form id="ajaxUploadForm" action="@Url.Action("AjaxUpload", "DocumentUpload",Model)" method="post" enctype="multipart/form-data">
+    <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "DocumentUpload",Model)" method="post" enctype="multipart/form-data">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -20,7 +20,16 @@
                 <div class="modal-body">
                     <fieldset>
                         <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
+                        <input type="hidden" id="EmployeeID" name="EmployeeID"/>
                     </fieldset>
+                </div>
+                <div>
+                    <select id="DocumentTypeID" name="DocumentTypeID">
+                        @foreach (var item in Model.DocumentTypes)
+                        {
+                            <option value="@(item.DocumentTypeID)">@(item.Description)</option>
+                        }
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <input id="ajaxUploadButton" type="submit"
@@ -32,3 +41,16 @@
             </div>
         </div>
     </form>
+</div>
+    
+
+
+
+@section scripts
+{
+<script>
+    var employeeID = GetParameterByName("EmplpoyeeID");
+    $("#EmployeeID").val(employeeID);
+    
+</script>
+}

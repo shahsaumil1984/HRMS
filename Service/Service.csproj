@@ -73,8 +73,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentService.cs" />
+    <Compile Include="DocumentTypeService.cs" />
     <Compile Include="GenericService.cs" />
-    <Compile Include="DocumentUploadService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EmployeeService.cs" />
     <Compile Include="HolidayCalendarService.cs" />
