@@ -1,0 +1,75 @@
+﻿
+@model ViewModel.MasterViewModel
+@using Model
+
+@{
+    ViewBag.Title = "Employee Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderIncludes
+{
+    <script type="text/javascript" src="/Scripts/Services/EmployeeDocumentService.js"></script>
+    <script type="text/javascript" src="/Scripts/Controllers/EmployeeDocumentController.js"></script>
+}
+<h2>Employee Document</h2>
+
+<div id="employeeDocumentListView" class="listView">
+
+
+    <form class="form-inline">
+
+
+
+        @*<input type="text"
+               data-search-fields="HRMS"
+               data-search-list="employeeDocumentGrid"
+               data-default-focus="true" />*@
+    
+        <select id="filterEmployeeID" style="display:none;"
+                data-filter-field="EmployeeID"
+                data-filter-list="employeeDocumenteGrid">
+            <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
+        </select>
+    </form>
+
+    <table id="employeeDocumenteGrid"
+           data-ui-binding="true"
+           data-entity-key="EmployeeDocumentID"
+           data-service-object="employeeDocumentService"
+           data-default-orderby="DocumentName"
+           class="table table-condensed table-hover">
+        @*<tr>
+            <th>
+                <button type="button" class="btn" ng-click="ub.NewForm('employeeDetailsForm', true, null)">New Employee</button>
+            </th>
+        </tr>*@
+        <tr>
+            <th><a href="#" data-sort-field="DocumentTypeID">Document Type</a></th>
+            <th><a href="#" data-sort-field="DocumentName">Document Name</a></th>
+            <th></th>
+        </tr>
+        <tbody ng-repeat="r in rows">
+
+
+            @*<tr alt=$index%2 ng-click="ub.LoadForm(employeeDocumentDetailsForm',  r.EmployeeDocumentID , true, null)">*@
+            <tr >
+                <td class="col-md-1"> <span>{{r.DocumentType.Description}}</span></td>
+                <td class="col-md-1"> <span>{{r.DocumentName}}</span></td>
+                @*<td class="col-md-1">
+                    <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeDocumentGrid',  EmployeeDocumentID() , true, null)" />
+                </td>*@
+
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <div id="employeeDocumentPagination">
+                        @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
