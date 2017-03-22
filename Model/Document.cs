@@ -12,16 +12,17 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class DocumentType
+    public partial class Document
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DocumentType()
+        public Document()
         {
             this.EmployeeDocuments = new HashSet<EmployeeDocument>();
         }
     
-        public int DocumentTypeID { get; set; }
-        public string Description { get; set; }
+        public long DocumentID { get; set; }
+        public byte[] DocumentContent { get; set; }
+        public string DocumentName { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }

@@ -19,6 +19,7 @@ namespace Model
         {
             this.LeaveMasters = new HashSet<LeaveMaster>();
             this.LeaveTakens = new HashSet<LeaveTaken>();
+            this.EmployeeDocuments = new HashSet<EmployeeDocument>();
         }
     
         public int EmployeeID { get; set; }
@@ -55,5 +56,7 @@ namespace Model
         public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
     }
 }
