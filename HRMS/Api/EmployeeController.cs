@@ -1,5 +1,4 @@
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +8,29 @@ using System.Web;
 using System.Web.Http;
 using Service;
 using Model;
-using Microsoft.AspNet.Identity;
 using HRMS;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace Api
 {
-    public class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
+    public  class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
     {
+        private ApplicationUserManager _userManager;
+        static Random r = new Random();
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {                
+                return _userManager ?? HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public override object GetModel()
         {
             Employee obj = (Employee)base.GetModel();
@@ -145,10 +160,73 @@ namespace Api
         public override HttpResponseMessage Create(Employee entity)
         {
             HttpResponseMessage obj = base.Create(entity);
-            var user = new ApplicationUser { UserName = entity.FirstName, Email = "", EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };            
+            var user = new ApplicationUser { UserName = entity.FirstName, Email = "", EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
+            string newPassword = GenerateStrongPassword(10);
+            IdentityResult result = UserManager.Create(user, newPassword);
 
-            return obj;   
+            if (result.Succeeded)
+            {                
+
+            }
+
+            return obj;
         }
+
+        public static string GenerateStrongPassword(int length)
+        {
+            string alphaCaps = "QWERTYUIOPASDFGHJKLZXCVBNM";
+            string alphaLow = "qwertyuiopasdfghjklzxcvbnm";
+            string numerics = "1234567890";
+            string special = "@#$";
+            //create another string which is a concatenation of all above
+            string allChars = alphaCaps + alphaLow + numerics + special;
+
+
+            string generatedPassword = "";
+
+
+            int pLower, pUpper, pNumber, pSpecial;
+            string posArray = "0123456789";
+            if (length < posArray.Length)
+                posArray = posArray.Substring(0, length);
+            pLower = getRandomPosition(ref posArray);
+            pUpper = getRandomPosition(ref posArray);
+            pNumber = getRandomPosition(ref posArray);
+            pSpecial = getRandomPosition(ref posArray);
+
+
+            for (int i = 0; i < length; i++)
+            {
+                if (i == pLower)
+                    generatedPassword += getRandomChar(alphaCaps);
+                else if (i == pUpper)
+                    generatedPassword += getRandomChar(alphaLow);
+                else if (i == pNumber)
+                    generatedPassword += getRandomChar(numerics);
+                else if (i == pSpecial)
+                    generatedPassword += getRandomChar(special);
+                else
+                    generatedPassword += getRandomChar(allChars);
+            }
+            return generatedPassword;
+        }
+
+        private static string getRandomChar(string fullString)
+        {
+            return fullString.ToCharArray()[(int)Math.Floor(r.NextDouble() * fullString.Length)].ToString();
+        }
+
+        private static int getRandomPosition(ref string posArray)
+        {
+            int pos;
+            string randomChar = posArray.ToCharArray()[(int)Math.Floor(r.NextDouble()
+                                           * posArray.Length)].ToString();
+            pos = int.Parse(randomChar);
+            posArray = posArray.Replace(randomChar, "");
+            return pos;
+        }
+
+
 
         public override HttpResponseMessage Update(Employee entity)
         {
