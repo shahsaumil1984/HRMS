@@ -16,8 +16,8 @@ namespace Api
 {
     public  class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
     {
-        private ApplicationUserManager _userManager;        
-        
+        private ApplicationUserManager _userManager;
+        static Random r = new Random();
 
         public ApplicationUserManager UserManager
         {
