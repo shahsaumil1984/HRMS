@@ -22,7 +22,7 @@ namespace Model
         public bool IsHalfDay { get; set; }
         public Nullable<int> LeaveTypeId { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual LeaveType LeaveType { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
