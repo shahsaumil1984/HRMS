@@ -8,54 +8,68 @@
 {
     <script type="text/javascript">
 
-    function addRoles() {
-        var arrRoles = new Array();
-        arrRoles = $('#lstRoles').val();
-        if (arrRoles != null && arrRoles.length > 0) {
-            for (var i = 0; i < arrRoles.length; i++) {
-                if ($("#lstAssignedRole option[value=" + arrRoles[i] + "]").length == 0) {
-                    $('#lstAssignedRole').append('<option value=' + arrRoles[i] + '>' + arrRoles[i] + '</option>');
+        function addRoles() {
+            var arrRoles = new Array();
+            arrRoles = $('#lstRoles').val();
+            if (arrRoles != null && arrRoles.length > 0) {
+                for (var i = 0; i < arrRoles.length; i++) {
+                    if ($("#lstExistingRoles option[value=" + arrRoles[i] + "]").length == 0) {
+                        $('#lstExistingRoles').append('<option value=' + arrRoles[i] + '>' + arrRoles[i] + '</option>');
+                    }
                 }
+                $("#lstRoles option:selected").remove();
             }
         }
-    }
 
-    function removeRoles() {
-        $("#lstAssignedRole option:selected").remove();
-    }
-    $(document).ready(function () {
-
-        $("#lstRoles").val([]);
-
-        $("#btnSave").on("click", function () {
-            var assignedRoles = $('#lstAssignedRole option');
-            var employeeID = $('#employeeID').val();
-            if (assignedRoles != null && assignedRoles.length > 0 && employeeID!= null) {
-                var strRoles = "";
-                for (var i = 0; i < assignedRoles.length; i++) {
-                    if (i == assignedRoles.length - 1) {
-                        strRoles = strRoles + assignedRoles[i].text ;
-                    }
-                    else {
-                        strRoles = strRoles + assignedRoles[i].text + ',';
+        function removeRoles() {
+            var arrExisitngRoles = new Array();
+            arrExisitngRoles = $('#lstExistingRoles').val();
+            if (arrExisitngRoles != null && arrExisitngRoles.length > 0) {
+                for (var i = 0; i < arrExisitngRoles.length; i++) {
+                    if ($("#lstRoles option[value=" + arrExisitngRoles[i] + "]").length == 0) {
+                        $('#lstRoles').append('<option value=' + arrExisitngRoles[i] + '>' + arrExisitngRoles[i] + '</option>');
                     }
                 }
-                $.ajax({
-                    url: '/ManageRoles/SaveRoles/?strRoles=' + strRoles + "&employeeID=" + employeeID,
-                    type: "POST",
-                    beforeSend: function () {
-                    },
-                    success: function (data, status, jqXHR) {
-                        debugger;
-                        alert(data);
-                    },
-                    error: function (jqXHR, status, err) {
+                $("#lstExistingRoles option:selected").remove();
+            }            
+        }
+        $(document).ready(function () {
 
+            $("#lstRoles").val([]);
+            $("#lstExistingRoles").val([]);
+
+            $("#btnSave").on("click", function () {
+                var assignedRoles = $('#lstExistingRoles option');
+                var employeeID = $('#employeeID').val();
+                if (assignedRoles != null && assignedRoles.length > 0 && employeeID != null) {
+                    var strRoles = "";
+                    for (var i = 0; i < assignedRoles.length; i++) {
+                        if (i == assignedRoles.length - 1) {
+                            strRoles = strRoles + assignedRoles[i].text;
+                        }
+                        else {
+                            strRoles = strRoles + assignedRoles[i].text + ',';
+                        }
                     }
-                });
-            }
+                    $.ajax({
+                        url: '/ManageRoles/SaveRoles/?strRoles=' + strRoles + "&employeeID=" + employeeID,
+                        type: "POST",
+                        beforeSend: function () {
+                        },
+                        success: function (data, status, jqXHR) {
+                            debugger;
+                            alert(data);
+                        },
+                        error: function (jqXHR, status, err) {
+
+                        }
+                    });
+                }
+                else {
+                    alert("Assign atleast one role.")
+                }
+            });
         });
-    });
 
     </script>
 }
@@ -67,12 +81,14 @@
         <button type="button" class="btn" onclick="addRoles()">Add</button>
         <button type="button" class="btn" onclick="removeRoles()">Remove</button>
     </div>
-    <div class="col-md-4" >@Html.ListBox("lstAssignedRole", new List<SelectListItem>(), new { @style = "min-width:40%;" })</div>
+    <div class="col-md-4">
+        @Html.ListBoxFor(m => m.lstExistingRoles, new MultiSelectList(Model.lstExistingRoles, "", ""), new { Multiple = "multiple", @style = "min-width:40%;" })
+    </div>
 </div>
 <div class="row">
     <button type="button" id="btnSave" class="btn">Save</button>
 </div>
 <input id="employeeID" type="hidden" value="@ViewBag.EmployeeID" />
 
- 
+
 

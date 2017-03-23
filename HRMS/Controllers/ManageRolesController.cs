@@ -35,50 +35,76 @@ namespace HRMS.Controllers
             RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
             List<IdentityRole> roles = roleManager.Roles.ToList();
             EmployeeRoles empRole = new EmployeeRoles();
+            List<string> lstExistingRoles = new List<string>();
             List<string> lstRoles = new List<string>();
-            foreach (var item in roles)
+            
+            AspNetUserService aspNetUserService = new AspNetUserService();
+            AspNetUser objAspNetUser = aspNetUserService.Get().Where(m => m.EmployeeId == employeeID).FirstOrDefault();
+            if (objAspNetUser != null)
             {
-                lstRoles.Add(item.Name);
+                string userId = objAspNetUser.Id;
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    foreach (var item in roles)
+                    {
+                        bool hasRole = false;
+                        hasRole = UserManager.IsInRole(userId, item.Name);
+                        if (hasRole)
+                            lstExistingRoles.Add(item.Name);
+                        else
+                            lstRoles.Add(item.Name);
+                    }
+                }
             }
+            
             empRole.lstRoles = lstRoles;
+            empRole.lstExistingRoles = lstExistingRoles;
             ViewBag.EmployeeID = employeeID;
             return View(empRole);
         }
 
-
-        //public async Task<ActionResult> SaveRoles(string strRoles)
         public JsonResult SaveRoles(string strRoles, int employeeID)
         {
             string msg = "";
-            //   int employeeID = Convert.ToInt32(Request.QueryString["EmployeeID"]);
-
-            EmployeeService empService = new EmployeeService();
-            Employee emp= empService.GetById(employeeID);
-            string email = emp.Email;
-            //  ApplicationUser objAppUser = UserManager.FindByName(email);
-            UserManager.GetRoles(email);
-            if (!string.IsNullOrEmpty(strRoles))
+            AspNetUserService aspNetUserService = new AspNetUserService();
+            AspNetUser objAspNetUser = aspNetUserService.Get().Where(m => m.EmployeeId == employeeID).FirstOrDefault();
+            if (objAspNetUser != null)
             {
-                string[] lstRoles;
-                lstRoles = strRoles.Split(',');
-                foreach (var item in lstRoles)
+                string userId = objAspNetUser.Id;
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    if (!UserManager.IsInRole("e5f6374d-4f57-4794-a8f6-761a39f4ebfe", item))
-                        UserManager.AddToRole("e5f6374d-4f57-4794-a8f6-761a39f4ebfe", item);
-
+                    IList<string> lstexistingRoles = UserManager.GetRoles(userId);
+                    foreach (var item in lstexistingRoles)
+                    {
+                        UserManager.RemoveFromRole(userId, item);
+                    }
+                    if (!string.IsNullOrEmpty(strRoles))
+                    {
+                        string[] lstRoles;
+                        lstRoles = strRoles.Split(',');
+                        foreach (var item in lstRoles)
+                        {
+                            if (!UserManager.IsInRole(userId, item))
+                                UserManager.AddToRole(userId, item);
+                        }
+                        msg = "All roles added!";
+                    }
+                    else
+                        msg = "No roles selected";
                 }
-                msg = "All roles added!";
+                else
+                    msg = "User does not exist.";
             }
             else
-                msg = "No roles selected";
+                msg = "User does not exist.";
             return new JsonResult { Data = msg, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-            // return View();
         }
     }
 
     public class EmployeeRoles
     {
         public List<string> lstRoles { get; set; }
+        public List<string> lstExistingRoles { get; set; }
         public string str { get; set; }
     }
 }

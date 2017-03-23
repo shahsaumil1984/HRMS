@@ -11,10 +11,11 @@ using Model;
 using HRMS;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using WebTest.Models;
 
 namespace Api
 {
-    public  class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
+    public class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
     {
         private ApplicationUserManager _userManager;
         static Random r = new Random();
@@ -22,7 +23,7 @@ namespace Api
         public ApplicationUserManager UserManager
         {
             get
-            {                
+            {
                 return _userManager ?? HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
@@ -159,18 +160,20 @@ namespace Api
 
         public override HttpResponseMessage Create(Employee entity)
         {
-            HttpResponseMessage obj = base.Create(entity);
-            var user = new ApplicationUser { UserName = entity.FirstName, Email =entity.Email, EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
-            string newPassword = GenerateStrongPassword(10);
-            IdentityResult result = UserManager.Create(user, newPassword);
+            
+                HttpResponseMessage obj = base.Create(entity);
+                var user = new HRMS.ApplicationUser { UserName = entity.Email, Email = entity.Email, EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
+                string newPassword = GenerateStrongPassword(10);
+                IdentityResult result = UserManager.Create(user, newPassword);
 
-            if (result.Succeeded)
-            {                
+                if (result.Succeeded)
+                {
 
-            }
-
+                }
+            
             return obj;
         }
+
 
         public static string GenerateStrongPassword(int length)
         {
@@ -211,6 +214,7 @@ namespace Api
             return generatedPassword;
         }
 
+
         private static string getRandomChar(string fullString)
         {
             return fullString.ToCharArray()[(int)Math.Floor(r.NextDouble() * fullString.Length)].ToString();
@@ -226,12 +230,16 @@ namespace Api
             return pos;
         }
 
-
-
         public override HttpResponseMessage Update(Employee entity)
         {
-            return base.Update(entity); 
+            return base.Update(entity);
         }
+
     }
+
+
+
+
+    
 }
 
