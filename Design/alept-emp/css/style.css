@@ -1,0 +1,154 @@
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+html, body{height: 100%;}
+body {
+  font-family: 'Open Sans', Arial, sans-serif; font-size: 13px;
+	 background-attachment: scroll;
+    background-color: #e6e6e6;
+    background-image: url("../images/bg.jpg");
+    background-position: 0 0;
+    background-repeat: repeat;
+    height: auto !important;
+    margin: 0;
+    min-height: 100%;
+    padding: 0;color: #444444;
+}
+.m-0{margin: 0;}
+.bodywrap{background: #fff;padding: 0;}
+.container{width: 1289px;}
+a:focus, a:hover{
+  text-decoration: none;
+	color: #1f496d ;
+}
+html, body,
+code, kbd, pre, samp, .popover, .tooltip, input
+{font-weight:normal;}
+ 
+dt,.btn, kbd kbd, label,.badge, .label,
+.alert .alert-link, .close, 
+button, input[type="submit"], input[type="button"],
+h1, h2, h3, h4, h5, h6, 
+b, optgroup, strong
+{font-weight:normal;font-family: 'Open Sans', Arial, sans-serif;}
+h1, h2, h3, h4, h5, h6{
+	color: #666666;
+    font-family: "Open Sans",Arial,sans-serif;
+    font-weight: 700;
+    line-height: normal;font-family: 'Open Sans', Arial, sans-serif;
+}
+/*select.form-control{
+    background: rgba(0, 0, 0, 0) url("../images/down-arrow.png") no-repeat scroll 97% 13px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 6px 24px 6px 12px;
+	font-size: 12px; 
+	font-family: calibriregular;
+}
+*/
+.banner{padding: 0;}
+.form-control{
+   border-radius: 2px;-webkit-border-radius: 2px;font-family: 'Open Sans', Arial, sans-serif;
+}
+label{font-weight: 600; color:#555; font-size: 13px; margin-bottom: 1px;}
+button, input[type="submit"], input[type="button"]{
+	background:#0c7ac9; color: #fff;
+	border: 0;
+ 	font-weight: bold; display: inline-block;
+	border-radius: 2px;-webkit-border-radius: 2px;
+  padding: 5px 15px;
+}
+button:hover, input[type="submit"]:hover, input[type="button"]:hover{
+	background:#0f5070;border: 0;color: #fff;
+}
+header{border-bottom: 1px solid #0c7ac9;}
+
+.title { background: url("../images/pattern-stripes.png") repeat scroll 0 0 transparent; overflow: hidden; font-weight: 700; font-size: 18px; margin-top: 15px;}
+
+.title span { background: none repeat scroll 0 0 #FFFFFF; float: left; padding: 0 8px 0 0 !important; }
+.brand {
+    display: inline-block;
+    float: left;
+    line-height: 0;
+    margin: 5px 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+.header_top {
+    background: #ffffff none repeat scroll 0 0;
+    border-bottom: 1px solid #efefef;
+    display: block;
+    overflow: visible;
+}
+header h2{font-size:23px; margin-top:23px;}
+.header_top li{
+    list-style: none;
+}
+#contact-details {
+    color: #777;
+    display: block;
+    float: left;
+    font-family: "Open Sans",sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    margin-top: 10px;
+}
+.actionbtns{margin-bottom: 0;}
+table.table th{color:#333; background: #dddddd; font-weight: 700;}
+table.table th,table.table td{vertical-align: middle !important;}
+table.table .media-object {
+    border: 2px solid #727272;
+    border-radius: 100%;
+    height: 45px;
+    width: 45px;
+}
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: middle;
+}
+.media-body{width: auto;}
+.media-body .ename{font-weight: 600;margin-bottom: 1px;color:#333;}
+.media-body .eemail{font-size:12px; color: #666;display: block;}
+.media-body .eemail:hover{color: #0c7ac9;}
+
+footer {
+    background: #262626 none repeat scroll 0 0;
+    border-top: medium none;
+    color: #cfcfcf;
+    font-family: "Open Sans",sans-serif;
+    font-size: 13px;
+    line-height: 22px;
+    padding: 31px 0 43px;
+    text-align: center;
+}
+.bootstrap-select .btn, .bootstrap-select .dropdown-menu{font-size: 13px;}
+.bootstrap-select .btn-default{border-radius: 2px;-webkit-border-radius: 2px;border: 1px solid #ccc;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
+.bootstrap-select .btn-default:hover, .bootstrap-select .btn-default.active, .bootstrap-select .btn-default:active, .bootstrap-select .btn-default:hover, .bootstrap-select .open > .dropdown-toggle.btn-default, .bootstrap-select .btn-default.focus, .bootstrap-select .btn-default:focus{background:#fff; border:1px solid #0c7ac9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;}
+
+.middlewrap{width: 1170px; margin:15px auto;}
+.midtitle {font-weight: 600; font-size: 18px; margin:10px 0 20px 0;border-bottom: 1px dotted #0c7ac9; color: #0c7ac9;}
+@media (max-width:1300px){
+	.container{width: 100%;}
+}
+
+@media (max-width:1200px){
+	.middlewrap{width: 90%;}
+}
+
+/*Login Page*/
+.loginwrap{width: 600px; height:320px; margin: auto; position: absolute; top:50%; transform: translateY(-50%);-webkit-transform: translateY(-50%);left:0; right: 0;background:#fff;}
+.loginfrm{padding: 25px 45px;}
+.loginfrm h2{font-size: 18px; color: #000;}
+.loginfrm h2 img{width:70px; height: auto; margin-left: -10px;}
+.loginimg{margin-top: 80px;}
+.loginimg .logimg img{width: 250px; height: auto;}
+
+
+/*List page with action fields inside table S*/
+table.table thead.tblaction td{background:#fff; padding-left: 0;}
+/*List page with action fields inside table E*/
+
