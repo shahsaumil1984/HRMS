@@ -105,6 +105,7 @@ namespace HRMS.Controllers
                         ModelState.AddModelError("", "Invalid login attempt.");
                         ViewBag.ReturnUrl = returnUrl;
                         ViewBag.Error = "Message";
+                        //return RedirectToAction("Index");
                         return View(model);
                 }
             }

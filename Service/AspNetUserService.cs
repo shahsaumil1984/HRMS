@@ -16,15 +16,16 @@ namespace Service
 
 
 
+
             var query = (from user in this.repository.Get()
                          where user.UserName.ToLower().Trim() == UserName.ToLower().Trim()
                          select new AspNetUser
                          {
                              UserName = user.UserName,
-                             AspNetRoles = user.AspNetRoles,
+                            // AspNetRoles = user.AspNetRoles,
                              //UserFranchises = user.UserFranchises,
                              //UserGeos = user.UserGeos,
-                            // UserLocalizeSettings = user.UserLocalizeSettings,
+                             //UserLocalizeSettings = user.UserLocalizeSettings,
                              Id = user.Id
                          }).FirstOrDefault();
 
