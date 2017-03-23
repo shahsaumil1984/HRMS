@@ -12,17 +12,13 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class LeaveTaken
+    public partial class AspNetUserClaim
     {
-        public int ID { get; set; }
-        public int EmployeeId { get; set; }
-        public System.DateTime LeaveDate { get; set; }
-        public string Description { get; set; }
-        public decimal LeaveValue { get; set; }
-        public bool IsHalfDay { get; set; }
-        public Nullable<int> LeaveTypeId { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual LeaveType LeaveType { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

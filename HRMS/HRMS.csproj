@@ -222,6 +222,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DocumentTypeController.cs" />
     <Compile Include="Controllers\EmployeeDocumentController.cs" />
     <Compile Include="Controllers\DocumentUploadController.cs" />
@@ -351,6 +352,8 @@
     <Content Include="Views\Controls\DocumentTypeListView.cshtml" />
     <Content Include="Views\Controls\DocumentTypeDetailsView.cshtml" />
     <Content Include="Views\EmployeeDocument\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

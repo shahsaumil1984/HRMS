@@ -11,6 +11,7 @@ using Model;
 using HRMS;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using WebTest.Models;
 
 namespace Api
 {
@@ -159,17 +160,24 @@ namespace Api
 
         public override HttpResponseMessage Create(Employee entity)
         {
-            HttpResponseMessage obj = base.Create(entity);
-            var user = new ApplicationUser { UserName = entity.FirstName, Email = "", EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
-            string newPassword = GenerateStrongPassword(10);
-            IdentityResult result = UserManager.Create(user, newPassword);
+            try
+            {
+                HttpResponseMessage obj = base.Create(entity);
+                var user = new  HRMS.ApplicationUser { UserName = entity.FirstName, Email = "ritesh.parekh@alept.com", EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
+                string newPassword = GenerateStrongPassword(10);
+                IdentityResult result = UserManager.Create(user, newPassword);
 
-            if (result.Succeeded)
-            {                
+                if (result.Succeeded)
+                {
 
+                }
+
+                return obj;
             }
-
-            return obj;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static string GenerateStrongPassword(int length)

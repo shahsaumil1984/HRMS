@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetUserService.cs" />
     <Compile Include="DocumentService.cs" />
     <Compile Include="DocumentTypeService.cs" />
     <Compile Include="EmployeeDocumentService.cs" />
