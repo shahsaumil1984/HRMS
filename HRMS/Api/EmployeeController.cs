@@ -160,12 +160,10 @@ namespace Api
 
         public override HttpResponseMessage Create(Employee entity)
         {
-            try
-            {
-                HttpResponseMessage obj = base.Create(entity);
-                var user = new  HRMS.ApplicationUser { UserName = entity.FirstName, Email = "ritesh.parekh@alept.com", EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
-                string newPassword = GenerateStrongPassword(10);
-                IdentityResult result = UserManager.Create(user, newPassword);
+            HttpResponseMessage obj = base.Create(entity);
+            var user = new ApplicationUser { UserName = entity.FirstName, Email =entity.Email, EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
+            string newPassword = GenerateStrongPassword(10);
+            IdentityResult result = UserManager.Create(user, newPassword);
 
                 if (result.Succeeded)
                 {

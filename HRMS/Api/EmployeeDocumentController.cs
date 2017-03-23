@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using HRMS;
 namespace HRMS.Api
 {
     public class EmployeeDocumentController : GenericApiController<EmployeeDocumentService, EmployeeDocument, long>, IGetList
@@ -18,6 +18,10 @@ namespace HRMS.Api
         //}
         public override object GetModel()
         {
+
+            
+          
+
             EmployeeDocument obj = (EmployeeDocument)base.GetModel();
 
             // Set Default Values Here
