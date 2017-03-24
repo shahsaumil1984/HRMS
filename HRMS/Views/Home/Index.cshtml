@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Dashboard</h2>
+<input type="button" value="View All Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />
+

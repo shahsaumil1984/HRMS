@@ -15,7 +15,7 @@
 <h2>Employee Document</h2>
 
 <input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
-
+<input type="button" value="Go back to Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />
 <div id="employeeDocumentListView" class="listView">
 
 

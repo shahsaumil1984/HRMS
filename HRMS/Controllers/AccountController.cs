@@ -112,7 +112,7 @@ namespace HRMS.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Employee");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult AccessDenied()

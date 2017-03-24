@@ -226,6 +226,7 @@
     <Compile Include="Controllers\DocumentTypeController.cs" />
     <Compile Include="Controllers\EmployeeDocumentController.cs" />
     <Compile Include="Controllers\DocumentUploadController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageRolesController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
@@ -370,6 +371,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
     <Content Include="Views\ManageRoles\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,7 +379,6 @@
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\DocumentUpload\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

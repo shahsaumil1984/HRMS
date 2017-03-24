@@ -87,6 +87,7 @@
 </div>
 <div class="row">
     <button type="button" id="btnSave" class="btn">Save</button>
+    <button type="button" id="btnCancel" class="btn" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" >Go back to Employees</button>
 </div>
 <input id="employeeID" type="hidden" value="@ViewBag.EmployeeID" />
 

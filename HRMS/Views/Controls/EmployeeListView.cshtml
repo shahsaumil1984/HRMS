@@ -40,6 +40,8 @@
                         <th class="text-center">DOJ</th>
                         <th class="text-left address">Address</th>
                         <th class="text-left">Phone</th>
+                        <th class="text-left">Manage Roles</th>
+                        <th class="text-left">Documents</th>
                     </tr>
                 </thead>
                 <tbody ng-repeat="r in rows">
@@ -53,21 +55,22 @@
                                 </div>
                                 <div class="media-body">
                                     <p class="ename">{{r.FullName}}</p>
-                                    <a class="eemail" href="mailto:richard@alept.com">richard@alept.com</a>
+                                    <a class="eemail" href="mailto:{{r.Email}}">{{r.Email}}</a>
                                 </div>
                             </div>
                         </td>
                         <td class="text-left">{{r.EmployeeID}}</td>
                         <td class="text-center">Team Lead</td>
-                        <td class="text-center">{{r.DateOfBirth}}</td>
+                        <td class="text-center">{{r.DateOfBirth| date:"MM/dd/yyyy" }}</td>
                         <td class="text-left address">
                             {{r.PermanentAddressLine1}}<br>
                             {{r.PermanentAddressLine2}}<br>
                             {{r.PermanentAddressLine3}} {{r.PermanentAddressState}},{{r.PermanentAddressZip}}
                         </td>
-                        <td class="text-left">+91 123-456-7890</td>
-                    </tr>
-                </tbody>
+                        <td class="text-left">{{r.Phone}}</td>
+                        <td class="text-left"><a href="/ManageRoles?employeeID={{r.EmployeeID}}">Manage Roles</a></td>     
+                        <td class="text-left"><a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">Documents</a></td>                                    
+                </tbody>    
             </table>
         </div>
 
