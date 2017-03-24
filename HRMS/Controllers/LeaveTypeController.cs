@@ -4,8 +4,9 @@ using System.Web.Mvc;
 namespace HRMS
 {
   public class LeaveTypeController : Controller
-  {   
-     public ActionResult Index()
+  {
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index()
         {
             return View();
         }
