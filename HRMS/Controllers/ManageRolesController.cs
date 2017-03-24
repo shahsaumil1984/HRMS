@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Model;
 using Service;
+using ViewModel;
 
 namespace HRMS.Controllers
 {
@@ -37,12 +38,14 @@ namespace HRMS.Controllers
             EmployeeRoles empRole = new EmployeeRoles();
             List<string> lstExistingRoles = new List<string>();
             List<string> lstRoles = new List<string>();
-            
+            string username = string.Empty;
+
             AspNetUserService aspNetUserService = new AspNetUserService();
             AspNetUser objAspNetUser = aspNetUserService.Get().Where(m => m.EmployeeId == employeeID).FirstOrDefault();
             if (objAspNetUser != null)
             {
                 string userId = objAspNetUser.Id;
+                username = objAspNetUser.FirstName + " " + objAspNetUser.LastName;
                 if (!string.IsNullOrEmpty(userId))
                 {
                     foreach (var item in roles)
@@ -55,12 +58,21 @@ namespace HRMS.Controllers
                             lstRoles.Add(item.Name);
                     }
                 }
+                empRole.lstRoles = lstRoles;
+                empRole.lstExistingRoles = lstExistingRoles;
+                empRole.Name = username;
+                ViewBag.EmployeeID = employeeID;
+                return View(empRole);
             }
-            
-            empRole.lstRoles = lstRoles;
-            empRole.lstExistingRoles = lstExistingRoles;
-            ViewBag.EmployeeID = employeeID;
-            return View(empRole);
+            else
+            {
+                //navigate to error page              
+                return View("Error", new ErrorViewModel
+                {
+                    Summary = "Error: Employee does not exist",
+                    Description = "EmployeeID parameter entered in the URL does not exist."
+                });
+            }
         }
 
         public JsonResult SaveRoles(string strRoles, int employeeID)
@@ -105,7 +117,7 @@ namespace HRMS.Controllers
     {
         public List<string> lstRoles { get; set; }
         public List<string> lstExistingRoles { get; set; }
-        public string str { get; set; }
+        public string Name { get; set; }
     }
 }
 

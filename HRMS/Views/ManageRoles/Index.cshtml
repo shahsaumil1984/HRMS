@@ -74,7 +74,7 @@
     </script>
 }
 <h2>Manage Roles</h2>
-<span>Select roles for user.</span>
+<span>Select roles for @Model.Name</span>
 <div class="row">
     <div class="col-md-4">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:40%;" })</div>
     <div class="col-md-4">
