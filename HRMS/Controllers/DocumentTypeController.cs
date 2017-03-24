@@ -9,6 +9,7 @@ namespace HRMS
     public class DocumentTypeController : Controller
     {
         // GET: DocumentType
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();

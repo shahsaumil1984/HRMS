@@ -11,6 +11,7 @@ namespace HRMS
     public class EmployeeDocumentController : Controller
     {
         // GET: EmployeeDocument
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int EmployeeID)
         {
 
