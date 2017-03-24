@@ -33,9 +33,9 @@ namespace HRMS
                        "~/Scripts/jquery.blockUI.js",
                        "~/Scripts/toastr.js"));
 
-            bundles.Add(new ScriptBundle("~/Script/bootstrap").Include(
-                        "~/Script/bootstrap.min.js",
-                        "~/Script/bootstrap-datepicker.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/bootstrap").Include(
+                        
+                        "~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/css/fullcalendar.css",

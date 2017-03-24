@@ -24,7 +24,7 @@
             <div class="header_top">
                 <div class="container">
                     <div style="float:right;">
-                          <a href="/account/Logout">Logout</a>
+                        <a href="/account/Logout">Logout</a>
                     </div>
                     <!-- Contact Details -->
                     <div id="contact-details">
@@ -51,27 +51,32 @@
             @RenderBody()
         </div>
     </div>
-        <footer id="footer">
-            <div class="container"> Copyright 2017. All Rights Reserved. </div>
-        </footer>
+    <footer id="footer">
+        <div class="container"> Copyright 2017. All Rights Reserved. </div>
+    </footer>
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-        @Styles.Render("~/Script/bootstrap")
-
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/jqueryui")
-        @Scripts.Render("~/bundles/jqueryval")
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>*@
 
 
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-        @System.Web.Optimization.Scripts.Render("~/Scripts/affirma")
-        @RenderSection("HeaderIncludes", required: false)
-        @RenderSection("scripts", required: false)
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @Styles.Render("~/Scripts/bootstrap")
+    
+    @System.Web.Optimization.Scripts.Render("~/Scripts/affirma")
+    
+    @RenderSection("HeaderIncludes", required: false)
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

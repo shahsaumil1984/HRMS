@@ -17,7 +17,7 @@
     <link href="~/Content/bootstrap/css/style.css" rel="stylesheet" />
 </head>
 <body>
-@using (Html.BeginForm("Index", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmLogin" }))
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmLogin" }))
 {
         @Html.AntiForgeryToken()        
         <div class="loginwrap row">

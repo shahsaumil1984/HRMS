@@ -368,7 +368,7 @@
     <Content Include="Views\Controls\DocumentTypeListView.cshtml" />
     <Content Include="Views\Controls\DocumentTypeDetailsView.cshtml" />
     <Content Include="Views\EmployeeDocument\Index.cshtml" />
-    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\AccessDenied.cshtml" />
     <Content Include="Views\ManageRoles\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
