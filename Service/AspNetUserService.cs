@@ -22,7 +22,7 @@ namespace Service
                          select new AspNetUser
                          {
                              UserName = user.UserName,
-                            // AspNetRoles = user.AspNetRoles,
+                             AspNetRoles = user.AspNetRoles,
                              //UserFranchises = user.UserFranchises,
                              //UserGeos = user.UserGeos,
                              //UserLocalizeSettings = user.UserLocalizeSettings,

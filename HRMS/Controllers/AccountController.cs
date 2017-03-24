@@ -20,8 +20,8 @@ namespace HRMS.Controllers
     public class AccountController : Controller
     {
 
-
         private ApplicationUserManager _userManager;
+
         public ApplicationUserManager UserManager
         {
             get
@@ -33,6 +33,7 @@ namespace HRMS.Controllers
                 _userManager = value;
             }
         }
+
         private ApplicationSignInManager _signInManager;
 
         public ApplicationSignInManager SignInManager
@@ -58,35 +59,19 @@ namespace HRMS.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
-
-        // GET: Account
+        
         public ActionResult Index()
-        {
-
-            //Service.AspNetUserService service = new Service.AspNetUserService();
-
-            //foreach (var user in service.Get())
-            //{
-
-            //    string UserId = user.Id;
-            //    var token = UserManager.GeneratePasswordResetToken(UserId);
-            //    var result =  UserManager.ResetPasswordAsync(UserId, token, "Test123$");
-            //}
-
+        {            
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Index(LoginViewModel model, string returnUrl)
         {
-
             try
-            {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, change to shouldLockout: true
+            {                
                 var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
@@ -101,12 +86,11 @@ namespace HRMS.Controllers
                     case SignInStatus.RequiresVerification:
                         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     case SignInStatus.Failure:
-                    default:
-                        ModelState.AddModelError("", "Invalid login attempt.");
+                    default:                        
+                        ModelState.AddModelError("Error", "Invalid login attempt.");
                         ViewBag.ReturnUrl = returnUrl;
-                        ViewBag.Error = "Message";
-                        //return RedirectToAction("Index");
-                        return View(model);
+                        ViewBag.Error = "Message";                        
+                        return View(model);                        
                 }
             }
             catch (Exception ex)
@@ -122,8 +106,6 @@ namespace HRMS.Controllers
             return RedirectToAction("Index");
         }
 
-
-
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -132,7 +114,6 @@ namespace HRMS.Controllers
             }
             return RedirectToAction("Index", "Employee");
         }
-
 
         public ActionResult AccessDenied()
         {
