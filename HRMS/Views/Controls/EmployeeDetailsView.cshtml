@@ -31,6 +31,17 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
+                        <label for="Designation">Designation</label>
+                        <select id="em_DesignationID" name="em_DesignationID" class="form-control" data-ng-model="model.DesignationID">
+                            @foreach (var item in Model.Designations)
+                            {
+                                <option value="@(item.DesignationID)">@(item.DesignationName)</option>
+                            }
+                        </select>
+                    </div>
+                </div>   
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
                         <label for="firstname">First Name</label>
                         <input type="text" name="em_FirstName" id="em_FirstName" ng-model="model.FirstName" class="required form-control" maxlength="500" />
                     </div>
@@ -102,65 +113,41 @@
                         <label for="phoneno">Permanent Address State</label>
                         @*<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50" />*@
                         <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState"  ng-model="{{model.PermanentAddressState}}" class="form-control">                                                                
-                            <option ng-option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="AmericanSamoa">American Samoa</option>
-                            <option value="audi">Arkansas</option>
-                            <option value="Arizona ">Arizona </option>
-                            <option value="Arkansas">Arkansas </option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut </option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Dist.ofColumbia">Dist. of Columbia</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Guam">Guam</option>
-                            <option value="Idaho">Idaho </option>
-                            <option value="Illinois">Illinois </option>
-                            <option value="Indiana">Indiana </option>
-                            <option value="Iowa">Iowa </option>
-                            <option value="Kansas">Kansas </option>
-                            <option value="Kentucky">Kentucky </option>
-                            <option value="Louisiana">Louisiana </option>
-                            <option value="Maine">Maine </option>
-                            <option value="Maryland">Maryland </option>
-                            <option value="Marshall Islands ">Marshall Islands</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan </option>
-                            <option value="Micronesia">Micronesia </option>
-                            <option value="Minnesota">Minnesota </option>
-                            <option value="Mississippi">Mississippi </option>
-                            <option value="Missouri">Missouri </option>
-                            <option value="Montana">Montana </option>
-                            <option value="Nebraska">Nebraska </option>
-                            <option value="NevadaNev">Nevada 	Nev </option>
-                            <option value="New Hampshire">New Hampshire </option>
-                            <option value="New Jersey ">New Jersey  </option>
-                            <option value="New Mexico">New Mexico </option>
-                            <option value="New York">New York </option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota </option>
-                            <option value="Northern Marianas">Northern Marianas</option>
-                            <option value="Ohio">Ohio </option>
-                            <option value="Oklahoma">Oklahoma </option>
-                            <option value="OregonOre">Oregon Ore </option>
-                            <option value="Palau">Palau </option>
-                            <option value="Pennsylvania">Pennsylvania </option>
-                            <option value="Puerto Rico">Puerto Rico </option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina ">South Carolina </option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virgin Islands">Virgin Islands</option>
-                            <option value="Washington ">Washington </option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>         
                         </select>      
                     </div>
                 </div>
@@ -214,66 +201,47 @@
                         <label for="phoneno">Address State</label>
                         @*<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100" />*@
                         <select name="em_AddressState" id="em_AddressState"   ng-model="{{ model.AddressState }}" class="form-control">                                
-                            <option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="AmericanSamoa">American Samoa</option>
-                            <option value="audi">Arkansas</option>
-                            <option value="Arizona ">Arizona </option>
-                            <option value="Arkansas">Arkansas </option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut </option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Dist.ofColumbia">Dist. of Columbia</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Guam">Guam</option>
-                            <option value="Idaho">Idaho </option>
-                            <option value="Illinois">Illinois </option>
-                            <option value="Indiana">Indiana </option>
-                            <option value="Iowa">Iowa </option>
-                            <option value="Kansas">Kansas </option>
-                            <option value="Kentucky">Kentucky </option>
-                            <option value="Louisiana">Louisiana </option>
-                            <option value="Maine">Maine </option>
-                            <option value="Maryland">Maryland </option>
-                            <option value="Marshall Islands ">Marshall Islands</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan </option>
-                            <option value="Micronesia">Micronesia </option>
-                            <option value="Minnesota">Minnesota </option>
-                            <option value="Mississippi">Mississippi </option>
-                            <option value="Missouri">Missouri </option>
-                            <option value="Montana">Montana </option>
-                            <option value="Nebraska">Nebraska </option>
-                            <option value="NevadaNev">Nevada 	Nev </option>
-                            <option value="New Hampshire">New Hampshire </option>
-                            <option value="New Jersey ">New Jersey  </option>
-                            <option value="New Mexico">New Mexico </option>
-                            <option value="New York">New York </option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota </option>
-                            <option value="Northern Marianas">Northern Marianas</option>
-                            <option value="Ohio">Ohio </option>
-                            <option value="Oklahoma">Oklahoma </option>
-                            <option value="OregonOre">Oregon Ore </option>
-                            <option value="Palau">Palau </option>
-                            <option value="Pennsylvania">Pennsylvania </option>
-                            <option value="Puerto Rico">Puerto Rico </option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina ">South Carolina </option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virgin Islands">Virgin Islands</option>
-                            <option value="Washington ">Washington </option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>                            
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>                         
                         </select>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+
+
+
+
                     </div>
                 </div>
 
@@ -298,7 +266,9 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Date of Joining</label>
-                        <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" date-Picker />
+                        <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="form-control required" date-Picker />  
+                        
+                        
                     </div>
                 </div>
 
@@ -362,8 +332,10 @@
                         <label for="phoneno">Salary Account IFSC Code</label>
                         <input type="text" name="em_SalaryAccountIFSCCode" id="em_SalaryAccountIFSCCode" ng-model="model.SalaryAccountIFSCCode" class="form-control" maxlength="50" />
                     </div>
-                </div>                
-            </div>
+                </div>     
+          
+                  
+                </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">

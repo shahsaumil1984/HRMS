@@ -82,7 +82,8 @@ namespace Api
                                 o.SalaryAccountBankAddress,
                                 o.SalaryAccountIFSCCode,
                                 o.AddressCity,
-                                o.PermanentAddressCity
+                                o.PermanentAddressCity,
+                                o.DesignationID
 
                             }).ToList().Select(o => new Employee
                             {
@@ -118,7 +119,8 @@ namespace Api
                                 SalaryAccountBankAddress = o.SalaryAccountBankAddress,
                                 SalaryAccountIFSCCode = o.SalaryAccountIFSCCode,
                                 AddressCity = o.AddressCity,
-                                PermanentAddressCity = o.PermanentAddressCity
+                                PermanentAddressCity = o.PermanentAddressCity,
+                                DesignationID = o.DesignationID
 
                             }).Single<Employee>();
             return obj;

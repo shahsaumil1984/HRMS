@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="AspNetUserService.cs" />
     <Compile Include="DocumentService.cs" />
+    <Compile Include="DesignationTypeService.cs" />
     <Compile Include="DocumentTypeService.cs" />
     <Compile Include="EmployeeDocumentService.cs" />
     <Compile Include="GenericService.cs" />
