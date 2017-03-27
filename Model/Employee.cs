@@ -54,6 +54,8 @@ namespace Model
         public string Email { get; set; }
         public string Phone { get; set; }
         public string UserName { get; set; }
+        public string PermanentAddressCity { get; set; }
+        public string AddressCity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }

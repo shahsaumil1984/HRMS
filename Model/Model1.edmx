@@ -118,6 +118,8 @@
           <Property Name="Email" Type="varchar" MaxLength="250" />
           <Property Name="Phone" Type="varchar" MaxLength="15" />
           <Property Name="UserName" Type="varchar" MaxLength="250" />
+          <Property Name="PermanentAddressCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -407,19 +409,6 @@
             <End Role="LeaveType" EntitySet="LeaveTypes" />
             <End Role="LeaveTaken" EntitySet="LeaveTakens" />
           </AssociationSet>
-          <EntitySet Name="Employees" EntityType="HRMSModel.Employee" />
-          <AssociationSet Name="FK_EmployeeDocument_Employee" Association="HRMSModel.FK_EmployeeDocument_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveMaster_Employee" Association="HRMSModel.FK_LeaveMaster_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="LeaveMaster" EntitySet="LeaveMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveTaken_Employee" Association="HRMSModel.FK_LeaveTaken_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="LeaveTaken" EntitySet="LeaveTakens" />
-          </AssociationSet>
           <EntitySet Name="AspNetRoles" EntityType="HRMSModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="HRMSModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="HRMSModel.AspNetUserLogin" />
@@ -435,6 +424,19 @@
           <AssociationSet Name="AspNetUserRoles" Association="HRMSModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Employees" EntityType="HRMSModel.Employee" />
+          <AssociationSet Name="FK_EmployeeDocument_Employee" Association="HRMSModel.FK_EmployeeDocument_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveMaster_Employee" Association="HRMSModel.FK_LeaveMaster_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="LeaveMaster" EntitySet="LeaveMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveTaken_Employee" Association="HRMSModel.FK_LeaveTaken_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="LeaveTaken" EntitySet="LeaveTakens" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Document">
@@ -580,82 +582,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="EmployeeID" />
-          </Key>
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressLine3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressZip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressLine3" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressState" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressCountry" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="AddressZip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="DateOfjoining" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProbationPeriodEndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HasResigned" Type="Boolean" />
-          <Property Name="DateOfResignation" Type="DateTime" Precision="3" />
-          <Property Name="LastWorkingDay" Type="DateTime" Precision="3" />
-          <Property Name="PAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDCardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountBank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountBankAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountIFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
-          <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
-          <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
-        </EntityType>
-        <Association Name="FK_EmployeeDocument_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="HRMSModel.EmployeeDocument" Role="EmployeeDocument" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="EmployeeDocument">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LeaveMaster_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="HRMSModel.LeaveMaster" Role="LeaveMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="LeaveMaster">
-              <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LeaveTaken_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="HRMSModel.LeaveTaken" Role="LeaveTaken" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="LeaveTaken">
-              <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -739,6 +665,84 @@
         <Association Name="AspNetUserRoles">
           <End Type="HRMSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressZip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressLine3" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressState" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressCountry" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddressZip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateOfjoining" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProbationPeriodEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HasResigned" Type="Boolean" />
+          <Property Name="DateOfResignation" Type="DateTime" Precision="3" />
+          <Property Name="LastWorkingDay" Type="DateTime" Precision="3" />
+          <Property Name="PAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountBank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountBankAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountIFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PermanentAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
+          <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
+          <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
+        </EntityType>
+        <Association Name="FK_EmployeeDocument_Employee">
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HRMSModel.EmployeeDocument" Role="EmployeeDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeDocument">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveMaster_Employee">
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="HRMSModel.LeaveMaster" Role="LeaveMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="LeaveMaster">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeaveTaken_Employee">
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HRMSModel.LeaveTaken" Role="LeaveTaken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="LeaveTaken">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -837,44 +841,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="HRMSModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SalaryAccountIFSCCode" ColumnName="SalaryAccountIFSCCode" />
-                <ScalarProperty Name="SalaryAccountBankAddress" ColumnName="SalaryAccountBankAddress" />
-                <ScalarProperty Name="SalaryAccountBank" ColumnName="SalaryAccountBank" />
-                <ScalarProperty Name="SalaryAccountNumber" ColumnName="SalaryAccountNumber" />
-                <ScalarProperty Name="IDCardType" ColumnName="IDCardType" />
-                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
-                <ScalarProperty Name="PAN" ColumnName="PAN" />
-                <ScalarProperty Name="LastWorkingDay" ColumnName="LastWorkingDay" />
-                <ScalarProperty Name="DateOfResignation" ColumnName="DateOfResignation" />
-                <ScalarProperty Name="HasResigned" ColumnName="HasResigned" />
-                <ScalarProperty Name="ProbationPeriodEndDate" ColumnName="ProbationPeriodEndDate" />
-                <ScalarProperty Name="DateOfjoining" ColumnName="DateOfjoining" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
-                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
-                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
-                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
-                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
-                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
-                <ScalarProperty Name="PermanentAddressZip" ColumnName="PermanentAddressZip" />
-                <ScalarProperty Name="PermanentAddressCountry" ColumnName="PermanentAddressCountry" />
-                <ScalarProperty Name="PermanentAddressState" ColumnName="PermanentAddressState" />
-                <ScalarProperty Name="PermanentAddressLine3" ColumnName="PermanentAddressLine3" />
-                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
-                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="HRMSModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -931,6 +897,46 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="HRMSModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SalaryAccountIFSCCode" ColumnName="SalaryAccountIFSCCode" />
+                <ScalarProperty Name="SalaryAccountBankAddress" ColumnName="SalaryAccountBankAddress" />
+                <ScalarProperty Name="SalaryAccountBank" ColumnName="SalaryAccountBank" />
+                <ScalarProperty Name="SalaryAccountNumber" ColumnName="SalaryAccountNumber" />
+                <ScalarProperty Name="IDCardType" ColumnName="IDCardType" />
+                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
+                <ScalarProperty Name="PAN" ColumnName="PAN" />
+                <ScalarProperty Name="LastWorkingDay" ColumnName="LastWorkingDay" />
+                <ScalarProperty Name="DateOfResignation" ColumnName="DateOfResignation" />
+                <ScalarProperty Name="HasResigned" ColumnName="HasResigned" />
+                <ScalarProperty Name="ProbationPeriodEndDate" ColumnName="ProbationPeriodEndDate" />
+                <ScalarProperty Name="DateOfjoining" ColumnName="DateOfjoining" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
+                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
+                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="PermanentAddressZip" ColumnName="PermanentAddressZip" />
+                <ScalarProperty Name="PermanentAddressCountry" ColumnName="PermanentAddressCountry" />
+                <ScalarProperty Name="PermanentAddressState" ColumnName="PermanentAddressState" />
+                <ScalarProperty Name="PermanentAddressLine3" ColumnName="PermanentAddressLine3" />
+                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
+                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
