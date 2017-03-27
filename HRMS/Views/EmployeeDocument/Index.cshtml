@@ -13,7 +13,9 @@
     <script type="text/javascript" src="/Scripts/Controllers/EmployeeDocumentController.js"></script>
 }
 <h2>Employee Document</h2>
-
+<div>
+    <label>Upload documents for @ViewBag.UserName</label>
+</div>
 <input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
 <input type="button" value="Go back to Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />
 <div id="employeeDocumentListView" class="listView">
@@ -98,7 +100,7 @@
                     </fieldset>
                 </div>
                 <div>
-                    <select id="DocumentTypeID" name="DocumentTypeID">
+                    <select id="DocumentTypeID" name="DocumentTypeID" class="upload-doc-margin-left">
                         @foreach (var item in Model.DocumentTypes)
                         {
                             <option value="@(item.DocumentTypeID)">@(item.Description)</option>
@@ -151,3 +153,9 @@
 
     </script>
 }
+
+<style>
+    .upload-doc-margin-left{
+        margin-left:15px;
+    }
+</style>

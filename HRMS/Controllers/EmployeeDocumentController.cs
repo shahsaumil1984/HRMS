@@ -14,17 +14,31 @@ namespace HRMS
         [Authorize(Roles = "Admin")]
         public ActionResult Index(int EmployeeID)
         {
+            AspNetUserService aspNetUserService = new AspNetUserService();
+            AspNetUser objAspNetUser = aspNetUserService.Get().Where(m => m.EmployeeId == EmployeeID).FirstOrDefault();
+            if (objAspNetUser != null)
+            {
+                ViewBag.UserName = objAspNetUser.FirstName + " " + objAspNetUser.LastName;
+                ViewBag.EmployeeID = EmployeeID;
 
-            MasterViewModel obj = new MasterViewModel();
-            Service.DocumentTypeService service = new Service.DocumentTypeService();
-            obj.DocumentTypes = service.Get().ToList();
-
-            ViewBag.EmployeeID = EmployeeID;
-            return View(obj);
-
+                MasterViewModel obj = new MasterViewModel();
+                Service.DocumentTypeService service = new Service.DocumentTypeService();
+                obj.DocumentTypes = service.Get().ToList();
+                
+                return View(obj);
+            }
+            else
+            {
+                //navigate to error page              
+                return View("Error", new ErrorViewModel
+                {
+                    Summary = "Error: Employee does not exist",
+                    Description = "EmployeeID parameter entered in the URL does not exist."
+                });
+            }
         }
 
-        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID=1)
+        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID = 1)
         {
             Document entity = new Document();
             EmployeeDocument ed = new EmployeeDocument();
@@ -41,7 +55,7 @@ namespace HRMS
             documentService.Create(entity);
             long id = documentService.SaveChangesReturnId(entity);
 
-            
+
             ed.EmployeeID = EmployeeID;
             ed.DocumentID = id;
             ed.DocumentTypeID = DocumentTypeID;
