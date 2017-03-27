@@ -59,6 +59,17 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="DesignationID" />
+          </Key>
+          <Property Name="DesignationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DesignationName" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Document">
           <Key>
             <PropertyRef Name="DocumentID" />
@@ -120,6 +131,7 @@
           <Property Name="UserName" Type="varchar" MaxLength="250" />
           <Property Name="PermanentAddressCity" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="DesignationID" Type="int" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -238,6 +250,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Employee_Designation">
+          <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DesignationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmployeeDocument_Document">
           <End Role="Document" Type="Self.Document" Multiplicity="1" />
           <End Role="EmployeeDocument" Type="Self.EmployeeDocument" Multiplicity="*" />
@@ -328,6 +352,7 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designation" EntityType="Self.Designation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -351,6 +376,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designation" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeDocument_Document" Association="Self.FK_EmployeeDocument_Document">
             <End Role="Document" EntitySet="Document" />
@@ -438,7 +467,12 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="LeaveTaken" EntitySet="LeaveTakens" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Designations" EntityType="HRMSModel.Designation" />
+          <AssociationSet Name="FK_Employee_Designation" Association="HRMSModel.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Document">
           <Key>
             <PropertyRef Name="DocumentID" />
@@ -704,9 +738,11 @@
           <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="PermanentAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationID" Type="Int32" />
           <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
           <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
           <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
+          <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
         </EntityType>
         <Association Name="FK_EmployeeDocument_Employee">
           <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
@@ -741,6 +777,30 @@
             </Principal>
             <Dependent Role="LeaveTaken">
               <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="DesignationID" />
+          </Key>
+          <Property Name="DesignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_Designation">
+          <End Type="HRMSModel.Designation" Role="Designation" Multiplicity="0..1" />
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DesignationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -900,6 +960,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="HRMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
                 <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
                 <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -934,6 +995,18 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="HRMSModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

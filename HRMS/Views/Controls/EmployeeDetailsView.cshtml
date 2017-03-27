@@ -101,8 +101,8 @@
                     <div class="form-group">
                         <label for="phoneno">Permanent Address State</label>
                         @*<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50" />*@
-                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control">
-                            <option value="Alabama">Alabama</option>
+                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState"  ng-model="{{model.PermanentAddressState}}" class="form-control">                                                                
+                            <option ng-option value="Alabama">Alabama</option>
                             <option value="Alaska">Alaska</option>
                             <option value="AmericanSamoa">American Samoa</option>
                             <option value="audi">Arkansas</option>
@@ -213,7 +213,7 @@
                     <div class="form-group">
                         <label for="phoneno">Address State</label>
                         @*<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100" />*@
-                        <select name="em_AddressState" id="em_AddressState" value="{{model.AddressState}}" ng-model="model.AddressState" class="form-control">
+                        <select name="em_AddressState" id="em_AddressState"   ng-model="{{ model.AddressState }}" class="form-control">                                
                             <option value="Alabama">Alabama</option>
                             <option value="Alaska">Alaska</option>
                             <option value="AmericanSamoa">American Samoa</option>

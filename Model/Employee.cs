@@ -56,6 +56,7 @@ namespace Model
         public string UserName { get; set; }
         public string PermanentAddressCity { get; set; }
         public string AddressCity { get; set; }
+        public Nullable<int> DesignationID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
@@ -63,5 +64,6 @@ namespace Model
         public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
+        public virtual Designation Designation { get; set; }
     }
 }
