@@ -11,7 +11,7 @@
               data-service-object="employeeService"
               data-associated-list="employeeGrid"
               method="get" class="col-xs-12 col-sm-12" action="" role="form">
-          
+
             <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
             <div class="row">
                 <div class="col-md-12">
@@ -32,14 +32,19 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="Designation">Designation</label>
-                        <select id="em_DesignationID" name="em_DesignationID" class="form-control" data-ng-model="model.DesignationID">
+
+
+
+                        <select id="em_DesignationID" name="em_DesignationID" class="form-control" ng-model="model.DesignationID" value={{model.DesignationID}}>
+                            @*<option ng-repeat="option in Model.Designations" value="{{option.DesignationID}}">{{option.DesignationName}}</option>*@
+
                             @foreach (var item in Model.Designations)
                             {
                                 <option value="@(item.DesignationID)">@(item.DesignationName)</option>
                             }
                         </select>
                     </div>
-                </div>   
+                </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="firstname">First Name</label>
@@ -56,7 +61,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Phone No.</label>
-                        <input type="text" class="form-control"  ng-model="model.Phone" id="phoneno">
+                        <input type="text" class="form-control" ng-model="model.Phone" id="phoneno">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -65,11 +70,11 @@
                         <input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500" />
                     </div>
                 </div>
-                
+
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Date of Birth</label>
-                        <input type="text" name="em_DateOfBirth"  id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />                        
+                        <input type="text" name="em_DateOfBirth" id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -112,7 +117,7 @@
                     <div class="form-group">
                         <label for="phoneno">Permanent Address State</label>
                         @*<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50" />*@
-                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState"  ng-model="model.PermanentAddressState" class="form-control">                                                                
+                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control">
                             <option value="">Select</option>
                             <option value="AndamanandNicobar">Andaman and Nicobar</option>
                             <option value="AndhraPradesh">Andhra Pradesh</option>
@@ -148,8 +153,8 @@
                             <option value="Tripura">Tripura</option>
                             <option value="UttarPradesh">Uttar Pradesh </option>
                             <option value="Uttarakhand">Uttarakhand</option>
-                            <option value="West Bengal">West Bengal</option>         
-                        </select>      
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
                     </div>
                 </div>
 
@@ -201,7 +206,7 @@
                     <div class="form-group">
                         <label for="phoneno">Address State</label>
                         @*<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100" />*@
-                        <select name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control">                                                            
+                        <select name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" value="model.AddressState" class="form-control">
                             <option value="">Select</option>
                             <option value="AndamanandNicobar">Andaman and Nicobar</option>
                             <option value="AndhraPradesh">Andhra Pradesh</option>
@@ -237,8 +242,8 @@
                             <option value="Tripura">Tripura</option>
                             <option value="UttarPradesh">Uttar Pradesh </option>
                             <option value="Uttarakhand">Uttarakhand</option>
-                            <option value="West Bengal">West Bengal</option>                         
-                        </select>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
 
 
 
@@ -332,10 +337,10 @@
                         <label for="phoneno">Salary Account IFSC Code</label>
                         <input type="text" name="em_SalaryAccountIFSCCode" id="em_SalaryAccountIFSCCode" ng-model="model.SalaryAccountIFSCCode" class="form-control" maxlength="50" />
                     </div>
-                </div>     
-          
-                  
                 </div>
+
+
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
