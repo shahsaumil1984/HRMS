@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section HeaderIncludes
+{
+    <script src="~/Scripts/Services/MonthService.js"></script>
+    <script src="~/Scripts/Controllers/MonthController.js"></script>
+}
+
+
+<h2>List of months</h2>
+
+
+<div id="monthListView" class="listView">
+
+    <table id="monthGrid"
+           data-ui-binding="true"
+           data-entity-key="MonthID"
+           data-service-object="monthService"
+           data-default-orderby="MonthID"
+           class="table table-condensed table-hover">
+        <tr>
+            <th><a href="#" data-sort-field="Month1">Month</a></th>
+            <th><a href="#" data-sort-field="Year">Year</a></th>
+            <th></th>
+        </tr>
+        <tbody ng-repeat="r in rows">
+
+
+            <tr>
+                <td class="col-md-1"> <span>{{r.Month1}}</span></td>
+                <td class="col-md-1"> <span>{{r.Year}}</span></td>
+                <td class="col-md-1">
+                    <a href="/EmployeeSalary?monthID={{r.MonthID}}">Set Salary</a>
+                </td>
+
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9" align="center">
+                    <div id="monthPagination">
+                        @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

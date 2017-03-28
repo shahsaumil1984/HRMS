@@ -38,5 +38,7 @@ namespace Model
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Month> Months { get; set; }
+        public virtual DbSet<Salary> Salaries { get; set; }
     }
 }

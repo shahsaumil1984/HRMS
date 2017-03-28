@@ -29,6 +29,10 @@
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
+        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="3" PointY="29.125" />
+        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="5.25" PointY="20.5" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
