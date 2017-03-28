@@ -80,7 +80,9 @@ namespace Api
                                 o.SalaryAccountNumber,
                                 o.SalaryAccountBank,
                                 o.SalaryAccountBankAddress,
-                                o.SalaryAccountIFSCCode
+                                o.SalaryAccountIFSCCode,
+                                o.AddressCity,
+                                o.PermanentAddressCity
 
                             }).ToList().Select(o => new Employee
                             {
@@ -114,7 +116,10 @@ namespace Api
                                 SalaryAccountNumber = o.SalaryAccountNumber,
                                 SalaryAccountBank = o.SalaryAccountBank,
                                 SalaryAccountBankAddress = o.SalaryAccountBankAddress,
-                                SalaryAccountIFSCCode = o.SalaryAccountIFSCCode
+                                SalaryAccountIFSCCode = o.SalaryAccountIFSCCode,
+                                AddressCity = o.AddressCity,
+                                PermanentAddressCity = o.PermanentAddressCity
+
                             }).Single<Employee>();
             return obj;
         }
@@ -156,7 +161,9 @@ namespace Api
                             o.SalaryAccountNumber,
                             o.SalaryAccountBank,
                             o.SalaryAccountBankAddress,
-                            o.SalaryAccountIFSCCode
+                            o.SalaryAccountIFSCCode,
+                            o.AddressCity,
+                            o.PermanentAddressCity
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
@@ -170,14 +177,22 @@ namespace Api
                 HttpResponseMessage obj = base.Create(entity);
                 var user = new HRMS.ApplicationUser { UserName = entity.Email, Email = entity.Email, EmailConfirmed = true, EmployeeId = entity.EmployeeID, FirstName = entity.FirstName, LastName = entity.LastName, PhoneNumber = "" };
                 string newPassword = GenerateStrongPassword(10);
-                IdentityResult result = UserManager.Create(user, newPassword);
-
+                IdentityResult result = UserManager.Create(user, newPassword);                
                 if (result.Succeeded)
-                {
-
-                }
-            
-            return obj;
+                {                    
+                    AspNetUserService aspNetUserService = new AspNetUserService();
+                    AspNetUser objAspNetUser = aspNetUserService.Get().Where(m => m.EmployeeId == entity.EmployeeID).FirstOrDefault();
+                    if (objAspNetUser != null)
+                    {
+                        string userId = objAspNetUser.Id;
+                        if (!string.IsNullOrEmpty(userId))
+                        {
+                            string RoleID = service.Context.AspNetRoles.Where(x => x.Name == "Employee").FirstOrDefault().Name;                                                                                                                         
+                            UserManager.AddToRole(userId, RoleID);                                                            
+                        }                        
+                    }
+                }            
+                return obj;
         }
 
 

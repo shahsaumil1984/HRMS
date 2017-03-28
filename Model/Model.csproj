@@ -73,6 +73,9 @@
     <Compile Include="AspNetUserLogin.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Designation.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Document.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
