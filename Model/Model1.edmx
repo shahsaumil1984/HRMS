@@ -539,12 +539,7 @@
           <AssociationSet Name="FK_LeaveTaken_Employee" Association="HRMSModel.FK_LeaveTaken_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="LeaveTaken" EntitySet="LeaveTakens" />
-          </AssociationSet>
-          <EntitySet Name="Designations" EntityType="HRMSModel.Designation" />
-          <AssociationSet Name="FK_Employee_Designation" Association="HRMSModel.FK_Employee_Designation">
-            <End Role="Designation" EntitySet="Designations" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
+          </AssociationSet>         
           <EntitySet Name="Months" EntityType="HRMSModel.Month" />
           <EntitySet Name="Salaries" EntityType="HRMSModel.Salary" />
           <AssociationSet Name="FK_Salary_Employee" Association="HRMSModel.FK_Salary_Employee">
@@ -783,18 +778,6 @@
           <End Type="HRMSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityType Name="Designation">
-          <Key>
-            <PropertyRef Name="DesignationID" />
-          </Key>
-          <Property Name="DesignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DesignationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
@@ -839,8 +822,6 @@
           <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
           <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
           <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
-          <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
-          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Employee" ToRole="Salary" />
           <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -904,18 +885,6 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
         </EntityType>
-        <Association Name="FK_Employee_Designation">
-          <End Type="HRMSModel.Designation" Role="Designation" Multiplicity="0..1" />
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Designation">
-              <PropertyRef Name="DesignationID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="DesignationID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Month">
           <Key>
             <PropertyRef Name="MonthID" />
