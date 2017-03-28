@@ -83,7 +83,8 @@ namespace Api
                                 o.SalaryAccountIFSCCode,
                                 o.AddressCity,
                                 o.PermanentAddressCity,
-                                o.DesignationID
+                                o.DesignationID,
+                                o.EmployeePhoto
 
                             }).ToList().Select(o => new Employee
                             {
@@ -120,7 +121,8 @@ namespace Api
                                 SalaryAccountIFSCCode = o.SalaryAccountIFSCCode,
                                 AddressCity = o.AddressCity,
                                 PermanentAddressCity = o.PermanentAddressCity,
-                                DesignationID = o.DesignationID
+                                DesignationID = o.DesignationID,
+                                EmployeePhoto= o.EmployeePhoto
 
                             }).Single<Employee>();
             return obj;
@@ -165,7 +167,8 @@ namespace Api
                             o.SalaryAccountBankAddress,
                             o.SalaryAccountIFSCCode,
                             o.AddressCity,
-                            o.PermanentAddressCity
+                            o.PermanentAddressCity,
+                            o.EmployeePhoto
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);

@@ -57,6 +57,7 @@ namespace Model
         public string PermanentAddressCity { get; set; }
         public string AddressCity { get; set; }
         public Nullable<int> DesignationID { get; set; }
+        public byte[] EmployeePhoto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }

@@ -132,6 +132,7 @@
           <Property Name="PermanentAddressCity" Type="nvarchar" MaxLength="50" />
           <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
           <Property Name="DesignationID" Type="int" />
+          <Property Name="EmployeePhoto" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -743,6 +744,7 @@
           <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
           <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
           <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
+          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_EmployeeDocument_Employee">
           <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
@@ -960,6 +962,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="HRMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
                 <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
                 <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
