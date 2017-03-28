@@ -195,6 +195,38 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Symbol" Type="nvarchar" MaxLength="5" />
         </EntityType>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="MonthID" />
+          </Key>
+          <Property Name="MonthID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Month" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Year" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="SalaryID" />
+          </Key>
+          <Property Name="SalaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="MonthID" Type="int" Nullable="false" />
+          <Property Name="Basic" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="HRA" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ConveyanceAllowance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="OtherAllowance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="MedicalReimbursement" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="AdvanceSalary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Incentive" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PLI" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Exgratia" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ReimbursementOfexp" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="TDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="EPF" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ProfessionalTax" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Leave" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Advance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="YTDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -347,6 +379,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Salary_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_Month">
+          <End Role="Month" Type="Self.Month" Multiplicity="1" />
+          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="MonthID" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="MonthID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HRMSModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -362,6 +418,8 @@
           <EntitySet Name="LeaveMaster" EntityType="Self.LeaveMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveTaken" EntityType="Self.LeaveTaken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Month" EntityType="Self.Month" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -409,6 +467,14 @@
           <AssociationSet Name="FK_LeaveTaken_LeaveType" Association="Self.FK_LeaveTaken_LeaveType">
             <End Role="LeaveType" EntitySet="LeaveType" />
             <End Role="LeaveTaken" EntitySet="LeaveTaken" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Employee" Association="Self.FK_Salary_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Salary" EntitySet="Salary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Month" Association="Self.FK_Salary_Month">
+            <End Role="Month" EntitySet="Month" />
+            <End Role="Salary" EntitySet="Salary" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -472,6 +538,16 @@
           <AssociationSet Name="FK_Employee_Designation" Association="HRMSModel.FK_Employee_Designation">
             <End Role="Designation" EntitySet="Designations" />
             <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="Months" EntityType="HRMSModel.Month" />
+          <EntitySet Name="Salaries" EntityType="HRMSModel.Salary" />
+          <AssociationSet Name="FK_Salary_Employee" Association="HRMSModel.FK_Salary_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Salary" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Month" Association="HRMSModel.FK_Salary_Month">
+            <End Role="Month" EntitySet="Months" />
+            <End Role="Salary" EntitySet="Salaries" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Document">
@@ -745,6 +821,7 @@
           <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
           <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
           <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Employee" ToRole="Salary" />
         </EntityType>
         <Association Name="FK_EmployeeDocument_Employee">
           <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
@@ -803,6 +880,65 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="DesignationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Month">
+          <Key>
+            <PropertyRef Name="MonthID" />
+          </Key>
+          <Property Name="MonthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Month" FromRole="Month" ToRole="Salary" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="SalaryID" />
+          </Key>
+          <Property Name="SalaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="MonthID" Type="Int32" Nullable="false" />
+          <Property Name="Basic" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="HRA" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ConveyanceAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="OtherAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="MedicalReimbursement" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="AdvanceSalary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Incentive" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="PLI" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Exgratia" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ReimbursementOfexp" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="TDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="EPF" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ProfessionalTax" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Leave" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Advance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Salary" ToRole="Employee" />
+          <NavigationProperty Name="Month" Relationship="HRMSModel.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
+        </EntityType>
+        <Association Name="FK_Salary_Employee">
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HRMSModel.Salary" Role="Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Salary_Month">
+          <End Type="HRMSModel.Month" Role="Month" Multiplicity="1" />
+          <End Type="HRMSModel.Salary" Role="Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Month">
+              <PropertyRef Name="MonthID" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="MonthID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1010,6 +1146,40 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Months">
+            <EntityTypeMapping TypeName="HRMSModel.Month">
+              <MappingFragment StoreEntitySet="Month">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month1" ColumnName="Month" />
+                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salaries">
+            <EntityTypeMapping TypeName="HRMSModel.Salary">
+              <MappingFragment StoreEntitySet="Salary">
+                <ScalarProperty Name="YTDS" ColumnName="YTDS" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="Leave" ColumnName="Leave" />
+                <ScalarProperty Name="ProfessionalTax" ColumnName="ProfessionalTax" />
+                <ScalarProperty Name="EPF" ColumnName="EPF" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="ReimbursementOfexp" ColumnName="ReimbursementOfexp" />
+                <ScalarProperty Name="Exgratia" ColumnName="Exgratia" />
+                <ScalarProperty Name="PLI" ColumnName="PLI" />
+                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
+                <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
+                <ScalarProperty Name="MedicalReimbursement" ColumnName="MedicalReimbursement" />
+                <ScalarProperty Name="OtherAllowance" ColumnName="OtherAllowance" />
+                <ScalarProperty Name="ConveyanceAllowance" ColumnName="ConveyanceAllowance" />
+                <ScalarProperty Name="HRA" ColumnName="HRA" />
+                <ScalarProperty Name="Basic" ColumnName="Basic" />
+                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="SalaryID" ColumnName="SalaryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
