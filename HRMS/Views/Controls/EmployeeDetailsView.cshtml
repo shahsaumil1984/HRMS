@@ -15,8 +15,8 @@
             <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
             <div class="row">
                 <div class="col-md-12">
-                    <br><input type="file" id="employeePhoto" name="employeePhoto" ><br>
-                    <input type="hidden" id="EmployeePhotoName" name="EmployeePhotoName" ng-model="model.EmployeePhoto"/>
+                    <br><input type="file" id="employeePhoto" name="employeePhoto"><br>
+                    <input type="hidden" id="EmployeePhotoName" name="EmployeePhotoName" ng-model="model.EmployeePhoto" />
                 </div>
             </div>
 
@@ -84,6 +84,19 @@
                         <input type="text" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control" />
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="firstname">Status</label>
+                        <select name="em_EmployeeStatus" id="em_EmployeeStatus" value="model.EmployeeStatus" ng-model="model.EmployeeStatus" class="required form-control">
+                            <option value="">Select</option>
+                            <option value="Active">Active</option>
+                            <option value="Probation">Probation</option>
+                            <option value="Notice">Notice</option>
+                            <option value="InActive">In active</option>
+                        </select>                       
+                    </div>
+                </div>
+
             </div>
             <p class="midtitle">Address/ Communication</p>
 
@@ -285,7 +298,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                @*<div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Date of Resignation</label>
                         <input type="text" name="em_DateOfResignation" id="em_DateOfResignation" ng-model="model.DateOfResignation" class="form-control" date-Picker />
@@ -297,7 +310,7 @@
                         <label for="phoneno">Last Working Day</label>
                         <input type="text" name="em_LastWorkingDay" id="em_LastWorkingDay" ng-model="model.LastWorkingDay" class="form-control" maxlength="8" date-Picker />
                     </div>
-                </div>
+                </div>*@
 
             </div>
             <p class="midtitle">Bank Account Information</p>

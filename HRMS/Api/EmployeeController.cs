@@ -84,7 +84,8 @@ namespace Api
                                 o.AddressCity,
                                 o.PermanentAddressCity,
                                 o.DesignationID,
-                                o.EmployeePhoto
+                                o.EmployeePhoto,
+                                o.EmployeeStatus
 
                             }).ToList().Select(o => new Employee
                             {
@@ -122,7 +123,8 @@ namespace Api
                                 AddressCity = o.AddressCity,
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
-                                EmployeePhoto= o.EmployeePhoto
+                                EmployeePhoto= o.EmployeePhoto,
+                                EmployeeStatus =o.EmployeeStatus
 
                             }).Single<Employee>();
             return obj;
@@ -168,7 +170,8 @@ namespace Api
                             o.SalaryAccountIFSCCode,
                             o.AddressCity,
                             o.PermanentAddressCity,
-                            o.EmployeePhoto
+                            o.EmployeePhoto,
+                            o.EmployeeStatus
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
