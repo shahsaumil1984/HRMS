@@ -11,10 +11,15 @@ $(document).ready(function () {
    
 });
 
-function EmployeeNewCallback(status, data) {
-    debugger;
+function EmployeeNewCallback(status, data) {    
     $("#employeeListView").hide();
     $("#employeeDetailsWindow").show();
 }
 
 
+function GetDesignationDetails(status, data) {
+    debugger;    
+    alert("Hello");
+
+    
+}
