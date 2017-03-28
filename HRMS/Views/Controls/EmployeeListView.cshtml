@@ -2,6 +2,8 @@
 @model ViewModel.MasterViewModel
 @using Model
 
+<style>.tbl-scroll{height:200px;overflow-y:auto;}</style>
+
 <div class="listView" id="employeeListView">
     <div class="middlewrap">
                
@@ -9,7 +11,7 @@
 
         
 
-        <div class="table-responsive">
+        <div class="table-responsive tbl-scroll">
             <table class="table table-condensed table-hover"
                    id="employeeGrid"
                    data-ui-binding="true"
@@ -31,49 +33,55 @@
                         </td>
                     </tr>
                 </thead>
+                
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th class="text-left">Employee Code</th>
+                            @*<th class="text-center">Role</th>
+                            <th class="text-center">DOJ</th>
+                            <th class="text-left address">Address</th>*@
+                            <th class="text-left">Phone</th>         
+                            <th class="text-left">Status</th>                           
+                            <th class="text-left">Manage Roles</th>
+                            <th class="text-left">Documents</th>
+                            <th class="text-left">Edit</th>
+                        </tr>
+                    </thead>
 
-                <thead>                   
-                    <tr>
-                        <th>Employee Name</th>
-                        <th class="text-left">Employee Code</th>
-                        <th class="text-center">Role</th>
-                        <th class="text-center">DOJ</th>
-                        <th class="text-left address">Address</th>
-                        <th class="text-left">Phone</th>
-                        <th class="text-left">Manage Roles</th>
-                        <th class="text-left">Documents</th>
-                        <th class="text-left">Edit</th>
-                    </tr>
-                </thead>
-                <tbody ng-repeat="r in rows">
-                    <tr alt=$index%2 >
-                        <td>
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="~/Content/images/noimg.jpg" alt="personimg">
-                                    </a>
+                
+                    <tbody ng-repeat="r in rows">
+                        
+                        <tr alt=$index%2>
+                            <td>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" src="~/Content/images/noimg.jpg" alt="personimg">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <p class="ename">{{r.FullName}}</p>
+                                        <a class="eemail" href="mailto:{{r.Email}}">{{r.Email}}</a>
+                                    </div>
                                 </div>
-                                <div class="media-body">
-                                    <p class="ename">{{r.FullName}}</p>
-                                    <a class="eemail" href="mailto:{{r.Email}}">{{r.Email}}</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-left">{{r.EmployeeID}}</td>
-                        <td class="text-center">Team Lead</td>
-                        <td class="text-center">{{r.DateOfBirth| date:"MM/dd/yyyy" }}</td>
-                        <td class="text-left address">
-                            {{r.PermanentAddressLine1}}<br>
-                            {{r.PermanentAddressLine2}}<br>
-                            {{r.PermanentAddressLine3}} {{r.PermanentAddressState}},{{r.PermanentAddressZip}}
-                        </td>
-                        <td class="text-left">{{r.Phone}}</td>
-                        <td class="text-left"><a href="/ManageRoles?employeeID={{r.EmployeeID}}">Manage Roles</a></td>     
-                        <td class="text-left"><a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">Documents</a></td>                              
-                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, 'GetDesignationDetails')">Edit</a></td>                            
-                </tbody>    
-            </table>
+                            </td>
+                            <td class="text-left">{{r.EmployeeID}}</td>
+                            @*<td class="text-center">Team Lead</td>
+                            <td class="text-center">{{r.DateOfBirth| date:"MM/dd/yyyy" }}</td>
+                            <td class="text-left address">
+                                {{r.PermanentAddressLine1}}<br>
+                                {{r.PermanentAddressLine2}}<br>
+                                {{r.PermanentAddressLine3}} {{r.PermanentAddressState}},{{r.PermanentAddressZip}}
+                            </td>*@
+                            <td class="text-left">{{r.Phone}}</td>
+                            <td class="text-left">{{r.EmployeeStatus}}</td>
+                            <td class="text-left"><a href="/ManageRoles?employeeID={{r.EmployeeID}}">Manage Roles</a></td>
+                            <td class="text-left"><a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">Documents</a></td>
+                            <td class="text-left"><a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, 'GetDesignationDetails')">Edit</a></td>
+                    </tbody>
+                
+</table>
         </div>
 
     </div>

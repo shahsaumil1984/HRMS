@@ -58,13 +58,14 @@ namespace Model
         public string AddressCity { get; set; }
         public Nullable<int> DesignationID { get; set; }
         public byte[] EmployeePhoto { get; set; }
+        public string EmployeeStatus { get; set; }
     
+        public virtual Designation Designation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
-        public virtual Designation Designation { get; set; }
     }
 }

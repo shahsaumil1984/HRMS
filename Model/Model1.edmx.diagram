@@ -23,12 +23,12 @@
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HRMSModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="13.625" />
+        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="18.5" />
+        <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
-        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="13.625" />
-        <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

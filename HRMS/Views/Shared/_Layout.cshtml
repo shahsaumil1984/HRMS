@@ -44,20 +44,19 @@
                         <!-- Naviation -->
                         <div class="nav-collapse nav-collapse_ collapse">
                             <ul class="nav sf-menu clearfix">
-                                <li class="active"><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About us</a></li>
-                                <!--<li><a href="products.html">Products</a></li>-->
+                                <li class="active"><a href="/Home/Index">Home</a></li>
                                 <li>
-                                    <a href="#">Services</a>
+                                    <a href="#">Admin</a>
                                     <ul class="sub-menu">
-                                        <li><a href="business.html">Business Consulting</a></li>
-                                        <li><a href="technology.html">Technology Consulting</a></li>
-                                        <li><a href="creative.html">Creative Consulting</a></li>
-                                        <li><a href="infrastructure.html">Infrastructure Services</a></li>
+                                        <li><a href="/Employee/Index">Employee</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="job.html">Job Openings</a></li>
+                                <li>
+                                    <a href="#">Account</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="/EmployeeSalary/Index">Salary</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -86,8 +85,8 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/bootstrap")
-    
-    
+
+
 
 
 
@@ -98,12 +97,12 @@
     <script type="text/javascript" src="http://alept.com/js/superfish.js"></script>
     <script type="text/javascript" src="http://alept.com/js/jquery.mobilemenu.js"></script>
     @*<script type="text/javascript" src="http://alept.com/js/bootstrap.js"></script>*@
-    @*<script src="http://alept.com/js/custom.js"></script>*@ 
+    @*<script src="http://alept.com/js/custom.js"></script>*@
     <script type="text/javascript" src="http://alept.com/js/sticky.js"></script>
     @Styles.Render("~/Scripts/bootstrap")
-    
+
     @System.Web.Optimization.Scripts.Render("~/Scripts/affirma")
-    
+
     @RenderSection("HeaderIncludes", required: false)
     @RenderSection("scripts", required: false)
 

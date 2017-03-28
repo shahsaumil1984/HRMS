@@ -133,6 +133,7 @@
           <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
           <Property Name="DesignationID" Type="int" />
           <Property Name="EmployeePhoto" Type="varbinary(max)" />
+          <Property Name="EmployeeStatus" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -455,7 +456,12 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Designations" EntityType="HRMSModel.Designation" />
           <EntitySet Name="Employees" EntityType="HRMSModel.Employee" />
+          <AssociationSet Name="FK_Employee_Designation" Association="HRMSModel.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_EmployeeDocument_Employee" Association="HRMSModel.FK_EmployeeDocument_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
@@ -467,11 +473,6 @@
           <AssociationSet Name="FK_LeaveTaken_Employee" Association="HRMSModel.FK_LeaveTaken_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="LeaveTaken" EntitySet="LeaveTakens" />
-          </AssociationSet>
-          <EntitySet Name="Designations" EntityType="HRMSModel.Designation" />
-          <AssociationSet Name="FK_Employee_Designation" Association="HRMSModel.FK_Employee_Designation">
-            <End Role="Designation" EntitySet="Designations" />
-            <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Document">
@@ -701,6 +702,18 @@
           <End Type="HRMSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="Designation">
+          <Key>
+            <PropertyRef Name="DesignationID" />
+          </Key>
+          <Property Name="DesignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DesignationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
@@ -740,12 +753,25 @@
           <Property Name="PermanentAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DesignationID" Type="Int32" />
+          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
           <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
           <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
           <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
-          <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
-          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK_Employee_Designation">
+          <End Type="HRMSModel.Designation" Role="Designation" Multiplicity="0..1" />
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designation">
+              <PropertyRef Name="DesignationID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DesignationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EmployeeDocument_Employee">
           <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="HRMSModel.EmployeeDocument" Role="EmployeeDocument" Multiplicity="*" />
@@ -779,30 +805,6 @@
             </Principal>
             <Dependent Role="LeaveTaken">
               <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Designation">
-          <Key>
-            <PropertyRef Name="DesignationID" />
-          </Key>
-          <Property Name="DesignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DesignationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK_Employee_Designation">
-          <End Type="HRMSModel.Designation" Role="Designation" Multiplicity="0..1" />
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Designation">
-              <PropertyRef Name="DesignationID" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="DesignationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -959,9 +961,22 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Designations">
+            <EntityTypeMapping TypeName="HRMSModel.Designation">
+              <MappingFragment StoreEntitySet="Designation">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="HRMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
                 <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
@@ -998,18 +1013,6 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Designations">
-            <EntityTypeMapping TypeName="HRMSModel.Designation">
-              <MappingFragment StoreEntitySet="Designation">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
-                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
