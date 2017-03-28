@@ -69,7 +69,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Date of Birth</label>
-                        <input type="text" name="em_DateOfBirth"  id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />
+                        <input type="text" name="em_DateOfBirth"  id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />                        
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -112,7 +112,8 @@
                     <div class="form-group">
                         <label for="phoneno">Permanent Address State</label>
                         @*<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50" />*@
-                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState"  ng-model="{{model.PermanentAddressState}}" class="form-control">                                                                
+                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState"  ng-model="model.PermanentAddressState" class="form-control">                                                                
+                            <option value="">Select</option>
                             <option value="AndamanandNicobar">Andaman and Nicobar</option>
                             <option value="AndhraPradesh">Andhra Pradesh</option>
                             <option value="ArunachalPradesh">Arunachal Pradesh</option>
@@ -200,7 +201,8 @@
                     <div class="form-group">
                         <label for="phoneno">Address State</label>
                         @*<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100" />*@
-                        <select name="em_AddressState" id="em_AddressState"   ng-model="{{ model.AddressState }}" class="form-control">                                
+                        <select name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control">                                                            
+                            <option value="">Select</option>
                             <option value="AndamanandNicobar">Andaman and Nicobar</option>
                             <option value="AndhraPradesh">Andhra Pradesh</option>
                             <option value="ArunachalPradesh">Arunachal Pradesh</option>
@@ -266,9 +268,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Date of Joining</label>
-                        <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="form-control required" date-Picker />  
-                        
-                        
+                        <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" date-Picker />
                     </div>
                 </div>
 

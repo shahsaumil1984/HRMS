@@ -43,7 +43,8 @@ namespace HRMS
                         "~/Content/css/bootstrap.min.css",
                          "~/Content/css/style.css",
                         "~/Content/css/bootstrap-select.css",
-                        "~/Content/css/build.css"));
+                        "~/Content/css/build.css",
+                        "~/Content/bootstrap/css/datepicker.css"));
 
             //bundles.Add(new StyleBundle("~/Content/allCSS").IncludeDirectory("~/Content", "*.css"));
             
