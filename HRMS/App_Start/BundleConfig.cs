@@ -23,18 +23,24 @@ namespace HRMS
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/knockout").Include(
-                       "~/Scripts/knockout*"));
+            //bundles.Add(new ScriptBundle("~/Scripts/knockout").Include(
+            //           "~/Scripts/knockout*"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/affirma").Include(
+            bundles.Add(new ScriptBundle("~/bundles/affirma").Include(
                        "~/Scripts/affirma-framework-2.0.0.js",
                        "~/Scripts/jquery.form.js",
                        "~/Scripts/moment.min.js",
                        "~/Scripts/jquery.blockUI.js",
                        "~/Scripts/toastr.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/bootstrap").Include(
-                        
+            bundles.Add(new ScriptBundle("~/bundles/alept").Include(
+                       "~/Scripts/jquery.easing.1.3.js",
+                       "~/Scripts/jquery.mobilemenu.js",
+                       "~/Scripts/superfish.js",
+                       "~/Scripts/sticky.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap.js",
                         "~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -45,10 +51,6 @@ namespace HRMS
                         "~/Content/css/bootstrap-select.css",
                         "~/Content/css/build.css",
                         "~/Content/bootstrap/css/datepicker.css"));
-
-            //bundles.Add(new StyleBundle("~/Content/allCSS").IncludeDirectory("~/Content", "*.css"));
-            
-
 
         }
     }

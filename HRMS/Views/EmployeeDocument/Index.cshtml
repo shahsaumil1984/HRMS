@@ -16,15 +16,10 @@
 <div>
     <label>Upload documents for @ViewBag.UserName</label>
 </div>
-<input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
+<input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument"/>
 <input type="button" value="Go back to Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />
 <div id="employeeDocumentListView" class="listView">
-
-
     <form class="form-inline">
-
-
-
         @*<input type="text"
             data-search-fields="HRMS"
             data-search-list="employeeDocumentGrid"
@@ -78,13 +73,6 @@
     </table>
 </div>
 
-
-
-
-
-
-
-
 <div id="fileUploadPopUp" class="modal" role="dialog" aria-hidden="true">
 
     <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "EmployeeDocument",Model)" method="post" enctype="multipart/form-data">
@@ -124,11 +112,15 @@
 
 @section scripts
 {
-    <script type="text/javascript">
-        
+    <script type="text/javascript">      
 
 
         $(document).ready(function () {
+
+            $("#uploadDocument").click(function () {
+                // show Modal
+                $("#fileUploadPopUp").modal("show");
+            });
 
             $("#ajaxUploadForm1").ajaxForm({
                 iframe: true,
