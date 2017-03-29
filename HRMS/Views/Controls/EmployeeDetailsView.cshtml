@@ -27,15 +27,12 @@
                     <div class="form-group">
                         <input type="hidden" ng-model="model.EmployeeID" />
                         <label for="empcode">Employee Code</label>
-                        <input type="text" class="form-control" id="empcode">
+                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-model="model.EmployeeCode" maxlength="7"> 
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="Designation">Designation</label>
-
-
-
                         <select id="em_DesignationID" name="em_DesignationID" class="form-control" ng-model="model.DesignationID" value={{model.DesignationID}}>
                             @*<option ng-repeat="option in Model.Designations" value="{{option.DesignationID}}">{{option.DesignationName}}</option>*@
 
@@ -48,13 +45,13 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="firstname">First Name</label>
+                        <label for="em_FirstName">First Name</label>
                         <input type="text" name="em_FirstName" id="em_FirstName" ng-model="model.FirstName" class="required form-control" maxlength="500" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="lastname">Last Name</label>
+                        <label for="em_LastName">Last Name</label>
                         <input type="text" name="em_LastName" id="em_LastName" ng-model="model.LastName" class="required form-control" maxlength="500" />
 
                     </div>
@@ -62,31 +59,31 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Phone No.</label>
-                        <input type="text" class="form-control" ng-model="model.Phone" id="phoneno">
+                        <input type="text" class="form-control number" ng-model="model.Phone" id="phoneno" name="phoneno" minlength="10" maxlength="10" pattern="[0-9]{10}">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Full Name</label>
+                        <label for="em_FullName">Full Name</label>
                         <input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Date of Birth</label>
+                        <label for="em_DateOfBirth">Date of Birth</label>
                         <input type="text" name="em_DateOfBirth" id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Email</label>
-                        <input type="text" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control" />
+                        <label for="em_Email">Email</label>
+                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="firstname">Status</label>
+                        <label for="em_EmployeeStatus">Status</label>
                         <select name="em_EmployeeStatus" id="em_EmployeeStatus" value="model.EmployeeStatus" ng-model="model.EmployeeStatus" class="required form-control">
                             <option value="">Select</option>
                             <option value="Active">Active</option>
@@ -103,33 +100,33 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address 1</label>
+                        <label for="em_PermanentAddressLine1">Permanent Address 1</label>
                         <input type="text" name="em_PermanentAddressLine1" id="em_PermanentAddressLine1" ng-model="model.PermanentAddressLine1" class="form-control" maxlength="500" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address 2</label>
+                        <label for="em_PermanentAddressLine2">Permanent Address 2</label>
                         <input type="text" name="em_PermanentAddressLine2" id="em_PermanentAddressLine2" ng-model="model.PermanentAddressLine2" class="form-control" maxlength="500" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address 3</label>
+                        <label for="em_PermanentAddressLine3">Permanent Address 3</label>
                         <input type="text" name="em_PermanentAddressLine3" id="em_PermanentAddressLine3" ng-model="model.PermanentAddressLine3" class="form-control" maxlength="500" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address City</label>
+                        <label for="em_PermanentAddressCity">Permanent Address City</label>
                         <input type="text" name="em_PermanentAddressCity" id="em_PermanentAddressCity" ng-model="model.PermanentAddressCity" class="form-control" maxlength="50" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address State</label>
+                        <label for="em_PermanentAddressState">Permanent Address State</label>
                         @*<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50" />*@
                         <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control">
                             <option value="">Select</option>
@@ -174,15 +171,15 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address Country</label>
+                        <label for="em_PermanentAddressCountry">Permanent Address Country</label>
                         <input type="text" name="em_PermanentAddressCountry" id="em_PermanentAddressCountry" ng-model="model.PermanentAddressCountry" class="form-control" maxlength="50" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Permanent Address Zip</label>
-                        <input type="text" name="em_PermanentAddressZip" id="em_PermanentAddressZip" ng-model="model.PermanentAddressZip" class="form-control" maxlength="50" />
+                        <label for="em_PermanentAddressZip">Permanent Address Zip</label>
+                        <input type="number" name="em_PermanentAddressZip" id="em_PermanentAddressZip" ng-model="model.PermanentAddressZip" class="form-control" maxlength="10" />
                     </div>
                 </div>
             </div>
@@ -190,35 +187,35 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address 1</label>
+                        <label for="em_AddressLine1">Address 1</label>
                         <input type="text" name="em_AddressLine1" id="em_AddressLine1" ng-model="model.AddressLine1" class="form-control" maxlength="100" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address 2</label>
+                        <label for="em_AddressLine2">Address 2</label>
                         <input type="text" name="em_AddressLine2" id="em_AddressLine2" ng-model="model.AddressLine2" class="form-control" maxlength="100" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address 3</label>
+                        <label for="em_AddressLine3">Address 3</label>
                         <input type="text" name="em_AddressLine3" id="em_AddressLine3" ng-model="model.AddressLine3" class="form-control" maxlength="100" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address City</label>
+                        <label for="em_AddressCity">Address City</label>
                         <input type="text" name="em_AddressCity" id="em_AddressCity" ng-model="model.AddressCity" class="form-control" maxlength="50" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address State</label>
+                        <label for="em_AddressState">Address State</label>
                         @*<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100" />*@
                         <select name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" value="model.AddressState" class="form-control">
                             <option value="">Select</option>
@@ -268,15 +265,15 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address Country</label>
+                        <label for="em_AddressCountry">Address Country</label>
                         <input type="text" name="em_AddressCountry" id="em_AddressCountry" ng-model="model.AddressCountry" class="form-control" maxlength="10" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Address Zip</label>
-                        <input type="text" name="em_AddressZip" id="em_AddressZip" ng-model="model.AddressZip" class="form-control" maxlength="10" />
+                        <label for="em_AddressZip">Address Zip</label>
+                        <input type="number" name="em_AddressZip" id="em_AddressZip" ng-model="model.AddressZip" class="form-control" maxlength="10" />
                     </div>
                 </div>
 
@@ -286,14 +283,14 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Date of Joining</label>
+                        <label for="em_DateOfjoining">Date of Joining</label>
                         <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" date-Picker />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Probation End Date</label>
+                        <label for="em_ProbationPeriodEndDate">Probation End Date</label>
                         <input type="text" name="em_ProbationPeriodEndDate" id="em_ProbationPeriodEndDate" ng-model="model.ProbationPeriodEndDate" class="required form-control" date-Picker />
                     </div>
                 </div>
@@ -319,7 +316,7 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Pan Number</label>
+                        <label for="em_PAN">Pan Number</label>
                         <input type="text" name="em_PAN" id="em_PAN" ng-model="model.PAN" class="form-control" maxlength="50" />
                     </div>
                 </div>
@@ -327,28 +324,28 @@
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Salary Account Number</label>
+                        <label for="em_SalaryAccountNumber">Salary Account Number</label>
                         <input type="text" name="em_SalaryAccountNumber" id="em_SalaryAccountNumber" ng-model="model.SalaryAccountNumber" class="form-control" maxlength="50" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Salary Account Bank</label>
+                        <label for="em_SalaryAccountBank">Salary Account Bank</label>
                         <input type="text" name="em_SalaryAccountBank" id="em_SalaryAccountBank" ng-model="model.SalaryAccountBank" class="form-control" maxlength="50" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Salary Account Bank Address</label>
+                        <label for="em_SalaryAccountBankAddress">Salary Account Bank Address</label>
                         <input type="text" name="em_SalaryAccountBankAddress" id="em_SalaryAccountBankAddress" ng-model="model.SalaryAccountBankAddress" class="form-control" maxlength="500" />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="phoneno">Salary Account IFSC Code</label>
+                        <label for="em_SalaryAccountIFSCCode">Salary Account IFSC Code</label>
                         <input type="text" name="em_SalaryAccountIFSCCode" id="em_SalaryAccountIFSCCode" ng-model="model.SalaryAccountIFSCCode" class="form-control" maxlength="50" />
                     </div>
                 </div>
