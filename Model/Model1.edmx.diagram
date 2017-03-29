@@ -5,21 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d96671bca7c24b9798c6cc5843886fbd" Name="Diagram1">
-        <EntityTypeShape EntityType="HRMSModel.AspNetRole" Width="1.5" PointX="10.75" PointY="4.125" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetUserClaim" Width="1.5" PointX="15.25" PointY="5.125" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetUserLogin" Width="1.5" PointX="15.25" PointY="2.625" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetUser" Width="1.5" PointX="13" PointY="2.625" />
-        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="10.375" />
-        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="6" PointY="14.875" />
-        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="7" />
-        <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="8.25" PointY="5.875" />
-        <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="10.75" PointY="8.375" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="5.25" PointY="9.875" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="8.25" PointY="10.25" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="3" PointY="17.625" />
-        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="3" PointY="3.75" />
-        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="5.25" PointY="4" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetRole" Width="1.5" PointX="8.75" PointY="2.5" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetUserClaim" Width="1.5" PointX="13.25" PointY="3.625" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetUserLogin" Width="1.5" PointX="13.25" PointY="1" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetUser" Width="1.5" PointX="11" PointY="1.125" />
+        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="8.875" />
+        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="6" PointY="1.125" />
+        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="6" PointY="18.5" />
+        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="5.25" PointY="8.375" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="3" PointY="2" />
+        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="3" PointY="16.125" />
+        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="5.25" PointY="12.5" />
+        <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="7.75" PointY="5.75" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />

@@ -342,7 +342,6 @@
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\MonthService.js" />
     <Content Include="Scripts\Services\ProjectService.js" />
-    <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\HolidayCalendarController.js" />
     <Content Include="Scripts\Controllers\LeaveTypeController.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />

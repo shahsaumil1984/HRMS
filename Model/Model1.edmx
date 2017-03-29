@@ -134,6 +134,7 @@
           <Property Name="DesignationID" Type="int" />
           <Property Name="EmployeePhoto" Type="varbinary(max)" />
           <Property Name="EmployeeStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -227,6 +228,14 @@
           <Property Name="Leave" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="Advance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="YTDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SettingTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="LeavesPerMonth" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="LeavesToBeCarriedForward" Type="numeric" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -421,6 +430,7 @@
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Month" EntityType="Self.Month" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SettingTable" EntityType="Self.SettingTable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -498,6 +508,7 @@
           <EntitySet Name="LeaveTypes" EntityType="HRMSModel.LeaveType" />
           <EntitySet Name="Months" EntityType="HRMSModel.Month" />
           <EntitySet Name="Salaries" EntityType="HRMSModel.Salary" />
+          <EntitySet Name="SettingTables" EntityType="HRMSModel.SettingTable" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -681,6 +692,7 @@
           <Property Name="DesignationID" Type="Int32" />
           <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="EmployeeStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
           <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
           <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
@@ -791,6 +803,14 @@
           <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Salary" ToRole="Employee" />
           <NavigationProperty Name="Month" Relationship="HRMSModel.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
+        </EntityType>
+        <EntityType Name="SettingTable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="LeavesPerMonth" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="LeavesToBeCarriedForward" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -1038,6 +1058,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="HRMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
                 <ScalarProperty Name="EmployeeStatus" ColumnName="EmployeeStatus" />
                 <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
@@ -1175,6 +1196,15 @@
                 <ScalarProperty Name="MonthID" ColumnName="MonthID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="SalaryID" ColumnName="SalaryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SettingTables">
+            <EntityTypeMapping TypeName="HRMSModel.SettingTable">
+              <MappingFragment StoreEntitySet="SettingTable">
+                <ScalarProperty Name="LeavesToBeCarriedForward" ColumnName="LeavesToBeCarriedForward" />
+                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
