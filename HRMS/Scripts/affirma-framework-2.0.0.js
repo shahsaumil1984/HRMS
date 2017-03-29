@@ -103,7 +103,6 @@ Proxy.prototype.GetAll = function (callback) {
 
 Proxy.prototype.GetList = function (pageIndex, pageSize, filter, orderBy, includeChildren, callback, methodName) {
     var getUrl = this.getListUrl;
-
     if (methodName != null) {
         getUrl = this.rootUrl + methodName + '/';
     }
