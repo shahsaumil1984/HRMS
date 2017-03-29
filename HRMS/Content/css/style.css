@@ -150,6 +150,11 @@ footer {
 .loginimg{margin-top: 80px;}
 .loginimg .logimg img{width: 250px; height: auto;}
 
+label.error {
+    color: red !important;
+    position: absolute;
+}
+.form-group{margin-bottom:20px;}
 
 /*List page with action fields inside table S*/
 table.table thead.tblaction td{background:#fff; padding-left: 0;}
