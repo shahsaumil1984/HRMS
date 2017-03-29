@@ -228,6 +228,11 @@
           <Property Name="Leave" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="Advance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="YTDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="TotalPayment" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Days" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SettingTable">
           <Key>
@@ -803,6 +808,11 @@
           <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Salary" ToRole="Employee" />
           <NavigationProperty Name="Month" Relationship="HRMSModel.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Salary1" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Days" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="SettingTable">
           <Key>
@@ -1177,6 +1187,11 @@
           <EntitySetMapping Name="Salaries">
             <EntityTypeMapping TypeName="HRMSModel.Salary">
               <MappingFragment StoreEntitySet="Salary">
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Salary1" ColumnName="Salary" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="YTDS" ColumnName="YTDS" />
                 <ScalarProperty Name="Advance" ColumnName="Advance" />
                 <ScalarProperty Name="Leave" ColumnName="Leave" />

@@ -33,6 +33,11 @@ namespace Model
         public decimal Leave { get; set; }
         public decimal Advance { get; set; }
         public decimal YTDS { get; set; }
+        public string Note { get; set; }
+        public decimal Salary1 { get; set; }
+        public Nullable<decimal> Total { get; set; }
+        public Nullable<decimal> TotalPayment { get; set; }
+        public int Days { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Month Month { get; set; }
