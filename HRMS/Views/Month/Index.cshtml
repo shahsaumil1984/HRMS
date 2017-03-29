@@ -22,7 +22,7 @@
            data-ui-binding="true"
            data-entity-key="MonthID"
            data-service-object="monthService"
-           data-default-orderby="MonthID"
+           data-default-orderby="MonthID descending"
            class="table table-condensed table-hover">
         <tr>
             <th><a href="#" data-sort-field="Month1">Month</a></th>
@@ -36,7 +36,7 @@
                 <td class="col-md-1"> <span>{{r.Month1}}</span></td>
                 <td class="col-md-1"> <span>{{r.Year}}</span></td>
                 <td class="col-md-1">
-                    <a href="/EmployeeSalary?monthID={{r.MonthID}}">Set Salary</a>
+                    <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
                 </td>
 
             </tr>

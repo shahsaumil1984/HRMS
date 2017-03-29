@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderIncludes
+{
+    <script src="~/Scripts/Services/EmployeeSalaryService.js"></script>
+    <script src="~/Scripts/Controllers/EmployeeSalaryController.js"></script>
+}
+
+
+<h2>Employees</h2>
+<label>Set Salary for @ViewBag.Month</label>
+<style>
+    .tbl-scroll {
+        height: 200px;
+        overflow-y: auto;
+    }
+</style>
+
+<div class="listView" id="employeeSalaryListView">
+    <div class="middlewrap">
+
+        <h3 class="title"> <span>Employees</span> </h3>
+
+
+
+        <div class="table-responsive tbl-scroll">
+            <table class="table table-condensed table-hover"
+                   id="employeeSalaryGrid"
+                   data-ui-binding="true"
+                   data-entity-key="EmployeeID"
+                   data-service-object="employeeSalaryService"
+                   data-default-orderby="FirstName"
+                   cellspacing="0" cellpadding="0" border="0">
+                <thead class="tblaction">
+                    <tr>
+                        <td colspan="6">
+                            <div class="form-group m-0">
+                                <input type="text"
+                                       data-search-fields="FullName"
+                                       data-search-list="employeeSalaryGrid"
+                                       data-default-focus="true" />                                       
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th class="text-left">Employee Code</th>                  
+                        <th class="text-left">Phone</th>
+                        <th class="text-left">Status</th>                        
+                        <th class="text-left">Edit Salary</th>
+                    </tr>
+                </thead>
+
+
+                <tbody ng-repeat="r in rows">
+
+                    <tr alt=$index%2>
+                        <td>
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" src="~/Content/images/noimg.jpg" alt="personimg">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p class="ename">{{r.FullName}}</p>
+                                    <a class="eemail" href="mailto:{{r.Email}}">{{r.Email}}</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-left">{{r.EmployeeID}}</td>                    
+                        <td class="text-left">{{r.Phone}}</td>
+                        <td class="text-left">{{r.EmployeeStatus}}</td>                        
+                        <td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}">Edit Salary</a></td>                       
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>

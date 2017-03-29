@@ -37,15 +37,24 @@ namespace Api
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             string CurrentMonth = DateTime.Today.ToString("MMMM");
-
             int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year.ToString()).FirstOrDefault().MonthID;
+            if (string.IsNullOrEmpty(filter))
+            {
+                filter = "MonthID <= " + currentMonthID;
+
+            }
+            else {
+                filter += "and MonthID <= " + currentMonthID;
+            }
+
+            //
             IQueryable<Month> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = from o in list
-                        where o.MonthID <= currentMonthID                      
+                        //where o.MonthID <= currentMonthID                      
                         //orderby o.MonthID ascending
                         select new
                         {
-                            o.MonthID,
+                            o.MonthID,                            
                             o.Month1,
                             o.Year
                         };

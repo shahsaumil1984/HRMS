@@ -963,6 +963,7 @@ UserInterfaceBinder.prototype.InitializeList = function (listName, service) {
 
 
             lb.orderBy = mastList.attr('data-default-orderby');
+
             if (!lb.orderBy) lb.orderBy = null;
             lb.includes = mastList.attr('data-includes');
             if (!lb.includes) lb.includes = null;

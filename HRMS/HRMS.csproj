@@ -215,8 +215,10 @@
   <ItemGroup>
     <Compile Include="Api\DocumentTypeController.cs" />
     <Compile Include="Api\EmployeeDocumentController.cs" />
+    <Compile Include="Api\EmployeeSalaryController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="Api\MonthController.cs" />
+    <Compile Include="Api\SalaryController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -227,9 +229,11 @@
     <Compile Include="Controllers\DocumentTypeController.cs" />
     <Compile Include="Controllers\EmployeeDocumentController.cs" />
     <Compile Include="Controllers\DocumentUploadController.cs" />
+    <Compile Include="Controllers\EmployeeSalaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageRolesController.cs" />
     <Compile Include="Controllers\MonthController.cs" />
+    <Compile Include="Controllers\SalaryController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -306,8 +310,10 @@
     <Content Include="Scripts\Controllers\DocumentTypeController.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\EmployeeDocumentController.js" />
+    <Content Include="Scripts\Controllers\EmployeeSalaryController.js" />
     <Content Include="Scripts\Controllers\MonthController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
+    <Content Include="Scripts\Controllers\SalaryController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -332,6 +338,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Services\DocumentTypeService.js" />
     <Content Include="Scripts\Services\EmployeeDocumentService.js" />
+    <Content Include="Scripts\Services\EmployeeSalaryService.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\MonthService.js" />
     <Content Include="Scripts\Services\ProjectService.js" />
@@ -340,6 +347,7 @@
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\HolidayCalendarService.js" />
     <Content Include="Scripts\Services\LeaveTypeService.js" />
+    <Content Include="Scripts\Services\SalaryService.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -377,6 +385,8 @@
     <Content Include="Views\ManageRoles\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Month\Index.cshtml" />
+    <Content Include="Views\EmployeeSalary\Index.cshtml" />
+    <Content Include="Views\Salary\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
