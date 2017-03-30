@@ -4,7 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+//using System.Web.Mvc;
+using System.Web.Http;
 
 namespace Api
 {
@@ -56,11 +57,11 @@ namespace Api
                           }).ToList().Select(o => new Salary
                           {
 
-                              SalaryID=o.SalaryID,
-                              Advance= o.Advance,
-                              AdvanceSalary=o.AdvanceSalary,
-                              Basic= o.Basic,
-                              ConveyanceAllowance=o.ConveyanceAllowance,
+                              SalaryID = o.SalaryID,
+                              Advance = o.Advance,
+                              AdvanceSalary = o.AdvanceSalary,
+                              Basic = o.Basic,
+                              ConveyanceAllowance = o.ConveyanceAllowance,
                               EmployeeID = o.EmployeeID,
                               EPF = o.EPF,
                               Exgratia = o.Exgratia,
@@ -78,6 +79,80 @@ namespace Api
                               YTDS = o.YTDS
 
                           }).Single<Salary>();
+            return obj;
+        }
+
+        [HttpPost]
+        public Salary GetByMonth(int employeeID, int monthID)
+        {
+            service.Context.Configuration.ProxyCreationEnabled = false;
+            var objSalary = (from o in service.Context.Salaries
+                             where o.EmployeeID == employeeID && o.MonthID == monthID
+                             select new
+                             {
+                                 o.SalaryID,
+                                 o.Advance,
+                                 o.AdvanceSalary,
+                                 o.Basic,
+                                 o.ConveyanceAllowance,
+                                 o.EmployeeID,
+                                 o.EPF,
+                                 o.Exgratia,
+                                 o.HRA,
+                                 o.Incentive,
+                                 o.Leave,
+                                 o.MedicalReimbursement,
+                                 o.Month,
+                                 o.MonthID,
+                                 o.OtherAllowance,
+                                 o.PLI,
+                                 o.ProfessionalTax,
+                                 o.ReimbursementOfexp,
+                                 o.TDS,
+                                 o.YTDS,
+                                 o.Total,
+                                 o.TotalPayment,
+                                 o.Salary1,
+                                 o.Note,
+                                 o.Employee.FullName,
+                                 o.Employee.EmployeeCode
+                             }).ToList();
+
+
+                          Salary obj =objSalary.Select(o => new Salary
+                          {
+
+                              SalaryID = o.SalaryID,
+                              Advance = o.Advance,                              
+                              AdvanceSalary = o.AdvanceSalary,
+                              Basic = o.Basic,
+                              ConveyanceAllowance = o.ConveyanceAllowance,
+                              EmployeeID = o.EmployeeID,
+                              EPF = o.EPF,
+                              Exgratia = o.Exgratia,
+                              HRA = o.HRA,
+                              Incentive = o.Incentive,
+                              Leave = o.Leave,
+                              MedicalReimbursement = o.MedicalReimbursement,
+                              Month = o.Month,
+                              MonthID = o.MonthID,
+                              OtherAllowance = o.OtherAllowance,
+                              PLI = o.PLI,
+                              ProfessionalTax = o.ProfessionalTax,
+                              ReimbursementOfexp = o.ReimbursementOfexp,
+                              TDS = o.TDS,
+                              YTDS = o.YTDS,
+                              Total = o.Total,
+                              TotalPayment = o.TotalPayment,
+                              Salary1 = o.Salary1,
+                              Note = o.Note                             
+                          }).SingleOrDefault<Salary>();
+
+            if (obj == null)
+            {
+                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
+
+            }
             return obj;
         }
 

@@ -14,8 +14,29 @@ namespace HRMS
             Service.MonthService service = new Service.MonthService();
             var month = service.Get().Where(m => m.MonthID == monthID).FirstOrDefault();
             ViewBag.Month = month.Month1 + ", " + month.Year;
-                
+            ViewBag.MonthID = monthID;
+            ViewBag.Days = DateTime.DaysInMonth(Convert.ToInt32(month.Year), MonthToInt(month.Month1) + 1);
             return View();
         }
+        public int MonthToInt(string Input)
+        {
+            return (int)Enum.Parse(typeof(Month), Input, true);
+        }
     }
+    public enum Month
+    {
+        January,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        November,
+        December,
+    }
+
+    
 }

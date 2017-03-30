@@ -7,6 +7,7 @@
 @section HeaderIncludes
 {
     <script src="~/Scripts/Services/EmployeeSalaryService.js"></script>
+<script src="~/Scripts/Services/SalaryService.js"></script>
     <script src="~/Scripts/Controllers/EmployeeSalaryController.js"></script>
 }
 
@@ -42,7 +43,7 @@
                                 <input type="text"
                                        data-search-fields="FullName"
                                        data-search-list="employeeSalaryGrid"
-                                       data-default-focus="true" />                                       
+                                       data-default-focus="true" />
                             </div>
                         </td>
                     </tr>
@@ -51,9 +52,9 @@
                 <thead>
                     <tr>
                         <th>Employee Name</th>
-                        <th class="text-left">Employee Code</th>                  
+                        <th class="text-left">Employee Code</th>
                         <th class="text-left">Phone</th>
-                        <th class="text-left">Status</th>                        
+                        <th class="text-left">Status</th>
                         <th class="text-left">Edit Salary</th>
                     </tr>
                 </thead>
@@ -75,10 +76,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-left">{{r.EmployeeID}}</td>                    
+                        <td class="text-left">{{r.EmployeeID}}</td>
                         <td class="text-left">{{r.Phone}}</td>
-                        <td class="text-left">{{r.EmployeeStatus}}</td>                        
-                        <td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}">Edit Salary</a></td>                       
+                        <td class="text-left">{{r.EmployeeStatus}}</td>
+                        <td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}&monthID=@ViewBag.MonthID">Edit Salary</a></td>
+                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
                 </tbody>
 
             </table>
@@ -86,3 +88,387 @@
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="middlewrap">
+    <div class="row detailsWindow" id="salaryDetailsWindow">
+
+        <form id="salaryDetailsForm"
+              name="salaryDetailsForm"
+              data-ui-binding="true"
+              data-service-object="salaryService"
+              da
+              @*data-associated-list="salaryGrid"*@
+              method="get" class="col-xs-12 col-sm-12 form-horizontal" action="" role="form">
+
+            <div id="salaryErrorDisplay" class="salaryErrorDisplay" data-error-display="true"></div>
+            <p class="midtitle">Salary Details</p>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Employee Name: @ViewBag.EmployeeName</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Month: @ViewBag.Month</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Days: @ViewBag.Days</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <p class="midtitle">General Details</p>
+                    <div class="form-group">
+                        <label for="Basic" class="col-sm-4 control-label">Basic</label>
+                        <div class="col-sm-8"><input type="text" name="em_Basic" id="em_Basic" ng-model="model.Basic" class="required form-control col-md-8" maxlength="500" /></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="HRA" class="col-sm-4 control-label">HRA</label>
+                        <div class="col-sm-8"><input type="text" name="em_HRA" id="em_HRA" ng-model="model.HRA" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ConveyanceAllowance" class="col-sm-4 control-label">Conveyance Allowance</label>
+                        <div class="col-sm-8"><input type="text" name="em_ConveyanceAllowance" id="em_ConveyanceAllowance" ng-model="model.ConveyanceAllowance" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="OtherAllowance" class="col-sm-4 control-label">Other Allowance</label>
+                        <div class="col-sm-8"><input type="text" name="em_OtherAllowance" id="em_OtherAllowance" ng-model="model.OtherAllowance" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="MedicalReimbursement" class="col-sm-4 control-label">MedicalReimbursement</label>
+                        <div class="col-sm-8"><input type="text" name="em_MedicalReimbursement" id="em_MedicalReimbursement" ng-model="model.MedicalReimbursement" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="AdvanceSalary" class="col-sm-4 control-label">Advance/Arrear Salary</label>
+                        <div class="col-sm-8"><input type="text" name="em_AdvanceSalary" id="em_AdvanceSalary" ng-model="model.AdvanceSalary" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Incentive" class="col-sm-4 control-label">Incentive</label>
+                        <div class="col-sm-8"><input type="text" name="em_Incentive" id="em_Incentive" ng-model="model.Incentive" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="PLI" class="col-sm-4 control-label">PLI</label>
+                        <div class="col-sm-8"><input type="text" name="em_PLI" id="em_PLI" ng-model="model.PLI" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Exgratia" class="col-sm-4 control-label">Ex-gratia/PL Encashed/Other</label>
+                        <div class="col-sm-8"><input type="text" name="em_Exgratia" id="em_Exgratia" ng-model="model.Exgratia" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ReimbursementOfexp" class="col-sm-4 control-label">Reimbursement Of exp</label>
+                        <div class="col-sm-8"><input type="text" name="em_ReimbursementOfexp" id="em_ReimbursementOfexp" ng-model="model.ReimbursementOfexp" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Total" class="col-sm-4 control-label">Total</label>
+                        <div class="col-sm-8"><input type="text" name="em_Total" id="em_Total" ng-model="model.Total" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                    <p class="midtitle">Deductions</p>
+
+                    <div class="form-group">
+                        <label for="TDS" class="col-sm-4 control-label">TDS</label>
+                        <div class="col-sm-8"><input type="text" name="em_TDS" id="em_TDS" ng-model="model.TDS" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="EPF" class="col-sm-4 control-label">EPF</label>
+                        <div class="col-sm-8"><input type="text" name="em_EPF" id="em_EPF" ng-model="model.EPF" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ProfessionalTax" class="col-sm-4 control-label">Professional Tax</label>
+                        <div class="col-sm-8"><input type="text" name="em_ProfessionalTax" id="em_ProfessionalTax" ng-model="model.ProfessionalTax" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Leave" class="col-sm-4 control-label">Leave</label>
+                        <div class="col-sm-8"><input type="text" name="em_Leave" id="em_Leave" ng-model="model.Leave" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Advance" class="col-sm-4 control-label">Advance</label>
+                        <div class="col-sm-8"><input type="text" name="em_Advance" id="em_Advance" ng-model="model.Advance" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <p class="midtitle">Payments</p>
+
+                    <div class="form-group">
+                        <label for="Salary" class="col-sm-4 control-label">Salary</label>
+                        <div class="col-sm-8"><input type="text" name="em_Salary" id="em_Salary" ng-model="model.Salary1" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="TotalPayment" class="col-sm-4 control-label">Total Payment</label>
+                        <div class="col-sm-8"><input type="text" name="em_TotalPayment" id="em_TotalPayment" ng-model="model.TotalPayment" class="required form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <p class="midtitle">YTD Summary</p>
+
+                    <div class="form-group">
+                        <label for="YTDS" class="col-sm-4 control-label">YTDS deducted</label>
+                        <div class="col-sm-8"><input type="text" name="em_YTDS" id="em_YTDS" ng-model="model.YTDS" class="form-control" maxlength="500" /></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Note" class="col-sm-4 control-label">Note</label>
+                        <div class="col-sm-8"><input type="text" name="em_Note" id="em_Note" ng-model="model.Note" class="form-control" maxlength="500" /></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+@*<div class="middlewrap">
+    <div class="row detailsWindow" id="salaryDetailsWindow">
+
+        <form id="salaryDetailsForm"
+              name="salaryDetailsForm"
+              data-ui-binding="true"
+              data-service-object="salaryService"
+              data-save-callback="loadNextEmployee"              
+             
+              method="get" class="col-xs-12 col-sm-12" action="" role="form">
+
+            <div id="salaryErrorDisplay" class="salaryErrorDisplay" data-error-display="true"></div>
+            <p class="midtitle">Salary Details</p>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Employee Name: @ViewBag.EmployeeName</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Month: @ViewBag.Month</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Days: @ViewBag.Days</label>
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">General Details</p>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Basic">Basic</label>
+                        <input type="text" name="em_Basic" id="em_Basic" ng-model="model.Basic" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="HRA">HRA</label>
+                        <input type="text" name="em_HRA" id="em_HRA" ng-model="model.HRA" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="ConveyanceAllowance">Conveyance Allowance</label>
+                        <input type="text" name="em_ConveyanceAllowance" id="em_ConveyanceAllowance" ng-model="model.ConveyanceAllowance" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="OtherAllowance">Other Allowance</label>
+                        <input type="text" name="em_OtherAllowance" id="em_OtherAllowance" ng-model="model.OtherAllowance" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="MedicalReimbursement">MedicalReimbursement</label>
+                        <input type="text" name="em_MedicalReimbursement" id="em_MedicalReimbursement" ng-model="model.MedicalReimbursement" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="AdvanceSalary">Advance/Arrear Salary</label>
+                        <input type="text" name="em_AdvanceSalary" id="em_AdvanceSalary" ng-model="model.AdvanceSalary" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Incentive">Incentive</label>
+                        <input type="text" name="em_Incentive" id="em_Incentive" ng-model="model.Incentive" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="PLI">PLI</label>
+                        <input type="text" name="em_PLI" id="em_PLI" ng-model="model.PLI" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Exgratia">Ex-gratia/PL Encashed/Other</label>
+                        <input type="text" name="em_Exgratia" id="em_Exgratia" ng-model="model.Exgratia" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="ReimbursementOfexp">Reimbursement Of exp</label>
+                        <input type="text" name="em_ReimbursementOfexp" id="em_ReimbursementOfexp" ng-model="model.ReimbursementOfexp" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Total">Total</label>
+                        <input type="text" name="em_Total" id="em_Total" ng-model="model.Total" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Deductions</p>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="TDS">TDS</label>
+                        <input type="text" name="em_TDS" id="em_TDS" ng-model="model.TDS" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="EPF">EPF</label>
+                        <input type="text" name="em_EPF" id="em_EPF" ng-model="model.EPF" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="ProfessionalTax">Professional Tax</label>
+                        <input type="text" name="em_ProfessionalTax" id="em_ProfessionalTax" ng-model="model.ProfessionalTax" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Leave">Leave</label>
+                        <input type="text" name="em_Leave" id="em_Leave" ng-model="model.Leave" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Advance">Advance</label>
+                        <input type="text" name="em_Advance" id="em_Advance" ng-model="model.Advance" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Payments</p>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Salary">Salary</label>
+                        <input type="text" name="em_Salary" id="em_Salary" ng-model="model.Salary1" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="TotalPayment">Total Payment</label>
+                        <input type="text" name="em_TotalPayment" id="em_TotalPayment" ng-model="model.TotalPayment" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">YTD Summary</p>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="YTDS">YTDS deducted</label>
+                        <input type="text" name="em_YTDS" id="em_YTDS" ng-model="model.YTDS" class="form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Note">Note</label>
+                        <input type="text" name="em_Note" id="em_Note" ng-model="model.Note" class="form-control" maxlength="500" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>*@
