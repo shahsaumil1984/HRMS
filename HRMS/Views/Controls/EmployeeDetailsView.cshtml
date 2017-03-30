@@ -120,7 +120,8 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_PermanentAddressCity">Permanent Address City</label>
-                        <input type="text" name="em_PermanentAddressCity" id="em_PermanentAddressCity" ng-model="model.PermanentAddressCity" class="form-control" maxlength="50" />
+                        <input type="text" name="em_PermanentAddressCity" id="em_PermanentAddressCity" ng-model="model.PermanentAddressCity" class="form-control" maxlength="50" ng-pattern="/^[a-zA-Z\s]*$/"/>
+                       <span ng-show="employeeDetailsForm.em_PermanentAddressCity.$error.pattern" class="error">Please enter only alphabets</span>      
                     </div>
                 </div>
 
@@ -172,7 +173,8 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_PermanentAddressCountry">Permanent Address Country</label>
-                        <input type="text" name="em_PermanentAddressCountry" id="em_PermanentAddressCountry" ng-model="model.PermanentAddressCountry" class="form-control" maxlength="50" />
+                        <input type="text" name="em_PermanentAddressCountry" id="em_PermanentAddressCountry" ng-model="model.PermanentAddressCountry" class="form-control" maxlength="50" ng-pattern="/^[a-zA-Z\s]*$/"/>
+                        <span ng-show="employeeDetailsForm.em_PermanentAddressCountry.$error.pattern" class="error">Please enter only alphabets</span>      
                     </div>
                 </div>
 
@@ -209,7 +211,8 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_AddressCity">Address City</label>
-                        <input type="text" name="em_AddressCity" id="em_AddressCity" ng-model="model.AddressCity" class="form-control" maxlength="50" />
+                        <input type="text" name="em_AddressCity" id="em_AddressCity" ng-model="model.AddressCity" class="form-control" maxlength="50" ng-pattern="/^[a-zA-Z\s]*$/"/>
+                         <span ng-show="employeeDetailsForm.em_AddressCity.$error.pattern" class="error">Please enter only alphabets</span> 
                     </div>
                 </div>
 
@@ -255,18 +258,14 @@
                             <option value="Uttarakhand">Uttarakhand</option>
                             <option value="West Bengal">West Bengal</option>
                         </select>
-
-
-
-
-
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_AddressCountry">Address Country</label>
-                        <input type="text" name="em_AddressCountry" id="em_AddressCountry" ng-model="model.AddressCountry" class="form-control" maxlength="10" />
+                        <input type="text" name="em_AddressCountry" id="em_AddressCountry" ng-model="model.AddressCountry" class="form-control" maxlength="10" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <span ng-show="employeeDetailsForm.em_AddressCountry.$error.pattern" class="error">Please enter only alphabets</span> 
                     </div>
                 </div>
 
@@ -355,7 +354,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary btn-sm">Save</button>
+                        <button class="btn btn-primary btn-sm" ng-disabled="employeeDetailsForm.$invalid">Save</button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
                     </div>
                 </div>

@@ -154,6 +154,12 @@ label.error {
     color: red !important;
     position: absolute;
 }
+
+span.error {
+    color: red !important;
+    position: absolute;
+}
+
 .form-group{margin-bottom:20px;}
 
 /*List page with action fields inside table S*/
