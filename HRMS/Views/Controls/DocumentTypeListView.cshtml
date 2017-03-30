@@ -6,9 +6,6 @@
 
 
     <form class="form-inline">
-
-
-
         <input type="text"
                data-search-fields="Description"
                data-search-list="documentTypeGrid"
@@ -31,18 +28,15 @@
         <tr>
             <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>
             <th><a href="#" data-sort-field="Description">Description</a></th>
-            <th></th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         <tbody ng-repeat="r in rows">
-
-
-            <tr alt=$index%2 ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)">
+            <tr alt=$index%2>
                 <td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
-                <td class="col-md-1">
-                    <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('documentTypeGrid',  DocumentTypeID() , true, null)" />
-                </td>
-
+                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" height="20" ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.DocumentTypeID,null,documentTypeDeleteCallback)" /></td>
             </tr>
         </tbody>
         <tfoot>

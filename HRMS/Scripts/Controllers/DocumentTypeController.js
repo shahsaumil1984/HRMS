@@ -20,3 +20,14 @@ $(document).ready(function () {
 //----------------------------------------------
 
 
+function documentTypeDeleteCallback(status, data)
+{
+    if (status)
+    {
+        alert('Successfully deleted document type');
+    }
+    else{
+        
+        alert('Cannot delete the document type as it is already in use');
+    }
+}

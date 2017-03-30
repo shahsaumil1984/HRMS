@@ -644,11 +644,11 @@ function GetChildDataModel(fb, childeservice) {
 
 }
 UserInterfaceBinder.prototype.NewForm = function (formName, hideList, callback) {
-    debugger;
+    
     var fb = this.FormBindings[formName];
 
     fb.New(function (status, data) {
-        debugger;
+     
         if (fb.detailsWindow) {
             fb.validator.resetForm();
             fb.ShowForm(hideList);
