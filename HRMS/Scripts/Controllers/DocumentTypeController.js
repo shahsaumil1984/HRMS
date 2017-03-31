@@ -19,8 +19,7 @@ $(document).ready(function () {
 // Form Validation
 //----------------------------------------------
 
-
-function documentTypeDeleteCallback(status, data)
+_.documentTypeDeleteCallback = function (status, data)
 {
     if (status)
     {

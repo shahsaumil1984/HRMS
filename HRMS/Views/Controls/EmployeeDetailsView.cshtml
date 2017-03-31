@@ -33,9 +33,9 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="Designation">Designation</label>
-                        <select id="em_DesignationID" name="em_DesignationID" class="form-control" ng-model="model.DesignationID" value={{model.DesignationID}}>
+                        <select id="em_DesignationID" name="em_DesignationID" class="form-control required" ng-model="model.DesignationID" value={{model.DesignationID}}>
                             @*<option ng-repeat="option in Model.Designations" value="{{option.DesignationID}}">{{option.DesignationName}}</option>*@
-
+                            <option value="">Please select</option>
                             @foreach (var item in Model.Designations)
                             {
                                 <option value="@(item.DesignationID)">@(item.DesignationName)</option>
@@ -85,7 +85,8 @@
                     <div class="form-group">
                         <label for="em_EmployeeStatus">Status</label>
                         <select name="em_EmployeeStatusID" id="em_EmployeeStatusID" value="model.EmployeeStatusID" ng-model="model.EmployeeStatusID" class="required form-control">
-                           @foreach (var item in Model.EmployeeStatuses)
+                             <option value="">Please select</option>
+                             @foreach (var item in Model.EmployeeStatuses)
                             {
                                 <option value="@(item.EmployeeStatusID)">@(item.StatusName)</option>
                             }

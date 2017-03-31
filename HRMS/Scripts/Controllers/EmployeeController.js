@@ -23,3 +23,12 @@ function GetDesignationDetails(status, data) {
 
     
 }
+
+
+//function () {
+//    $("#insert").text("");
+//    $('#form_add')[0].reset();
+//    $("form div").removeClass("error");
+//    $("form label").removeClass("error"); 
+//    $("form")[0].reset()
+//    $('#addPopup').foundation("reveal", "close");

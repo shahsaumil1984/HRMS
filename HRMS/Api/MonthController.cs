@@ -2,6 +2,7 @@
 using Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -65,7 +66,7 @@ namespace Api
             return pQuery;
         }
 
-        public void GenerateandDownloadCSV()
+        public void GetGenerateandDownloadCSV(int MonthID)
         {
             //Create CSV file            
             var csv = new StringBuilder();
@@ -74,20 +75,18 @@ namespace Api
 
             //foreach (var emp in EmpList)
             //{
+            //    var first = reader[0].ToString();
+            //    var second = image.ToString();
+                
+            //    var newLine = string.Format("{0},{1}", first, second);
+            //    csv.AppendLine(newLine);
 
             //}
-            ////in your loop
-            //var first = reader[0].ToString();
-            //var second = image.ToString();
-            ////Suggestion made by KyleMit
-            //var newLine = string.Format("{0},{1}", first, second);
-            //csv.AppendLine(newLine);
 
-            ////after your loop
             //File.WriteAllText(filePath, csv.ToString());
 
 
-            ////Download CSV file
+            //////Download CSV file
             //string filePath = "~/Files/Sample.csv";
             //System.IO.FileInfo file = new System.IO.FileInfo(Server.MapPath(filePath));
             //if (file.Exists)

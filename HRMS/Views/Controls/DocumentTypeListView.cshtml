@@ -11,7 +11,7 @@
                data-search-list="documentTypeGrid"
                data-default-focus="true" />
     </form>
-
+    <div class="form-group mt-md"><button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button></div>
     <table id="documentTypeGrid"
            data-ui-binding="true"
            data-entity-key="DocumentTypeID"
@@ -19,11 +19,11 @@
            data-default-orderby="Description"
            class="table table-condensed table-hover">
 
-        <tr>
-            <th>
-                <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button>
-            </th>
-        </tr>
+        @*<tr>
+            <td>
+                
+            </td>
+        </tr>*@
 
         <tr>
             <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>
@@ -36,7 +36,7 @@
                 <td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
                 <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" height="20" ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)" /></td>
-                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.DocumentTypeID,null,'documentTypeDeleteCallback')" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.DocumentTypeID, null , ub.documentTypeDeleteCallback)" /></td>
             </tr>
         </tbody>
         <tfoot>

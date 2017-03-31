@@ -31,7 +31,7 @@
                     }
                 }
                 $("#lstExistingRoles option:selected").remove();
-            }            
+            }
         }
         $(document).ready(function () {
 
@@ -73,23 +73,28 @@
 
     </script>
 }
-<h2>Manage Roles</h2>
-<span>Select roles for @Model.Name</span>
-<div class="row">
-    <div class="col-md-4">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:40%;" })</div>
-    <div class="col-md-4">
-        <button type="button" class="btn" onclick="addRoles()">Add</button>
-        <button type="button" class="btn" onclick="removeRoles()">Remove</button>
-    </div>
-    <div class="col-md-4">
-        @Html.ListBoxFor(m => m.lstExistingRoles, new MultiSelectList(Model.lstExistingRoles, "", ""), new { Multiple = "multiple", @style = "min-width:40%;" })
+<div class="container">
+    <div class="middlewrap">
+        <h2>Manage Roles</h2>
+        <span>Select roles for @Model.Name</span>
+        <div class="row mt-md">
+            <div class="col-md-3">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })</div>
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn mt-md" onclick="addRoles()">Add</button>
+                <button type="button" class="btn mt-md" onclick="removeRoles()">Remove</button>
+            </div>
+            <div class="col-md-3">
+                @Html.ListBoxFor(m => m.lstExistingRoles, new MultiSelectList(Model.lstExistingRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })
+            </div>
+        </div>
+        <div class="row mt-md">
+            <div class="col-md-12">
+                <button type="button" id="btnSave" class="btn">Save</button>
+                <button type="button" id="btnCancel" class="btn" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");">Go back to Employees</button>
+            </div>
+        </div>
+        <input id="employeeID" type="hidden" value="@ViewBag.EmployeeID" />
     </div>
 </div>
-<div class="row">
-    <button type="button" id="btnSave" class="btn">Save</button>
-    <button type="button" id="btnCancel" class="btn" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" >Go back to Employees</button>
-</div>
-<input id="employeeID" type="hidden" value="@ViewBag.EmployeeID" />
-
 
 
