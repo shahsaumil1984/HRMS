@@ -34,7 +34,7 @@
                    data-ui-binding="true"
                    data-entity-key="EmployeeID"
                    data-service-object="employeeSalaryService"
-                   data-default-orderby="FirstName"
+                   data-default-orderby="EmployeeCode"
                    cellspacing="0" cellpadding="0" border="0">
                 <thead class="tblaction">
                     <tr>
@@ -76,11 +76,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-left">{{r.EmployeeID}}</td>
+                        <td class="text-left">{{r.EmployeeCode}}</td>
                         <td class="text-left">{{r.Phone}}</td>
-                        <td class="text-left">{{r.EmployeeStatus}}</td>
-                        <td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}&monthID=@ViewBag.MonthID">Edit Salary</a></td>
-                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
+                        <td class="text-left">{{r.EmployeeStatus}}</td>                    
+                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit Salary</a></td>
                 </tbody>
 
             </table>
@@ -117,7 +116,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label>Employee Name: @ViewBag.EmployeeName</label>
+                        <label id="empCode">Employee Code: </label><label id="empCode"></label>
                     </div>
                 </div>
 
@@ -272,7 +271,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <button class="btn btn-primary btn-sm">Save</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm()">Cancel</button>
                     </div>
                 </div>
             </div>

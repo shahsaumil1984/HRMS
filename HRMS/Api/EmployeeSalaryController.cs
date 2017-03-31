@@ -31,7 +31,7 @@ namespace HRMS.Api
 
 
             Employee obj = (from o in service.Context.Employees
-                            where o.EmployeeID == id 
+                            where o.EmployeeID == id
                             select new
                             {
 
@@ -70,7 +70,8 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatus
+                                o.EmployeeStatus,
+                                o.EmployeeCode
 
                             }).ToList().Select(o => new Employee
                             {
@@ -109,7 +110,8 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatus = o.EmployeeStatus
+                                EmployeeStatus = o.EmployeeStatus,
+                                EmployeeCode = o.EmployeeCode
 
                             }).Single<Employee>();
             return obj;

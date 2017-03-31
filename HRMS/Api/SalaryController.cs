@@ -117,7 +117,7 @@ namespace Api
                                  o.Employee.FullName,
                                  o.Employee.EmployeeCode
                              }).ToList();
-
+            
 
                           Salary obj =objSalary.Select(o => new Salary
                           {

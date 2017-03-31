@@ -19,16 +19,27 @@ $(document).ready(function () {
         salaryService.GetByMonth(employeeID, monthID, function (status, data) {
             if (status) {
                 salaryDetailsForm.model(data);
+                debugger;
+                employeeSalaryService.GetById(employeeID, function (status, data) {
+                    debugger;
+                    $('#empCode').val(data.EmployeeCode);
+                })
                 $("#salaryDetailsForm").parent().show();
                 $("#employeeSalaryListView").hide();
             }
-        });       
+        });
+        
+    }
+    _.HideSalaryForm = function () {
+        $("#salaryDetailsForm").parent().hide();
+        $("#employeeSalaryListView").show();
     }
 });
 
 var loadNextEmployee = function (status, data) {
     debugger;
     if (status) {
+        salaryService
         _.LoadSalaryForm(1,39);
     }
     else {
