@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="8.875" />
         <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="6" PointY="1.125" />
         <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="6" PointY="18.5" />
-        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="5.375" />
         <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="8.25" PointY="8.375" />
         <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="10.75" PointY="6.75" />
         <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="5.25" PointY="8.375" />
@@ -23,17 +22,20 @@
         <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="7.75" PointY="5.75" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Document" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_DocumentType" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
         <AssociationConnector Association="HRMSModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeStatu" Width="1.5" PointX="10.375" PointY="10.875" />
+        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="13.625" PointY="6.875" />
+        <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
+        <AssociationConnector Association="HRMSModel.FK_Employee_EmployeeStatus" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
+        <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
+        <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

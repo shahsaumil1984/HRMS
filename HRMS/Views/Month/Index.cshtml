@@ -28,6 +28,7 @@
             <th><a href="#" data-sort-field="Month1">Month</a></th>
             <th><a href="#" data-sort-field="Year">Year</a></th>
             <th></th>
+            <th></th>
         </tr>
         <tbody ng-repeat="r in rows">
 
@@ -38,7 +39,7 @@
                 <td class="col-md-1">
                     <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
                 </td>
-
+                <td class="col-md-1"><button ng-click="">Generate CSV</button></td>
             </tr>
         </tbody>
         <tfoot>

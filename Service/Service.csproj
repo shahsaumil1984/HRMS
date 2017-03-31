@@ -78,6 +78,7 @@
     <Compile Include="DesignationTypeService.cs" />
     <Compile Include="DocumentTypeService.cs" />
     <Compile Include="EmployeeDocumentService.cs" />
+    <Compile Include="EmployeeStatusService.cs" />
     <Compile Include="GenericService.cs" />
     <Compile Include="MonthService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

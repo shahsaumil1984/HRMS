@@ -36,7 +36,7 @@
                 <td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
                 <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" height="20" ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)" /></td>
-                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.DocumentTypeID,null,documentTypeDeleteCallback)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.DocumentTypeID,null,'documentTypeDeleteCallback')" /></td>
             </tr>
         </tbody>
         <tfoot>

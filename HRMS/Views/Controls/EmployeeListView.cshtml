@@ -75,7 +75,7 @@
                                 {{r.PermanentAddressLine3}} {{r.PermanentAddressState}},{{r.PermanentAddressZip}}
                             </td>*@
                             <td class="text-left">{{r.Phone}}</td>
-                            <td class="text-left">{{r.EmployeeStatus}}</td>
+                            <td class="text-left">{{r.StatusName}}</td>
                             <td class="text-left"><a href="/ManageRoles?employeeID={{r.EmployeeID}}">Manage Roles</a></td>
                             <td class="text-left"><a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">Documents</a></td>
                             <td class="text-left"><a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, 'GetDesignationDetails')">Edit</a></td>
