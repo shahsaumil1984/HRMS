@@ -21,49 +21,39 @@
 <body>
     <div class="container bodywrap">
         <header>
-            <div class="header_top">
-                <div class="container">
-                    <div style="float:right;">
-                        <a href="/Account/Login">Logout</a>
-                    </div>
-                    <!-- Contact Details -->
-                    <div id="contact-details">
-                        <ul>
-                            <li><i class="icon-envelope"></i><a href="#">info@alept.com</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="navbar navbar_ clearfix">
-                <div class="navbar-inner">
-                    <div class="clearfix">
-                        <!-- Logo -->
-                        <h1 class="brand"><a href="index.html"><img src="~/Content/images/logo.png"></a></h1>
-                        <div style="float:left; margin-left:20px;margin-top: 5px;"><h2> Alept Consulting Private Limited </h2></div>
-                        <!-- Search Field -->
-                        <!-- Naviation -->
-                        <div class="nav-collapse nav-collapse_ collapse">
-                            <ul class="nav sf-menu clearfix">
-                                <li class="active"><a href="/Home/Index">Home</a></li>
-                                <li>
-                                    <a href="#">Admin</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/Employee/Index">Employee</a></li>
-                                        <li><a href="/DocumentType/Index">Document Type</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Account</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="/Month/Index">Set Salary</a></li>
-                                        
-                                    </ul>
-                                </li>
-                            </ul>
+            <div class="headerwrap">
+                <div class="navbar navbar_ clearfix">
+                    <div class="navbar-inner">
+                        <div class="clearfix">
+                            <!-- Logo -->
+                            <h1 class="brand"><a href="index.html"><img src="~/Content/images/logo.png"></a></h1>
+                            <div style="float:left; margin-left:20px;margin-top: 5px;"><h2> Alept Consulting Private Limited </h2></div>
+                            <!-- Search Field -->
+                            <!-- Naviation -->
+                            <div class="nav-collapse nav-collapse_ collapse">
+                                <ul class="nav sf-menu clearfix">
+                                    <li class="active"><a href="/Home/Index">Home</a></li>
+                                    <li>
+                                        <a href="#">Admin</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/Employee/Index">Employee</a></li>
+                                            <li><a href="/DocumentType/Index">Document Type</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Account</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/Month/Index">Set Salary</a></li>
+
+                                        </ul>
+                                    </li>
+                                    <li><a href="/Account/Login">Logout</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>           
         </header>
         @*<div class="container banner"> <img src="~/Content/images/jobopenings.png"> </div>*@
 
@@ -87,8 +77,8 @@
 
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-   
-    @Scripts.Render("~/bundles/alept")   
+
+    @Scripts.Render("~/bundles/alept")
 
     @Scripts.Render("~/bundles/affirma")
 

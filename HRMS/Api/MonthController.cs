@@ -2,7 +2,9 @@
 using Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -64,5 +66,36 @@ namespace Api
             return pQuery;
         }
 
+        public void GetGenerateandDownloadCSV(int MonthID)
+        {
+            //Create CSV file            
+            var csv = new StringBuilder();
+            EmployeeService empService = new EmployeeService();
+            var EmpList = empService.Get(e => e.EmployeeStatusID == 1);
+
+            //foreach (var emp in EmpList)
+            //{
+            //    var first = reader[0].ToString();
+            //    var second = image.ToString();
+                
+            //    var newLine = string.Format("{0},{1}", first, second);
+            //    csv.AppendLine(newLine);
+
+            //}
+
+            //File.WriteAllText(filePath, csv.ToString());
+
+
+            //////Download CSV file
+            //string filePath = "~/Files/Sample.csv";
+            //System.IO.FileInfo file = new System.IO.FileInfo(Server.MapPath(filePath));
+            //if (file.Exists)
+            //{
+            //    Response.ContentType = "text/csv";
+            //    Response.AppendHeader("Content-Disposition", "Attachment; Filename=" + file.Name + "");
+            //    Response.TransmitFile(Server.MapPath(filePath));
+            //    Response.End();
+            //}
+        }
     }
 }

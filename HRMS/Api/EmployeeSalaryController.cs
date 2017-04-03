@@ -70,8 +70,7 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatus,
-                                o.EmployeeCode
+                                o.EmployeeStatusID
 
                             }).ToList().Select(o => new Employee
                             {
@@ -110,8 +109,7 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatus = o.EmployeeStatus,
-                                EmployeeCode = o.EmployeeCode
+                                EmployeeStatusID = o.EmployeeStatusID
 
                             }).Single<Employee>();
             return obj;
@@ -121,7 +119,7 @@ namespace HRMS.Api
         {
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = from o in list
-                        where o.EmployeeStatus != "InActive"
+                        where o.EmployeeStatusID != 4
                         select new
                         {
 
@@ -159,7 +157,7 @@ namespace HRMS.Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeStatus
+                            o.EmployeeStatusID
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);

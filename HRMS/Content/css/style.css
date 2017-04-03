@@ -97,6 +97,9 @@ header h2{font-size:23px; margin-top:23px;}
 }
 .actionbtns{margin-bottom: 0;}
 table.table th{color:#333; background: #dddddd; font-weight: 700;}
+.mt-md{margin-top:20px;}
+.btn-group{margin-bottom:15px;}
+.btn:hover{border: 1px solid transparent;color:#fff;}
 table.table th,table.table td{vertical-align: middle !important;}
 table.table .media-object {
     border: 2px solid #727272;
@@ -131,7 +134,7 @@ footer {
 .bootstrap-select .btn-default:hover, .bootstrap-select .btn-default.active, .bootstrap-select .btn-default:active, .bootstrap-select .btn-default:hover, .bootstrap-select .open > .dropdown-toggle.btn-default, .bootstrap-select .btn-default.focus, .bootstrap-select .btn-default:focus{background:#fff; border:1px solid #0c7ac9;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
     outline: 0 none;}
-
+.headerwrap{width:1170px;margin:0 auto;}
 .middlewrap{width: 1170px; margin:15px auto;}
 .midtitle {font-weight: 600; font-size: 18px; margin:10px 0 20px 0;border-bottom: 1px dotted #0c7ac9; color: #0c7ac9;}
 @media (max-width:1300px){

@@ -18,8 +18,11 @@ namespace HRMS
         {
 
             MasterViewModel obj = new MasterViewModel();
-            Service.DesignationTypeService service = new Service.DesignationTypeService();
+            DesignationTypeService service = new Service.DesignationTypeService();
+            EmployeeStatusService eservice = new EmployeeStatusService();
+
             obj.Designations = service.Get().ToList();
+            obj.EmployeeStatuses = eservice.Get().ToList();
             return View(obj);
 
         }

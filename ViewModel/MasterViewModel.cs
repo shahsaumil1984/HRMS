@@ -10,6 +10,7 @@ namespace ViewModel
     {
         public List<DocumentType> DocumentTypes { get; set; }
         public List<Designation> Designations { get; set; }
+        public List<EmployeeStatu> EmployeeStatuses { get; set; }        
     }
 
     public class PagedQueryable

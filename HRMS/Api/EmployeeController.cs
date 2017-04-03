@@ -85,7 +85,7 @@ namespace Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatus,
+                                o.EmployeeStatusID,
                                 o.EmployeeCode
 
                             }).ToList().Select(o => new Employee
@@ -125,7 +125,7 @@ namespace Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatus = o.EmployeeStatus,
+                                EmployeeStatusID = o.EmployeeStatusID,
                                 EmployeeCode = o.EmployeeCode
 
                             }).Single<Employee>();
@@ -173,7 +173,7 @@ namespace Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeStatus,
+                            o.EmployeeStatu.StatusName,
                             o.EmployeeCode
                         };
 

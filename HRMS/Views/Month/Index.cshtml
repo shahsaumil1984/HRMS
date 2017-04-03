@@ -13,42 +13,47 @@
 }
 
 
-<h2>List of months</h2>
+
 
 
 <div id="monthListView" class="listView">
+    <div class="container">
+        <div class="middlewrap">
+            <h2>List of months</h2>
+            <table id="monthGrid"
+                   data-ui-binding="true"
+                   data-entity-key="MonthID"
+                   data-service-object="monthService"
+                   data-default-orderby="MonthID descending"
+                   class="table table-condensed table-hover">
+                <tr>
+                    <th><a href="#" data-sort-field="Month1">Month</a></th>
+                    <th><a href="#" data-sort-field="Year">Year</a></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody ng-repeat="r in rows">
 
-    <table id="monthGrid"
-           data-ui-binding="true"
-           data-entity-key="MonthID"
-           data-service-object="monthService"
-           data-default-orderby="MonthID descending"
-           class="table table-condensed table-hover">
-        <tr>
-            <th><a href="#" data-sort-field="Month1">Month</a></th>
-            <th><a href="#" data-sort-field="Year">Year</a></th>
-            <th></th>
-        </tr>
-        <tbody ng-repeat="r in rows">
 
-
-            <tr>
-                <td class="col-md-1"> <span>{{r.Month1}}</span></td>
-                <td class="col-md-1"> <span>{{r.Year}}</span></td>
-                <td class="col-md-1">
-                    <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
-                </td>
-
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="9" align="center">
-                    <div id="monthPagination">
-                        @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+                    <tr>
+                        <td class="col-md-1"> <span>{{r.Month1}}</span></td>
+                        <td class="col-md-1"> <span>{{r.Year}}</span></td>
+                        <td class="col-md-1">
+                            <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
+                        </td>
+                        <td class="col-md-1"><button ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="9" align="center">
+                            <div id="monthPagination">
+                                @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 </div>
