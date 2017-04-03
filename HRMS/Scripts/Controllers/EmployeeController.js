@@ -5,30 +5,35 @@
 $(document).ready(function () {
 
     _.Initialize(function (status, msg) {
-        
+
     });
 
-   
+
 });
 
-function EmployeeNewCallback(status, data) {    
+function EmployeeNewCallback(status, data) {
     $("#employeeListView").hide();
     $("#employeeDetailsWindow").show();
 }
 
 
-function GetDesignationDetails(status, data) {
-    debugger;    
-    alert("Hello");
+_.CheckEmployeeCode = function (EmpCode) {
 
-    
+    employeeService.CheckEmployeeCode('EmpCode=' + EmpCode, function (status, data) {
+        if (status && data) {
+            var html = "<label class='error'>The entered Employee Code already exists.</label>";
+            $('#empcode').after(html);
+        }
+    });
+}
+
+function Validate() {
+    ub.CheckEmployeeCode($('#empcode').val());
 }
 
 
-//function () {
-//    $("#insert").text("");
-//    $('#form_add')[0].reset();
-//    $("form div").removeClass("error");
-//    $("form label").removeClass("error"); 
-//    $("form")[0].reset()
-//    $('#addPopup').foundation("reveal", "close");
+
+
+
+
+

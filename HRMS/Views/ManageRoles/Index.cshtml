@@ -75,8 +75,7 @@
 }
 <div class="container">
     <div class="middlewrap">
-        <h2>Manage Roles</h2>
-        <span>Select roles for @Model.Name</span>
+        <h2>Manage Roles for @Model.Name</h2>
         <div class="row mt-md">
             <div class="col-md-3">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })</div>
             <div class="col-md-2 text-center">
