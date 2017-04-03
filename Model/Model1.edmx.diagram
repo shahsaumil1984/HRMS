@@ -28,15 +28,15 @@
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
         <AssociationConnector Association="HRMSModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="HRMSModel.EmployeeStatu" Width="1.5" PointX="10.375" PointY="10.875" />
-        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="13.625" PointY="6.875" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeStatu" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="5.875" />
         <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
         <AssociationConnector Association="HRMSModel.FK_Employee_EmployeeStatus" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

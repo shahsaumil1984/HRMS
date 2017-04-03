@@ -60,7 +60,7 @@ namespace Model
         public Nullable<int> DesignationID { get; set; }
         public byte[] EmployeePhoto { get; set; }
         public string EmployeeCode { get; set; }
-        public int EmployeeStatusID { get; set; }
+        public Nullable<int> EmployeeStatusID { get; set; }
     
         public virtual Designation Designation { get; set; }
         public virtual EmployeeStatu EmployeeStatu { get; set; }

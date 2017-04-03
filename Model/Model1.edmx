@@ -134,7 +134,7 @@
           <Property Name="DesignationID" Type="int" />
           <Property Name="EmployeePhoto" Type="varbinary(max)" />
           <Property Name="EmployeeCode" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="EmployeeStatusID" Type="int" Nullable="false" />
+          <Property Name="EmployeeStatusID" Type="int" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -318,7 +318,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_EmployeeStatus">
-          <End Role="EmployeeStatus" Type="Self.EmployeeStatus" Multiplicity="1" />
+          <End Role="EmployeeStatus" Type="Self.EmployeeStatus" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EmployeeStatus">
@@ -595,7 +595,7 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Salary" EntitySet="Salaries" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -944,7 +944,7 @@
           <Property Name="DesignationID" Type="Int32" />
           <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeStatusID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeStatusID" Type="Int32" />
           <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
           <NavigationProperty Name="EmployeeStatu" Relationship="HRMSModel.FK_Employee_EmployeeStatus" FromRole="Employee" ToRole="EmployeeStatu" />
           <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
@@ -965,7 +965,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_EmployeeStatus">
-          <End Type="HRMSModel.EmployeeStatu" Role="EmployeeStatu" Multiplicity="1" />
+          <End Type="HRMSModel.EmployeeStatu" Role="EmployeeStatu" Multiplicity="0..1" />
           <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EmployeeStatu">

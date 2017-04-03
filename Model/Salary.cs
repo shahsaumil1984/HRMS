@@ -39,7 +39,7 @@ namespace Model
         public Nullable<decimal> TotalPayment { get; set; }
         public int Days { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual Month Month { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
