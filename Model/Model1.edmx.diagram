@@ -36,7 +36,7 @@
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

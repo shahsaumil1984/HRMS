@@ -84,7 +84,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_EmployeeStatus">Status</label>
-                        <select name="em_EmployeeStatusID" id="em_EmployeeStatusID" class="required form-control" ng-model="model.EmployeeStatusID" value={{model.EmployeeStatusID}}>
+                        <select name="em_EmployeeStatusID" id="em_EmployeeStatusID" class="form-control required" ng-model="model.EmployeeStatusID" value={{model.EmployeeStatusID}}>
                              <option value="">Please select</option>
                              @foreach (var item in Model.EmployeeStatuses)
                             {
@@ -353,8 +353,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary btn-sm" ng-disabled="employeeDetailsForm.$invalid">Save</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="employeeDetailsForm.$invalid">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.ResetForm()">Cancel</button>
                     </div>
                 </div>
             </div>
