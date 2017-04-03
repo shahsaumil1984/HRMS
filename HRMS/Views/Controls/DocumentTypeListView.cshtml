@@ -11,19 +11,18 @@
                data-search-list="documentTypeGrid"
                data-default-focus="true" />
     </form>
-    <div class="form-group mt-md"><button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button></div>
+    @*<div class="form-group mt-md"></div>*@
     <table id="documentTypeGrid"
            data-ui-binding="true"
            data-entity-key="DocumentTypeID"
            data-service-object="documentTypeService"
            data-default-orderby="Description"
            class="table table-condensed table-hover">
-
-        @*<tr>
+        <tr>
             <td>
-                
+                <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button>
             </td>
-        </tr>*@
+        </tr>
 
         <tr>
             <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>

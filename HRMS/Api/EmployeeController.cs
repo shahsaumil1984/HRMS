@@ -276,6 +276,11 @@ namespace Api
             return base.Update(entity);
         }
 
+        public bool GetCheckEmployeeCode(int EmpCode)
+        {
+            return service.Context.Employees.ToList().Any(e => e.EmployeeCode.Equals(EmpCode.ToString()));            
+        }
+
     }
 
 
