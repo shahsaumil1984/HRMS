@@ -31,7 +31,7 @@ namespace HRMS.Api
 
 
             Employee obj = (from o in service.Context.Employees
-                            where o.EmployeeID == id 
+                            where o.EmployeeID == id
                             select new
                             {
 
