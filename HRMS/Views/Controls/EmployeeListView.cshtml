@@ -18,7 +18,8 @@
                    data-entity-key="EmployeeID"
                    data-service-object="employeeService"
                    data-default-orderby="FirstName"
-                   cellspacing="0" cellpadding="0" border="0">
+                   cellspacing="0" cellpadding="0" border="0"
+                   data-page-size="10">
                 <thead class="tblaction">
                     <tr>
                         <td colspan="6">
@@ -80,7 +81,19 @@
                             <td class="text-left"><a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">Documents</a></td>
                             <td class="text-left"><a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, 'GetDesignationDetails')">Edit</a></td>
                     </tbody>
-                
+                <tfoot>
+                    <tr>
+                        <td colspan="7" align="center">
+                            <div id="monthPagination">
+                                <span>{{pageText}}</span>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>                               
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
 </table>
         </div>
 

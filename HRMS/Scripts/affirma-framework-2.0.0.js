@@ -1050,8 +1050,7 @@ UserInterfaceBinder.prototype.BindListConroller = function (listName, data) {
     var lb = this.ListBindings[listName];
 
     this.BindNGAttributes(listName, lb);
-    try {
-
+    try {       
         if (data.TotalRows != null) {
             var totalPages = 0;
             lb.TotalRows = data.TotalRows;
@@ -1062,7 +1061,7 @@ UserInterfaceBinder.prototype.BindListConroller = function (listName, data) {
             }
             lb.totalPages = totalPages;
             var startPageText = ((lb.pageIndex * lb.pageSize) + 1);
-            var endPageText = (parseInt(data.length) + (lb.pageIndex * lb.pageSize));
+            var endPageText = (parseInt(data.List.length) + (lb.pageIndex * lb.pageSize));
             var stringText = startPageText + "-" + endPageText + " of " + lb.TotalRows + " ";
             lb.pageText = stringText;
 

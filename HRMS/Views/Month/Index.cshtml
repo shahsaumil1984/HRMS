@@ -25,7 +25,8 @@
                    data-entity-key="MonthID"
                    data-service-object="monthService"
                    data-default-orderby="MonthID descending"
-                   class="table table-condensed table-hover">
+                   class="table table-condensed table-hover"
+                   data-page-size="10">
                 <tr>
                     <th><a href="#" data-sort-field="Month1">Month</a></th>
                     <th><a href="#" data-sort-field="Year">Year</a></th>
@@ -48,6 +49,11 @@
                     <tr>
                         <td colspan="9" align="center">
                             <div id="monthPagination">
+                                <span>{{pageText}}</span>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
                                 @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
                             </div>
                         </td>

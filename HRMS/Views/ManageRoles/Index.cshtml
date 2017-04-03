@@ -80,8 +80,8 @@
         <div class="row mt-md">
             <div class="col-md-3">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })</div>
             <div class="col-md-2 text-center">
-                <button type="button" class="btn mt-md" onclick="addRoles()">Add</button>
-                <button type="button" class="btn mt-md" onclick="removeRoles()">Remove</button>
+                <button type="button" class="btn mt-md" onclick="addRoles()">></button>
+                <button type="button" class="btn mt-md" onclick="removeRoles()"><</button>
             </div>
             <div class="col-md-3">
                 @Html.ListBoxFor(m => m.lstExistingRoles, new MultiSelectList(Model.lstExistingRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })

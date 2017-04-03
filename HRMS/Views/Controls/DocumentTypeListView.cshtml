@@ -17,13 +17,14 @@
            data-entity-key="DocumentTypeID"
            data-service-object="documentTypeService"
            data-default-orderby="Description"
-           class="table table-condensed table-hover">
+           class="table table-condensed table-hover"
+           data-page-size="10">
 
         @*<tr>
-            <td>
-                
-            </td>
-        </tr>*@
+                <td>
+
+                </td>
+            </tr>*@
 
         <tr>
             <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>
@@ -41,9 +42,13 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="9" align="center">
+                <td colspan="4" align="center">
                     <div id="documentTypePagination">
-                        @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                        <span>{{pageText}}</span>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
                     </div>
                 </td>
             </tr>
