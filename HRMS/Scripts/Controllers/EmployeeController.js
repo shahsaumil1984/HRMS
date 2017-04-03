@@ -16,19 +16,42 @@ function EmployeeNewCallback(status, data) {
     $("#employeeDetailsWindow").show();
 }
 
+_.ResetForm = function () {    
+    $("label").remove(".error");
+    $("span").remove(".error");
+    
+    //fb.HideForm(true);
+}
 
 _.CheckEmployeeCode = function (EmpCode) {
 
     employeeService.CheckEmployeeCode('EmpCode=' + EmpCode, function (status, data) {
         if (status && data) {
-            var html = "<label class='error'>The entered Employee Code already exists.</label>";
+            var html = "<label id='EmpCodeError' class='error'>The entered Employee Code already exists.</label>";
             $('#empcode').after(html);
+        }
+        else if (status && !data)
+        {
+            $('#EmpCodeError').remove();
         }
     });
 }
 
 function Validate() {
-    ub.CheckEmployeeCode($('#empcode').val());
+    //UserInterfaceBinder.CheckEmployeeCode($('#empcode').val());
+    employeeService.CheckEmployeeCode('EmpCode=' + $('#empcode').val(), function (status, data) {
+        if (status && data) {
+            var html = "<label id='EmpCodeError' class='error'>The entered Employee Code already exists.</label>";
+            $('#empcode').after(html);
+            return false;
+        }
+        else if (status && !data) {
+            $('#EmpCodeError').remove(); 
+            return true;
+        }
+        else
+            return false;
+    });
 }
 
 
