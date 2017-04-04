@@ -37,13 +37,13 @@
                               o.HolidayDate,
                               o.Description,
                               o.CreatedBy,
-                              o.Created,
+                              o.CreatedDate,
                               o.ModifiedBy,
-                              o.Modified
+                              o.ModifiedDate
       
                            }).ToList().Select(o => new HolidayCalendar
                                 { 
-                                  ID = o.ID,HolidayDate = o.HolidayDate,Description = o.Description,CreatedBy = o.CreatedBy,Created = o.Created,ModifiedBy = o.ModifiedBy,Modified = o.Modified
+                                  ID = o.ID,HolidayDate = o.HolidayDate,Description = o.Description,CreatedBy = o.CreatedBy,CreatedDate = o.CreatedDate,ModifiedBy = o.ModifiedBy,ModifiedDate = o.ModifiedDate
                                   }).Single<HolidayCalendar>();
              return obj;              
           }
@@ -59,9 +59,9 @@
                               o.HolidayDate,
                               o.Description,
                               o.CreatedBy,
-                              o.Created,
+                              o.CreatedDate,
                               o.ModifiedBy,
-                              o.Modified
+                              o.ModifiedDate
                           };
 						  
 			 PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
