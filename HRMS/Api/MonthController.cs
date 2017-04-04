@@ -9,6 +9,10 @@ using System.Web;
 using System.Web.Mvc;
 using Api;
 using Model;
+using System.Web.Http;
+using System.Net.Http;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace HRMS.Api
 {
@@ -47,18 +51,19 @@ namespace HRMS.Api
                 filter = "MonthID <= " + currentMonthID;
 
             }
-            else {
+            else
+            {
                 filter += "and MonthID <= " + currentMonthID;
             }
 
             //
             IQueryable<Month> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = from o in list
-                        //where o.MonthID <= currentMonthID                      
-                        //orderby o.MonthID ascending
+                            //where o.MonthID <= currentMonthID                      
+                            //orderby o.MonthID ascending
                         select new
                         {
-                            o.MonthID,                            
+                            o.MonthID,
                             o.Month1,
                             o.Year
                         };
@@ -68,36 +73,40 @@ namespace HRMS.Api
             return pQuery;
         }
 
-        public void GetGenerateandDownloadCSV(int MonthID)
+        public HttpResponseMessage GetGenerateandDownloadCSV(int MonthID)
         {
             //Create CSV file            
             var csv = new StringBuilder();
             EmployeeService empService = new EmployeeService();
-            var EmpList = empService.Get(e => e.EmployeeStatu.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
+            var EmpList = empService.Get(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
 
-            //foreach (var emp in EmpList)
-            //{
-            //    var first = reader[0].ToString();
-            //    var second = image.ToString();
-                
-            //    var newLine = string.Format("{0},{1}", first, second);
-            //    csv.AppendLine(newLine);
+            foreach (var emp in EmpList)
+            {
+                var empCode = emp.EmployeeCode;
+                var salary = emp.Salaries.FirstOrDefault() == null ? 0 : emp.Salaries.FirstOrDefault().Salary1;
+                var desc = "Cr";
+                var note = emp.Salaries.FirstOrDefault() == null ? "" : emp.Salaries.FirstOrDefault().Note;
 
-            //}
+                var newLine = string.Format("{0},{1},{2},{3}", empCode, salary, desc, note);
+                csv.AppendLine(newLine);
 
-            //File.WriteAllText(filePath, csv.ToString());
+            }
 
+            string filePath = @"C:/CSVFiles/SalaryCSV_" + MonthID + ".csv";
+            File.WriteAllText(filePath, csv.ToString());
 
-            //////Download CSV file
-            //string filePath = "~/Files/Sample.csv";
-            //System.IO.FileInfo file = new System.IO.FileInfo(Server.MapPath(filePath));
-            //if (file.Exists)
-            //{
-            //    Response.ContentType = "text/csv";
-            //    Response.AppendHeader("Content-Disposition", "Attachment; Filename=" + file.Name + "");
-            //    Response.TransmitFile(Server.MapPath(filePath));
-            //    Response.End();
-            //}
+            //Download CSV file
+            var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StreamContent(stream);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "SalaryCSV_" + MonthID + ".csv"
+            };
+
+            return response;
+
         }
     }
 }
