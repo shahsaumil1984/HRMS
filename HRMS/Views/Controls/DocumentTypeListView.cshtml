@@ -5,12 +5,9 @@
 <div id="documentTypeListView" class="listView">
 
 
-    <form class="form-inline">
-        <input type="text"
-               data-search-fields="Description"
-               data-search-list="documentTypeGrid"
-               data-default-focus="true" />
-    </form>
+    @*<form class="form-inline">
+
+        </form>*@
     @*<div class="form-group mt-md"></div>*@
     <table id="documentTypeGrid"
            data-ui-binding="true"
@@ -19,13 +16,20 @@
            data-default-orderby="Description"
            class="table table-condensed table-hover"
            data-page-size="10">
-
-        <tr>
-                <td>
-                    <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button>
+        <thead class="tblaction">
+            <tr>
+                <td colspan="4">
+                    <div class="form-group m-0">
+                        <input type="text"
+                               data-search-fields="Description"
+                               data-search-list="documentTypeGrid"
+                               data-default-focus="true" />
+                        &nbsp;
+                        <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button>
+                    </div>
                 </td>
             </tr>
-
+        </thead>
         <tr>
             <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>
             <th><a href="#" data-sort-field="Description">Description</a></th>
