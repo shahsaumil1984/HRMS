@@ -20,6 +20,12 @@ namespace HRMS
             InActive
         };
 
+        public enum SalaryStatus
+        {
+            Approve,
+            Pending
+        };
+
         public enum Month
         {
             January,
