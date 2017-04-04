@@ -38,6 +38,13 @@ namespace Model
         public Nullable<decimal> Total { get; set; }
         public Nullable<decimal> TotalPayment { get; set; }
         public int Days { get; set; }
+        public string AccountNumber { get; set; }
+        public string BankName { get; set; }
+        public string SalaryStatus { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual Month Month { get; set; }
         public virtual Employee Employee { get; set; }

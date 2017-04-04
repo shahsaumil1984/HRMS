@@ -92,17 +92,20 @@ namespace HRMS.Api
 
             }
 
-            string filePath = @"C:/CSVFiles/SalaryCSV_" + MonthID + ".csv";
-            File.WriteAllText(filePath, csv.ToString());
+            MonthService mservice = new MonthService();
+            Month monthObj = mservice.GetById(MonthID);
+            string fileName = "ALE57SAL" + DateTime.Today.Day + monthObj.MonthID + ".001.csv";            
+
+            File.WriteAllText(fileName, csv.ToString());
 
             //Download CSV file
-            var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StreamContent(stream);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
-                FileName = "SalaryCSV_" + MonthID + ".csv"
+                FileName = fileName
             };
 
             return response;

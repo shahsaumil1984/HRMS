@@ -26,13 +26,5 @@ $(document).ready(function () {
 
 _.GenerateandDownloadCSV = function (monthID) {
     
-    //monthService.GenerateandDownloadCSV('MonthID=' + monthID, function (status, data) {
-    //    if (status) {            
-    //        alert('Successfully generated CSV');            
-    //    }
-    //    else {
-    //        alert('Error occured. Please try after some time');
-    //    }
-    //});
-    window.open('http://localhost:45719/api/home?id=12', '_blank', '');
+    window.open('~/../../Api/Month/GetGenerateandDownloadCSV?MonthID=' + monthID, '_blank', '');
 };

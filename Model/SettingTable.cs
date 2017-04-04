@@ -17,5 +17,9 @@ namespace Model
         public int ID { get; set; }
         public decimal LeavesPerMonth { get; set; }
         public decimal LeavesToBeCarriedForward { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     }
 }
