@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace HRMS.Api
 {
     public class EmployeeSalaryController : GenericApiController<EmployeeService, Employee, int>, IGetList
@@ -70,7 +71,7 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatusID
+                                o.EmployeeStatu
 
                             }).ToList().Select(o => new Employee
                             {
@@ -109,7 +110,7 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatusID = o.EmployeeStatusID
+                                EmployeeStatu = o.EmployeeStatu
 
                             }).Single<Employee>();
             return obj;
@@ -119,7 +120,7 @@ namespace HRMS.Api
         {
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = from o in list
-                        where o.EmployeeStatusID != 4
+                        where o.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive
                         select new
                         {
 
@@ -157,7 +158,7 @@ namespace HRMS.Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeStatusID
+                            o.EmployeeStatu.StatusName
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);

@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Api;
+using Model;
 
-namespace Api
+namespace HRMS.Api
 {
     public class MonthController : GenericApiController<MonthService, Month, int>, IGetList
     {
@@ -71,7 +73,7 @@ namespace Api
             //Create CSV file            
             var csv = new StringBuilder();
             EmployeeService empService = new EmployeeService();
-            var EmpList = empService.Get(e => e.EmployeeStatusID == 1);
+            var EmpList = empService.Get(e => e.EmployeeStatu.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
 
             //foreach (var emp in EmpList)
             //{

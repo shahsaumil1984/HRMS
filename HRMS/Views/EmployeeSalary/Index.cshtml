@@ -81,7 +81,7 @@
                                 </td>
                                 <td class="text-left">{{r.EmployeeID}}</td>
                                 <td class="text-left">{{r.Phone}}</td>
-                                <td class="text-left">{{r.EmployeeStatus}}</td>
+                                <td class="text-left">{{r.StatusName}}</td>
                                 <td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}&monthID=@ViewBag.MonthID">Edit Salary</a></td>
                                 <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
                         </tbody>

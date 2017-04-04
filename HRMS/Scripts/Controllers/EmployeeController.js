@@ -20,7 +20,7 @@ _.ResetForm = function () {
     $("label").remove(".error");
     $("span").remove(".error");
     
-    //fb.HideForm(true);
+    FormBinder.HideForm(true);
 }
 
 _.CheckEmployeeCode = function (EmpCode) {
