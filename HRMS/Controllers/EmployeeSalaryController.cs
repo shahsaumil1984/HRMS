@@ -20,23 +20,7 @@ namespace HRMS
         }
         public int MonthToInt(string Input)
         {
-            return (int)Enum.Parse(typeof(Month), Input, true);
+            return (int)Enum.Parse(typeof(Helper.Month), Input, true);
         }
     }
-    public enum Month
-    {
-        January,
-        February,
-        March,
-        April,
-        May,
-        June,
-        July,
-        August,
-        September,
-        November,
-        December,
-    }
-
-    
 }

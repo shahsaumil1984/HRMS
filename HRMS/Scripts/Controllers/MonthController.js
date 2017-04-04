@@ -24,14 +24,15 @@ $(document).ready(function () {
 //    alert('hi');
 //}
 
-UserInterfaceBinder.prototype.GenerateandDownloadCSV = function (monthID) {
+_.GenerateandDownloadCSV = function (monthID) {
     
-    monthService.GenerateandDownloadCSV('MonthID=' + monthID, function (status, data) {
-        if (status) {            
-            alert('Successfully generated CSV');            
-        }
-        else {
-            alert('Error occured. Please try after some time');
-        }
-    });
+    //monthService.GenerateandDownloadCSV('MonthID=' + monthID, function (status, data) {
+    //    if (status) {            
+    //        alert('Successfully generated CSV');            
+    //    }
+    //    else {
+    //        alert('Error occured. Please try after some time');
+    //    }
+    //});
+    window.open('http://localhost:45719/api/home?id=12', '_blank', '');
 };
