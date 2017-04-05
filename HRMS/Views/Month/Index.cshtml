@@ -16,6 +16,10 @@
     <div class="container">
         <div class="middlewrap">
             <h2>List of months</h2>
+            <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
+           
+            
+
             <table id="monthGrid"
                    data-ui-binding="true"
                    data-entity-key="MonthID"
@@ -24,6 +28,13 @@
                    class="table table-condensed table-hover"
                    data-page-size="10">
                 
+
+                <tr>
+                    <td>
+                        <button id="uploadCSVButton" ng-click="ub.UploadCSV()" class="btn">Upload CSV</button>
+                    </td>
+                </tr>               
+
                 <tr>
                     <td colspan="4">
                         <div class="form-group m-0">
@@ -43,6 +54,8 @@
                     <th><a href="#" data-sort-field="Year">Year</a></th>
                     <th></th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 <tbody ng-repeat="r in rows">
 
@@ -54,6 +67,8 @@
                             <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
                         </td>
                         <td class="col-md-1"><button ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
+                        <td class="col-md-1"><button ng-click="ub.DownloadPDF(r.MonthID)" class="btn">Download PDF</button></td>
+                        <td class="col-md-1"><button ng-click="ub.SendEmail(r.MonthID)" class="btn">Send Email</button></td>
                     </tr>
                 </tbody>
                 <tfoot>

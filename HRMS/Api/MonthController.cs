@@ -14,6 +14,10 @@ using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Globalization;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace HRMS.Api
 {
@@ -120,5 +124,114 @@ namespace HRMS.Api
             return response;
 
         }
+
+        //    public HttpResponseMessage GenerateandDownloadPDF(int MonthID)
+        //    {
+        //        //Write into PDF file            
+        //        string fileNameExisting = @"C:\path\to\existing.pdf";
+        //        string fileNameNew = @"C:\path\to\new.pdf";
+
+        //        using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open))
+        //        using (var newFileStream = new FileStream(fileNameNew, FileMode.Create))
+        //        {
+        //            // Open existing PDF
+        //            var pdfReader = new PdfReader(existingFileStream);
+
+        //            // PdfStamper, which will create
+        //            var stamper = new PdfStamper(pdfReader, newFileStream);
+
+        //            var form = stamper.AcroFields;
+        //            var fieldKeys = form.Fields.Keys;
+
+        //            foreach (string fieldKey in fieldKeys)
+        //            {
+        //                form.SetField(fieldKey, "REPLACED!");
+        //            }
+
+        //            // "Flatten" the form so it wont be editable/usable anymore
+        //            stamper.FormFlattening = true;
+
+        //            // You can also specify fields to be flattened, which
+        //            // leaves the rest of the form still be editable/usable
+        //            stamper.PartialFormFlattening("field1");
+
+        //            stamper.Close();
+        //            pdfReader.Close();
+        //        }
+        //    }
+        //}
+
+        ////Download PDF file
+        //var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+        //        var response = Request.CreateResponse(HttpStatusCode.OK);
+        //        response.Content = new StreamContent(stream);
+        //        response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+        //        response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+        //        {
+        //            FileName = fileName
+        //        };
+
+        //        return response;
+
+        //    }
+
+        [System.Web.Http.HttpPost]
+        public void UploadCSV()
+        {
+            var httpPostedFile = HttpContext.Current.Request.Files["UploadedCSV"];
+            //Creating object of datatable  
+            DataTable tblcsv = new DataTable();
+
+            //Creating columns  
+            tblcsv.Columns.Add("Description");
+            //tblcsv.Columns.Add("City");
+            //tblcsv.Columns.Add("Address");
+            //tblcsv.Columns.Add("Designation");
+
+            string filePath = "@";
+            string CSVFilePath = Path.GetFullPath(filePath);
+
+            //Reading All text  
+            string ReadCSV = File.ReadAllText(CSVFilePath);
+
+            //spliting row after new line  
+            foreach (string csvRow in ReadCSV.Split('\n'))
+            {
+                if (!string.IsNullOrEmpty(csvRow))
+                {
+                    //Adding each row into datatable  
+                    tblcsv.Rows.Add();
+                    int count = 0;
+                    foreach (string FileRec in csvRow.Split(','))
+                    {
+                        tblcsv.Rows[tblcsv.Rows.Count - 1][count] = FileRec;
+                        count++;
+                    }
+                }
+            }
+            //Calling insert Functions  
+            //InsertCSVRecords(tblcsv);
+
+
+        }
+
+        //public void InsertCSVRecords(DataTable dt)
+        //{
+        //    //creating object of SqlBulkCopy    
+        //    SqlBulkCopy objbulk = new SqlBulkCopy();
+
+        //    //assigning Destination table name    
+        //    objbulk.DestinationTableName = "DocumentType";
+
+        //    //Mapping Table column    
+        //    objbulk.ColumnMappings.Add("Description", "Description");
+        //    //objbulk.ColumnMappings.Add("City", "City");
+        //    //objbulk.ColumnMappings.Add("Address", "Address");
+        //    //objbulk.ColumnMappings.Add("Designation", "Designation");
+
+        //    //inserting Datatable Records to DataBase    
+        //    con.Open();
+        //    objbulk.WriteToServer(csvdt);
+        //}
     }
 }
