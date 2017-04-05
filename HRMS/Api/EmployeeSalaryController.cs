@@ -29,7 +29,7 @@ namespace HRMS.Api
 
         public override Employee GetById(int id)
         {
-
+            service.Context.Configuration.ProxyCreationEnabled = false;
 
             Employee obj = (from o in service.Context.Employees
                             where o.EmployeeID == id
@@ -71,7 +71,8 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatu
+                                o.EmployeeStatu,
+                                o.EmployeeCode
 
                             }).ToList().Select(o => new Employee
                             {
@@ -110,7 +111,8 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatu = o.EmployeeStatu
+                                EmployeeStatu = o.EmployeeStatu,
+                                EmployeeCode = o.EmployeeCode
 
                             }).Single<Employee>();
             return obj;
