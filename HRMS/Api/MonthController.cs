@@ -13,6 +13,7 @@ using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Globalization;
 
 namespace HRMS.Api
 {
@@ -78,23 +79,31 @@ namespace HRMS.Api
             //Create CSV file            
             var csv = new StringBuilder();
             EmployeeService empService = new EmployeeService();
-            var EmpList = empService.Get(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
 
+
+            var newLine = string.Format("{0},{1},{2},{3}", "EmployeeCode", "Salary", "Credit", "Note");
+            csv.AppendLine(newLine);
+
+            var EmpList = empService.Get().Where(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
+            
             foreach (var emp in EmpList)
             {
-                var empCode = emp.EmployeeCode;
-                var salary = emp.Salaries.FirstOrDefault() == null ? 0 : emp.Salaries.FirstOrDefault().Salary1;
-                var desc = "Cr";
-                var note = emp.Salaries.FirstOrDefault() == null ? "" : emp.Salaries.FirstOrDefault().Note;
+                if (emp.Salaries.FirstOrDefault() != null && emp.Salaries.FirstOrDefault().SalaryStatus == Helper.SalaryStatus.Approve.ToString())
+                {
+                    var empCode = emp.EmployeeCode;
+                    var salary = emp.Salaries.FirstOrDefault() == null ? 0 : emp.Salaries.FirstOrDefault().Salary1;
+                    var desc = "Cr";
+                    var note = emp.Salaries.FirstOrDefault() == null ? "" : emp.Salaries.FirstOrDefault().Note;
 
-                var newLine = string.Format("{0},{1},{2},{3}", empCode, salary, desc, note);
-                csv.AppendLine(newLine);
+                    newLine = string.Format("{0},{1},{2},{3}", empCode, salary, desc, note);
+                    csv.AppendLine(newLine);
+                }
 
             }
 
             MonthService mservice = new MonthService();
             Month monthObj = mservice.GetById(MonthID);
-            string fileName = "ALE57SAL" + DateTime.Today.Day + monthObj.MonthID + ".001.csv";            
+            string fileName = "ALE57SAL" + DateTime.Now.Day.ToString("00") + DateTime.ParseExact(monthObj.Month1, "MMMM", CultureInfo.InvariantCulture).Month.ToString("00") + ".001.csv";            
 
             File.WriteAllText(fileName, csv.ToString());
 
