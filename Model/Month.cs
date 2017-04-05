@@ -22,7 +22,7 @@ namespace Model
     
         public int MonthID { get; set; }
         public string Month1 { get; set; }
-        public string Year { get; set; }
+        public int Year { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }

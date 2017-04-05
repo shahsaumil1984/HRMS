@@ -1,4 +1,4 @@
-﻿
+﻿@model ViewModel.MasterViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,10 +12,6 @@
     <script src="~/Scripts/Controllers/MonthController.js"></script>
 }
 
-
-
-
-
 <div id="monthListView" class="listView">
     <div class="container">
         <div class="middlewrap">
@@ -27,7 +23,22 @@
                    data-default-orderby="MonthID descending"
                    class="table table-condensed table-hover"
                    data-page-size="10">
+                
                 <tr>
+                    <td colspan="4">
+                        <div class="form-group m-0">
+                            <select id="yearFilter" data-filter-list="monthGrid" data-filter-field="Year">
+                                <option value=""></option>
+                                @foreach(var year in Model.Years)
+                                { 
+                                    <option>@year</option>
+                                }
+                            </select>
+                           
+                        </div>
+                    </td>
+                </tr>
+                <tr>                
                     <th><a href="#" data-sort-field="Month1">Month</a></th>
                     <th><a href="#" data-sort-field="Year">Year</a></th>
                     <th></th>

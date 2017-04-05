@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViewModel;
+using Service;
 
 namespace HRMS
 {
@@ -11,7 +13,10 @@ namespace HRMS
         // GET: Month
         public ActionResult Index()
         {
-            return View();
+            MasterViewModel mvm = new MasterViewModel();
+            MonthService mService = new MonthService();
+            mvm.Years = mService.Get().Select(s => s.Year).Distinct().ToList();
+            return View(mvm);
         }
     }
 }

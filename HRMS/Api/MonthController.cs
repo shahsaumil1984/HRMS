@@ -46,7 +46,7 @@ namespace HRMS.Api
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             string CurrentMonth = DateTime.Today.ToString("MMMM");
-            int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year.ToString()).FirstOrDefault().MonthID;
+            int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year).FirstOrDefault().MonthID;
             if (string.IsNullOrEmpty(filter))
             {
                 filter = "MonthID <= " + currentMonthID;
