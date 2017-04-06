@@ -1,10 +1,12 @@
-﻿using Model;
+﻿using HRMS;
+using Model;
 using Service;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 //using System.Web.Mvc;
@@ -193,105 +195,129 @@ namespace Api
         }
 
         [System.Web.Http.HttpPost]
-        public void UploadCSV()
-        {
-            var httpPostedFile = HttpContext.Current.Request.Files["UploadedCSV"];
-            //string filePath = HttpContext.Current.Server.MapPath("~/UploadedCSV/" + httpPostedFile.);
-            //httpPostedFile.SaveAs(filePath);
-
-            //Creating object of datatable  
-            DataTable tblcsv = new DataTable();
-
-            //Creating columns
-            tblcsv.Columns.Add("EmployeeCode");
-            tblcsv.Columns.Add("Year");
-            tblcsv.Columns.Add("Month");
-
-            tblcsv.Columns.Add("Basic");
-            tblcsv.Columns.Add("HRA");
-            tblcsv.Columns.Add("ConveyanceAllowance");
-            tblcsv.Columns.Add("OtherAllowance");
-            tblcsv.Columns.Add("MedicalReimbursement");
-            tblcsv.Columns.Add("AdvanceSalary");
-            tblcsv.Columns.Add("Incentive");
-            tblcsv.Columns.Add("PLI");
-            tblcsv.Columns.Add("Exgratia");
-            tblcsv.Columns.Add("ReimbursementOfexp");
-            tblcsv.Columns.Add("TDS");
-            tblcsv.Columns.Add("EPF");
-            tblcsv.Columns.Add("ProfessionalTax");
-            tblcsv.Columns.Add("Leave");
-            tblcsv.Columns.Add("Advance");
-            tblcsv.Columns.Add("YTDS");
-            tblcsv.Columns.Add("Note");
-            tblcsv.Columns.Add("Salary");
-            tblcsv.Columns.Add("Total");
-            tblcsv.Columns.Add("TotalPayment");
-            tblcsv.Columns.Add("Days");
-            tblcsv.Columns.Add("AccountNumber");
-            tblcsv.Columns.Add("BankName");
-            tblcsv.Columns.Add("SalaryStatus");
-            tblcsv.Columns.Add("CreatedBy");
-            tblcsv.Columns.Add("ModifiedBy");
-            tblcsv.Columns.Add("CreatedDate");
-            tblcsv.Columns.Add("ModifiedDate");
-
-            //string CSVFilePath = Path.GetFullPath(filePath);
-
-            //Reading All text  
-            string ReadCSV = string.Empty;
-
-            using (var reader = new StreamReader(httpPostedFile.InputStream, Encoding.UTF8))
-            {
-                ReadCSV = reader.ReadToEnd();
-            }
-
-            //spliting row after new line  
-            foreach (string csvRow in ReadCSV.Split('\n'))
-            {
-                if (!string.IsNullOrEmpty(csvRow))
-                {
-                    //Adding each row into datatable  
-                    tblcsv.Rows.Add();
-                    int count = 0;
-                    foreach (string FileRec in csvRow.Split(','))
-                    {
-                        tblcsv.Rows[tblcsv.Rows.Count - 1][count] = FileRec;
-                        count++;
-                    }
-                }
-            }
-            //Calling insert Functions  
-            InsertCSVRecords(tblcsv);
-        }
-
-        private void InsertCSVRecords(DataTable dt)
+        public HttpResponseMessage UploadCSV()
         {
             try
             {
-                foreach (DataRow row in dt.Rows)
+                var httpPostedFile = HttpContext.Current.Request.Files["UploadedCSV"];
+                //string filePath = HttpContext.Current.Server.MapPath("~/UploadedCSV/" + httpPostedFile.);
+                //httpPostedFile.SaveAs(filePath);
+
+                //Creating object of datatable  
+                DataTable tblcsv = new DataTable();
+
+                //Creating columns
+                tblcsv.Columns.Add("EmployeeCode");
+                tblcsv.Columns.Add("Year");
+                tblcsv.Columns.Add("Month");
+
+                tblcsv.Columns.Add("Basic");
+                tblcsv.Columns.Add("HRA");
+                tblcsv.Columns.Add("ConveyanceAllowance");
+                tblcsv.Columns.Add("OtherAllowance");
+                tblcsv.Columns.Add("MedicalReimbursement");
+                tblcsv.Columns.Add("AdvanceSalary");
+                tblcsv.Columns.Add("Incentive");
+                tblcsv.Columns.Add("PLI");
+                tblcsv.Columns.Add("Exgratia");
+                tblcsv.Columns.Add("ReimbursementOfexp");
+                tblcsv.Columns.Add("TDS");
+                tblcsv.Columns.Add("EPF");
+                tblcsv.Columns.Add("ProfessionalTax");
+                tblcsv.Columns.Add("Leave");
+                tblcsv.Columns.Add("Advance");
+                tblcsv.Columns.Add("YTDS");
+                tblcsv.Columns.Add("Note");
+                tblcsv.Columns.Add("Salary");
+                tblcsv.Columns.Add("Total");
+                tblcsv.Columns.Add("TotalPayment");
+                tblcsv.Columns.Add("Days");
+                tblcsv.Columns.Add("AccountNumber");
+                tblcsv.Columns.Add("BankName");
+                tblcsv.Columns.Add("CreatedBy");
+                tblcsv.Columns.Add("ModifiedBy");
+                tblcsv.Columns.Add("CreatedDate");
+                tblcsv.Columns.Add("ModifiedDate");
+
+                //string CSVFilePath = Path.GetFullPath(filePath);
+
+                //Reading All text  
+                string ReadCSV = string.Empty;
+
+                using (var reader = new StreamReader(httpPostedFile.InputStream, Encoding.UTF8))
                 {
-                    string empCode = row["EmployeeCode"].ToString();
-                    string month = row["Month"].ToString();
-                    int year = Convert.ToInt32(row["Year"]);
-                    int EmployeeID = service.Context.Employees.Where(e => e.EmployeeCode.Equals(empCode)).FirstOrDefault().EmployeeID;
-                    int MonthID = service.Context.Months.Where(m => m.Month1.Equals(month) && m.Year == year).FirstOrDefault().MonthID;
-                    Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
-                    if (sObj == null)
+                    ReadCSV = reader.ReadToEnd();
+                }
+
+                //spliting row after new line  
+                foreach (string csvRow in ReadCSV.Split('\n'))
+                {
+                    if (!string.IsNullOrEmpty(csvRow))
                     {
-                        InsertSalaryRecord(row, EmployeeID, MonthID);
-                    }
-                    else
-                    {
-                        UpdateSalaryRecord(row, sObj);
+                        //Adding each row into datatable  
+                        tblcsv.Rows.Add();
+                        int count = 0;
+                        foreach (string FileRec in csvRow.Split(','))
+                        {
+                            tblcsv.Rows[tblcsv.Rows.Count - 1][count] = FileRec;
+                            count++;
+                        }
                     }
                 }
-                service.SaveChanges();
+                //Calling insert Functions  
+                InsertCSVRecords(tblcsv);
+                return HttpSuccess();
             }
             catch (Exception e)
             {
-
+                return HttpError(e);
             }
+        }
+
+        private HttpResponseMessage InsertCSVRecords(DataTable dt)
+        {
+           
+                foreach (DataRow row in dt.Rows)
+                {
+                    string month = row["Month"].ToString();
+                    if (DateTime.Now.ToString("MMMM").Equals(month))
+                    {
+                        string empCode = row["EmployeeCode"].ToString();
+                        if (!string.IsNullOrEmpty(empCode))
+                        {
+                            int year = Convert.ToInt32(row["Year"]);
+                            Employee emp = service.Context.Employees.Where(e => e.EmployeeCode.Equals(empCode)).FirstOrDefault();
+                            if (emp != null)
+                            {
+                                int EmployeeID = emp.EmployeeID;
+                                int MonthID = service.Context.Months.Where(m => m.Month1.Equals(month) && m.Year == year).FirstOrDefault().MonthID;
+                                Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
+                                if (sObj == null)
+                                {
+                                    InsertSalaryRecord(row, EmployeeID, MonthID);
+                                }
+                                else
+                                {
+                                    UpdateSalaryRecord(row, sObj);
+                                }
+                            }
+                            else {
+                                throw new Exception("There is no Employee for the provided Employee Code: " + empCode);
+                            }
+                        }
+                        else {
+                            throw new Exception("Blank Employee Code is not allowed");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("The CSV should contain records only for the month of " + DateTime.Now.ToString("MMMM"));
+                    }
+                }
+                service.SaveChanges();
+                return HttpSuccess();
+           
+            
         }
 
         private void InsertSalaryRecord(DataRow row, int EmployeeID, int MonthID)
@@ -299,6 +325,7 @@ namespace Api
             Salary salaryObj = new Salary();
             salaryObj.EmployeeID = EmployeeID;
             salaryObj.MonthID = MonthID;
+
             salaryObj.Basic = Convert.ToDecimal(row["Basic"]);
             salaryObj.HRA = Convert.ToDecimal(row["HRA"]);
             salaryObj.ConveyanceAllowance = Convert.ToDecimal(row["ConveyanceAllowance"]);
@@ -322,7 +349,7 @@ namespace Api
             salaryObj.Days = Convert.ToInt32(row["Days"]);
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
-            salaryObj.SalaryStatus = row["SalaryStatus"].ToString();
+            salaryObj.SalaryStatus = Helper.SalaryStatus.Pending.ToString();
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);
@@ -355,7 +382,7 @@ namespace Api
             salaryObj.Days = Convert.ToInt32(row["Days"]);
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
-            salaryObj.SalaryStatus = row["SalaryStatus"].ToString();
+            salaryObj.SalaryStatus = Helper.SalaryStatus.Pending.ToString();
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);

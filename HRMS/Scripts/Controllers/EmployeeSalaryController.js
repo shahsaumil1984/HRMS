@@ -92,16 +92,19 @@ _.UploadCSV = function () {
 
 
     // Make Ajax request with the contentType = false, and procesDate = false
-    var ajaxRequest = $.ajax({
+    $.ajax({
         type: "POST",
         url: "/api/Salary/UploadCSV",
         contentType: false,
         processData: false,
-        data: data
-    }).done(function () {
-        alert("Successfully uploaded CSV");
-    }).fail(function () {
-          alert("An error occured while uploading CSV. Please correct the CSV and try again.");
+        data: data,
+        success: function (response) 
+        {
+            alert("Successfully uploaded CSV");
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.responseText);
+        }
     });
 
 

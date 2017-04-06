@@ -27,9 +27,6 @@
         <label>Set Salary for @ViewBag.Month</label>
 
         <h3 class="title"> <span>Employees</span> </h3>
-
-
-
         <div class="table-responsive tbl-scroll">
             <table class="table table-condensed table-hover"
                    id="employeeSalaryGrid"
@@ -39,7 +36,7 @@
                    data-default-orderby="EmployeeCode"
                    cellspacing="0" cellpadding="0" border="0">
                 <thead class="tblaction">
-                    <tr>
+                   <tr>
                         <td>
                             <div>
                                 <label>File to Upload: <input ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" type="file" name="file" id="fileUpload" class="required" accept=".csv" />(10MB max size)</label>
@@ -66,6 +63,7 @@
                         <th class="text-left">Employee Code</th>
                         <th class="text-left">Phone</th>
                         <th class="text-left">Status</th>
+                        <th class="text-left">Salary Status</th>
                         @*<th class="text-left">Edit Salary</th>*@
                         <th class="text-left">Action</th>
                     </tr>
@@ -91,6 +89,7 @@
                         <td class="text-left">{{r.EmployeeID}}</td>
                         <td class="text-left">{{r.Phone}}</td>
                         <td class="text-left">{{r.StatusName}}</td>
+                        <td class="text-left">{{r.SalaryStatus}}</td>
                         @*<td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}&monthID=@ViewBag.MonthID">Edit Salary</a></td>*@
                         <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
                 </tbody>

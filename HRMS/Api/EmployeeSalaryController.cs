@@ -161,6 +161,7 @@ namespace HRMS.Api
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
                             o.EmployeeStatu.StatusName
+                            //o.Salaries.Where(s => s.MonthID == )
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
