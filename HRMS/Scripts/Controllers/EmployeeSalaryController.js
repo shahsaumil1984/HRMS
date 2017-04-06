@@ -39,7 +39,7 @@ $(document).ready(function () {
 });
 
 
-function showHideForm(success, params) {   
+function showHideForm(success, params) {
     if (success) {
         $("#salaryDetailsForm").parent().hide();
         $("#employeeSalaryListView").show();
@@ -48,9 +48,9 @@ function showHideForm(success, params) {
     }
 }
 
-function _.loadNextEmployee(employeeID,monthID) {
-    _.LoadSalaryForm(1, 39);
-}
+//function _.loadNextEmployee(employeeID,monthID) {
+//    _.LoadSalaryForm(1, 39);
+//}
 //var loadNextEmployee = function (status, data) {
 //    debugger;
 //    if (status) {
@@ -62,6 +62,59 @@ function _.loadNextEmployee(employeeID,monthID) {
 //    }
 
 //};
+
+_.UploadCSV = function () {
+
+    //Validations on Uploaded File
+    if ($('#fileUpload').val() == '') {
+        alert('Please select file to upload');
+        return false;
+    }
+
+    var file = $("#fileUpload").get(0).files[0];
+    if (file.size > 10000000) {
+        alert('Please select a file of maximum size upto 10MB');
+        return false;
+    }
+
+    var fileType = file["type"];
+    var ValidImageTypes = ["application/vnd.ms-excel"];
+    if ($.inArray(fileType, ValidImageTypes) < 0) {
+        alert('Invalid file type');
+        return false;
+    }
+    //End
+
+    var data = new FormData();
+
+    // Add the uploaded CSV content to the form data collection
+    data.append("UploadedCSV", file);
+
+
+    // Make Ajax request with the contentType = false, and procesDate = false
+    var ajaxRequest = $.ajax({
+        type: "POST",
+        url: "/api/Salary/UploadCSV",
+        contentType: false,
+        processData: false,
+        data: data
+    }).done(function () {
+        alert("Successfully uploaded CSV");
+    }).fail(function () {
+          alert("An error occured while uploading CSV. Please correct the CSV and try again.");
+    });
+
+
+    //salaryService.UploadCSV(function (status, data) {
+    //    if (status) {
+    //        alert('Successfully uploaded CSV');
+    //    }
+    //    else {
+    //        alert('Error occured while uploading CSV. Please try after some time.');
+    //    }
+    //});
+}
+
 
 // Form Validation
 //----------------------------------------------

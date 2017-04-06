@@ -40,13 +40,22 @@
                    cellspacing="0" cellpadding="0" border="0">
                 <thead class="tblaction">
                     <tr>
-                        <td colspan="6">
-                            <div class="form-group m-0">
+                        <td>
+                            <div>
+                                <label>File to Upload: <input ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" type="file" name="file" id="fileUpload" class="required" accept=".csv" />(10MB max size)</label>
+                                <button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn">Upload CSV</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
                                 <input type="text"
                                        data-search-fields="FullName"
                                        data-search-list="employeeSalaryGrid"
                                        data-default-focus="true" />
                             </div>
+
                         </td>
                     </tr>
                 </thead>
@@ -276,7 +285,7 @@
                     <div class="form-group">
                         <button class="btn btn-primary btn-sm">Save</button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(true)">Next</button>
+                        @*<button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(true)">Next</button>*@
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Previous</button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Approve & Next</button>
                     </div>

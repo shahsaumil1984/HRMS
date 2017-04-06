@@ -1,23 +1,15 @@
 ﻿using Model;
 using Service;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.Mvc;
 using Api;
-using Model;
-using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Globalization;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace HRMS.Api
 {
@@ -89,7 +81,7 @@ namespace HRMS.Api
             csv.AppendLine(newLine);
 
             var EmpList = empService.Get().Where(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
-            
+
             foreach (var emp in EmpList)
             {
                 if (emp.Salaries.FirstOrDefault() != null && emp.Salaries.FirstOrDefault().SalaryStatus == Helper.SalaryStatus.Approve.ToString())
@@ -107,7 +99,7 @@ namespace HRMS.Api
 
             MonthService mservice = new MonthService();
             Month monthObj = mservice.GetById(MonthID);
-            string fileName = "ALE57SAL" + DateTime.Now.Day.ToString("00") + DateTime.ParseExact(monthObj.Month1, "MMMM", CultureInfo.InvariantCulture).Month.ToString("00") + ".001.csv";            
+            string fileName = "ALE57SAL" + DateTime.Now.Day.ToString("00") + DateTime.ParseExact(monthObj.Month1, "MMMM", CultureInfo.InvariantCulture).Month.ToString("00") + ".001.csv";
 
             File.WriteAllText(fileName, csv.ToString());
 
@@ -173,65 +165,6 @@ namespace HRMS.Api
 
         //        return response;
 
-        //    }
-
-        [System.Web.Http.HttpPost]
-        public void UploadCSV()
-        {
-            var httpPostedFile = HttpContext.Current.Request.Files["UploadedCSV"];
-            //Creating object of datatable  
-            DataTable tblcsv = new DataTable();
-
-            //Creating columns  
-            tblcsv.Columns.Add("Description");
-            //tblcsv.Columns.Add("City");
-            //tblcsv.Columns.Add("Address");
-            //tblcsv.Columns.Add("Designation");
-
-            string filePath = "@";
-            string CSVFilePath = Path.GetFullPath(filePath);
-
-            //Reading All text  
-            string ReadCSV = File.ReadAllText(CSVFilePath);
-
-            //spliting row after new line  
-            foreach (string csvRow in ReadCSV.Split('\n'))
-            {
-                if (!string.IsNullOrEmpty(csvRow))
-                {
-                    //Adding each row into datatable  
-                    tblcsv.Rows.Add();
-                    int count = 0;
-                    foreach (string FileRec in csvRow.Split(','))
-                    {
-                        tblcsv.Rows[tblcsv.Rows.Count - 1][count] = FileRec;
-                        count++;
-                    }
-                }
-            }
-            //Calling insert Functions  
-            //InsertCSVRecords(tblcsv);
-
-
-        }
-
-        //public void InsertCSVRecords(DataTable dt)
-        //{
-        //    //creating object of SqlBulkCopy    
-        //    SqlBulkCopy objbulk = new SqlBulkCopy();
-
-        //    //assigning Destination table name    
-        //    objbulk.DestinationTableName = "DocumentType";
-
-        //    //Mapping Table column    
-        //    objbulk.ColumnMappings.Add("Description", "Description");
-        //    //objbulk.ColumnMappings.Add("City", "City");
-        //    //objbulk.ColumnMappings.Add("Address", "Address");
-        //    //objbulk.ColumnMappings.Add("Designation", "Designation");
-
-        //    //inserting Datatable Records to DataBase    
-        //    con.Open();
-        //    objbulk.WriteToServer(csvdt);
-        //}
+        //    }        
     }
 }

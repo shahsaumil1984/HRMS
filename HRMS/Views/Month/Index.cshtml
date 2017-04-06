@@ -16,9 +16,6 @@
     <div class="container">
         <div class="middlewrap">
             <h2>List of months</h2>
-            <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
-           
-            
 
             <table id="monthGrid"
                    data-ui-binding="true"
@@ -27,13 +24,6 @@
                    data-default-orderby="MonthID descending"
                    class="table table-condensed table-hover"
                    data-page-size="10">
-                
-
-                <tr>
-                    <td>
-                        <button id="uploadCSVButton" ng-click="ub.UploadCSV()" class="btn">Upload CSV</button>
-                    </td>
-                </tr>               
 
                 <tr>
                     <td colspan="4">
