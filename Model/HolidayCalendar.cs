@@ -18,8 +18,8 @@ namespace Model
         public Nullable<System.DateTime> HolidayDate { get; set; }
         public string Description { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> Created { get; set; }
         public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> Modified { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     }
 }

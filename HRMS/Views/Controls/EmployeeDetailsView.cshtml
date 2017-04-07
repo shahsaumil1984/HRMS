@@ -1,322 +1,366 @@
 
-		@model ViewModel.MasterViewModel
-		@using Model
+@model ViewModel.MasterViewModel
+@using Model
 
-		<div id="employeeDetailsWindow" class="detailsWindow" >
+<div class="middlewrap">
+    <div class="row detailsWindow" id="employeeDetailsWindow">
 
-		<form id="employeeDetailsForm"
-		name="employeeDetailsForm"
-		data-ui-binding="true"
-		data-service-object="employeeService"
-		data-associated-list="employeeGrid"
-		method="get" action="" class="form-horizontal" role="form">
+        <form id="employeeDetailsForm"
+              name="employeeDetailsForm"
+              data-ui-binding="true"
+              data-service-object="employeeService"
+              data-associated-list="employeeGrid"
+              @*data-validate-callback="Validate"*@
+              method="get" class="col-xs-12 col-sm-12" action="" role="form">
 
-		<div class="modal-body container-fluid">
+            <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br><input type="file" id="employeePhoto" name="employeePhoto"><br>
+                    <input type="hidden" id="EmployeePhotoName" name="EmployeePhotoName" ng-model="model.EmployeePhoto" />
+                </div>
+            </div>
 
-		<div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
+            <p class="midtitle">General Information</p>
 
-		<fieldset>
-		<legend>General Information</legend>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input type="hidden" ng-model="model.EmployeeID" />
+                        <label for="empcode">Employee Code</label>
+                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Designation">Designation</label>
+                        <select id="em_DesignationID" name="em_DesignationID" class="form-control required" ng-model="model.DesignationID" value={{model.DesignationID}}>                           
+                            <option value="">Please select</option>
+                            @foreach (var item in Model.Designations)
+                            {
+                                <option value="@(item.DesignationID)">@(item.DesignationName)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_FirstName">First Name</label>
+                        <input type="text" name="em_FirstName" id="em_FirstName" ng-model="model.FirstName" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_LastName">Last Name</label>
+                        <input type="text" name="em_LastName" id="em_LastName" ng-model="model.LastName" class="required form-control" maxlength="500" />
 
-		
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="phoneno">Phone No.</label>
+                        <input type="text" class="form-control number" ng-model="model.Phone" id="phoneno" name="phoneno" minlength="10" maxlength="10" pattern="[0-9]{10}">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_FullName">Full Name</label>
+                        <input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<input type="hidden" ng-model="model.EmployeeID" />
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_DateOfBirth">Date of Birth</label>
+                        <input type="text" name="em_DateOfBirth" id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_Email">Email</label>
+                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_EmployeeStatus">Old Status</label>                       
+                        <select name="em_EmployeeStatusID" id="em_EmployeeStatusID" class="form-control required" ng-model="model.EmployeeStatusID" value={{model.EmployeeStatusID}}>
+                             <option value="">Please select</option>
+                             @foreach (var item in Model.EmployeeStatus)
+                            {
+                                <option value="@(item.StatusID)">@(item.Status)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Address/ Communication</p>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">First Name</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_FirstName" id="em_FirstName" ng-model="model.FirstName" class="required form-control" maxlength="500"/>
-						
-			</div>
-		
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressLine1">Permanent Address 1</label>
+                        <input type="text" name="em_PermanentAddressLine1" id="em_PermanentAddressLine1" ng-model="model.PermanentAddressLine1" class="form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressLine2">Permanent Address 2</label>
+                        <input type="text" name="em_PermanentAddressLine2" id="em_PermanentAddressLine2" ng-model="model.PermanentAddressLine2" class="form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressLine3">Permanent Address 3</label>
+                        <input type="text" name="em_PermanentAddressLine3" id="em_PermanentAddressLine3" ng-model="model.PermanentAddressLine3" class="form-control" maxlength="500" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Last Name</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_LastName" id="em_LastName" ng-model="model.LastName" class="required form-control" maxlength="500"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressCity">Permanent Address City</label>
+                        <input type="text" name="em_PermanentAddressCity" id="em_PermanentAddressCity" ng-model="model.PermanentAddressCity" class="form-control" maxlength="50" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <span ng-show="employeeDetailsForm.em_PermanentAddressCity.$error.pattern" class="error">Please enter only alphabets</span>
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Full Name</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressState">Permanent Address State</label>
+                        @*<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50" />*@
+                        <select name="em_PermanentAddressState" id="em_PermanentAddressState" value="model.PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control">
+                            <option value="">Select</option>
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Permanent Address Line1</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PermanentAddressLine1" id="em_PermanentAddressLine1" ng-model="model.PermanentAddressLine1" class="form-control" maxlength="500"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressCountry">Permanent Address Country</label>
+                        <input type="text" name="em_PermanentAddressCountry" id="em_PermanentAddressCountry" ng-model="model.PermanentAddressCountry" class="form-control" maxlength="50" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <span ng-show="employeeDetailsForm.em_PermanentAddressCountry.$error.pattern" class="error">Please enter only alphabets</span>
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Permanent Address Line2</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PermanentAddressLine2" id="em_PermanentAddressLine2" ng-model="model.PermanentAddressLine2" class="form-control" maxlength="500"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PermanentAddressZip">Permanent Address Zip</label>
+                        <input type="number" name="em_PermanentAddressZip" id="em_PermanentAddressZip" ng-model="model.PermanentAddressZip" class="form-control" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Permanent Address Line3</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PermanentAddressLine3" id="em_PermanentAddressLine3" ng-model="model.PermanentAddressLine3" class="form-control" maxlength="500"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressLine1">Address 1</label>
+                        <input type="text" name="em_AddressLine1" id="em_AddressLine1" ng-model="model.AddressLine1" class="form-control" maxlength="100" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Permanent Address State</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PermanentAddressState" id="em_PermanentAddressState" ng-model="model.PermanentAddressState" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressLine2">Address 2</label>
+                        <input type="text" name="em_AddressLine2" id="em_AddressLine2" ng-model="model.AddressLine2" class="form-control" maxlength="100" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Permanent Address Country</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PermanentAddressCountry" id="em_PermanentAddressCountry" ng-model="model.PermanentAddressCountry" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressLine3">Address 3</label>
+                        <input type="text" name="em_AddressLine3" id="em_AddressLine3" ng-model="model.AddressLine3" class="form-control" maxlength="100" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Permanent Address Zip</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PermanentAddressZip" id="em_PermanentAddressZip" ng-model="model.PermanentAddressZip" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressCity">Address City</label>
+                        <input type="text" name="em_AddressCity" id="em_AddressCity" ng-model="model.AddressCity" class="form-control" maxlength="50" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <span ng-show="employeeDetailsForm.em_AddressCity.$error.pattern" class="error">Please enter only alphabets</span>
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Address Line1</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_AddressLine1" id="em_AddressLine1" ng-model="model.AddressLine1" class="form-control" maxlength="100"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressState">Address State</label>
+                        @*<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100" />*@
+                        <select name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" value="model.AddressState" class="form-control">
+                            <option value="">Select</option>
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Address Line2</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_AddressLine2" id="em_AddressLine2" ng-model="model.AddressLine2" class="form-control" maxlength="100"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressCountry">Address Country</label>
+                        <input type="text" name="em_AddressCountry" id="em_AddressCountry" ng-model="model.AddressCountry" class="form-control" maxlength="10" ng-pattern="/^[a-zA-Z\s]*$/" />
+                        <span ng-show="employeeDetailsForm.em_AddressCountry.$error.pattern" class="error">Please enter only alphabets</span>
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Address Line3</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_AddressLine3" id="em_AddressLine3" ng-model="model.AddressLine3" class="form-control" maxlength="100"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_AddressZip">Address Zip</label>
+                        <input type="number" name="em_AddressZip" id="em_AddressZip" ng-model="model.AddressZip" class="form-control" maxlength="10" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Address State</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_AddressState" id="em_AddressState" ng-model="model.AddressState" class="form-control" maxlength="100"/>
-						
-			</div>
-		
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Address Country</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_AddressCountry" id="em_AddressCountry" ng-model="model.AddressCountry" class="form-control" maxlength="10"/>
-						
-			</div>
-		
+            </div>
+            <p class="midtitle">Joining/Exit Information</p>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_DateOfjoining">Date of Joining</label>
+                        <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" date-Picker />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Address Zip</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_AddressZip" id="em_AddressZip" ng-model="model.AddressZip" class="form-control" maxlength="10"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_ProbationPeriodEndDate">Probation End Date</label>
+                        <input type="text" name="em_ProbationPeriodEndDate" id="em_ProbationPeriodEndDate" ng-model="model.ProbationPeriodEndDate" class="required form-control" date-Picker />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Date Of Birth</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_DateOfBirth" id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" maxlength="8"/>
-						
-			</div>
-		
+                @*<div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="phoneno">Date of Resignation</label>
+                            <input type="text" name="em_DateOfResignation" id="em_DateOfResignation" ng-model="model.DateOfResignation" class="form-control" date-Picker />
+                        </div>
+                    </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Date Ofjoining</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" maxlength="8"/>
-						
-			</div>
-		
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label for="phoneno">Last Working Day</label>
+                            <input type="text" name="em_LastWorkingDay" id="em_LastWorkingDay" ng-model="model.LastWorkingDay" class="form-control" maxlength="8" date-Picker />
+                        </div>
+                    </div>*@
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Probation Period End Date</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_ProbationPeriodEndDate" id="em_ProbationPeriodEndDate" ng-model="model.ProbationPeriodEndDate" class="required form-control" maxlength="8"/>
-						
-			</div>
-		
+            </div>
+            <p class="midtitle">Bank Account Information</p>
+            <div class="row">
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Has Resigned</label>
-							<div class="col-sm-10">
-							<input type="checkbox" id="em_HasResigned" name="em_HasResigned" ng-model="model.HasResigned" ng-true-value="true" ng-false-value="false"/>
-							</div>
-						
-			</div>
-		
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Date Of Resignation</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_DateOfResignation" id="em_DateOfResignation" ng-model="model.DateOfResignation" class="form-control" maxlength="8"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_PAN">Pan Number</label>
+                        <input type="text" name="em_PAN" id="em_PAN" ng-model="model.PAN" class="form-control" maxlength="50" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Last Working Day</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_LastWorkingDay" id="em_LastWorkingDay" ng-model="model.LastWorkingDay" class="form-control" maxlength="8"/>
-						
-			</div>
-		
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">PAN</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_PAN" id="em_PAN" ng-model="model.PAN" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_SalaryAccountNumber">Salary Account Number</label>
+                        <input type="text" name="em_SalaryAccountNumber" id="em_SalaryAccountNumber" ng-model="model.SalaryAccountNumber" class="form-control" maxlength="50" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">IDCard Number</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_IDCardNumber" id="em_IDCardNumber" ng-model="model.IDCardNumber" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_SalaryAccountBank">Salary Account Bank</label>
+                        <input type="text" name="em_SalaryAccountBank" id="em_SalaryAccountBank" ng-model="model.SalaryAccountBank" class="form-control" maxlength="50" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">IDCard Type</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_IDCardType" id="em_IDCardType" ng-model="model.IDCardType" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_SalaryAccountBankAddress">Salary Account Bank Address</label>
+                        <input type="text" name="em_SalaryAccountBankAddress" id="em_SalaryAccountBankAddress" ng-model="model.SalaryAccountBankAddress" class="form-control" maxlength="500" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Salary Account Number</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_SalaryAccountNumber" id="em_SalaryAccountNumber" ng-model="model.SalaryAccountNumber" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_SalaryAccountIFSCCode">Salary Account IFSC Code</label>
+                        <input type="text" name="em_SalaryAccountIFSCCode" id="em_SalaryAccountIFSCCode" ng-model="model.SalaryAccountIFSCCode" class="form-control" maxlength="50" />
+                    </div>
+                </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Salary Account Bank</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_SalaryAccountBank" id="em_SalaryAccountBank" ng-model="model.SalaryAccountBank" class="form-control" maxlength="50"/>
-						
-			</div>
-		
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Salary Account Bank Address</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_SalaryAccountBankAddress" id="em_SalaryAccountBankAddress" ng-model="model.SalaryAccountBankAddress" class="form-control" maxlength="500"/>
-						
-			</div>
-		
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="employeeDetailsForm.$invalid">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.ResetForm()">Cancel</button>
+                    </div>
+                </div>
+            </div>
 
-			<div class="form-group">
-			
-							<label  class="col-sm-2 control-label">Salary Account IFSCCode</label>
-							<div class="col-sm-10">
-							</div>
-							<input type="text" name="em_SalaryAccountIFSCCode" id="em_SalaryAccountIFSCCode" ng-model="model.SalaryAccountIFSCCode" class="form-control" maxlength="50"/>
-						
-			</div>
-		
+        </form>
 
-		</fieldset>
-		</div>
+    </div>
+</div>
 
-		<div class="modal-footer">
-		<div class="editor-label">
-		<button class="btn btn-primary btn-sm">Save</button>
-		<button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
-		</div>
-		</div>
-		</form>
-		</div>
-
-	

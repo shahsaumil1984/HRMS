@@ -1,14 +1,29 @@
-
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Model;
+using ViewModel;
+using Service;
 using System.Web.Mvc;
 
 namespace HRMS
 {
   public class EmployeeController : Controller
-  {   
-     public ActionResult Index()
+  {
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index()
         {
-            
-            return View();
+
+            MasterViewModel obj = new MasterViewModel();
+            DesignationTypeService service = new Service.DesignationTypeService();
+            EmployeeStatusService eservice = new EmployeeStatusService();
+
+            obj.Designations = service.Get().ToList();
+            obj.EmployeeStatus = eservice.Get().ToList();
+            return View(obj);
 
         }
   }

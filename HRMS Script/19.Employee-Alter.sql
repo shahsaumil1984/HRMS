@@ -1,0 +1,1 @@
+Alter table employee alter column [EmployeeStatusID] int  null

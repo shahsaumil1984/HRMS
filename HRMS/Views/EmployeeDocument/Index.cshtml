@@ -12,121 +12,126 @@
     <script type="text/javascript" src="/Scripts/Services/EmployeeDocumentService.js"></script>
     <script type="text/javascript" src="/Scripts/Controllers/EmployeeDocumentController.js"></script>
 }
-<h2>Employee Document</h2>
 
-<input type="button" name="UploadDocument" value="Upload Document" class="btn btn-primary" id="uploadDocument" onclick="$('#fileUploadPopUp').modal('show')" />
-
-<div id="employeeDocumentListView" class="listView">
-
-
-    <form class="form-inline">
-
-
-
-        @*<input type="text"
-            data-search-fields="HRMS"
-            data-search-list="employeeDocumentGrid"
-            data-default-focus="true" />*@
-
-        <select id="filterEmployeeID" style="display:none;"
-                data-filter-field="EmployeeID"
-                data-filter-list="employeeDocumenteGrid">
-            <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
-        </select>
-    </form>
-
-    <table id="employeeDocumenteGrid"
-           data-ui-binding="true"
-           data-entity-key="EmployeeDocumentID"
-           data-service-object="employeeDocumentService"
-           data-default-orderby="DocumentName"
-           class="table table-condensed table-hover">
-        @*<tr>
-                <th>
-                    <button type="button" class="btn" ng-click="ub.NewForm('employeeDetailsForm', true, null)">New Employee</button>
-                </th>
-            </tr>*@
-        <tr>
-            <th><a href="#" data-sort-field="DocumentType.Description">Document Type</a></th>
-            <th><a href="#" data-sort-field="DocumentName">Document Name</a></th>
-            
-        </tr>
-        <tbody ng-repeat="r in rows">
-
-
-            @*<tr alt=$index%2 ng-click="ub.LoadForm(employeeDocumentDetailsForm',  r.EmployeeDocumentID , true, null)">*@
-            <tr>
-                <td class="col-md-1"> <span>{{r.DocumentType.Description}}</span></td>
-                <td class="col-md-1"> <span><a href="FileDownload/{{r.DocumentID}}">{{r.DocumentName}}</a></span></td>
-                @*<td class="col-md-1">
-                        <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeDocumentGrid',  EmployeeDocumentID() , true, null)" />
-                    </td>*@
-
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="9" align="center">
-                    <div id="employeeDocumentPagination">
-                        @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
-                    </div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-<div id="fileUploadPopUp" class="modal" role="dialog" aria-hidden="true">
-
-    <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "EmployeeDocument",Model)" method="post" enctype="multipart/form-data">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4> Upload a file</h4>
-                </div>
-                <div class="modal-body">
-                    <fieldset>
-                        <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
-                        <input type="hidden" id="EmployeeID" name="EmployeeID" value="@ViewBag.EmployeeID" />
-                    </fieldset>
-                </div>
-                <div>
-                    <select id="DocumentTypeID"  class="form-control" style="width:30%;margin:12px;" name="DocumentTypeID">
-                        <option value="0">--- Select ---</option>
-                        @foreach (var item in Model.DocumentTypes)
-                        {
-                            <option value="@(item.DocumentTypeID)">@(item.Description)</option>
-                        }
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <input id="ajaxUploadButton" type="submit" onclick="if ($('#DocumentTypeID').val() == 0) { alert('Please select document type first'); }if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
-                    <input id="uploadPath" name="uploadPath" type="hidden" value="" />
-                    <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
-
-                </div>
-            </div>
+<div class="container">
+    <div class="middlewrap">
+        <h2>Upload documents for @ViewBag.UserName</h2>
+        <div class="btn-group">
+            <input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" />
+            <input type="button" value="Go back to Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />
         </div>
-    </form>
+        <div id="employeeDocumentListView" class="listView">
+            <form class="form-inline">
+                @*<input type="text"
+                    data-search-fields="HRMS"
+                    data-search-list="employeeDocumentGrid"
+                    data-default-focus="true" />*@
+
+                <select id="filterEmployeeID" style="display:none;"
+                        data-filter-field="EmployeeID"
+                        data-filter-list="employeeDocumenteGrid">
+                    <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
+                </select>
+            </form>
+
+            <table id="employeeDocumenteGrid"
+                   data-ui-binding="true"
+                   data-entity-key="EmployeeDocumentID"
+                   data-service-object="employeeDocumentService"
+                   data-default-orderby="DocumentName"
+                   class="table table-condensed table-hover"
+                   data-page-size="10">
+                @*<tr>
+                        <th>
+                            <button type="button" class="btn" ng-click="ub.NewForm('employeeDetailsForm', true, null)">New Employee</button>
+                        </th>
+                    </tr>*@
+                <tr>
+                    <th><a href="#" data-sort-field="DocumentType.Description">Document Type</a></th>
+                    <th><a href="#" data-sort-field="DocumentName">Document Name</a></th>
+
+                </tr>
+                <tbody ng-repeat="r in rows">
+
+
+                    @*<tr alt=$index%2 ng-click="ub.LoadForm(employeeDocumentDetailsForm',  r.EmployeeDocumentID , true, null)">*@
+                    <tr>
+                        <td class="col-md-1"> <span>{{r.DocumentType.Description}}</span></td>
+                        <td class="col-md-1"> <span><a href="FileDownload/{{r.DocumentID}}">{{r.DocumentName}}</a></span></td>
+                        @*<td class="col-md-1">
+                                <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('employeeDocumentGrid',  EmployeeDocumentID() , true, null)" />
+                            </td>*@
+
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <div id="employeeDocumentPagination">
+                                <span>{{pageText}}</span>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div id="fileUploadPopUp" class="modal" role="dialog" aria-hidden="true">
+
+            <form id="ajaxUploadForm1" action="@Url.Action("AjaxUpload", "EmployeeDocument",Model)" method="post" enctype="multipart/form-data">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4> Upload a file</h4>
+                        </div>
+                        <div class="modal-body">
+                            <fieldset>
+                                <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
+                                <input type="hidden" id="EmployeeID" name="EmployeeID" value="@ViewBag.EmployeeID" />
+                            </fieldset>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <select id="DocumentTypeID" name="DocumentTypeID" class="upload-doc-margin-left form-control">
+                                        @foreach (var item in Model.DocumentTypes)
+                                        {
+                                            <option value="@(item.DocumentTypeID)">@(item.Description)</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button id="ajaxUploadButton" type="submit"
+                                    onclick="if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />Submit</button>
+                            <input id="uploadPath" name="uploadPath" type="hidden" value="" />
+                            <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
 </div>
-
-
 
 
 @section scripts
 {
     <script type="text/javascript">
-        
 
 
         $(document).ready(function () {
+
+            $("#uploadDocument").click(function () {
+                // show Modal
+                $("#fileUploadPopUp").modal("show");
+            });
 
             $("#ajaxUploadForm1").ajaxForm({
                 iframe: true,
@@ -146,8 +151,14 @@
             });
         });
 
-        
+
 
 
     </script>
 }
+
+<style>
+    .upload-doc-margin-left {
+        margin: 15px 0;
+    }
+</style>

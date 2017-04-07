@@ -103,7 +103,6 @@ Proxy.prototype.GetAll = function (callback) {
 
 Proxy.prototype.GetList = function (pageIndex, pageSize, filter, orderBy, includeChildren, callback, methodName) {
     var getUrl = this.getListUrl;
-
     if (methodName != null) {
         getUrl = this.rootUrl + methodName + '/';
     }
@@ -582,7 +581,7 @@ UserInterfaceBinder.prototype.InitializeForm = function (formName, service) {
                         if (status) {
                             _.LogSuccess('Successfully retrieved model for [' + fb.id + '] from entity [' + fb.service.entityName + ']');
 
-
+                            
                             uiBinder.BindFormController(formName, data);
                             fb.newModel = _.Clone(data);
                             if (firstLoad) {
@@ -645,11 +644,11 @@ function GetChildDataModel(fb, childeservice) {
 
 }
 UserInterfaceBinder.prototype.NewForm = function (formName, hideList, callback) {
-
+    
     var fb = this.FormBindings[formName];
 
     fb.New(function (status, data) {
-
+     
         if (fb.detailsWindow) {
             fb.validator.resetForm();
             fb.ShowForm(hideList);
@@ -964,6 +963,7 @@ UserInterfaceBinder.prototype.InitializeList = function (listName, service) {
 
 
             lb.orderBy = mastList.attr('data-default-orderby');
+
             if (!lb.orderBy) lb.orderBy = null;
             lb.includes = mastList.attr('data-includes');
             if (!lb.includes) lb.includes = null;
@@ -1050,8 +1050,7 @@ UserInterfaceBinder.prototype.BindListConroller = function (listName, data) {
     var lb = this.ListBindings[listName];
 
     this.BindNGAttributes(listName, lb);
-    try {
-
+    try {       
         if (data.TotalRows != null) {
             var totalPages = 0;
             lb.TotalRows = data.TotalRows;
@@ -1062,7 +1061,7 @@ UserInterfaceBinder.prototype.BindListConroller = function (listName, data) {
             }
             lb.totalPages = totalPages;
             var startPageText = ((lb.pageIndex * lb.pageSize) + 1);
-            var endPageText = (parseInt(data.length) + (lb.pageIndex * lb.pageSize));
+            var endPageText = (parseInt(data.List.length) + (lb.pageIndex * lb.pageSize));
             var stringText = startPageText + "-" + endPageText + " of " + lb.TotalRows + " ";
             lb.pageText = stringText;
 
@@ -1105,7 +1104,7 @@ UserInterfaceBinder.prototype.BindListConroller = function (listName, data) {
 UserInterfaceBinder.prototype.BindFormController = function (formName, data) {
     var fb = this.FormBindings[formName];
     _.BindNGAttributes(formName, fb);
-
+    
     fb.model(data);
 
     loading(formName, false);

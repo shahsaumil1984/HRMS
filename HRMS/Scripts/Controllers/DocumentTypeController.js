@@ -19,4 +19,14 @@ $(document).ready(function () {
 // Form Validation
 //----------------------------------------------
 
-
+_.documentTypeDeleteCallback = function (status, data)
+{
+    if (status)
+    {
+        alert('Successfully deleted document type');
+    }
+    else{
+        
+        alert('Cannot delete the document type as it is already in use');
+    }
+}

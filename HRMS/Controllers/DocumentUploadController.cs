@@ -13,6 +13,8 @@ namespace HRMS.Controllers
     {
         // GET: DocumentUpload
         HRMSEntities dbContext = new HRMSEntities();
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             MasterViewModel obj = new MasterViewModel();

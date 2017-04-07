@@ -4,14 +4,8 @@ function EmployeeService() { } EmployeeService.prototype = new Proxy('Employee',
 // Example Custom Method
 EmployeeService.prototype.MyCustomMethod = function (params, callback) {
 
-    // Query allows for custom get calls to the server    
-    
-    // Query API
-    this.Query('MyCustomMethodNameOnThisObject?' + params, callback);
-    
-    // Query Controller
-    this.QueryController('MyCustomMethodNameOnThisObject?' + params, callback);
 }
+EmployeeService.prototype.CheckEmployeeCode = function (params, callback) { this.Query("GetCheckEmployeeCode", params, callback); }
 
 var employeeService = new EmployeeService();
 

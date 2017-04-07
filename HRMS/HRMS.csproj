@@ -92,6 +92,7 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -213,22 +214,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\EmployeeStatusController.cs" />
     <Compile Include="Api\DocumentTypeController.cs" />
     <Compile Include="Api\EmployeeDocumentController.cs" />
+    <Compile Include="Api\EmployeeSalaryController.cs" />
+    <Compile Include="Api\EmployeeStatusHistoryController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
+    <Compile Include="Api\MonthController.cs" />
+    <Compile Include="Api\SalaryController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EmployeeStatusController.cs" />
     <Compile Include="Controllers\DocumentTypeController.cs" />
     <Compile Include="Controllers\EmployeeDocumentController.cs" />
     <Compile Include="Controllers\DocumentUploadController.cs" />
+    <Compile Include="Controllers\EmployeeSalaryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\EmployeeStatusHistoryController.cs" />
+    <Compile Include="Controllers\ManageRolesController.cs" />
+    <Compile Include="Controllers\MonthController.cs" />
+    <Compile Include="Controllers\SalaryController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -248,6 +263,7 @@
     <Content Include="Content\bootstrap\css\bootstrap.css" />
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\css\datepicker.css" />
+    <Content Include="Content\bootstrap\css\style.css" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap-clockpicker.min.js" />
     <Content Include="Content\bootstrap\js\bootstrap-datepicker.js" />
@@ -259,8 +275,19 @@
     <Content Include="Content\css\fullcalendar.css" />
     <Content Include="Content\css\fullcalendar.min.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\css\toastr.css" />
     <Content Include="Content\css\toastr.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\bg.jpg" />
+    <Content Include="Content\images\delete.png" />
+    <Content Include="Content\images\edit.png" />
+    <Content Include="Content\images\jobopenings.png" />
+    <Content Include="Content\images\loginimg1.jpg" />
+    <Content Include="Content\images\loginimg2.jpg" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\noimg.jpg" />
+    <Content Include="Content\images\pattern-stripes.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -270,6 +297,7 @@
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -283,17 +311,31 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\css\toastr.less" />
     <Content Include="Content\css\toastr.scss" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\Alept.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\EmployeeStatusHistoryController.js" />
+    <Content Include="Scripts\Controllers\ManageStatusController.js" />
+    <Content Include="Scripts\Controllers\EmployeeStatusController.js" />
     <Content Include="Scripts\Controllers\DocumentTypeController.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\EmployeeDocumentController.js" />
+    <Content Include="Scripts\Controllers\EmployeeSalaryController.js" />
+    <Content Include="Scripts\Controllers\MonthController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
+    <Content Include="Scripts\Controllers\SalaryController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
     <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.mobilemenu.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -309,16 +351,23 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Services\EmployeeStatusHistoryService.js" />
+    <Content Include="Scripts\Services\ManageStatusService.js" />
+    <Content Include="Scripts\Services\EmployeeStatusService.js" />
     <Content Include="Scripts\Services\DocumentTypeService.js" />
     <Content Include="Scripts\Services\EmployeeDocumentService.js" />
+    <Content Include="Scripts\Services\EmployeeSalaryService.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
+    <Content Include="Scripts\Services\MonthService.js" />
     <Content Include="Scripts\Services\ProjectService.js" />
-    <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\HolidayCalendarController.js" />
     <Content Include="Scripts\Controllers\LeaveTypeController.js" />
     <Content Include="Scripts\Services\EmployeeService.js" />
     <Content Include="Scripts\Services\HolidayCalendarService.js" />
     <Content Include="Scripts\Services\LeaveTypeService.js" />
+    <Content Include="Scripts\Services\SalaryService.js" />
+    <Content Include="Scripts\sticky.js" />
+    <Content Include="Scripts\superfish.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -351,13 +400,26 @@
     <Content Include="Views\Controls\DocumentTypeListView.cshtml" />
     <Content Include="Views\Controls\DocumentTypeDetailsView.cshtml" />
     <Content Include="Views\EmployeeDocument\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\AccessDenied.cshtml" />
+    <Content Include="Views\ManageRoles\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Month\Index.cshtml" />
+    <Content Include="Views\EmployeeSalary\Index.cshtml" />
+    <Content Include="Views\Salary\Index.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusDetailsView.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusListView.cshtml" />
+    <Content Include="Views\EmployeeStatus\Index.cshtml" />
+    <Content Include="Views\EmployeeStatusHistory\Index.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusHistoryListView.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\NewFolder1\" />
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\DocumentUpload\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
