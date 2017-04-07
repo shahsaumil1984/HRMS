@@ -28,3 +28,8 @@ _.GenerateandDownloadCSV = function (monthID) {
     
     window.open('~/../../Api/Month/GetGenerateandDownloadCSV?MonthID=' + monthID, '_blank', '');
 };
+
+_.DownloadPDF = function (monthID) {
+
+    window.open('~/../../Api/Month/GenerateandDownloadPDF?MonthID=' + monthID, '_blank', '');
+};

@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="8.25" PointY="8.375" />
         <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="5.25" PointY="4.625" />
         <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="3" PointY="2" />
-        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="3" PointY="16.125" />
         <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="5.25" PointY="12.5" />
         <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="7.75" PointY="5.75" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
@@ -23,7 +22,6 @@
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Document" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_DocumentType" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
         <AssociationConnector Association="HRMSModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="5.875" />
         <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
@@ -40,6 +38,8 @@
         <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1" />
         <AssociationConnector Association="HRMSModel.FK_Employee_EmployeeStatus" />
+        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="7.375" PointY="13" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

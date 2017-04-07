@@ -1,18 +1,15 @@
 ﻿using Model;
 using Service;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.Mvc;
 using Api;
-using Model;
-using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Globalization;
+using System.Data;
 
 namespace HRMS.Api
 {
@@ -45,7 +42,7 @@ namespace HRMS.Api
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             string CurrentMonth = DateTime.Today.ToString("MMMM");
-            int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year.ToString()).FirstOrDefault().MonthID;
+            int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year).FirstOrDefault().MonthID;
             if (string.IsNullOrEmpty(filter))
             {
                 filter = "MonthID <= " + currentMonthID;
@@ -78,23 +75,31 @@ namespace HRMS.Api
             //Create CSV file            
             var csv = new StringBuilder();
             EmployeeService empService = new EmployeeService();
-            var EmpList = empService.Get(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
+
+
+            var newLine = string.Format("{0},{1},{2},{3}", "EmployeeCode", "Salary", "Credit", "Note");
+            csv.AppendLine(newLine);
+
+            var EmpList = empService.Get().Where(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
 
             foreach (var emp in EmpList)
             {
-                var empCode = emp.EmployeeCode;
-                var salary = emp.Salaries.FirstOrDefault() == null ? 0 : emp.Salaries.FirstOrDefault().Salary1;
-                var desc = "Cr";
-                var note = emp.Salaries.FirstOrDefault() == null ? "" : emp.Salaries.FirstOrDefault().Note;
+                if (emp.Salaries.FirstOrDefault() != null && emp.Salaries.FirstOrDefault().SalaryStatus == Helper.SalaryStatus.Approve.ToString())
+                {
+                    var empCode = emp.EmployeeCode;
+                    var salary = emp.Salaries.FirstOrDefault() == null ? 0 : emp.Salaries.FirstOrDefault().Salary1;
+                    var desc = "Cr";
+                    var note = emp.Salaries.FirstOrDefault() == null ? "" : emp.Salaries.FirstOrDefault().Note;
 
-                var newLine = string.Format("{0},{1},{2},{3}", empCode, salary, desc, note);
-                csv.AppendLine(newLine);
+                    newLine = string.Format("{0},{1},{2},{3}", empCode, salary, desc, note);
+                    csv.AppendLine(newLine);
+                }
 
             }
 
             MonthService mservice = new MonthService();
             Month monthObj = mservice.GetById(MonthID);
-            string fileName = "ALE57SAL" + DateTime.Today.Day + monthObj.MonthID + ".001.csv";            
+            string fileName = "ALE57SAL" + DateTime.Now.Day.ToString("00") + DateTime.ParseExact(monthObj.Month1, "MMMM", CultureInfo.InvariantCulture).Month.ToString("00") + ".001.csv";
 
             File.WriteAllText(fileName, csv.ToString());
 
@@ -111,5 +116,55 @@ namespace HRMS.Api
             return response;
 
         }
+
+        //    public HttpResponseMessage GenerateandDownloadPDF(int MonthID)
+        //    {
+        //        //Write into PDF file            
+        //        string fileNameExisting = @"C:\path\to\existing.pdf";
+        //        string fileNameNew = @"C:\path\to\new.pdf";
+
+        //        using (var existingFileStream = new FileStream(fileNameExisting, FileMode.Open))
+        //        using (var newFileStream = new FileStream(fileNameNew, FileMode.Create))
+        //        {
+        //            // Open existing PDF
+        //            var pdfReader = new PdfReader(existingFileStream);
+
+        //            // PdfStamper, which will create
+        //            var stamper = new PdfStamper(pdfReader, newFileStream);
+
+        //            var form = stamper.AcroFields;
+        //            var fieldKeys = form.Fields.Keys;
+
+        //            foreach (string fieldKey in fieldKeys)
+        //            {
+        //                form.SetField(fieldKey, "REPLACED!");
+        //            }
+
+        //            // "Flatten" the form so it wont be editable/usable anymore
+        //            stamper.FormFlattening = true;
+
+        //            // You can also specify fields to be flattened, which
+        //            // leaves the rest of the form still be editable/usable
+        //            stamper.PartialFormFlattening("field1");
+
+        //            stamper.Close();
+        //            pdfReader.Close();
+        //        }
+        //    }
+        //}
+
+        ////Download PDF file
+        //var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+        //        var response = Request.CreateResponse(HttpStatusCode.OK);
+        //        response.Content = new StreamContent(stream);
+        //        response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+        //        response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+        //        {
+        //            FileName = fileName
+        //        };
+
+        //        return response;
+
+        //    }        
     }
 }

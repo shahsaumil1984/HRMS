@@ -243,7 +243,7 @@
           </Key>
           <Property Name="MonthID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Month" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Year" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
@@ -629,7 +629,6 @@
           <EntitySet Name="EmployeeDocuments" EntityType="HRMSModel.EmployeeDocument" />
           <EntitySet Name="LeaveTakens" EntityType="HRMSModel.LeaveTaken" />
           <EntitySet Name="LeaveTypes" EntityType="HRMSModel.LeaveType" />
-          <EntitySet Name="Months" EntityType="HRMSModel.Month" />
           <EntitySet Name="Salaries" EntityType="HRMSModel.Salary" />
           <EntitySet Name="SettingTables" EntityType="HRMSModel.SettingTable" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -651,10 +650,6 @@
           <AssociationSet Name="FK_LeaveTaken_LeaveType" Association="HRMSModel.FK_LeaveTaken_LeaveType">
             <End Role="LeaveType" EntitySet="LeaveTypes" />
             <End Role="LeaveTaken" EntitySet="LeaveTakens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Salary_Month" Association="HRMSModel.FK_Salary_Month">
-            <End Role="Month" EntitySet="Months" />
-            <End Role="Salary" EntitySet="Salaries" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="HRMSModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -704,6 +699,11 @@
           <AssociationSet Name="FK_Employee_EmployeeStatus" Association="HRMSModel.FK_Employee_EmployeeStatus">
             <End Role="EmployeeStatus" EntitySet="EmployeeStatus" />
             <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="Months" EntityType="HRMSModel.Month" />
+          <AssociationSet Name="FK_Salary_Month" Association="HRMSModel.FK_Salary_Month">
+            <End Role="Month" EntitySet="Months" />
+            <End Role="Salary" EntitySet="Salaries" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRole">
@@ -844,19 +844,6 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_LeaveType" FromRole="LeaveType" ToRole="LeaveMaster" />
         </EntityType>
-        <EntityType Name="Month">
-          <Key>
-            <PropertyRef Name="MonthID" />
-          </Key>
-          <Property Name="MonthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Month1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Month" FromRole="Month" ToRole="Salary" />
-          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Salary">
           <Key>
             <PropertyRef Name="SalaryID" />
@@ -880,7 +867,6 @@
           <Property Name="Leave" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <Property Name="Advance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <NavigationProperty Name="Month" Relationship="HRMSModel.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
           <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Salary1" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="4" />
@@ -894,6 +880,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Month" Relationship="HRMSModel.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
         </EntityType>
         <EntityType Name="SettingTable">
           <Key>
@@ -968,18 +955,6 @@
             </Principal>
             <Dependent Role="LeaveTaken">
               <PropertyRef Name="LeaveTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Salary_Month">
-          <End Type="HRMSModel.Month" Role="Month" Multiplicity="1" />
-          <End Type="HRMSModel.Salary" Role="Salary" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Month">
-              <PropertyRef Name="MonthID" />
-            </Principal>
-            <Dependent Role="Salary">
-              <PropertyRef Name="MonthID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1357,19 +1332,6 @@
                 <ScalarProperty Name="Symbol" ColumnName="Symbol" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Months">
-            <EntityTypeMapping TypeName="HRMSModel.Month">
-              <MappingFragment StoreEntitySet="Month">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Month1" ColumnName="Month" />
-                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

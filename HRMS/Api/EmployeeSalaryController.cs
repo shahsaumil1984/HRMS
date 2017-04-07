@@ -29,7 +29,7 @@ namespace HRMS.Api
 
         public override Employee GetById(int id)
         {
-
+            service.Context.Configuration.ProxyCreationEnabled = false;
 
             Employee obj = (from o in service.Context.Employees
                             where o.EmployeeID == id
@@ -71,7 +71,8 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatusHistories
+                                o.EmployeeStatu,
+                                o.EmployeeCode
 
                             }).ToList().Select(o => new Employee
                             {
@@ -110,7 +111,8 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatusHistories = o.EmployeeStatusHistories
+                                EmployeeStatu = o.EmployeeStatu,
+                                EmployeeCode = o.EmployeeCode
 
                             }).Single<Employee>();
             return obj;
@@ -157,7 +159,9 @@ namespace HRMS.Api
                             o.SalaryAccountIFSCCode,
                             o.AddressCity,
                             o.PermanentAddressCity,
-                            o.EmployeePhoto
+                            o.EmployeePhoto,
+                            o.EmployeeStatu.StatusName
+                            //o.Salaries.Where(s => s.MonthID == )
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
