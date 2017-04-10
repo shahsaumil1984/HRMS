@@ -160,7 +160,7 @@ namespace HRMS.Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeStatu.StatusName
+                            //o.EmployeeStatus.StatusName
                             //o.Salaries.Where(s => s.MonthID == )
                         };
 

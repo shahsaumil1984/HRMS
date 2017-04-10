@@ -17,8 +17,8 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LeaveType()
         {
-            this.LeaveTakens = new HashSet<LeaveTaken>();
             this.LeaveMasters = new HashSet<LeaveMaster>();
+            this.LeaveTakens = new HashSet<LeaveTaken>();
         }
     
         public int ID { get; set; }
@@ -30,8 +30,8 @@ namespace Model
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
     }
 }
