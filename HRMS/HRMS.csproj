@@ -357,7 +357,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Services\EmployeeStatusHistoryService.js" />
-    <Content Include="Scripts\Services\ManageStatusService.js" />
     <Content Include="Scripts\Services\EmployeeStatusService.js" />
     <Content Include="Scripts\Services\DocumentTypeService.js" />
     <Content Include="Scripts\Services\EmployeeDocumentService.js" />
