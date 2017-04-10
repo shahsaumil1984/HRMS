@@ -71,8 +71,7 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatu,
-                                o.EmployeeCode
+                                o.EmployeeStatu
 
                             }).ToList().Select(o => new Employee
                             {
@@ -111,8 +110,7 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatu = o.EmployeeStatu,
-                                EmployeeCode = o.EmployeeCode
+                                EmployeeStatu = o.EmployeeStatu
 
                             }).Single<Employee>();
             return obj;
@@ -161,7 +159,6 @@ namespace HRMS.Api
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
                             o.EmployeeStatu.StatusName
-                            //o.Salaries.Where(s => s.MonthID == )
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
