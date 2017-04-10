@@ -4,44 +4,43 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d96671bca7c24b9798c6cc5843886fbd" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="7.375" PointY="13" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetRole" Width="1.5" PointX="5.75" PointY="2.5" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="1" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="3.75" />
-        <EntityTypeShape EntityType="HRMSModel.AspNetUser" Width="1.5" PointX="8" PointY="1.125" />
-        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="9" />
-        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="3" PointY="20.375" />
-        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="3" PointY="23.625" />
-        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="9" />
-        <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="5.25" PointY="12.5" />
-        <EntityTypeShape EntityType="HRMSModel.EmployeeStatu" Width="1.5" PointX="0.75" PointY="12.75" />
-        <EntityTypeShape EntityType="HRMSModel.EmployeeStatusHistory" Width="1.5" PointX="5.25" PointY="17.25" />
-        <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="5.25" PointY="7.5" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="8.25" PointY="12.375" />
-        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="3" PointY="4.75" />
-        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="5.25" PointY="27.375" />
-        <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="2.75" PointY="0.75" />
-        <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="HRMSModel.FK_Employee_Designation" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Document" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_DocumentType" />
-        <AssociationConnector Association="HRMSModel.FK_Employee_EmployeeStatus" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus" />
-        <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1" />
-        <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" />
-        <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
-        <AssociationConnector Association="HRMSModel.AspNetUserRoles" />
-        </Diagram>
+      <Diagram DiagramId="0936870606214418baa7c1b2a2631948" Name="Diagram1">
+        <EntityTypeShape EntityType="HRMSModel.AspNetRole" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.AspNetUser" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Designation" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="3" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="3" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeStatu" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.EmployeeStatusHistory" Width="1.5" PointX="8.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.HolidayCalendar" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveMaster" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="9" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="11.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_Employee_Designation" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Document" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_DocumentType" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_Employee_EmployeeStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeDocument_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Month" ManuallyRouted="false" />
+        <AssociationConnector Association="HRMSModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
