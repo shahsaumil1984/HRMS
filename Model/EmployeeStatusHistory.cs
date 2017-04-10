@@ -20,14 +20,14 @@ namespace Model
         public Nullable<int> NewStatusID { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
+        public string StatusNote { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string StatusNote { get; set; }
     
         public virtual Employee Employee { get; set; }
-        public virtual EmployeeStatus EmployeeOldStatus { get; set; }
-        public virtual EmployeeStatus EmployeeNewStatus { get; set; }
+        public virtual EmployeeStatu EmployeeStatu { get; set; }
+        public virtual EmployeeStatu EmployeeStatu1 { get; set; }
     }
 }

@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class EmployeeStatusService : GenericService<EmployeeStatus, int>
+    public class EmployeeStatusService : GenericService<EmployeeStatu, int>
     {
-        public override void Create(EmployeeStatus entity)
+        public override void Create(EmployeeStatu entity)
         {
             entity.CreatedDate = DateTime.Now;
             base.Create(entity);
         }
 
-        public override void Update(EmployeeStatus entity)
+        public override void Update(EmployeeStatu entity)
         {
             entity.ModifiedDate = DateTime.Now;
             base.Update(entity);
         }
 
-        public override bool Validate(EmployeeStatus entity)
+        public override bool Validate(EmployeeStatu entity)
         {
             // throw ValidationException when an error occurs
 

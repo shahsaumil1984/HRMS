@@ -26,7 +26,7 @@ namespace Model
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
-        public virtual LeaveType LeaveType { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual LeaveType LeaveType { get; set; }
     }
 }

@@ -88,7 +88,7 @@
     <Compile Include="EmployeeDocument.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="EmployeeStatus.cs">
+    <Compile Include="EmployeeStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EmployeeStatusHistory.cs">

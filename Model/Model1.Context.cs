@@ -32,16 +32,16 @@ namespace Model
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentType> DocumentTypes { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeDocument> EmployeeDocuments { get; set; }
+        public virtual DbSet<EmployeeStatu> EmployeeStatus { get; set; }
+        public virtual DbSet<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
+        public virtual DbSet<HolidayCalendar> HolidayCalendars { get; set; }
+        public virtual DbSet<LeaveMaster> LeaveMasters { get; set; }
         public virtual DbSet<LeaveTaken> LeaveTakens { get; set; }
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<Month> Months { get; set; }
         public virtual DbSet<Salary> Salaries { get; set; }
         public virtual DbSet<SettingTable> SettingTables { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<HolidayCalendar> HolidayCalendars { get; set; }
-        public virtual DbSet<LeaveMaster> LeaveMasters { get; set; }
-        public virtual DbSet<EmployeeStatus> EmployeeStatus { get; set; }
-        public virtual DbSet<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
     }
 }
