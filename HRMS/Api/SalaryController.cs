@@ -9,8 +9,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
-//using System.Web.Mvc;
 using System.Web.Http;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace Api
 {
@@ -88,7 +92,7 @@ namespace Api
         }
 
         [HttpPost]
-        public Salary GetByMonth(int employeeID, int monthID)
+        public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
@@ -155,8 +159,16 @@ namespace Api
 
             if (obj == null)
             {
-                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
-
+                if (CheckPrevious)
+                {
+                    var newMonthID = monthID/*Set new month id*/;
+                    obj = GetByMonth(employeeID, monthID, false);
+                    obj.MonthID = monthID;
+                }
+                else
+                {
+                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
+                }
             }
             return obj;
         }
@@ -194,7 +206,7 @@ namespace Api
             return pQuery;
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public HttpResponseMessage UploadCSV()
         {
             try
@@ -274,50 +286,98 @@ namespace Api
             }
         }
 
+        [HttpGet]
+        public HttpResponseMessage GenerateandDownloadPDF(int EmployeeID, int MonthID)
+        {
+            try
+            {
+                EmployeeService eService = new EmployeeService();
+                string employeeCode = eService.Get().Where(e => e.EmployeeID == EmployeeID).FirstOrDefault().EmployeeCode;
+                MonthService mService = new MonthService();
+                string month = ((Helper.Month)mService.GetById(MonthID).Month1).ToString();
+
+                SalaryService sService = new SalaryService();
+                Salary sObj = sService.Get().Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
+
+                string sourceFile = HttpContext.Current.Server.MapPath(@"~\File Formats\Letter head.docx");
+                string targetFile = HttpContext.Current.Server.MapPath(@"~\File Formats\SalarySlip_" + employeeCode + month + ".docx");
+                File.Copy(sourceFile, targetFile, true);
+
+
+                string fileName = Path.GetFileName(targetFile);
+                ///Download PDF file
+                var stream = new FileStream(targetFile, FileMode.Open, FileAccess.Read);
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StreamContent(stream);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = fileName
+                };
+
+                return response;
+
+                //return HttpSuccess();
+            }
+            catch (Exception e)
+            {
+                return HttpError(e);
+            }
+
+        }
+
+
+
+
+
+
+        #region Private Methods
         private HttpResponseMessage InsertCSVRecords(DataTable dt)
         {
-           
-                foreach (DataRow row in dt.Rows)
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string month = row["Month"].ToString();
+                if (DateTime.Now.ToString("MMMM").Equals(month))
                 {
-                    string month = row["Month"].ToString();
-                    if (DateTime.Now.ToString("MMMM").Equals(month))
+                    string empCode = row["EmployeeCode"].ToString();
+                    if (!string.IsNullOrEmpty(empCode))
                     {
-                        string empCode = row["EmployeeCode"].ToString();
-                        if (!string.IsNullOrEmpty(empCode))
+                        int year = Convert.ToInt32(row["Year"]);
+                        Employee emp = service.Context.Employees.Where(e => e.EmployeeCode.Equals(empCode)).FirstOrDefault();
+                        if (emp != null)
                         {
-                            int year = Convert.ToInt32(row["Year"]);
-                            Employee emp = service.Context.Employees.Where(e => e.EmployeeCode.Equals(empCode)).FirstOrDefault();
-                            if (emp != null)
+                            int EmployeeID = emp.EmployeeID;
+                            int MonthID = service.Context.Months.Where(m => m.Month1.Equals(month) && m.Year == year).FirstOrDefault().MonthID;
+                            Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
+                            if (sObj == null)
                             {
-                                int EmployeeID = emp.EmployeeID;
-                                int MonthID = service.Context.Months.Where(m => m.Month1.Equals(month) && m.Year == year).FirstOrDefault().MonthID;
-                                Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
-                                if (sObj == null)
-                                {
-                                    InsertSalaryRecord(row, EmployeeID, MonthID);
-                                }
-                                else
-                                {
-                                    UpdateSalaryRecord(row, sObj);
-                                }
+                                InsertSalaryRecord(row, EmployeeID, MonthID);
                             }
-                            else {
-                                throw new Exception("There is no Employee for the provided Employee Code: " + empCode);
+                            else
+                            {
+                                UpdateSalaryRecord(row, sObj);
                             }
                         }
-                        else {
-                            throw new Exception("Blank Employee Code is not allowed");
+                        else
+                        {
+                            throw new Exception("There is no Employee for the provided Employee Code: " + empCode);
                         }
                     }
                     else
                     {
-                        throw new Exception("The CSV should contain records only for the month of " + DateTime.Now.ToString("MMMM"));
+                        throw new Exception("Blank Employee Code is not allowed");
                     }
                 }
-                service.SaveChanges();
-                return HttpSuccess();
-           
-            
+                else
+                {
+                    throw new Exception("The CSV should contain records only for the month of " + DateTime.Now.ToString("MMMM"));
+                }
+            }
+            service.SaveChanges();
+            return HttpSuccess();
+
+
         }
 
         private void InsertSalaryRecord(DataRow row, int EmployeeID, int MonthID)
@@ -349,7 +409,7 @@ namespace Api
             salaryObj.Days = Convert.ToInt32(row["Days"]);
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
-            salaryObj.SalaryStatus = Helper.SalaryStatus.Pending.ToString();
+            salaryObj.SalaryStatus = (int)Helper.SalaryStatus.Pending;
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);
@@ -382,11 +442,12 @@ namespace Api
             salaryObj.Days = Convert.ToInt32(row["Days"]);
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
-            salaryObj.SalaryStatus = Helper.SalaryStatus.Pending.ToString();
+            salaryObj.SalaryStatus = (int)Helper.SalaryStatus.Pending;
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);
             salaryObj.ModifiedDate = row["ModifiedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["ModifiedDate"]);
         }
+        #endregion
     }
 }

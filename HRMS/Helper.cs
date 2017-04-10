@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
-
+﻿using System.Runtime.Serialization;
 namespace HRMS
 {
     public class Helper
@@ -12,7 +7,7 @@ namespace HRMS
         {
             Active = 1,
             Probation,
-            
+
             [EnumMember(Value = "Notice Period")]
             NoticePeriod,
 
@@ -22,13 +17,14 @@ namespace HRMS
 
         public enum SalaryStatus
         {
-            Approve,
-            Pending
+            Pending = 1,
+            Approved
+
         };
 
         public enum Month
         {
-            January,
+            January = 1,
             February,
             March,
             April,
@@ -41,4 +37,5 @@ namespace HRMS
             December,
         }
     }
+
 }
