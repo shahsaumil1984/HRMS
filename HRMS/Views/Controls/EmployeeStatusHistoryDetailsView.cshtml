@@ -1,0 +1,94 @@
+
+@model ViewModel.MasterViewModel
+@using Model
+
+<div class="modal fade" role="dialog" aria-hidden="true">
+
+
+
+    <form id="employeeStatusDetailsForm"
+          name="employeeStatusDetailsForm"
+          data-ui-binding="true"
+          data-service-object="EmployeeStatusHistoryService"
+          data-associated-list="EmployeeStatusGrid"
+          @*data-validate-callback="Validate"*@
+          method="get" class="col-xs-12 col-sm-12" action="" role="form">
+
+        <div class="modal-dialog">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h3>Status change</h3>
+                </div>
+                <div class="modal-body">
+                    <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
+
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_EmployeeStatus">Old Status</label>
+                                <select name="em_EmployeeOldStatus" id="em_EmployeeOldStatus" class="form-control required" ng-model="model.EmployeeStatu" value={{model.EmployeeStatu}}>
+                                    <option value="">Please select</option>
+                                    @foreach (var item in Model.EmployeeStatus)
+                                {
+                                        <option value="@(item.StatusID)">@(item.Status)</option>
+                                }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_EmployeeStatus">New Status</label>
+                                <select name="em_EmployeeNewStatus" id="em_EmployeeNewStatus" class="form-control required" ng-model="model.EmployeeStatu1" value={{model.EmployeeStatu1}}>
+                                    <option value="">Please select</option>
+                                    @foreach (var item in Model.EmployeeStatus)
+                                {
+                                        <option value="@(item.StatusID)">@(item.Status)</option>
+                                }
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_StartDate">Start Date</label>
+                                <input type="text" name="em_StartDate" id="em_StartDate" ng-model="model.StartDate" class="form-control" date-Picker />
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_EndDate">End Date</label>
+                                <input type="text" name="em_EndDate" id="em_EndDate" ng-model="model.EndDate" class="form-control" date-Picker />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_StartDate">Note</label>
+                                <textarea name="Note" id="statusNote" ng-model="model.StatusNote" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-sm" ng-disabled="employeeDetailsForm.$invalid">Save</button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="ub.ResetForm()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+</div>
+
+
