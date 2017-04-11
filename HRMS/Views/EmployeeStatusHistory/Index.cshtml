@@ -1,0 +1,106 @@
+﻿@using HRMS.Controllers
+@model ViewModel.MasterViewModel
+@using Model
+@{
+    ViewBag.Title = "Manage Employee Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderIncludes
+{
+    <script type="text/javascript" src="~/Scripts/Services/EmployeeStatusHistoryService.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/EmployeeStatusHistoryController.js"></script>
+}
+<div class="container">
+    <div class="middlewrap">
+        <h2>Employee Status</h2>
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#StatusDialog" onclick="GetStatusById(3)">
+            Change Status
+        </button>
+        @Html.Partial("~/Views/Controls/EmployeeStatusHistoryListView.cshtml")
+        
+        <div class="modal fade" id="StatusDialog" role="dialog" aria-hidden="true">
+
+            <form id="employeeStatusDetailsForm"
+                  name="employeeStatusDetailsForm"
+                  data-ui-binding="true"
+                  data-service-object="EmployeeStatusHistoryService"
+                  data-associated-list="EmployeeStatusGrid"
+                  @*data-validate-callback="Validate"*@
+                  method="get" class="col-xs-12 col-sm-12" action="" role="form">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Status change</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
+
+                            <div class="row">
+
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="em_EmployeeStatus">Old Status</label>
+                                        <span ng-model="model.EmployeeStatu"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="em_EmployeeStatus">New Status</label>
+                                        <select name="em_EmployeeNewStatus" id="em_EmployeeNewStatus" class="form-control required" ng-model="EmployeeStatu1" value={{model.EmployeeStatu1}}>
+                                            <option value="">Please select</option>
+                                            @foreach (var item in Model.EmployeeStatus)
+                                            {
+                                                <option value="@(item.StatusID)">@(item.Status)</option>
+                                            }
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="em_StartDate">Start Date</label>
+                                        <input type="text" name="em_StartDate" id="em_StartDate" ng-model="StartDate" class="form-control" date-Picker />
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="em_EndDate">End Date</label>
+                                        <input type="text" name="em_EndDate" id="em_EndDate" ng-model="EndDate" class="form-control" date-Picker />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="em_StartDate">Note</label>
+                                        <textarea name="Note" id="statusNote" ng-model="StatusNote" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
