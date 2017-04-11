@@ -349,8 +349,8 @@ namespace Api
 
             foreach (DataRow row in dt.Rows)
             {
-                string month = row["Month"].ToString();
-                if (DateTime.Now.ToString("MMMM").Equals(month))
+                int month = Convert.ToInt32(row["Month"]);
+                if (DateTime.Now.Month == month)
                 {
                     string empCode = row["EmployeeCode"].ToString();
                     if (!string.IsNullOrEmpty(empCode))
@@ -360,7 +360,7 @@ namespace Api
                         if (emp != null)
                         {
                             int EmployeeID = emp.EmployeeID;
-                            int MonthID = service.Context.Months.Where(m => m.Month1.Equals(month) && m.Year == year).FirstOrDefault().MonthID;
+                            int MonthID = service.Context.Months.Where(m => m.Month1 == month && m.Year == year).FirstOrDefault().MonthID;
                             Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
                             if (sObj == null)
                             {
