@@ -166,5 +166,31 @@ namespace HRMS.Api
             return pQuery;
         }
 
+        [HttpGet]
+        public int GetNextEmployeeID(int EmployeeID)
+        {
+            int nextEmpID = -1;
+            List<Employee> emplist = service.Get().OrderBy(m => m.EmployeeCode).ToList();
+            int empIndex = emplist.FindIndex(m => m.EmployeeID == EmployeeID);
+            var emp = emplist.Skip(empIndex + 1).Take(1).FirstOrDefault();
+            if (emp != null)
+                nextEmpID = emp.EmployeeID;
+            return nextEmpID;
+        }
+
+        [HttpGet]
+        public int GetPrevEmployeeID(int EmployeeID)
+        {
+            int nextEmpID = -1;
+            List<Employee> emplist = service.Get().OrderBy(m => m.EmployeeCode).ToList();
+            int empIndex = emplist.FindIndex(m => m.EmployeeID == EmployeeID);
+            if (empIndex > 0)
+            {
+                var emp = emplist.Skip(empIndex - 1).Take(1).FirstOrDefault();
+                if (emp != null)
+                    nextEmpID = emp.EmployeeID;
+            }
+            return nextEmpID;
+        }
     }
 }
