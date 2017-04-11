@@ -18,10 +18,13 @@ namespace Model
         public EmployeeStatu()
         {
             this.Employees = new HashSet<Employee>();
+            this.EmployeeStatusHistories = new HashSet<EmployeeStatusHistory>();
+            this.EmployeeStatusHistories1 = new HashSet<EmployeeStatusHistory>();
         }
     
-        public int EmployeeStatusID { get; set; }
-        public string StatusName { get; set; }
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+        public string Description { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
@@ -29,5 +32,9 @@ namespace Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeStatusHistory> EmployeeStatusHistories1 { get; set; }
     }
 }

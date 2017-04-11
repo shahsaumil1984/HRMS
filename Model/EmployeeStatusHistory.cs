@@ -12,21 +12,22 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class LeaveTaken
+    public partial class EmployeeStatusHistory
     {
-        public int ID { get; set; }
-        public int EmployeeId { get; set; }
-        public System.DateTime LeaveDate { get; set; }
-        public string Description { get; set; }
-        public decimal LeaveValue { get; set; }
-        public bool IsHalfDay { get; set; }
-        public Nullable<int> LeaveTypeId { get; set; }
+        public int EmployeeStatusID { get; set; }
+        public int EmployeeID { get; set; }
+        public Nullable<int> OldStatusID { get; set; }
+        public Nullable<int> NewStatusID { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public string StatusNote { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual Employee Employee { get; set; }
-        public virtual LeaveType LeaveType { get; set; }
+        public virtual EmployeeStatu EmployeeStatu { get; set; }
+        public virtual EmployeeStatu EmployeeStatu1 { get; set; }
     }
 }

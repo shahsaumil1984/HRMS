@@ -22,7 +22,7 @@ namespace HRMS
             EmployeeStatusService eservice = new EmployeeStatusService();
 
             obj.Designations = service.Get().ToList();
-            obj.EmployeeStatuses = eservice.Get().ToList();
+            obj.EmployeeStatus = eservice.Get().ToList();
             return View(obj);
 
         }

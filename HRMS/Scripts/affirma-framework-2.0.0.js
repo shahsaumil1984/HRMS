@@ -581,7 +581,7 @@ UserInterfaceBinder.prototype.InitializeForm = function (formName, service) {
                         if (status) {
                             _.LogSuccess('Successfully retrieved model for [' + fb.id + '] from entity [' + fb.service.entityName + ']');
 
-
+                            
                             uiBinder.BindFormController(formName, data);
                             fb.newModel = _.Clone(data);
                             if (firstLoad) {
@@ -1104,7 +1104,7 @@ UserInterfaceBinder.prototype.BindListConroller = function (listName, data) {
 UserInterfaceBinder.prototype.BindFormController = function (formName, data) {
     var fb = this.FormBindings[formName];
     _.BindNGAttributes(formName, fb);
-
+    
     fb.model(data);
 
     loading(formName, false);

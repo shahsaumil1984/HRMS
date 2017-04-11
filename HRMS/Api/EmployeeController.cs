@@ -35,7 +35,6 @@ namespace Api
         public override object GetModel()
         {
             Employee obj = (Employee)base.GetModel();
-
             // Set Default Values Here
 
             return obj;
@@ -173,7 +172,6 @@ namespace Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeStatu.StatusName,
                             o.EmployeeCode
                         };
 

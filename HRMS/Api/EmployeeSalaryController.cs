@@ -71,8 +71,7 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatu,
-                                o.EmployeeCode
+                                o.EmployeeStatu
 
                             }).ToList().Select(o => new Employee
                             {
@@ -111,8 +110,7 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatu = o.EmployeeStatu,
-                                EmployeeCode = o.EmployeeCode
+                                EmployeeStatu = o.EmployeeStatu
 
                             }).Single<Employee>();
             return obj;
@@ -160,8 +158,7 @@ namespace HRMS.Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeStatu.StatusName
-                            //o.Salaries.Where(s => s.MonthID == )
+                            o.EmployeeStatu.Status
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
@@ -169,5 +166,31 @@ namespace HRMS.Api
             return pQuery;
         }
 
+        [HttpGet]
+        public int GetNextEmployeeID(int EmployeeID)
+        {
+            int nextEmpID = -1;
+            List<Employee> emplist = service.Get().OrderBy(m => m.EmployeeCode).ToList();
+            int empIndex = emplist.FindIndex(m => m.EmployeeID == EmployeeID);
+            var emp = emplist.Skip(empIndex + 1).Take(1).FirstOrDefault();
+            if (emp != null)
+                nextEmpID = emp.EmployeeID;
+            return nextEmpID;
+        }
+
+        [HttpGet]
+        public int GetPrevEmployeeID(int EmployeeID)
+        {
+            int nextEmpID = -1;
+            List<Employee> emplist = service.Get().OrderBy(m => m.EmployeeCode).ToList();
+            int empIndex = emplist.FindIndex(m => m.EmployeeID == EmployeeID);
+            if (empIndex > 0)
+            {
+                var emp = emplist.Skip(empIndex - 1).Take(1).FirstOrDefault();
+                if (emp != null)
+                    nextEmpID = emp.EmployeeID;
+            }
+            return nextEmpID;
+        }
     }
 }

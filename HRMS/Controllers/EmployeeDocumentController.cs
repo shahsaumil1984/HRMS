@@ -38,12 +38,14 @@ namespace HRMS
             }
         }
 
-        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID = 1)
+        public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID=1)
         {
             Document entity = new Document();
             EmployeeDocument ed = new EmployeeDocument();
             DocumentService documentService = new DocumentService();
             EmployeeDocumentService employeeDocumentService = new EmployeeDocumentService();
+            long id = 0;
+            var employeeDocument = employeeDocumentService.Get().Where(i => i.DocumentTypeID == DocumentTypeID && i.EmployeeID == EmployeeID).FirstOrDefault();
 
             entity.DocumentContent = new byte[file.InputStream.Length];
             file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
@@ -53,9 +55,9 @@ namespace HRMS
             entity.CreatedDate = DateTime.Now;
             entity.ModifiedDate = DateTime.Now;
             documentService.Create(entity);
-            long id = documentService.SaveChangesReturnId(entity);
+            id = documentService.SaveChangesReturnId(entity);
 
-
+            
             ed.EmployeeID = EmployeeID;
             ed.DocumentID = id;
             ed.DocumentTypeID = DocumentTypeID;

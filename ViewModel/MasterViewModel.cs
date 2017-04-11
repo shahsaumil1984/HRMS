@@ -9,6 +9,7 @@ namespace ViewModel
     public class MasterViewModel
     {
         public List<DocumentType> DocumentTypes { get; set; }
+        public List<EmployeeStatu> EmployeeStatus { get; set; }
         public List<Designation> Designations { get; set; }
         public List<EmployeeStatu> EmployeeStatuses { get; set; }
         public List<int> Years { get; set; }

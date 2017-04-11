@@ -243,3 +243,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /HRMS Script/Month Data.xlsx
+/HRMS
+/HRMS Script

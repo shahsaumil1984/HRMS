@@ -18,9 +18,10 @@ namespace Model
         public Employee()
         {
             this.EmployeeDocuments = new HashSet<EmployeeDocument>();
+            this.EmployeeStatusHistories = new HashSet<EmployeeStatusHistory>();
+            this.LeaveMasters = new HashSet<LeaveMaster>();
             this.LeaveTakens = new HashSet<LeaveTaken>();
             this.Salaries = new HashSet<Salary>();
-            this.LeaveMasters = new HashSet<LeaveMaster>();
         }
     
         public int EmployeeID { get; set; }
@@ -71,10 +72,12 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Salary> Salaries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
     }
 }

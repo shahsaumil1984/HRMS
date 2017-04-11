@@ -35,6 +35,7 @@ namespace Model
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeDocument> EmployeeDocuments { get; set; }
         public virtual DbSet<EmployeeStatu> EmployeeStatus { get; set; }
+        public virtual DbSet<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
         public virtual DbSet<HolidayCalendar> HolidayCalendars { get; set; }
         public virtual DbSet<LeaveMaster> LeaveMasters { get; set; }
         public virtual DbSet<LeaveTaken> LeaveTakens { get; set; }

@@ -83,12 +83,12 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_EmployeeStatus">Status</label>                       
+                        <label for="em_EmployeeStatus">Old Status</label>                       
                         <select name="em_EmployeeStatusID" id="em_EmployeeStatusID" class="form-control required" ng-model="model.EmployeeStatusID" value={{model.EmployeeStatusID}}>
                              <option value="">Please select</option>
-                             @foreach (var item in Model.EmployeeStatuses)
+                             @foreach (var item in Model.EmployeeStatus)
                             {
-                                <option value="@(item.EmployeeStatusID)">@(item.StatusName)</option>
+                                <option value="@(item.StatusID)">@(item.Status)</option>
                             }
                         </select>
                     </div>

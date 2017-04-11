@@ -61,7 +61,10 @@ namespace Api
                               o.ProfessionalTax,
                               o.ReimbursementOfexp,
                               o.TDS,
-                              o.YTDS
+                              o.YTDS,
+                              o.AccountNumber,
+                              o.SalaryStatus,
+                              o.BankName
 
                           }).ToList().Select(o => new Salary
                           {
@@ -85,7 +88,10 @@ namespace Api
                               ProfessionalTax = o.ProfessionalTax,
                               ReimbursementOfexp = o.ReimbursementOfexp,
                               TDS = o.TDS,
-                              YTDS = o.YTDS
+                              YTDS = o.YTDS,
+                              AccountNumber = o.AccountNumber,
+                              SalaryStatus = o.SalaryStatus,
+                              BankName = o.BankName
 
                           }).Single<Salary>();
             return obj;
@@ -123,6 +129,9 @@ namespace Api
                                  o.TotalPayment,
                                  o.Salary1,
                                  o.Note,
+                                 o.SalaryStatus,
+                                 o.BankName,
+                                 o.AccountNumber,
                                  o.Employee.FullName,
                                  o.Employee.EmployeeCode
                              }).ToList();
@@ -154,6 +163,9 @@ namespace Api
                 Total = o.Total,
                 TotalPayment = o.TotalPayment,
                 Salary1 = o.Salary1,
+                SalaryStatus = o.SalaryStatus,
+                BankName = o.BankName,
+                AccountNumber = o.AccountNumber,
                 Note = o.Note
             }).SingleOrDefault<Salary>();
 
@@ -326,10 +338,10 @@ namespace Api
 
         }
 
-
-
-
-
+        public override HttpResponseMessage Create(Salary entity)
+        {
+            return base.Create(entity);
+        }
 
         #region Private Methods
         private HttpResponseMessage InsertCSVRecords(DataTable dt)
@@ -449,5 +461,6 @@ namespace Api
             salaryObj.ModifiedDate = row["ModifiedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["ModifiedDate"]);
         }
         #endregion
+
     }
 }

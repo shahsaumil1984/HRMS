@@ -223,9 +223,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\EmployeeStatusController.cs" />
     <Compile Include="Api\DocumentTypeController.cs" />
     <Compile Include="Api\EmployeeDocumentController.cs" />
     <Compile Include="Api\EmployeeSalaryController.cs" />
+    <Compile Include="Api\EmployeeStatusHistoryController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="Api\MonthController.cs" />
     <Compile Include="Api\SalaryController.cs" />
@@ -236,11 +238,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EmployeeStatusController.cs" />
     <Compile Include="Controllers\DocumentTypeController.cs" />
     <Compile Include="Controllers\EmployeeDocumentController.cs" />
     <Compile Include="Controllers\DocumentUploadController.cs" />
     <Compile Include="Controllers\EmployeeSalaryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\EmployeeStatusHistoryController.cs" />
     <Compile Include="Controllers\ManageRolesController.cs" />
     <Compile Include="Controllers\MonthController.cs" />
     <Compile Include="Controllers\SalaryController.cs" />
@@ -324,6 +328,9 @@
     <Content Include="File Formats\Letter head.docx" />
     <None Include="Properties\PublishProfiles\Alept.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Controllers\EmployeeStatusHistoryController.js" />
+    <Content Include="Scripts\Controllers\ManageStatusController.js" />
+    <Content Include="Scripts\Controllers\EmployeeStatusController.js" />
     <Content Include="Scripts\Controllers\DocumentTypeController.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
     <Content Include="Scripts\Controllers\EmployeeDocumentController.js" />
@@ -355,6 +362,8 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Services\EmployeeStatusHistoryService.js" />
+    <Content Include="Scripts\Services\EmployeeStatusService.js" />
     <Content Include="Scripts\Services\DocumentTypeService.js" />
     <Content Include="Scripts\Services\EmployeeDocumentService.js" />
     <Content Include="Scripts\Services\EmployeeSalaryService.js" />
@@ -408,6 +417,12 @@
     <Content Include="Views\Month\Index.cshtml" />
     <Content Include="Views\EmployeeSalary\Index.cshtml" />
     <Content Include="Views\Salary\Index.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusDetailsView.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusListView.cshtml" />
+    <Content Include="Views\EmployeeStatus\Index.cshtml" />
+    <Content Include="Views\EmployeeStatusHistory\Index.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusHistoryListView.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
