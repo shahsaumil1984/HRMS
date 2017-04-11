@@ -1,0 +1,65 @@
+﻿
+
+@model ViewModel.MasterViewModel
+@using Model
+
+<div id="EmployeeStatusListView" class="listView">
+
+
+    @*<form class="form-inline">
+
+        </form>*@
+    @*<div class="form-group mt-md"></div>*@
+    <table id="EmployeeStatusGrid"
+           data-ui-binding="true"
+           data-entity-key="EmployeeStatusID"
+           data-service-object="EmployeeStatusService"
+           data-default-orderby="Description"
+           class="table table-condensed table-hover"
+           data-page-size="10">
+        <thead class="tblaction">
+            <tr>
+                <td colspan="4">
+                    <div class="form-group m-0">
+                        <input type="text"
+                               data-search-fields="Description"
+                               data-search-list="EmployeeStatusGrid"
+                               data-default-focus="true" />
+                        &nbsp;
+                        <button type="button" class="btn" ng-click="ub.NewForm('EmployeeStatusDetailsForm', true, null)">New Status Type</button>
+                    </div>
+                </td>
+            </tr>
+        </thead>
+        <tr>
+            <th><a href="#" data-sort-field="StatusID">Status Type ID</a></th>
+            <th><a href="#" data-sort-field="Status">Status</a></th>
+            <th><a href="#" data-sort-field="Description">Description</a></th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tbody ng-repeat="r in rows">
+            <tr alt=$index%2>
+                <td class="col-md-1"> <span>{{r.StatusID}}</span></td>
+                <td class="col-md-1"> <span>{{r.Status}}</span></td>
+                <td class="col-md-1"> <span>{{r.Description}}</span></td>
+                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" height="20" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.StatusID, null , ub.EmployeeStatusDeleteCallback)" /></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" align="center">
+                    <div id="EmployeeStatusPagination">
+                        <span>{{pageText}}</span>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+

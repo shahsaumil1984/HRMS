@@ -1,0 +1,54 @@
+﻿@model ViewModel.MasterViewModel
+@using Model
+
+<div id="EmployeeStatusHistoryListView" class="listView">
+
+
+    @*<form class="form-inline">
+
+        </form>*@
+    @*<div class="form-group mt-md"></div>*@
+    <table id="employeeStatusDetailsForm"
+           data-ui-binding="true"
+           data-entity-key="EmployeeStatusID"
+           data-service-object="employeeStatusHistoryService"
+           data-default-orderby="EmployeeStatusID"
+           class="table table-condensed table-hover"
+           data-page-size="10">
+        <tr>
+
+            <th><a href="#" data-sort-field="EmplyeeStatusId">EmplyeeStatusId</a></th>
+            <th><a href="#" data-sort-field="Employee">Employee</a></th>
+            <th><a href="#" data-sort-field="OldStatus">Old Status</a></th>
+            <th><a href="#" data-sort-field="NewStatus">New Status</a></th>
+            <th><a href="#" data-sort-field="StartDate">Start Date</a></th>
+            <th><a href="#" data-sort-field="EndDate">End Date</a></th>
+            <th><a href="#" data-sort-field="StatusNote">Status Note</a></th>
+        </tr>
+        <tbody ng-repeat="r in rows">
+            <tr alt=$index%2>
+                <td class="col-md-1"> <span>{{r.EmployeeStatusID}}</span></td>
+                <td class="col-md-1"> <span>{{r.Employee}}</span></td>
+                <td class="col-md-1"> <span>{{r.EmployeeStatu.Status}}</span></td>
+                <td class="col-md-1"> <span>{{r.EmployeeStatu1.Status}}</span></td>
+                <td class="col-md-1"> <span>{{r.StartDate}}</span></td>
+                <td class="col-md-1"> <span>{{r.EndDate}}</span></td>
+                <td class="col-md-1"> <span>{{r.StatusNote}}</span></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" align="center">
+                    <div id="EmployeeStatusPagination">
+                        <span>{{pageText}}</span>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
