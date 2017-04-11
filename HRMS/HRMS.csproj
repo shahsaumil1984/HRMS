@@ -274,6 +274,8 @@
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\bootstrap\js\npm.js" />
+    <Content Include="Content\css\bootstrap-select.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\build.css" />
     <Content Include="Content\css\daterangepicker.css" />
     <Content Include="Content\css\fullcalendar.css" />
