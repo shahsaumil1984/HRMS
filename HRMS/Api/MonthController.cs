@@ -55,7 +55,7 @@ namespace HRMS.Api
 
             //
             IQueryable<Month> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
-            var query = from o in list
+            var query = (from o in list
                             //where o.MonthID <= currentMonthID                      
                             //orderby o.MonthID ascending
                         select new
@@ -63,7 +63,12 @@ namespace HRMS.Api
                             o.MonthID,
                             o.Month1,
                             o.Year
-                        };
+                        }).AsEnumerable().Select(x=> new
+                        {
+                            Month = Enum.GetName(typeof(Helper.Month), x.Month1),
+                            MonthID = x.MonthID,
+                            Year = x.Year
+                        }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
 
