@@ -15,6 +15,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Net;
 using System.Net.Http.Headers;
+using SendGrid.Helpers.Mail;
 
 namespace Api
 {
@@ -341,6 +342,41 @@ namespace Api
         public override HttpResponseMessage Create(Salary entity)
         {
             return base.Create(entity);
+        }
+
+        [HttpPost]
+        public HttpResponseMessage SendEmail(int employeeID, int monthID)
+        {
+            try
+            {
+                Employee objEmployee = service.Context.Employees.Where(m => m.EmployeeID == employeeID).FirstOrDefault();
+                Salary objSalary = service.Context.Salaries.Where(m => m.EmployeeID == employeeID && m.MonthID == monthID).FirstOrDefault();
+
+                List<Personalization> listPersonalization = new List<Personalization>();
+
+                Personalization personalization = new Personalization();
+                Email objemail = new Email();
+                objemail.Name = objEmployee.FirstName + " " + objEmployee.LastName;
+                objemail.Address = objEmployee.Email;
+                personalization.AddTo(objemail);
+
+                personalization.AddHeader("X-Test", "True");
+                personalization.AddHeader("X-Mock", "True");
+
+                listPersonalization.Add(personalization);
+
+                var body = "Test";
+
+                //Helper.SendEmailToUser(PersonEmail, "Saleforce web portal account created", body);
+                Helper.SendEmailToEmployee(listPersonalization, "Saleforce web portal account created", body, System.Configuration.ConfigurationManager.AppSettings["fromEmailAddress"]);
+
+
+                return HttpSuccess();
+            }
+            catch (Exception e)
+            {
+                return HttpError(e);
+            }
         }
 
         #region Private Methods

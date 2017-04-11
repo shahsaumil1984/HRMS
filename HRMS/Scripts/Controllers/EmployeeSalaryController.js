@@ -181,4 +181,12 @@ _.DownloadPDF = function (empID, monthID) {
 // Form Validation
 //----------------------------------------------
 
+_.SendEmail = function (empID, monthID) {
+    debugger;
+    salaryService.SendEmail(empID, monthID, function (status, data) {
+        if (status) {
+            alert(data);
+        }
 
+    })
+}
