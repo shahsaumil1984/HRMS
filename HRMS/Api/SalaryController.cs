@@ -307,7 +307,7 @@ namespace Api
                 EmployeeService eService = new EmployeeService();
                 string employeeCode = eService.Get().Where(e => e.EmployeeID == EmployeeID).FirstOrDefault().EmployeeCode;
                 MonthService mService = new MonthService();
-                string month = ((Helper.Month)mService.GetById(MonthID).Month1).ToString();
+                string month = Enum.GetName(typeof(Helper.Month), mService.GetById(MonthID).Month1);               
 
                 SalaryService sService = new SalaryService();
                 Salary sObj = sService.Get().Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();

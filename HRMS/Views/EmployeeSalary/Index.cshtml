@@ -60,11 +60,8 @@
                 <thead>
                     <tr>
                         <th>Employee Name</th>
-                        <th class="text-left">Employee Code</th>
-                        @*<th class="text-left">Phone</th>*@
-                        @*<th class="text-left">Status</th>*@
-                        <th class="text-left">Salary Status</th>
-                        @*<th class="text-left">Edit Salary</th>*@
+                        <th class="text-left">Employee Code</th>                     
+                        <th class="text-left">Salary Status</th>                   
                         <th class="text-left">Action</th>
                         <th></th>
                         <th></th>
@@ -89,10 +86,7 @@
                             </div>
                         </td>
                         <td class="text-left">{{r.EmployeeID}}</td>
-                        @*<td class="text-left">{{r.Phone}}</td>*@
-                        @*<td class="text-left">{{r.StatusName}}</td>*@
-                        <td class="text-left">{{r.SalaryStatus}}</td>
-                        @*<td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}&monthID=@ViewBag.MonthID">Edit Salary</a></td>*@
+                        <td class="text-left">{{r.SalaryStatus}}</td>                       
                         <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
                         <td class="col-md-1"><button ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)" class="btn">Download PDF</button></td>
                         <td class="col-md-1"><button ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)" class="btn">Send Email</button></td>
