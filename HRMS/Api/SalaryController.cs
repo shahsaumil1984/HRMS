@@ -297,47 +297,7 @@ namespace Api
                 return HttpError(e);
             }
         }
-
-        [HttpGet]
-        public HttpResponseMessage GenerateandDownloadPDF(int EmployeeID, int MonthID)
-        {
-            try
-            {
-                EmployeeService eService = new EmployeeService();
-                string employeeCode = eService.Get().Where(e => e.EmployeeID == EmployeeID).FirstOrDefault().EmployeeCode;
-                MonthService mService = new MonthService();
-                string month = Enum.GetName(typeof(Helper.Month), mService.GetById(MonthID).Month1);               
-
-                SalaryService sService = new SalaryService();
-                Salary sObj = sService.Get().Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
-
-                string sourceFile = HttpContext.Current.Server.MapPath(@"~\File Formats\Letter head.docx");
-                string targetFile = HttpContext.Current.Server.MapPath(@"~\File Formats\SalarySlip_" + employeeCode + month + ".docx");
-                File.Copy(sourceFile, targetFile, true);
-
-
-                string fileName = Path.GetFileName(targetFile);
-                ///Download PDF file
-                var stream = new FileStream(targetFile, FileMode.Open, FileAccess.Read);
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StreamContent(stream);
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = fileName
-                };
-
-                return response;
-
-                //return HttpSuccess();
-            }
-            catch (Exception e)
-            {
-                return HttpError(e);
-            }
-
-        }
-
+        
         public override HttpResponseMessage Create(Salary entity)
         {
             return base.Create(entity);
