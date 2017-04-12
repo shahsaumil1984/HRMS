@@ -29,6 +29,7 @@ namespace HRMS.Api
         //    return View();
         //}
 
+        [Authorize(Roles = "Accountant")]
         public override object GetModel()
         {
             Employee obj = (Employee)base.GetModel();
@@ -38,6 +39,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public override Employee GetById(int id)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
@@ -127,6 +129,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             int month = 4;
@@ -215,8 +218,9 @@ namespace HRMS.Api
 
             return pQuery;
         }
-
+        
         [HttpGet]
+        [Authorize(Roles = "Accountant")]
         public int GetNextEmployeeID(int EmployeeID)
         {
             int nextEmpID = -1;
@@ -229,6 +233,7 @@ namespace HRMS.Api
         }
 
         [HttpGet]
+        [Authorize(Roles = "Accountant")]
         public int GetPrevEmployeeID(int EmployeeID)
         {
             int nextEmpID = -1;

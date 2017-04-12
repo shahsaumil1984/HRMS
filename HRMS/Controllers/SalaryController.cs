@@ -9,6 +9,7 @@ namespace HRMS
     public class SalaryController : Controller
     {
         // GET: Salary
+        [Authorize(Roles = "Accountant")]
         public ActionResult Index()
         {
             //ViewBag.EmployeeID = employeeID;

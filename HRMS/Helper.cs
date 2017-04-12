@@ -1,4 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Threading.Tasks;
+
 namespace HRMS
 {
     public class Helper
@@ -37,6 +45,36 @@ namespace HRMS
             November = 11,
             December = 12
         }
+
+        public static bool SendEmailToEmployee(string Subject, string Body, string FromAddress, string FromUser, string ToAddress, string ToUser,string attachment)
+        {
+            bool isMailSent = false;            
+            try
+            {
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]))
+                {
+                    Task<Response> response;
+                    var apiKey = ConfigurationManager.AppSettings["SendGrid"];
+                    var client = new SendGridClient(apiKey);
+                    var from = new EmailAddress(FromAddress, FromUser);
+                    var subject = Subject;
+                    var to = new EmailAddress(ToAddress, ToUser);
+                    //var plainTextContent = "and easy to do anywhere, even with C#";
+                    var htmlContent = Body;
+                    var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlContent);
+                    msg.AddAttachment("SalarySlip.pdf", attachment);
+                    response =  client.SendEmailAsync(msg);
+                    isMailSent = true;
+                }
+                return isMailSent;
+            }
+            catch (Exception ex)
+            {
+                isMailSent = false;
+                return isMailSent;
+            }
+        }
+
     }
 
 }

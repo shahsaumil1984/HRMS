@@ -15,6 +15,13 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Net;
 using System.Net.Http.Headers;
+using SendGrid.Helpers.Mail;
+using System.Configuration;
+using System.Globalization;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.tool.xml;
 
 namespace Api
 {
@@ -25,6 +32,8 @@ namespace Api
         //{
         //    return View();
         //}
+
+        [Authorize(Roles = "Accountant")]
         public override object GetModel()
         {
             Salary obj = (Salary)base.GetModel();
@@ -34,6 +43,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public override Salary GetById(int id)
         {
 
@@ -98,6 +108,7 @@ namespace Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Accountant")]
         public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
@@ -185,6 +196,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<Salary> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
@@ -219,6 +231,7 @@ namespace Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage UploadCSV()
         {
             try
@@ -303,7 +316,187 @@ namespace Api
             return base.Create(entity);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage SendEmail(int employeeID, int monthID)
+        {
+            try
+            {
+                Employee objEmployee = service.Context.Employees.Where(m => m.EmployeeID == employeeID).FirstOrDefault();
+                Salary objSalary = service.Context.Salaries.Where(m => m.EmployeeID == employeeID && m.MonthID == monthID).FirstOrDefault();
+                Month objMonth = service.Context.Months.Where(m => m.MonthID == monthID).FirstOrDefault();
+                string salaryMonth = string.Empty;
+                string salaryYear = string.Empty;
+                if (objMonth != null)
+                    salaryMonth = new DateTime(objMonth.Year, objMonth.Month1, 1).ToString("MMMM");
+
+                string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
+                string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
+                string toEmailAdd = "namrata.negi@alept.com";//objEmployee.Email;
+                string toEmailUser = objEmployee.FullName;
+                string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
+                var body = "Dear " + objEmployee.FirstName + ",</br></br>";
+                body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
+                body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
+
+                string attachment = ExportToPdf(objSalary, objEmployee.FullName, salaryMonth);
+                bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                return HttpSuccess();
+            }
+            catch (Exception e)
+            {
+                return HttpError(e);
+            }
+        }
+
+        [Authorize(Roles = "Accountant")]
+        public string ExportToPdf(Salary objSalary, string employeeName, string month)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<table>");
+                sb.Append("<tr><td>Name</td><td>");
+                sb.Append(employeeName);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Month</td><td>");
+                sb.Append(month);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Days</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Days);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Basic</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Basic);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>HRA</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.HRA);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Conveyance Allowance</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.ConveyanceAllowance);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Other Allowance</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.OtherAllowance);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Medical Reimbursement</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.MedicalReimbursement);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Advance/Arrear Salary</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.AdvanceSalary);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Incentive</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Incentive);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>PLI</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.PLI);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Ex-gratia/PL Encashed/Other</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Exgratia);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Reimbursement of exp</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.ReimbursementOfexp);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Total</td><td>");
+                if (objSalary != null && objSalary.Total != null)
+                    sb.Append(objSalary.Total);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Deductions</td><td></td></tr>");
+                sb.Append("<tr><td>TDS</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.TDS);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>EPF</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.EPF);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>ProfessionalTax</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.ProfessionalTax);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Leave</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Leave);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Advance</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Advance);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Payments</td><td></td></tr>");
+                sb.Append("<tr><td>Salary1</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.Salary1);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>TotalPayment</td><td>");
+                if (objSalary != null && objSalary.TotalPayment != null)
+                    sb.Append(objSalary.TotalPayment);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>YTDS Summary</td><td></td></tr>");
+                sb.Append("<tr><td>YTDS deducted</td><td>");
+                if (objSalary != null)
+                    sb.Append(objSalary.YTDS);
+                sb.Append("</td></tr>");
+
+                sb.Append("<tr><td>Note</td><td>");
+                if (objSalary != null && !string.IsNullOrEmpty(objSalary.Note))
+                    sb.Append(objSalary.Note);
+                sb.Append("</td></tr>");
+
+                sb.Append("</table>");
+                iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10f, 10f, 10f, 0f);
+                StringReader sr = new StringReader(sb.ToString());
+                MemoryStream memoryStream = new MemoryStream();
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                byte[] resultByteArr = memoryStream.ToArray();
+                result = Convert.ToBase64String(resultByteArr);
+                //var array = File.ReadAllBytes("E:\\New Text Document.txt");
+                //string data = Convert.ToBase64String(array);
+                return result;
+            }
+            catch (Exception ex)
+            {              
+                return result;
+            }
+        }
+
+
         #region Private Methods
+        [Authorize(Roles = "Accountant")]
         private HttpResponseMessage InsertCSVRecords(DataTable dt)
         {
 
@@ -352,6 +545,7 @@ namespace Api
 
         }
 
+        [Authorize(Roles = "Accountant")]
         private void InsertSalaryRecord(DataRow row, int EmployeeID, int MonthID)
         {
             Salary salaryObj = new Salary();
@@ -389,6 +583,7 @@ namespace Api
             service.Context.Salaries.Add(salaryObj);
         }
 
+        [Authorize(Roles = "Accountant")]
         private void UpdateSalaryRecord(DataRow row, Salary salaryObj)
         {
             salaryObj.Basic = Convert.ToDecimal(row["Basic"]);

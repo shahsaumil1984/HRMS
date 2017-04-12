@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using Model;
 using ViewModel;
 using Service;
-using System.Web.Mvc;
 
 namespace HRMS
 {

@@ -10,11 +10,13 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Globalization;
 using System.Data;
+using System.Web.Http;
 
 namespace HRMS.Api
 {
     public class MonthController : GenericApiController<MonthService, Month, int>, IGetList
     {
+        [Authorize(Roles = "Accountant")]
         public override object GetModel()
         {
             Month obj = (Month)base.GetModel();
@@ -24,6 +26,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public override Month GetById(int id)
         {
             Month obj = (from o in service.Context.Months
@@ -39,6 +42,8 @@ namespace HRMS.Api
                          }).Single<Month>();
             return obj;
         }
+
+        [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             int CurrentMonth = DateTime.Today.Month;
@@ -75,6 +80,7 @@ namespace HRMS.Api
             return pQuery;
         }
 
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage GetGenerateandDownloadCSV(int MonthID)
         {
             //Create CSV file            
