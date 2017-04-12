@@ -118,12 +118,14 @@ namespace HRMS.Api
 
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
+            int month = 4;
+            int year = 2017;
+          
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
-            var query = from o in list
+            var query = (from o in list
                         where o.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive
                         select new
                         {
-
                             o.EmployeeID,
                             o.FirstName,
                             o.LastName,
@@ -158,8 +160,45 @@ namespace HRMS.Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            //o.Salaries.Where(s => s.Month.Month1 = )
-                        };
+                            o.Salaries                      
+                        }).AsEnumerable().Select(x => new
+                        {
+                            EmployeeID = x.EmployeeID,
+                            FirstName =  x.FirstName,
+                            LastName = x.LastName,
+                            FullName =  x.FullName,
+                            Email =  x.Email,
+                            Phone =  x.Phone,
+                            PermanentAddressLine1 =  x.PermanentAddressLine1,
+                            PermanentAddressLine2 =  x.PermanentAddressLine2,
+                            PermanentAddressLine3 =  x.PermanentAddressLine3,
+                            PermanentAddressState =  x.PermanentAddressState,
+                            PermanentAddressCountry = x.PermanentAddressCountry,
+                            PermanentAddressZip = x.PermanentAddressZip,
+                            AddressLine1 = x.AddressLine1,
+                            AddressLine2 = x.AddressLine2,
+                            AddressLine3 = x.AddressLine3,
+                            AddressState = x.AddressState,
+                            AddressCountry = x.AddressCountry,
+                            AddressZip = x.AddressZip,
+                            DateOfBirth = x.DateOfBirth,
+                            DateOfjoining = x.DateOfjoining,
+                            ProbationPeriodEndDate = x.ProbationPeriodEndDate,
+                            HasResigned = x.HasResigned,
+                            DateOfResignation = x.DateOfResignation,
+                            LastWorkingDay = x.LastWorkingDay,
+                            PAN = x.PAN,
+                            IDCardNumber = x.IDCardNumber,
+                            IDCardType = x.IDCardType,
+                            SalaryAccountNumber = x.SalaryAccountNumber,
+                            SalaryAccountBank = x.SalaryAccountBank,
+                            SalaryAccountBankAddress = x.SalaryAccountBankAddress,
+                            SalaryAccountIFSCCode = x.SalaryAccountIFSCCode,
+                            AddressCity = x.AddressCity,
+                            PermanentAddressCity = x.PermanentAddressCity,
+                            EmployeePhoto = x.EmployeePhoto,
+                            SalaryStatus = x.Salaries.Where(s => s.Month.Month1 == month && s.Month.Year == year).FirstOrDefault() == null ? "Pending": x.Salaries.Where(s => s.Month.Month1 == month && s.Month.Year == year).FirstOrDefault().SalaryStatu.SalaryStatusName
+                        }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
 
