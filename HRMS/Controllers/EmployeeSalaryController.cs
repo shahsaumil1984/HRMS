@@ -9,6 +9,7 @@ namespace HRMS
     public class EmployeeSalaryController : Controller
     {
         // GET: EmployeeSalary
+        [Authorize(Roles = "Accountant")]
         public ActionResult Index(int monthID)
         {            
             Service.MonthService service = new Service.MonthService();

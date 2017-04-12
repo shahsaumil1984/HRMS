@@ -11,6 +11,7 @@ namespace HRMS
     public class MonthController : Controller
     {
         // GET: Month
+        [Authorize(Roles = "Accountant")]
         public ActionResult Index()
         {
             MasterViewModel mvm = new MasterViewModel();

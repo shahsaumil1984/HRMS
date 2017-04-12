@@ -32,6 +32,8 @@ namespace Api
         //{
         //    return View();
         //}
+
+        [Authorize(Roles = "Accountant")]
         public override object GetModel()
         {
             Salary obj = (Salary)base.GetModel();
@@ -41,6 +43,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public override Salary GetById(int id)
         {
 
@@ -105,6 +108,7 @@ namespace Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Accountant")]
         public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
@@ -192,6 +196,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<Salary> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
@@ -226,6 +231,7 @@ namespace Api
         }
 
         [HttpPost]
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage UploadCSV()
         {
             try
@@ -306,6 +312,7 @@ namespace Api
         }
 
         [HttpGet]
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage GenerateandDownloadPDF(int EmployeeID, int MonthID)
         {
             try
@@ -345,12 +352,14 @@ namespace Api
 
         }
 
+        [Authorize(Roles = "Accountant")]
         public override HttpResponseMessage Create(Salary entity)
         {
             return base.Create(entity);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage SendEmail(int employeeID, int monthID)
         {
             try
@@ -373,7 +382,7 @@ namespace Api
                 body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
 
                 string attachment = ExportToPdf(objSalary, objEmployee.FullName, salaryMonth);
-                Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
                 return HttpSuccess();
             }
             catch (Exception e)
@@ -382,7 +391,7 @@ namespace Api
             }
         }
 
-
+        [Authorize(Roles = "Accountant")]
         public string ExportToPdf(Salary objSalary, string employeeName, string month)
         {
             string result = string.Empty;
@@ -522,14 +531,14 @@ namespace Api
                 return result;
             }
             catch (Exception ex)
-            {
-                System.Web.HttpContext.Current.Response.Write(ex.Message);
+            {              
                 return result;
             }
         }
 
 
         #region Private Methods
+        [Authorize(Roles = "Accountant")]
         private HttpResponseMessage InsertCSVRecords(DataTable dt)
         {
 
@@ -578,6 +587,7 @@ namespace Api
 
         }
 
+        [Authorize(Roles = "Accountant")]
         private void InsertSalaryRecord(DataRow row, int EmployeeID, int MonthID)
         {
             Salary salaryObj = new Salary();
@@ -615,6 +625,7 @@ namespace Api
             service.Context.Salaries.Add(salaryObj);
         }
 
+        [Authorize(Roles = "Accountant")]
         private void UpdateSalaryRecord(DataRow row, Salary salaryObj)
         {
             salaryObj.Basic = Convert.ToDecimal(row["Basic"]);

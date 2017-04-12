@@ -107,7 +107,7 @@ _.loadPrevEmployee = function (employeeID, monthID) {
         alert('Kindly check if data entered is correct.');
     }
 }
-var approveNextEmployee = function (monthID) {  
+var approveNextEmployee = function (monthID) {
     employeeID = $('#employeeidtoedit').val();
     salaryDetailsForm.SetValue('SalaryStatus', 'Approved');
     _.loadNextEmployee(employeeID, monthID);
@@ -182,12 +182,12 @@ _.DownloadPDF = function (empID, monthID) {
 //----------------------------------------------
 
 _.SendEmail = function (empID, monthID) {
-    debugger;
     salaryService.SendEmail(empID, monthID, function (status, data) {
         if (status) {
-            debugger;
-            alert(data);
+            alert("Email sent successfully!");
         }
-
+        else {
+            alert("Email could not be sent.")
+        }
     })
 }

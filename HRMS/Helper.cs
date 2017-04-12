@@ -46,13 +46,14 @@ namespace HRMS
             December = 12
         }
 
-        public static void SendEmailToEmployee(string Subject, string Body, string FromAddress, string FromUser, string ToAddress, string ToUser,string attachment)
+        public static bool SendEmailToEmployee(string Subject, string Body, string FromAddress, string FromUser, string ToAddress, string ToUser,string attachment)
         {
-            Task<Response> response;
+            bool isMailSent = false;            
             try
             {
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]))
                 {
+                    Task<Response> response;
                     var apiKey = ConfigurationManager.AppSettings["SendGrid"];
                     var client = new SendGridClient(apiKey);
                     var from = new EmailAddress(FromAddress, FromUser);
@@ -63,11 +64,14 @@ namespace HRMS
                     var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlContent);
                     msg.AddAttachment("SalarySlip.pdf", attachment);
                     response =  client.SendEmailAsync(msg);
+                    isMailSent = true;
                 }
+                return isMailSent;
             }
             catch (Exception ex)
             {
-                throw ex;
+                isMailSent = false;
+                return isMailSent;
             }
         }
 
