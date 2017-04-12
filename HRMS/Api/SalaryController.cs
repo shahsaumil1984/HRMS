@@ -310,7 +310,8 @@ namespace Api
                 return HttpError(e);
             }
         }
-        
+
+        [Authorize(Roles = "Accountant")]
         public override HttpResponseMessage Create(Salary entity)
         {
             return base.Create(entity);

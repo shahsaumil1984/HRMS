@@ -249,6 +249,7 @@ namespace HRMS.Api
         }
 
         [HttpGet]
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage GetDownloadPDF(int EmpID, int MonthID)
         {
             SalaryService salService = new SalaryService();
@@ -256,7 +257,7 @@ namespace HRMS.Api
             return SetSalaryDetails(sObj);
         }
 
-        public HttpResponseMessage SetSalaryDetails(Salary salObj)
+        private HttpResponseMessage SetSalaryDetails(Salary salObj)
         {
             try
             {
