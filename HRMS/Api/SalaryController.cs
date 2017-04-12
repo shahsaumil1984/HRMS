@@ -140,11 +140,10 @@ namespace Api
                                  o.TotalPayment,
                                  o.Salary1,
                                  o.Note,
-                                 o.SalaryStatus,
+                                 o.SalaryStatu.SalaryStatusName,
                                  o.BankName,
                                  o.AccountNumber,
-                                 o.Employee.FullName,
-                                 o.Employee.EmployeeCode
+                                 o.Employee.FullName                                
                              }).ToList();
 
 
@@ -156,7 +155,7 @@ namespace Api
                 AdvanceSalary = o.AdvanceSalary,
                 Basic = o.Basic,
                 ConveyanceAllowance = o.ConveyanceAllowance,
-                EmployeeID = o.EmployeeID,
+                EmployeeID = o.EmployeeID,                
                 EPF = o.EPF,
                 Exgratia = o.Exgratia,
                 HRA = o.HRA,
@@ -174,7 +173,7 @@ namespace Api
                 Total = o.Total,
                 TotalPayment = o.TotalPayment,
                 Salary1 = o.Salary1,
-                SalaryStatus = o.SalaryStatus,
+                SalaryStatusName = o.SalaryStatusName,
                 BankName = o.BankName,
                 AccountNumber = o.AccountNumber,
                 Note = o.Note

@@ -50,6 +50,7 @@ namespace HRMS.Api
                             {
 
                                 o.EmployeeID,
+                                o.EmployeeCode,
                                 o.FirstName,
                                 o.LastName,
                                 o.FullName,
@@ -123,7 +124,8 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatu = o.EmployeeStatu
+                                EmployeeStatu = o.EmployeeStatu,
+                                EmployeeCode = o.EmployeeCode
 
                             }).Single<Employee>();
             return obj;

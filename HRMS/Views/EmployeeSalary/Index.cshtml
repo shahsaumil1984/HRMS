@@ -126,7 +126,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label>Employee Code:</label>
-                        <label id="empCode"></label>
+                        <label id="empCode" ng-bind="model.EmployeeCode"></label>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -143,8 +143,8 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="SalaryStatus" class="col-sm-4 control-label">Salary Status</label>
-                        <label type="text" name="em_SalaryStatus" id="em_SalaryStatus" ng-bind="model.SalaryStatus"></label>
+                        <label for="SalaryStatus" class="col-sm-4 control-label">Salary Status:</label>
+                        <label type="text" name="em_SalaryStatus" id="em_SalaryStatus" ng-bind="model.SalaryStatusName"></label>
                     </div>
                 </div>
 
