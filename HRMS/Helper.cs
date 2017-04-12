@@ -1,8 +1,12 @@
-﻿using SendGrid.Helpers.Mail;
+﻿using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
+
 namespace HRMS
 {
     public class Helper
@@ -42,30 +46,23 @@ namespace HRMS
             December = 12
         }
 
-        public static void SendEmailToEmployee(List<Personalization> listPersonalization, string Subject, string Body, string FromAddress)
+        public static void SendEmailToEmployee(string Subject, string Body, string FromAddress, string FromUser, string ToAddress, string ToUser,string attachment)
         {
+            Task<Response> response;
             try
             {
-                if (Convert.ToBoolean(ConfigurationManager.AppSettings["sendEmail"]))
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]))
                 {
-                    //Environment.SetEnvironmentVariable("APIKey", ConfigurationManager.AppSettings["SendGrid"], EnvironmentVariableTarget.User);
-                    string apiKey = ConfigurationManager.AppSettings["SendGrid"];//Environment.GetEnvironmentVariable("APIKey", EnvironmentVariableTarget.User);
-                    dynamic sg = new SendGrid.SendGridAPIClient(apiKey, Convert.ToString(ConfigurationManager.AppSettings["SendGridURL"]));
-
-                    Mail mail = new Mail();
-                    SendGrid.Helpers.Mail.Email email = new SendGrid.Helpers.Mail.Email();
-
-                    email.Address = FromAddress;
-                    mail.From = email;
-                    mail.Subject = Subject;
-                    mail.Personalization = listPersonalization;
-
-                    Content content = new Content();
-                    content = new Content();
-                    content.Type = "text/html";
-                    content.Value = Body;
-                    mail.AddContent(content);
-                    sg.client.mail.send.post(requestBody: mail.Get());
+                    var apiKey = ConfigurationManager.AppSettings["SendGrid"];
+                    var client = new SendGridClient(apiKey);
+                    var from = new EmailAddress(FromAddress, FromUser);
+                    var subject = Subject;
+                    var to = new EmailAddress(ToAddress, ToUser);
+                    //var plainTextContent = "and easy to do anywhere, even with C#";
+                    var htmlContent = Body;
+                    var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlContent);
+                    msg.AddAttachment("SalarySlip.pdf", attachment);
+                    response =  client.SendEmailAsync(msg);
                 }
             }
             catch (Exception ex)

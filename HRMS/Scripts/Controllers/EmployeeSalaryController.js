@@ -185,6 +185,7 @@ _.SendEmail = function (empID, monthID) {
     debugger;
     salaryService.SendEmail(empID, monthID, function (status, data) {
         if (status) {
+            debugger;
             alert(data);
         }
 
