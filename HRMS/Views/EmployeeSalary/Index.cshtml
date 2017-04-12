@@ -89,8 +89,8 @@
                         <td class="text-left">{{r.EmployeeID}}</td>
                         <td class="text-left">{{r.SalaryStatus}}</td>                       
                         <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
-                        <td class="col-md-1"><button ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)" class="btn">Download PDF</button></td>
-                        <td class="col-md-1"><button ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)" class="btn">Send Email</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.SalaryStatus == 'Pending'}}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)" class="btn">Download PDF</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.SalaryStatus == 'Pending'}}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)" class="btn">Send Email</button></td>
                 </tbody>
 
             </table>

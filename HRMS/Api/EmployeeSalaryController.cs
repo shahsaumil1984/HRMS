@@ -257,6 +257,7 @@ namespace HRMS.Api
             return SetSalaryDetails(sObj);
         }
 
+        #region Private Methods
         private HttpResponseMessage SetSalaryDetails(Salary salObj)
         {
             try
@@ -321,6 +322,6 @@ namespace HRMS.Api
                 return HttpError(e);
             }
         }
-
+        #endregion
     }
 }
