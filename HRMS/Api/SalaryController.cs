@@ -189,7 +189,7 @@ namespace Api
                 }
                 else
                 {
-                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
+                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID,SalaryStatusName = Helper.SalaryStatus.Pending.ToString() };
                 }
             }
             return obj;
@@ -493,7 +493,7 @@ namespace Api
                 return result;
             }
         }
-
+               
 
         #region Private Methods
         [Authorize(Roles = "Accountant")]
