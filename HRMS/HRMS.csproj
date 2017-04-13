@@ -303,6 +303,8 @@
     <Content Include="Content\images\bg.jpg" />
     <Content Include="Content\images\delete.png" />
     <Content Include="Content\images\edit.png" />
+    <Content Include="Content\images\footer.jpg" />
+    <Content Include="Content\images\header.jpg" />
     <Content Include="Content\images\jobopenings.png" />
     <Content Include="Content\images\loginimg1.jpg" />
     <Content Include="Content\images\loginimg2.jpg" />
