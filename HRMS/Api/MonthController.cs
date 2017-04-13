@@ -129,12 +129,6 @@ namespace HRMS.Api
             return response;
 
         }
-
-       // [HttpGet]
-        //[Authorize(Roles = "Accountant")]
-        //public HttpResponseMessage GetDownloadAllPDF(int MonthID)
-        //{
-            
-        //}
+        
     }
 }

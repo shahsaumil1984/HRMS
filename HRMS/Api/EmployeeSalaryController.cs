@@ -17,6 +17,7 @@ using System.Web.Mvc;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Ionic.Zip;
 
 
 namespace HRMS.Api
@@ -220,7 +221,7 @@ namespace HRMS.Api
 
             return pQuery;
         }
-        
+
         [HttpGet]
         [Authorize(Roles = "Accountant")]
         public int GetNextEmployeeID(int EmployeeID)
@@ -256,74 +257,85 @@ namespace HRMS.Api
         {
             SalaryService salService = new SalaryService();
             Salary sObj = salService.Get().Where(s => s.EmployeeID == EmpID && s.MonthID == MonthID).FirstOrDefault();
-            return SetSalaryDetails(sObj);
+            List<Salary> salList = new List<Salary> { sObj };
+            return Download(salList, false);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage GetDownloadPDFZip(int MonthID)
+        {
+            SalaryService salService = new SalaryService();
+            List<Salary> approvedSalaryList = salService.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved && s.Employee.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive).ToList();
+            return Download(approvedSalaryList, true);
         }
 
         #region Private Methods
-        private HttpResponseMessage SetSalaryDetails(Salary salObj)
+        private HttpResponseMessage Download(List<Salary> salList, bool isZip)
         {
-            try
-            {
-                //-- Generate file
-                var wordFile = salObj.Employee.FirstName + " " + salObj.Employee.LastName + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salObj.Month.Month1) + "-" + (salObj.Month.Year % 100) + ".docx";
-                var ms = new MemoryStream();
-                Byte[] ByteArray = null;                
+            var ms = new MemoryStream();
+            Byte[] ByteArray = null;
+            string file = string.Empty;
+           
+            string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salList.FirstOrDefault().Month.Month1);
 
-                using (MemoryStream generatedDocument = new MemoryStream())
+            using (ZipFile zip = new ZipFile())
+            {
+                zip.AlternateEncodingUsage = ZipOption.AsNecessary;
+                //string archiveDirectory = "SalarySlips_" + month;
+                //zip.AddDirectoryByName(archiveDirectory);
+
+
+                foreach (Salary salObj in salList)
                 {
-                    using (WordprocessingDocument package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
+                    file = salObj.Employee.FirstName + " " + salObj.Employee.LastName + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salObj.Month.Month1) + "-" + (salObj.Month.Year % 100) + ".docx";
+                    using (MemoryStream generatedDocument = new MemoryStream())
                     {
-                        GeneratedClass gc = new GeneratedClass();
-                        gc.SalaryObj = salObj;
-                        gc.CreateParts(package);
+                        using (WordprocessingDocument package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
+                        {
+                            GeneratedClass gc = new GeneratedClass();
+                            gc.SalaryObj = salObj;
+                            gc.CreateParts(package);
+
+                        }
+                        ByteArray = generatedDocument.ToArray();
+                        File.WriteAllBytes(file, ByteArray);
                     }
+                    if (isZip)
+                    {
+                        zip.AddFile(file);
+                    }
+                }              
 
-                    ByteArray = generatedDocument.ToArray();
-                    File.WriteAllBytes(wordFile, ByteArray);
-                }
-
-                var pdfFile = salObj.Employee.FirstName + " " + salObj.Employee.LastName + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salObj.Month.Month1) + "-" + (salObj.Month.Year % 100) + ".pdf";
-                //Read the Data from word File
-                //using (StreamReader rdr = new StreamReader(wordFile))
-                //{
-                //    //Create a New instance on Document Class
-                //    iTextSharp.text.Document doc = new iTextSharp.text.Document();
-                //    //Create a New instance of PDFWriter Class for Output File
-                //    PdfWriter.GetInstance(doc, new FileStream(pdfFile, FileMode.Create));
-
-                //    //Open the Document
-                //    doc.Open();
-
-                //    //Add the content of Text File to PDF File
-
-                //    doc.Add(new Paragraph(rdr.ReadToEnd()));
-
-                //    //Close the Document
-
-                //    doc.Close();
-                //}
-
-
-
-                //Download PDF file
-                var stream = new FileStream(wordFile, FileMode.Open, FileAccess.Read);
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StreamContent(stream);
-                
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                if (!isZip)
                 {
-                    FileName = wordFile
-                };
+                    var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    var response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StreamContent(stream);
 
-                return response;
-                
-            }
-            catch (Exception e)
-            {
-                return HttpError(e);
-            }
-        }
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                    {
+                        FileName = file
+                    };
+
+                    return response;
+                }
+                else
+                {
+                    //Download Zip file
+                    var pushStreamContent = new PushStreamContent((stream, content, context) =>
+                    {
+                        zip.Save(stream);
+                        stream.Close();
+                    }, "application/zip");
+
+                    return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+                    
+                }
+            }          
+
+        }   
         #endregion
     }
 }

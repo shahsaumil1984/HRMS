@@ -31,5 +31,5 @@ _.GenerateandDownloadCSV = function (monthID) {
 
 _.DownloadAllPDF = function (monthID) {
 
-    window.open('~/../../Api/Month/GetDownloadAllPDF?MonthID=' + monthID, '_blank', '');
+    window.open('~/../../Api/EmployeeSalary/GetDownloadPDFZip?MonthID=' + monthID, '_blank', '');
 };
