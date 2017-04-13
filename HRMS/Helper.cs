@@ -75,6 +75,25 @@ namespace HRMS
             }
         }
 
+
+        public static byte[] CreatePDFFromHTMLFile(string HtmlStream)
+        {
+            try
+            {
+                string ModifiedFileName = string.Empty;
+                string FinalFileName = string.Empty;
+
+                var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
+                htmlToPdf.PageWidth = 280;
+                htmlToPdf.PageHeight = 500;
+                var pdfBytes = htmlToPdf.GeneratePdf(HtmlStream);
+                return pdfBytes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
 }

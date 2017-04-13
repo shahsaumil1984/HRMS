@@ -98,6 +98,9 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NReco.PdfGenerator">
+      <HintPath>..\..\Documents\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
     <Reference Include="SendGrid, Version=9.1.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\Sendgrid.9.1.0\lib\net452\SendGrid.dll</HintPath>
       <Private>True</Private>
@@ -312,6 +315,9 @@
     <Content Include="Content\images\noimg.jpg" />
     <Content Include="Content\images\pattern-stripes.png" />
     <Content Include="favicon.ico" />
+    <Content Include="File Formats\images\footer.jpg" />
+    <Content Include="File Formats\images\header.jpg" />
+    <Content Include="File Formats\SalaryTemplate.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
