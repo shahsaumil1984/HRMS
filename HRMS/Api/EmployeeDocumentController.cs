@@ -18,14 +18,8 @@ namespace HRMS.Api
         //}
         public override object GetModel()
         {
-
-            
-          
-
             EmployeeDocument obj = (EmployeeDocument)base.GetModel();
-
-            // Set Default Values Here
-
+            
             return obj;
         }
 
@@ -57,7 +51,7 @@ namespace HRMS.Api
                             o.DocumentID,
                             o.EmployeeID,
                             o.DocumentName,
-                            o.DocumentType//,
+                            o.DocumentType
                             //o.DocumentTypeID
                         };
 

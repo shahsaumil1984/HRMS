@@ -40,32 +40,61 @@ namespace HRMS
 
         public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID=1)
         {
-            Document entity = new Document();
+            Document entity;
             EmployeeDocument ed = new EmployeeDocument();
             DocumentService documentService = new DocumentService();
             EmployeeDocumentService employeeDocumentService = new EmployeeDocumentService();
             long id = 0;
             var employeeDocument = employeeDocumentService.Get().Where(i => i.DocumentTypeID == DocumentTypeID && i.EmployeeID == EmployeeID).FirstOrDefault();
 
-            entity.DocumentContent = new byte[file.InputStream.Length];
-            file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
-            entity.DocumentName = file.FileName;
-            entity.CreatedBy = "jpithadiya@affirma.com";
-            entity.ModifiedBy = "jpithadiya@affirma.com";
-            entity.CreatedDate = DateTime.Now;
-            entity.ModifiedDate = DateTime.Now;
-            documentService.Create(entity);
-            id = documentService.SaveChangesReturnId(entity);
+            if (employeeDocument != null)
+            {
+                entity = documentService.Get().Where(i => i.DocumentID == employeeDocument.DocumentID).FirstOrDefault();
+                entity.DocumentContent = new byte[file.InputStream.Length];
+                file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
+                entity.DocumentName = file.FileName;
+                entity.ModifiedBy = "jpithadiya@affirma.com";
+                entity.ModifiedDate = DateTime.Now;
+                documentService.Update(entity);
+                id = documentService.SaveChangesReturnId(entity);
+            }
+            else
+            {
+                entity = new Document();
+                entity.DocumentContent = new byte[file.InputStream.Length];
+                file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
+                entity.DocumentName = file.FileName;
+                entity.CreatedBy = "jpithadiya@affirma.com";
+                entity.CreatedDate = DateTime.Now;
+                documentService.Create(entity);
+                id = documentService.SaveChangesReturnId(entity);
+            }
 
-            
-            ed.EmployeeID = EmployeeID;
-            ed.DocumentID = id;
-            ed.DocumentTypeID = DocumentTypeID;
-            ed.DocumentName = file.FileName;
-            ed.CreatedBy = "jpithadiya@affirma.com";
-            ed.CreatedDate = DateTime.Now;
 
-            employeeDocumentService.Create(ed);
+
+
+            if (employeeDocument != null && employeeDocument.EmployeeDocumentID != 0)
+            {
+
+                employeeDocument.EmployeeID = EmployeeID;
+                employeeDocument.DocumentID = id;
+                employeeDocument.DocumentTypeID = DocumentTypeID;
+                employeeDocument.DocumentName = file.FileName;
+                employeeDocument.ModifiedBy = "jpithadiya@affirma.com";
+                employeeDocument.ModifiedDate = DateTime.Now;
+                employeeDocumentService.Update(employeeDocument);
+            }
+            else
+            {
+                ed.EmployeeID = EmployeeID;
+                ed.DocumentID = id;
+                ed.DocumentTypeID = DocumentTypeID;
+                ed.DocumentName = file.FileName;
+                ed.CreatedBy = "jpithadiya@affirma.com";
+                ed.CreatedDate = DateTime.Now;
+                employeeDocumentService.Create(ed);
+            }
+
             employeeDocumentService.SaveChanges();
 
             return Json("Success", JsonRequestBehavior.AllowGet);
@@ -73,7 +102,6 @@ namespace HRMS
 
         public FileContentResult FileDownload(int id)
         {
-            //declare byte array to get file content from database and string to store file name
             byte[] fileData;
             string fileName;
 
