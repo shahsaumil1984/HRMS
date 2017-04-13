@@ -42,6 +42,7 @@ namespace Model
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<Month> Months { get; set; }
         public virtual DbSet<Salary> Salaries { get; set; }
+        public virtual DbSet<SalaryStatu> SalaryStatus { get; set; }
         public virtual DbSet<SettingTable> SettingTables { get; set; }
     }
 }

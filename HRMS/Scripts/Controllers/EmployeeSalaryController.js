@@ -107,7 +107,7 @@ _.loadPrevEmployee = function (employeeID, monthID) {
         alert('Kindly check if data entered is correct.');
     }
 }
-var approveNextEmployee = function (monthID) {  
+var approveNextEmployee = function (monthID) {
     employeeID = $('#employeeidtoedit').val();
     salaryDetailsForm.SetValue('SalaryStatus', 'Approved');
     _.loadNextEmployee(employeeID, monthID);
@@ -173,8 +173,21 @@ _.UploadCSV = function () {
     //});
 }
 
+_.DownloadPDF = function (empID, monthID) {
+
+    window.open('~/../../Api/EmployeeSalary/GetDownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_blank', '');
+};
 
 // Form Validation
 //----------------------------------------------
 
-
+_.SendEmail = function (empID, monthID) {
+    salaryService.SendEmail(empID, monthID, function (status, data) {
+        if (status) {
+            alert("Email sent successfully!");
+        }
+        else {
+            alert("Email could not be sent.")
+        }
+    })
+}
