@@ -29,7 +29,7 @@ _.GenerateandDownloadCSV = function (monthID) {
     window.open('~/../../Api/Month/GetGenerateandDownloadCSV?MonthID=' + monthID, '_blank', '');
 };
 
-_.DownloadPDF = function (monthID) {
+_.DownloadAllPDF = function (monthID) {
 
-    window.open('~/../../Api/Month/GenerateandDownloadPDF?MonthID=' + monthID, '_blank', '');
+    window.open('~/../../Api/Month/GetDownloadAllPDF?MonthID=' + monthID, '_blank', '');
 };

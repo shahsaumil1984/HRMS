@@ -58,7 +58,8 @@ namespace HRMS.Api
                 filter += "and MonthID <= " + currentMonthID;
             }
 
-            //
+            SalaryService sService = new SalaryService();
+
             IQueryable<Month> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = (from o in list
                             //where o.MonthID <= currentMonthID                      
@@ -72,8 +73,9 @@ namespace HRMS.Api
                         {
                             Month = Enum.GetName(typeof(Helper.Month), x.Month1),
                             MonthID = x.MonthID,
-                            Year = x.Year
-                        }).AsQueryable();
+                            Year = x.Year,
+                            ButtonDisable = sService.Get().Where(s => s.MonthID == x.MonthID).Any(s => s.SalaryStatu.SalaryStatusName == Helper.SalaryStatus.Approved.ToString()) ? false: true
+        }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
 
@@ -126,6 +128,13 @@ namespace HRMS.Api
 
             return response;
 
-        }       
+        }
+
+       // [HttpGet]
+        //[Authorize(Roles = "Accountant")]
+        //public HttpResponseMessage GetDownloadAllPDF(int MonthID)
+        //{
+            
+        //}
     }
 }

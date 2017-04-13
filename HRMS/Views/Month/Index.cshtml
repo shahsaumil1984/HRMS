@@ -54,9 +54,9 @@
                             <td class="col-md-1">
                                 <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
                             </td>
-                            <td class="col-md-1"><button ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
-                            <td class="col-md-1"><button ng-click="ub.DownloadPDF(r.MonthID)" class="btn">Download PDF</button></td>
-                            <td class="col-md-1"><button ng-click="ub.SendEmail(r.MonthID)" class="btn">Send Email</button></td>
+                            <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
+                            <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.DownloadAllPDF(r.MonthID)" class="btn">Download PDF</button></td>
+                            <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.SendEmail(r.MonthID)" class="btn">Send Email</button></td>
                         </tr>
                     </tbody>
                     <tfoot>

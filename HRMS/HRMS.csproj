@@ -339,10 +339,10 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="File Formats\Letter head.docx" />
-    <None Include="Properties\PublishProfiles\Alept.pubxml" />
+    <None Include="Properties\PublishProfiles\alepthr - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\alepthr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Controllers\EmployeeStatusHistoryController.js" />
-    <Content Include="Scripts\Controllers\ManageStatusController.js" />
     <Content Include="Scripts\Controllers\EmployeeStatusController.js" />
     <Content Include="Scripts\Controllers\DocumentTypeController.js" />
     <Content Include="Scripts\Controllers\EmployeeController.js" />
@@ -438,7 +438,7 @@
     <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Api\App_Data\" />
     <Folder Include="Content\NewFolder1\" />
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />

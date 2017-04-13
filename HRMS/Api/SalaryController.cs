@@ -140,11 +140,10 @@ namespace Api
                                  o.TotalPayment,
                                  o.Salary1,
                                  o.Note,
-                                 o.SalaryStatus,
+                                 o.SalaryStatu.SalaryStatusName,
                                  o.BankName,
                                  o.AccountNumber,
-                                 o.Employee.FullName,
-                                 o.Employee.EmployeeCode
+                                 o.Employee.FullName                                
                              }).ToList();
 
 
@@ -156,7 +155,7 @@ namespace Api
                 AdvanceSalary = o.AdvanceSalary,
                 Basic = o.Basic,
                 ConveyanceAllowance = o.ConveyanceAllowance,
-                EmployeeID = o.EmployeeID,
+                EmployeeID = o.EmployeeID,                
                 EPF = o.EPF,
                 Exgratia = o.Exgratia,
                 HRA = o.HRA,
@@ -174,7 +173,7 @@ namespace Api
                 Total = o.Total,
                 TotalPayment = o.TotalPayment,
                 Salary1 = o.Salary1,
-                SalaryStatus = o.SalaryStatus,
+                SalaryStatusName = o.SalaryStatusName,
                 BankName = o.BankName,
                 AccountNumber = o.AccountNumber,
                 Note = o.Note
@@ -309,47 +308,6 @@ namespace Api
             {
                 return HttpError(e);
             }
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Accountant")]
-        public HttpResponseMessage GenerateandDownloadPDF(int EmployeeID, int MonthID)
-        {
-            try
-            {
-                EmployeeService eService = new EmployeeService();
-                string employeeCode = eService.Get().Where(e => e.EmployeeID == EmployeeID).FirstOrDefault().EmployeeCode;
-                MonthService mService = new MonthService();
-                string month = Enum.GetName(typeof(Helper.Month), mService.GetById(MonthID).Month1);
-
-                SalaryService sService = new SalaryService();
-                Salary sObj = sService.Get().Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
-
-                string sourceFile = HttpContext.Current.Server.MapPath(@"~\File Formats\Letter head.docx");
-                string targetFile = HttpContext.Current.Server.MapPath(@"~\File Formats\SalarySlip_" + employeeCode + month + ".docx");
-                File.Copy(sourceFile, targetFile, true);
-
-
-                string fileName = Path.GetFileName(targetFile);
-                ///Download PDF file
-                var stream = new FileStream(targetFile, FileMode.Open, FileAccess.Read);
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StreamContent(stream);
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = fileName
-                };
-
-                return response;
-
-                //return HttpSuccess();
-            }
-            catch (Exception e)
-            {
-                return HttpError(e);
-            }
-
         }
 
         [Authorize(Roles = "Accountant")]
