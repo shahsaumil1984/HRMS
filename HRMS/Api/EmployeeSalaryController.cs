@@ -143,6 +143,7 @@ namespace HRMS.Api
                          select new
                          {
                              o.EmployeeID,
+                             o.EmployeeCode,
                              o.FirstName,
                              o.LastName,
                              o.FullName,
@@ -180,6 +181,7 @@ namespace HRMS.Api
                          }).AsEnumerable().Select(x => new
                          {
                              EmployeeID = x.EmployeeID,
+                             EmployeeCode = x.EmployeeCode,
                              FirstName = x.FirstName,
                              LastName = x.LastName,
                              FullName = x.FullName,
@@ -275,7 +277,7 @@ namespace HRMS.Api
             var ms = new MemoryStream();
             Byte[] ByteArray = null;
             string file = string.Empty;
-           
+
             string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salList.FirstOrDefault().Month.Month1);
 
             using (ZipFile zip = new ZipFile())
@@ -304,7 +306,7 @@ namespace HRMS.Api
                     {
                         zip.AddFile(file);
                     }
-                }              
+                }
 
                 if (!isZip)
                 {
@@ -330,11 +332,11 @@ namespace HRMS.Api
                     }, "application/zip");
 
                     return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
-                    
-                }
-            }          
 
-        }   
+                }
+            }
+
+        }
         #endregion
     }
 }

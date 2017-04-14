@@ -43,8 +43,14 @@ $(document).ready(function () {
     }
 
     _.SaveSalary = function () {
+        debugger;
         var isvalid = salaryDetailsForm.detailsForm.valid();
         if (isvalid) {
+            if (salaryDetailsForm.model().SalaryStatusName == "Approved") {
+                salaryDetailsForm.model().SalaryStatus = 2;
+            }
+            else
+                salaryDetailsForm.model().SalaryStatus = 1; //Pending
             salaryDetailsForm.Save();
             $("#salaryDetailsForm").parent().hide();
             $("#employeeSalaryListView").show();
@@ -70,6 +76,11 @@ _.loadNextEmployee = function (employeeID, monthID) {
     debugger;
     var isvalid = salaryDetailsForm.detailsForm.valid();
     if (isvalid) {
+        if (salaryDetailsForm.model().SalaryStatusName == "Approved") {
+            salaryDetailsForm.model().SalaryStatus = 2;
+        }
+        else
+            salaryDetailsForm.model().SalaryStatus = 1; //Pending
         salaryDetailsForm.Save();
         employeeSalaryService.GetNextEmployeeID(employeeID, function (status, data) {
             if (status) {
@@ -90,6 +101,11 @@ _.loadNextEmployee = function (employeeID, monthID) {
 _.loadPrevEmployee = function (employeeID, monthID) {
     var isvalid = salaryDetailsForm.detailsForm.valid();
     if (isvalid) {
+        if (salaryDetailsForm.model().SalaryStatusName == "Approved") {
+            salaryDetailsForm.model().SalaryStatus = 2;
+        }
+        else
+            salaryDetailsForm.model().SalaryStatus = 1; //Pending
         salaryDetailsForm.Save();
         employeeSalaryService.GetPrevEmployeeID(employeeID, function (status, data) {
             if (status) {
@@ -108,15 +124,30 @@ _.loadPrevEmployee = function (employeeID, monthID) {
     }
 }
 var approveNextEmployee = function (monthID) {
+    debugger;
     employeeID = $('#employeeidtoedit').val();
-    salaryDetailsForm.SetValue('SalaryStatus', 'Approved');
+    salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
     _.loadNextEmployee(employeeID, monthID);
 }
 
 var approvePrevEmployee = function (monthID) {
     employeeID = $('#employeeidtoedit').val();
-    salaryDetailsForm.SetValue('SalaryStatus', 'Approved');
+    salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
     _.loadPrevEmployee(employeeID, monthID);
+}
+
+var approveSalary = function (monthID) {
+    debugger;
+    employeeID = $('#employeeidtoedit').val();
+    salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
+    var isvalid = salaryDetailsForm.detailsForm.valid();
+    if (isvalid) {
+        salaryDetailsForm.Save();
+        _.LoadSalaryForm(employeeID, monthID);
+    }
+    else {
+        alert('Kindly check if data entered is correct.');
+    }   
 }
 
 _.UploadCSV = function () {
