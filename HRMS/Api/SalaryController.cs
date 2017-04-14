@@ -24,6 +24,7 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.tool.xml;
 using static HRMS.Helper;
 using Ionic.Zip;
+using System.Text.RegularExpressions;
 
 namespace Api
 {
@@ -244,40 +245,7 @@ namespace Api
 
                 //Creating object of datatable  
                 DataTable tblcsv = new DataTable();
-
-                //Creating columns
-                tblcsv.Columns.Add("EmployeeCode");
-                tblcsv.Columns.Add("Year");
-                tblcsv.Columns.Add("Month");
-
-                tblcsv.Columns.Add("Basic");
-                tblcsv.Columns.Add("HRA");
-                tblcsv.Columns.Add("ConveyanceAllowance");
-                tblcsv.Columns.Add("OtherAllowance");
-                tblcsv.Columns.Add("MedicalReimbursement");
-                tblcsv.Columns.Add("AdvanceSalary");
-                tblcsv.Columns.Add("Incentive");
-                tblcsv.Columns.Add("PLI");
-                tblcsv.Columns.Add("Exgratia");
-                tblcsv.Columns.Add("ReimbursementOfexp");
-                tblcsv.Columns.Add("TDS");
-                tblcsv.Columns.Add("EPF");
-                tblcsv.Columns.Add("ProfessionalTax");
-                tblcsv.Columns.Add("Leave");
-                tblcsv.Columns.Add("Advance");
-                tblcsv.Columns.Add("YTDS");
-                tblcsv.Columns.Add("Note");
-                tblcsv.Columns.Add("Salary");
-                tblcsv.Columns.Add("Total");
-                tblcsv.Columns.Add("TotalPayment");
-                tblcsv.Columns.Add("Days");
-                tblcsv.Columns.Add("AccountNumber");
-                tblcsv.Columns.Add("BankName");
-                tblcsv.Columns.Add("CreatedBy");
-                tblcsv.Columns.Add("ModifiedBy");
-                tblcsv.Columns.Add("CreatedDate");
-                tblcsv.Columns.Add("ModifiedDate");
-
+                
                 //string CSVFilePath = Path.GetFullPath(filePath);
 
                 //Reading All text  
@@ -288,18 +256,30 @@ namespace Api
                     ReadCSV = reader.ReadToEnd();
                 }
 
+                string[] csvRows = ReadCSV.Split('\n');
                 //spliting row after new line  
-                foreach (string csvRow in ReadCSV.Split('\n'))
+                foreach (string csvRow in csvRows)
                 {
                     if (!string.IsNullOrEmpty(csvRow))
                     {
                         //Adding each row into datatable  
-                        tblcsv.Rows.Add();
-                        int count = 0;
-                        foreach (string FileRec in csvRow.Split(','))
+
+                        if (csvRows.First().Equals(csvRow))
                         {
-                            tblcsv.Rows[tblcsv.Rows.Count - 1][count] = FileRec;
-                            count++;
+                            foreach (string fileHeader in csvRow.Split(','))
+                            {
+                                tblcsv.Columns.Add(fileHeader);
+                            }
+                        }
+                        else
+                        {
+                            tblcsv.Rows.Add();
+                            int count = 0;
+                            foreach (string FileRec in csvRow.Split(','))
+                            {
+                                tblcsv.Rows[tblcsv.Rows.Count - 1][count] = Regex.Replace(FileRec, @"\t|\n|\r", "");
+                                count++;
+                            }
                         }
                     }
                 }
@@ -363,7 +343,7 @@ namespace Api
 
             try
             {
-                
+
                 //var array = File.ReadAllBytes("E:\\New Text Document.txt");
                 //string data = Convert.ToBase64String(array);
 
@@ -393,7 +373,7 @@ namespace Api
                     pdfbody = pdfbody.Replace("{{HRA}}", objSalary.HRA.ToString());
                 else
                     pdfbody = pdfbody.Replace("{{HRA}}", string.Empty);
-                
+
                 if (objSalary != null)
                     pdfbody = pdfbody.Replace("{{Conveyance Allowance}}", objSalary.ConveyanceAllowance.ToString());
                 else
@@ -413,7 +393,7 @@ namespace Api
                     pdfbody = pdfbody.Replace("{{Arrear Salary}}", objSalary.AdvanceSalary.ToString());
                 else
                     pdfbody = pdfbody.Replace("{{Arrear Salary}}", string.Empty);
-                
+
                 if (objSalary != null)
                     pdfbody = pdfbody.Replace("{{Incentive}}", objSalary.Incentive.ToString());
                 else
@@ -498,7 +478,7 @@ namespace Api
             }
         }
 
-    
+
 
         #region Private Methods
         [Authorize(Roles = "Accountant")]
