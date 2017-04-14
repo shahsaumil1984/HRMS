@@ -16,7 +16,6 @@ namespace Model
     {
         public int EmployeeStatusID { get; set; }
         public int EmployeeID { get; set; }
-        public Nullable<int> OldStatusID { get; set; }
         public Nullable<int> NewStatusID { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
@@ -28,6 +27,5 @@ namespace Model
     
         public virtual Employee Employee { get; set; }
         public virtual EmployeeStatu EmployeeStatu { get; set; }
-        public virtual EmployeeStatu EmployeeStatu1 { get; set; }
     }
 }

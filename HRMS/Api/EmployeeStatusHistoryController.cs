@@ -52,8 +52,7 @@ namespace HRMS.Api
                                   select new
                                   {
                                       o.EmployeeStatusID,
-                                      o.EmployeeStatu,
-                                      o.EmployeeStatu1,
+                                      o.EmployeeStatu,                              
                                       o.Employee,
                                       o.StartDate,
                                       o.EndDate,
@@ -67,7 +66,6 @@ namespace HRMS.Api
                                   {
                                       EmployeeStatusID = o.EmployeeStatusID,
                                       EmployeeStatu = o.EmployeeStatu,
-                                      EmployeeStatu1 = o.EmployeeStatu1,
                                       StartDate = o.StartDate,
                                       EndDate = o.EndDate,
                                       StatusNote = o.StatusNote,
@@ -89,8 +87,7 @@ namespace HRMS.Api
                         {
                             EmployeeStatusID = o.EmployeeStatusID,
                             Employee = o.Employee,
-                            EmployeeStatu = o.EmployeeStatu,
-                            EmployeeStatu1 = o.EmployeeStatu1,
+                            EmployeeStatu = o.EmployeeStatu,                            
                             StartDate = o.StartDate,
                             EndDate = o.EndDate,
                             CreatedDate = o.CreatedDate,
@@ -104,7 +101,6 @@ namespace HRMS.Api
                                 EmployeeStatusID = o.EmployeeStatusID,
                                 Employee = o.Employee.FullName,
                                 EmployeeStatu = o.EmployeeStatu,
-                                EmployeeStatu1 = o.EmployeeStatu1,
                                 StartDate = o.StartDate,
                                 EndDate = o.EndDate,
                                 CreatedDate = o.CreatedDate,

@@ -19,7 +19,6 @@ namespace Model
         {
             this.Employees = new HashSet<Employee>();
             this.EmployeeStatusHistories = new HashSet<EmployeeStatusHistory>();
-            this.EmployeeStatusHistories1 = new HashSet<EmployeeStatusHistory>();
         }
     
         public int StatusID { get; set; }
@@ -34,7 +33,5 @@ namespace Model
         public virtual ICollection<Employee> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeStatusHistory> EmployeeStatusHistories1 { get; set; }
     }
 }
