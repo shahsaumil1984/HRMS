@@ -135,8 +135,7 @@ namespace HRMS.Api
         [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
-            int month = 4;
-            int year = 2017;
+            int monthID = Convert.ToInt32(includeProperties.Substring(includeProperties.IndexOf('=') + 1));
 
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = (from o in list
@@ -214,7 +213,7 @@ namespace HRMS.Api
                              AddressCity = x.AddressCity,
                              PermanentAddressCity = x.PermanentAddressCity,
                              EmployeePhoto = x.EmployeePhoto,
-                             SalaryStatus = x.Salaries.Where(s => s.Month.Month1 == month && s.Month.Year == year).FirstOrDefault() == null ? "Pending" : x.Salaries.Where(s => s.Month.Month1 == month && s.Month.Year == year).FirstOrDefault().SalaryStatu.SalaryStatusName
+                             SalaryStatus = x.Salaries.Where(s => s.MonthID == monthID).FirstOrDefault() == null ? "Pending" : x.Salaries.Where(s => s.MonthID == monthID).FirstOrDefault().SalaryStatu.SalaryStatusName
                          }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
