@@ -22,6 +22,8 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.tool.xml;
+using static HRMS.Helper;
+using Ionic.Zip;
 
 namespace Api
 {
@@ -74,7 +76,8 @@ namespace Api
                               o.YTDS,
                               o.AccountNumber,
                               o.SalaryStatus,
-                              o.BankName
+                              o.BankName,
+                              o.SalaryStatusName
 
                           }).ToList().Select(o => new Salary
                           {
@@ -101,8 +104,8 @@ namespace Api
                               YTDS = o.YTDS,
                               AccountNumber = o.AccountNumber,
                               SalaryStatus = o.SalaryStatus,
-                              BankName = o.BankName
-
+                              BankName = o.BankName,
+                              SalaryStatusName = o.SalaryStatusName
                           }).Single<Salary>();
             return obj;
         }
@@ -143,7 +146,7 @@ namespace Api
                                  o.SalaryStatu.SalaryStatusName,
                                  o.BankName,
                                  o.AccountNumber,
-                                 o.Employee.FullName                                
+                                 o.Employee.FullName
                              }).ToList();
 
 
@@ -155,7 +158,7 @@ namespace Api
                 AdvanceSalary = o.AdvanceSalary,
                 Basic = o.Basic,
                 ConveyanceAllowance = o.ConveyanceAllowance,
-                EmployeeID = o.EmployeeID,                
+                EmployeeID = o.EmployeeID,
                 EPF = o.EPF,
                 Exgratia = o.Exgratia,
                 HRA = o.HRA,
@@ -189,7 +192,7 @@ namespace Api
                 }
                 else
                 {
-                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID,SalaryStatusName = Helper.SalaryStatus.Pending.ToString() };
+                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID, SalaryStatusName = Helper.SalaryStatus.Pending.ToString() };
                 }
             }
             return obj;
@@ -313,6 +316,10 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public override HttpResponseMessage Create(Salary entity)
         {
+            if (entity.SalaryStatusName == SalaryStatus.Approved.ToString())
+                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
+            else
+                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
             return base.Create(entity);
         }
 
@@ -324,7 +331,7 @@ namespace Api
             {
                 Employee objEmployee = service.Context.Employees.Where(m => m.EmployeeID == employeeID).FirstOrDefault();
                 Salary objSalary = service.Context.Salaries.Where(m => m.EmployeeID == employeeID && m.MonthID == monthID).FirstOrDefault();
-                Month objMonth = service.Context.Months.Where(m => m.MonthID == monthID).FirstOrDefault();
+                Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == monthID).FirstOrDefault();
                 string salaryMonth = string.Empty;
                 string salaryYear = string.Empty;
                 if (objMonth != null)
@@ -356,144 +363,142 @@ namespace Api
 
             try
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("<table>");
-                sb.Append("<tr><td>Name</td><td>");
-                sb.Append(employeeName);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Month</td><td>");
-                sb.Append(month);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Days</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Days);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Basic</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Basic);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>HRA</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.HRA);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Conveyance Allowance</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.ConveyanceAllowance);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Other Allowance</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.OtherAllowance);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Medical Reimbursement</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.MedicalReimbursement);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Advance/Arrear Salary</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.AdvanceSalary);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Incentive</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Incentive);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>PLI</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.PLI);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Ex-gratia/PL Encashed/Other</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Exgratia);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Reimbursement of exp</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.ReimbursementOfexp);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Total</td><td>");
-                if (objSalary != null && objSalary.Total != null)
-                    sb.Append(objSalary.Total);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Deductions</td><td></td></tr>");
-                sb.Append("<tr><td>TDS</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.TDS);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>EPF</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.EPF);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>ProfessionalTax</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.ProfessionalTax);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Leave</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Leave);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Advance</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Advance);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Payments</td><td></td></tr>");
-                sb.Append("<tr><td>Salary1</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.Salary1);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>TotalPayment</td><td>");
-                if (objSalary != null && objSalary.TotalPayment != null)
-                    sb.Append(objSalary.TotalPayment);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>YTDS Summary</td><td></td></tr>");
-                sb.Append("<tr><td>YTDS deducted</td><td>");
-                if (objSalary != null)
-                    sb.Append(objSalary.YTDS);
-                sb.Append("</td></tr>");
-
-                sb.Append("<tr><td>Note</td><td>");
-                if (objSalary != null && !string.IsNullOrEmpty(objSalary.Note))
-                    sb.Append(objSalary.Note);
-                sb.Append("</td></tr>");
-
-                sb.Append("</table>");
-                iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4, 10f, 10f, 10f, 0f);
-                StringReader sr = new StringReader(sb.ToString());
-                MemoryStream memoryStream = new MemoryStream();
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, memoryStream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                byte[] resultByteArr = memoryStream.ToArray();
-                result = Convert.ToBase64String(resultByteArr);
+                
                 //var array = File.ReadAllBytes("E:\\New Text Document.txt");
                 //string data = Convert.ToBase64String(array);
+
+                string pdfbody = string.Empty;
+
+                using (StreamReader reader = new StreamReader(System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["SalaryPDFTemplate"])))
+                {
+                    pdfbody = reader.ReadToEnd();
+                }
+
+                pdfbody = pdfbody.Replace("{{LogoHeader}}", "http://" + System.Web.HttpContext.Current.Request.Url.Authority + "/File Formats/images/header.jpg");
+                pdfbody = pdfbody.Replace("{{LogoFooter}}", "http://" + System.Web.HttpContext.Current.Request.Url.Authority + "/File Formats/images/footer.jpg");
+
+                pdfbody = pdfbody.Replace("{{Name}}", employeeName);
+                pdfbody = pdfbody.Replace("{{Month}}", month);
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Days}}", objSalary.Days.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Days}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Basic}}", objSalary.Basic.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Basic}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{HRA}}", objSalary.HRA.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{HRA}}", string.Empty);
+                
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Conveyance Allowance}}", objSalary.ConveyanceAllowance.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Conveyance Allowance}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Other Allowance}}", objSalary.OtherAllowance.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Other Allowance}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Medical re-imbursement}}", objSalary.MedicalReimbursement.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Medical re-imbursement}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Arrear Salary}}", objSalary.AdvanceSalary.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Arrear Salary}}", string.Empty);
+                
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Incentive}}", objSalary.Incentive.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Incentive}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{PLI}}", objSalary.PLI.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{PLI}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Ex-gratia}}", objSalary.Exgratia.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Ex-gratia}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{ReimbursementOfexp}}", objSalary.ReimbursementOfexp.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{ReimbursementOfexp}}", string.Empty);
+
+                if (objSalary != null && objSalary.Total != null)
+                    pdfbody = pdfbody.Replace("{{Total}}", objSalary.Total.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Total}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{TDS}}", objSalary.TDS.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{TDS}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{EPF}}", objSalary.EPF.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{EPF}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Professional Tax}}", objSalary.ProfessionalTax.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Professional Tax}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Leave}}", objSalary.Leave.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Leave}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Advance}}", objSalary.Advance.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Advance}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{Salary}}", objSalary.Salary1.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Salary}}", string.Empty);
+
+                if (objSalary != null && objSalary.TotalPayment != null)
+                    pdfbody = pdfbody.Replace("{{TotalPayment}}", objSalary.TotalPayment.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{TotalPayment}}", string.Empty);
+
+                if (objSalary != null)
+                    pdfbody = pdfbody.Replace("{{YTDS}}", objSalary.YTDS.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{YTDS}}", string.Empty);
+
+                if (objSalary != null && !string.IsNullOrEmpty(objSalary.Note))
+                    pdfbody = pdfbody.Replace("{{Note}}", objSalary.Note.ToString());
+                else
+                    pdfbody = pdfbody.Replace("{{Note}}", string.Empty);
+                byte[] pdfByte = Helper.CreatePDFFromHTMLFile(pdfbody);
+
+                File.WriteAllBytes("E://Foo.pdf", pdfByte);
+                result = Convert.ToBase64String(pdfByte);
+
+
+
                 return result;
             }
             catch (Exception ex)
-            {              
+            {
                 return result;
             }
         }
-               
+
+    
 
         #region Private Methods
         [Authorize(Roles = "Accountant")]
