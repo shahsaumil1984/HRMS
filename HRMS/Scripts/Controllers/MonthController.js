@@ -9,20 +9,13 @@
 // Event Handlers
 //----------------------------------------------
 $(document).ready(function () {    
-    _.Initialize(function (status, msg) {
-        
+    _.Initialize(function (status, msg) {        
         // Initialization Code Goes Here
-
     });
 });
 
 // Form Validation
 //----------------------------------------------
-
-//_.GenerateandDownloadCSV()
-//{
-//    alert('hi');
-//}
 
 _.GenerateandDownloadCSV = function (monthID) {
     
@@ -31,5 +24,5 @@ _.GenerateandDownloadCSV = function (monthID) {
 
 _.DownloadAllPDF = function (monthID) {
 
-    window.open('~/../../Api/EmployeeSalary/GetDownloadPDFZip?MonthID=' + monthID, '_blank', '');
+    window.open('~/../../Api/Salary/SalarySlip_Zip?MonthID=' + monthID, '_blank', '');
 };
