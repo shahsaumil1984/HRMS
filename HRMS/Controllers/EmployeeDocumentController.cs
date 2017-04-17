@@ -38,6 +38,7 @@ namespace HRMS
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public JsonResult AjaxUpload(HttpPostedFileBase file, int EmployeeID, int DocumentTypeID=1)
         {
             Document entity;
@@ -100,6 +101,7 @@ namespace HRMS
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin")]
         public FileContentResult FileDownload(int id)
         {
             byte[] fileData;

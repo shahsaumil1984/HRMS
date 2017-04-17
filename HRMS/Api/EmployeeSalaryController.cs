@@ -4,9 +4,18 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Runtime.Serialization;
 using System.Web;
-using System.Web.Mvc;
-
+//using System.Web.Mvc;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Ionic.Zip;
+using System.Web.Security;
+using System.Web.Http;
 
 namespace HRMS.Api
 {
@@ -18,6 +27,7 @@ namespace HRMS.Api
         //    return View();
         //}
 
+        [Authorize(Roles = "Accountant")]
         public override object GetModel()
         {
             Employee obj = (Employee)base.GetModel();
@@ -27,6 +37,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public override Employee GetById(int id)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
@@ -37,6 +48,7 @@ namespace HRMS.Api
                             {
 
                                 o.EmployeeID,
+                                o.EmployeeCode,
                                 o.FirstName,
                                 o.LastName,
                                 o.FullName,
@@ -110,56 +122,97 @@ namespace HRMS.Api
                                 PermanentAddressCity = o.PermanentAddressCity,
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
-                                EmployeeStatu = o.EmployeeStatu
+                                EmployeeStatu = o.EmployeeStatu,
+                                EmployeeCode = o.EmployeeCode
 
                             }).Single<Employee>();
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
+            int monthID = Convert.ToInt32(includeProperties.Substring(includeProperties.IndexOf('=') + 1));           
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
-            var query = from o in list
-                        where o.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive
-                        select new
-                        {
-
-                            o.EmployeeID,
-                            o.FirstName,
-                            o.LastName,
-                            o.FullName,
-                            o.Email,
-                            o.Phone,
-                            o.PermanentAddressLine1,
-                            o.PermanentAddressLine2,
-                            o.PermanentAddressLine3,
-                            o.PermanentAddressState,
-                            o.PermanentAddressCountry,
-                            o.PermanentAddressZip,
-                            o.AddressLine1,
-                            o.AddressLine2,
-                            o.AddressLine3,
-                            o.AddressState,
-                            o.AddressCountry,
-                            o.AddressZip,
-                            o.DateOfBirth,
-                            o.DateOfjoining,
-                            o.ProbationPeriodEndDate,
-                            o.HasResigned,
-                            o.DateOfResignation,
-                            o.LastWorkingDay,
-                            o.PAN,
-                            o.IDCardNumber,
-                            o.IDCardType,
-                            o.SalaryAccountNumber,
-                            o.SalaryAccountBank,
-                            o.SalaryAccountBankAddress,
-                            o.SalaryAccountIFSCCode,
-                            o.AddressCity,
-                            o.PermanentAddressCity,
-                            o.EmployeePhoto,
-                            o.EmployeeStatu.Status
-                        };
+            var query = (from o in list
+                         where o.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive
+                         select new
+                         {
+                             o.EmployeeID,
+                             o.EmployeeCode,
+                             o.FirstName,
+                             o.LastName,
+                             o.FullName,
+                             o.Email,
+                             o.Phone,
+                             o.PermanentAddressLine1,
+                             o.PermanentAddressLine2,
+                             o.PermanentAddressLine3,
+                             o.PermanentAddressState,
+                             o.PermanentAddressCountry,
+                             o.PermanentAddressZip,
+                             o.AddressLine1,
+                             o.AddressLine2,
+                             o.AddressLine3,
+                             o.AddressState,
+                             o.AddressCountry,
+                             o.AddressZip,
+                             o.DateOfBirth,
+                             o.DateOfjoining,
+                             o.ProbationPeriodEndDate,
+                             o.HasResigned,
+                             o.DateOfResignation,
+                             o.LastWorkingDay,
+                             o.PAN,
+                             o.IDCardNumber,
+                             o.IDCardType,
+                             o.SalaryAccountNumber,
+                             o.SalaryAccountBank,
+                             o.SalaryAccountBankAddress,
+                             o.SalaryAccountIFSCCode,
+                             o.AddressCity,
+                             o.PermanentAddressCity,
+                             o.EmployeePhoto,
+                             o.Salaries
+                         }).AsEnumerable().Select(x => new
+                         {
+                             EmployeeID = x.EmployeeID,
+                             EmployeeCode = x.EmployeeCode,
+                             FirstName = x.FirstName,
+                             LastName = x.LastName,
+                             FullName = x.FullName,
+                             Email = x.Email,
+                             Phone = x.Phone,
+                             PermanentAddressLine1 = x.PermanentAddressLine1,
+                             PermanentAddressLine2 = x.PermanentAddressLine2,
+                             PermanentAddressLine3 = x.PermanentAddressLine3,
+                             PermanentAddressState = x.PermanentAddressState,
+                             PermanentAddressCountry = x.PermanentAddressCountry,
+                             PermanentAddressZip = x.PermanentAddressZip,
+                             AddressLine1 = x.AddressLine1,
+                             AddressLine2 = x.AddressLine2,
+                             AddressLine3 = x.AddressLine3,
+                             AddressState = x.AddressState,
+                             AddressCountry = x.AddressCountry,
+                             AddressZip = x.AddressZip,
+                             DateOfBirth = x.DateOfBirth,
+                             DateOfjoining = x.DateOfjoining,
+                             ProbationPeriodEndDate = x.ProbationPeriodEndDate,
+                             HasResigned = x.HasResigned,
+                             DateOfResignation = x.DateOfResignation,
+                             LastWorkingDay = x.LastWorkingDay,
+                             PAN = x.PAN,
+                             IDCardNumber = x.IDCardNumber,
+                             IDCardType = x.IDCardType,
+                             SalaryAccountNumber = x.SalaryAccountNumber,
+                             SalaryAccountBank = x.SalaryAccountBank,
+                             SalaryAccountBankAddress = x.SalaryAccountBankAddress,
+                             SalaryAccountIFSCCode = x.SalaryAccountIFSCCode,
+                             AddressCity = x.AddressCity,
+                             PermanentAddressCity = x.PermanentAddressCity,
+                             EmployeePhoto = x.EmployeePhoto,
+                             SalaryStatus = x.Salaries.Where(s => s.MonthID == monthID).FirstOrDefault() == null ? "Pending" : x.Salaries.Where(s => s.MonthID == monthID).FirstOrDefault().SalaryStatu.SalaryStatusName
+                         }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
 
@@ -167,6 +220,7 @@ namespace HRMS.Api
         }
 
         [HttpGet]
+        [Authorize(Roles = "Accountant")]
         public int GetNextEmployeeID(int EmployeeID)
         {
             int nextEmpID = -1;
@@ -179,6 +233,7 @@ namespace HRMS.Api
         }
 
         [HttpGet]
+        [Authorize(Roles = "Accountant")]
         public int GetPrevEmployeeID(int EmployeeID)
         {
             int nextEmpID = -1;
@@ -192,5 +247,6 @@ namespace HRMS.Api
             }
             return nextEmpID;
         }
+        
     }
 }

@@ -31,6 +31,7 @@ namespace HRMS.Controllers
 
 
         // GET: ManageRoles
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int employeeID)
         {
             RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
@@ -75,6 +76,7 @@ namespace HRMS.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public JsonResult SaveRoles(string strRoles, int employeeID)
         {
             string msg = "";

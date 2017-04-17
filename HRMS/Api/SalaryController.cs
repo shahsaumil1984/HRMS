@@ -2,15 +2,21 @@
 using Model;
 using Service;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Web;
-//using System.Web.Mvc;
 using System.Web.Http;
+using System.Configuration;
+using static HRMS.Helper;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Globalization;
+using Ionic.Zip;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace Api
 {
@@ -21,6 +27,8 @@ namespace Api
         //{
         //    return View();
         //}
+
+        [Authorize(Roles = "Accountant")]
         public override object GetModel()
         {
             Salary obj = (Salary)base.GetModel();
@@ -30,6 +38,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public override Salary GetById(int id)
         {
 
@@ -60,7 +69,8 @@ namespace Api
                               o.YTDS,
                               o.AccountNumber,
                               o.SalaryStatus,
-                              o.BankName
+                              o.BankName,
+                              o.SalaryStatusName
 
                           }).ToList().Select(o => new Salary
                           {
@@ -87,14 +97,15 @@ namespace Api
                               YTDS = o.YTDS,
                               AccountNumber = o.AccountNumber,
                               SalaryStatus = o.SalaryStatus,
-                              BankName = o.BankName
-
+                              BankName = o.BankName,
+                              SalaryStatusName = o.SalaryStatusName
                           }).Single<Salary>();
             return obj;
         }
 
         [HttpPost]
-        public Salary GetByMonth(int employeeID, int monthID)
+        [Authorize(Roles = "Accountant")]
+        public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
@@ -125,11 +136,10 @@ namespace Api
                                  o.TotalPayment,
                                  o.Salary1,
                                  o.Note,
-                                 o.SalaryStatus,
+                                 o.SalaryStatu.SalaryStatusName,
                                  o.BankName,
                                  o.AccountNumber,
-                                 o.Employee.FullName,
-                                 o.Employee.EmployeeCode
+                                 o.Employee.FullName
                              }).ToList();
 
 
@@ -159,7 +169,7 @@ namespace Api
                 Total = o.Total,
                 TotalPayment = o.TotalPayment,
                 Salary1 = o.Salary1,
-                SalaryStatus = o.SalaryStatus,
+                SalaryStatusName = o.SalaryStatusName,
                 BankName = o.BankName,
                 AccountNumber = o.AccountNumber,
                 Note = o.Note
@@ -167,12 +177,21 @@ namespace Api
 
             if (obj == null)
             {
-                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID, SalaryStatus = "Pending" };
-
+                if (CheckPrevious)
+                {
+                    var newMonthID = monthID/*Set new month id*/;
+                    obj = GetByMonth(employeeID, monthID, false);
+                    obj.MonthID = monthID;
+                }
+                else
+                {
+                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID, SalaryStatusName = Helper.SalaryStatus.Pending.ToString() };
+                }
             }
             return obj;
         }
 
+        [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<Salary> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
@@ -206,7 +225,8 @@ namespace Api
             return pQuery;
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
+        [Authorize(Roles = "Accountant")]
         public HttpResponseMessage UploadCSV()
         {
             try
@@ -218,39 +238,6 @@ namespace Api
                 //Creating object of datatable  
                 DataTable tblcsv = new DataTable();
 
-                //Creating columns
-                tblcsv.Columns.Add("EmployeeCode");
-                tblcsv.Columns.Add("Year");
-                tblcsv.Columns.Add("Month");
-
-                tblcsv.Columns.Add("Basic");
-                tblcsv.Columns.Add("HRA");
-                tblcsv.Columns.Add("ConveyanceAllowance");
-                tblcsv.Columns.Add("OtherAllowance");
-                tblcsv.Columns.Add("MedicalReimbursement");
-                tblcsv.Columns.Add("AdvanceSalary");
-                tblcsv.Columns.Add("Incentive");
-                tblcsv.Columns.Add("PLI");
-                tblcsv.Columns.Add("Exgratia");
-                tblcsv.Columns.Add("ReimbursementOfexp");
-                tblcsv.Columns.Add("TDS");
-                tblcsv.Columns.Add("EPF");
-                tblcsv.Columns.Add("ProfessionalTax");
-                tblcsv.Columns.Add("Leave");
-                tblcsv.Columns.Add("Advance");
-                tblcsv.Columns.Add("YTDS");
-                tblcsv.Columns.Add("Note");
-                tblcsv.Columns.Add("Salary");
-                tblcsv.Columns.Add("Total");
-                tblcsv.Columns.Add("TotalPayment");
-                tblcsv.Columns.Add("Days");
-                tblcsv.Columns.Add("AccountNumber");
-                tblcsv.Columns.Add("BankName");
-                tblcsv.Columns.Add("CreatedBy");
-                tblcsv.Columns.Add("ModifiedBy");
-                tblcsv.Columns.Add("CreatedDate");
-                tblcsv.Columns.Add("ModifiedDate");
-
                 //string CSVFilePath = Path.GetFullPath(filePath);
 
                 //Reading All text  
@@ -261,18 +248,30 @@ namespace Api
                     ReadCSV = reader.ReadToEnd();
                 }
 
+                string[] csvRows = ReadCSV.Split('\n');
                 //spliting row after new line  
-                foreach (string csvRow in ReadCSV.Split('\n'))
+                foreach (string csvRow in csvRows)
                 {
                     if (!string.IsNullOrEmpty(csvRow))
                     {
                         //Adding each row into datatable  
-                        tblcsv.Rows.Add();
-                        int count = 0;
-                        foreach (string FileRec in csvRow.Split(','))
+
+                        if (csvRows.First().Equals(csvRow))
                         {
-                            tblcsv.Rows[tblcsv.Rows.Count - 1][count] = FileRec;
-                            count++;
+                            foreach (string fileHeader in csvRow.Split(','))
+                            {
+                                tblcsv.Columns.Add(fileHeader);
+                            }
+                        }
+                        else
+                        {
+                            tblcsv.Rows.Add();
+                            int count = 0;
+                            foreach (string FileRec in csvRow.Split(','))
+                            {
+                                tblcsv.Rows[tblcsv.Rows.Count - 1][count] = Regex.Replace(FileRec, @"\t|\n|\r", "");
+                                count++;
+                            }
                         }
                     }
                 }
@@ -286,52 +285,272 @@ namespace Api
             }
         }
 
+        [Authorize(Roles = "Accountant")]
+        public override HttpResponseMessage Create(Salary entity)
+        {
+            if (entity.SalaryStatusName == SalaryStatus.Approved.ToString())
+                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
+            else
+                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
+            return base.Create(entity);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage SendEmail(int employeeID, int monthID)
+        {
+            try
+            {
+                Salary objSalary = service.Context.Salaries.Where(m => m.EmployeeID == employeeID && m.MonthID == monthID).FirstOrDefault();               
+                DateTime dt = new DateTime(objSalary.Month.Year, objSalary.Month.Month1, 1);
+                int salaryYear = dt.Year;
+                string salaryMonth = dt.ToString("MMMM");
+
+                string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
+                string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
+                string toEmailAdd = objSalary.Employee.Email;
+                string toEmailUser = objSalary.Employee.FullName;
+                string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
+                var body = "Dear " + objSalary.Employee.FirstName + ",</br></br>";
+                body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
+                body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
+
+                string attachment = Convert.ToBase64String(ExportToPdf(objSalary));
+                bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                return HttpSuccess();
+            }
+            catch (Exception e)
+            {
+                return HttpError(e);
+            }
+        }
+
+        [Authorize(Roles = "Accountant")]
+        public byte[] ExportToPdf(Salary objSalary)
+        {
+            try
+            {
+                string pdfbody = string.Empty;
+
+                using (StreamReader reader = new StreamReader(System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["SalaryPDFTemplate"])))
+                {
+                    pdfbody = reader.ReadToEnd();
+                }
+
+                pdfbody = pdfbody.Replace("{{LogoHeader}}", "http://" + System.Web.HttpContext.Current.Request.Url.Authority + "/File Formats/images/header.jpg");
+                pdfbody = pdfbody.Replace("{{LogoFooter}}", "http://" + System.Web.HttpContext.Current.Request.Url.Authority + "/File Formats/images/footer.jpg");
+
+                pdfbody = pdfbody.Replace("{{Name}}", objSalary.Employee.FullName);
+                
+                string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(objSalary.Month.Month1);
+                int year = (objSalary.Month.Year % 100);
+                string salaryMonth = month + "-" + year;
+
+                pdfbody = pdfbody.Replace("{{Month}}", salaryMonth);
+                if (objSalary != null)
+                {
+                    if(objSalary.Total != null)
+                    {
+                        pdfbody = pdfbody.Replace("{{Total}}", objSalary.Total.Value.ToString("#,##0.00"));
+                    }
+                    else
+                    {
+                        pdfbody = pdfbody.Replace("{{Total}}", string.Empty);
+                    }
+
+                    if (objSalary.TotalPayment != null)
+                    {
+                        pdfbody = pdfbody.Replace("{{TotalPayment}}", objSalary.TotalPayment.Value.ToString("#,##0.00"));
+                    }
+                    else
+                    {
+                        pdfbody = pdfbody.Replace("{{TotalPayment}}", string.Empty);  
+                    }
+
+                    if (!string.IsNullOrEmpty(objSalary.Note))
+                    {
+                        pdfbody = pdfbody.Replace("{{Note}}", objSalary.Note.ToString());
+                    }
+                    else
+                    {
+                        pdfbody = pdfbody.Replace("{{Note}}", string.Empty);
+                    }
+
+                    pdfbody = pdfbody.Replace("{{Days}}", objSalary.Days.ToString());
+                    pdfbody = pdfbody.Replace("{{Basic}}", objSalary.Basic.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{HRA}}", objSalary.HRA.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Conveyance Allowance}}", objSalary.ConveyanceAllowance.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Other Allowance}}", objSalary.OtherAllowance.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Medical re-imbursement}}", objSalary.MedicalReimbursement.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Arrear Salary}}", objSalary.AdvanceSalary.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Incentive}}", objSalary.Incentive.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{PLI}}", objSalary.PLI.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Ex-gratia}}", objSalary.Exgratia.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{ReimbursementOfexp}}", objSalary.ReimbursementOfexp.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{TDS}}", objSalary.TDS.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{EPF}}", objSalary.EPF.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Professional Tax}}", objSalary.ProfessionalTax.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Salary}}", objSalary.Salary1.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{Leave}}", objSalary.Leave.ToString());
+                    pdfbody = pdfbody.Replace("{{Advance}}", objSalary.Advance.ToString("#,##0.00"));
+                    pdfbody = pdfbody.Replace("{{YTDS}}", objSalary.YTDS.ToString("#,##0.00"));
+                }
+                else
+                {
+                    pdfbody = pdfbody.Replace("{{Days}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Basic}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{HRA}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Conveyance Allowance}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Other Allowance}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Medical re-imbursement}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Arrear Salary}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Incentive}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{PLI}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Ex-gratia}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{ReimbursementOfexp}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{TDS}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{EPF}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Professional Tax}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Salary}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Leave}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{Advance}}", string.Empty);
+                    pdfbody = pdfbody.Replace("{{YTDS}}", string.Empty);
+                }
+
+                byte[] pdfByte = Helper.CreatePDFFromHTMLFile(pdfbody);
+                return pdfByte;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage DownloadPDF(int EmpID, int MonthID)
+        {
+            Salary sObj = service.Get().Where(s => s.EmployeeID == EmpID && s.MonthID == MonthID).FirstOrDefault();
+            List<Salary> salList = new List<Salary> { sObj };
+            return Download(salList, false);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage DownloadPDFZip(int MonthID)
+        {
+            List<Salary> approvedSalaryList = service.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved && s.Employee.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive).ToList();
+            return Download(approvedSalaryList, true);
+        }
+
+        #region Private Methods
+        private HttpResponseMessage Download(List<Salary> salList, bool isZip)
+        {
+            Byte[] ByteArray = null;
+            string file = string.Empty;
+
+            string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salList.FirstOrDefault().Month.Month1);
+            int year = (salList.FirstOrDefault().Month.Year % 100);
+            using (ZipFile zip = new ZipFile())
+            {
+                foreach (Salary salObj in salList)
+                {
+                    file = salObj.Employee.FullName + " - " + month + "-" + year + ".pdf";
+
+                    ByteArray = ExportToPdf(salObj);
+                    File.WriteAllBytes(file, ByteArray);
+
+                    if (isZip)
+                    {
+                        zip.AlternateEncodingUsage = ZipOption.AsNecessary;
+                        zip.AddFile(file);
+                    }
+                }
+
+                if (!isZip)
+                {
+                    var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    var response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StreamContent(stream);
+
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                    {
+                        FileName = file
+                    };
+
+                    return response;
+                }
+                else
+                {
+                    //Download Zip file
+                    var pushStreamContent = new PushStreamContent((stream, content, context) =>
+                    {
+                        zip.Save(stream);
+                        stream.Close();
+                    }, "application/zip");
+
+                    pushStreamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                    {
+                        FileName = string.Format("Salary Slip {0} {1}.zip", month,year),
+                    };
+
+                    return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+                }
+            }
+
+        }
+
+        [Authorize(Roles = "Accountant")]
         private HttpResponseMessage InsertCSVRecords(DataTable dt)
         {
-           
-                foreach (DataRow row in dt.Rows)
+
+            foreach (DataRow row in dt.Rows)
+            {
+                int month = Convert.ToInt32(row["Month"]);
+                if (DateTime.Now.Month == month)
                 {
-                    string month = row["Month"].ToString();
-                    if (DateTime.Now.ToString("MMMM").Equals(month))
+                    string empCode = row["EmployeeCode"].ToString();
+                    if (!string.IsNullOrEmpty(empCode))
                     {
-                        string empCode = row["EmployeeCode"].ToString();
-                        if (!string.IsNullOrEmpty(empCode))
+                        int year = Convert.ToInt32(row["Year"]);
+                        Employee emp = service.Context.Employees.Where(e => e.EmployeeCode.Equals(empCode)).FirstOrDefault();
+                        if (emp != null)
                         {
-                            int year = Convert.ToInt32(row["Year"]);
-                            Employee emp = service.Context.Employees.Where(e => e.EmployeeCode.Equals(empCode)).FirstOrDefault();
-                            if (emp != null)
+                            int EmployeeID = emp.EmployeeID;
+                            int MonthID = service.Context.Months.Where(m => m.Month1 == month && m.Year == year).FirstOrDefault().MonthID;
+                            Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
+                            if (sObj == null)
                             {
-                                int EmployeeID = emp.EmployeeID;
-                                int MonthID = service.Context.Months.Where(m => m.Month1.Equals(month) && m.Year == year).FirstOrDefault().MonthID;
-                                Salary sObj = service.Context.Salaries.Where(s => s.EmployeeID == EmployeeID && s.MonthID == MonthID).FirstOrDefault();
-                                if (sObj == null)
-                                {
-                                    InsertSalaryRecord(row, EmployeeID, MonthID);
-                                }
-                                else
-                                {
-                                    UpdateSalaryRecord(row, sObj);
-                                }
+                                InsertSalaryRecord(row, EmployeeID, MonthID);
                             }
-                            else {
-                                throw new Exception("There is no Employee for the provided Employee Code: " + empCode);
+                            else
+                            {
+                                UpdateSalaryRecord(row, sObj);
                             }
                         }
-                        else {
-                            throw new Exception("Blank Employee Code is not allowed");
+                        else
+                        {
+                            throw new Exception("There is no Employee for the provided Employee Code: " + empCode);
                         }
                     }
                     else
                     {
-                        throw new Exception("The CSV should contain records only for the month of " + DateTime.Now.ToString("MMMM"));
+                        throw new Exception("Blank Employee Code is not allowed");
                     }
                 }
-                service.SaveChanges();
-                return HttpSuccess();
-           
-            
+                else
+                {
+                    throw new Exception("The CSV should contain records only for the month of " + DateTime.Now.ToString("MMMM"));
+                }
+            }
+            service.SaveChanges();
+            return HttpSuccess();
+
+
         }
 
+        [Authorize(Roles = "Accountant")]
         private void InsertSalaryRecord(DataRow row, int EmployeeID, int MonthID)
         {
             Salary salaryObj = new Salary();
@@ -361,7 +580,7 @@ namespace Api
             salaryObj.Days = Convert.ToInt32(row["Days"]);
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
-            salaryObj.SalaryStatus = Helper.SalaryStatus.Pending.ToString();
+            salaryObj.SalaryStatus = (int)Helper.SalaryStatus.Pending;
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);
@@ -369,6 +588,7 @@ namespace Api
             service.Context.Salaries.Add(salaryObj);
         }
 
+        [Authorize(Roles = "Accountant")]
         private void UpdateSalaryRecord(DataRow row, Salary salaryObj)
         {
             salaryObj.Basic = Convert.ToDecimal(row["Basic"]);
@@ -394,18 +614,13 @@ namespace Api
             salaryObj.Days = Convert.ToInt32(row["Days"]);
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
-            salaryObj.SalaryStatus = Helper.SalaryStatus.Pending.ToString();
+            salaryObj.SalaryStatus = (int)Helper.SalaryStatus.Pending;
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);
             salaryObj.ModifiedDate = row["ModifiedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["ModifiedDate"]);
         }
-
-        public override HttpResponseMessage Create(Salary entity)
-        {
-            return base.Create(entity);
-        }
-
+        #endregion
 
     }
 }

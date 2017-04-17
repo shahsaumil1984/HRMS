@@ -1,0 +1,37 @@
+USE [HRMS]
+
+CREATE TABLE [dbo].[Salary_Audit](
+	[Salary_Audit_ID] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[EmployeeID] [int] NOT NULL,
+	[MonthID] [int] NOT NULL,
+	[Basic] [decimal](18, 4) NOT NULL,
+	[HRA] [decimal](18, 4) NOT NULL,
+	[ConveyanceAllowance] [decimal](18, 4) NOT NULL,
+	[OtherAllowance] [decimal](18, 4) NOT NULL,
+	[MedicalReimbursement] [decimal](18, 4) NOT NULL,
+	[AdvanceSalary] [decimal](18, 4) NOT NULL,
+	[Incentive] [decimal](18, 4) NOT NULL,
+	[PLI] [decimal](18, 4) NOT NULL,
+	[Exgratia] [decimal](18, 4) NOT NULL,
+	[ReimbursementOfexp] [decimal](18, 4) NOT NULL,
+	[TDS] [decimal](18, 4) NOT NULL,
+	[EPF] [decimal](18, 4) NOT NULL,
+	[ProfessionalTax] [decimal](18, 4) NOT NULL,
+	[Leave] [decimal](18, 4) NOT NULL,
+	[Advance] [decimal](18, 4) NOT NULL,
+	[YTDS] [decimal](18, 4) NOT NULL,
+	[Note] [nvarchar](500) NULL,
+	[Salary] [decimal](18, 4) NOT NULL,
+	[Total] [decimal](18, 4) NULL,
+	[TotalPayment] [decimal](18, 4) NULL,
+	[Days] [int] NOT NULL,
+	[AccountNumber] [varchar](50) NOT NULL,
+	[BankName] [varchar](100) NOT NULL,
+	[SalaryStatus] [int] NOT NULL,
+	[CreatedBy] [varchar](250) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [varchar](250) NULL,
+	[ModifiedDate] [datetime] NULL,
+)
+
+GO

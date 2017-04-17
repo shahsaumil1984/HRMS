@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 using HRMS;
 namespace HRMS.Api
 {
@@ -16,6 +16,8 @@ namespace HRMS.Api
         //{
         //    return View();
         //}
+
+        [Authorize(Roles = "Admin")]
         public override object GetModel()
         {
             EmployeeDocument obj = (EmployeeDocument)base.GetModel();
@@ -23,6 +25,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public override EmployeeDocument GetById(long id)
         {
             EmployeeDocument obj = (from o in service.Context.EmployeeDocuments
@@ -40,6 +43,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<EmployeeDocument> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);

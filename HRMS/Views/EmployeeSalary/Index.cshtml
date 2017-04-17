@@ -34,6 +34,7 @@
                    data-entity-key="EmployeeID"
                    data-service-object="employeeSalaryService"
                    data-default-orderby="EmployeeCode"
+                   data-includes="MonthID=@ViewBag.MonthID"
                    cellspacing="0" cellpadding="0" border="0">
                 <thead class="tblaction">
                     <tr>
@@ -54,6 +55,18 @@
                             </div>
 
                         </td>
+                        @*<td>
+                            <div>
+                                <select data-filter-field="SalaryStatus" id="selSalaryStatus"
+                                        data-filter-list="employeeSalaryGrid"
+                                        data-default-focus="true">
+                                    <option value="">All</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Approved">Approved</option>
+                                </select>                               
+                            </div>
+
+                        </td>*@
                     </tr>
                 </thead>
 
@@ -61,11 +74,10 @@
                     <tr>
                         <th>Employee Name</th>
                         <th class="text-left">Employee Code</th>
-                        <th class="text-left">Phone</th>
-                        <th class="text-left">Status</th>
                         <th class="text-left">Salary Status</th>
-                        @*<th class="text-left">Edit Salary</th>*@
                         <th class="text-left">Action</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -86,12 +98,11 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-left">{{r.EmployeeID}}</td>
-                        <td class="text-left">{{r.Phone}}</td>
-                        <td class="text-left">{{r.StatusName}}</td>
+                        <td class="text-left">{{r.EmployeeCode}}</td>
                         <td class="text-left">{{r.SalaryStatus}}</td>
-                        @*<td class="text-left"><a href="/Salary?employeeID={{r.EmployeeID}}&monthID=@ViewBag.MonthID">Edit Salary</a></td>*@
                         <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.SalaryStatus == 'Pending'}}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)" class="btn">Download PDF</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.SalaryStatus == 'Pending'}}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)" class="btn">Send Email</button></td>
                 </tbody>
 
             </table>
@@ -127,7 +138,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label>Employee Code:</label>
-                        <label id="empCode"></label>
+                        <label id="empCode" ng-bind="model.EmployeeCode"></label>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -144,8 +155,8 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="SalaryStatus" class="col-sm-4 control-label">Salary Status</label>
-                        <label type="text" name="em_SalaryStatus" id="em_SalaryStatus" ng-bind="model.SalaryStatus"></label>
+                        <label for="SalaryStatus" class="control-label">Salary Status:</label>
+                        <label type="text" name="em_SalaryStatus" id="em_SalaryStatus" ng-bind="model.SalaryStatusName"></label>
                     </div>
                 </div>
 
@@ -295,8 +306,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary btn-sm" type="submit" ng-click="ub.SaveSalary()">Save</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Cancel</button> 
+                        <button class="btn btn-primary btn-sm" type="button" ng-click="ub.SaveSalary()">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Save & Approve</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Cancel</button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Next</button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadPrevEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Previous</button>
                         <button type="button" class="btn btn-primary btn-sm" onclick="approveNextEmployee(@(ViewBag.MonthID));">Approve & Next</button>

@@ -33,14 +33,19 @@
                             <div class="nav-collapse nav-collapse_ collapse">
                                 <ul class="nav sf-menu clearfix">
                                     <li class="active"><a href="/Home/Index">Home</a></li>
-                                    <li>
-                                        <a href="#">Admin</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="/Employee/Index">Employee</a></li>
-                                            <li><a href="/DocumentType/Index">Document Type</a></li>
-                                            <li><a href="/EmployeeStatus/Index">Status</a></li>
-                                        </ul>
-                                    </li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>
+                                            <a href="#">Admin</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="/Employee/Index">Employee</a></li>
+                                                <li><a href="/DocumentType/Index">Document Type</a></li>
+                                                <li><a href="/EmployeeStatus/Index">Status</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                   @if (User.IsInRole("Accountant"))
+                                   {
                                     <li>
                                         <a href="#">Account</a>
                                         <ul class="sub-menu">
@@ -48,6 +53,7 @@
 
                                         </ul>
                                     </li>
+                                   }
                                     <li><a href="/Account/Login">Logout</a></li>
                                 </ul>
                             </div>

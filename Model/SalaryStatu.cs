@@ -12,21 +12,16 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Month
+    public partial class SalaryStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Month()
+        public SalaryStatu()
         {
             this.Salaries = new HashSet<Salary>();
         }
     
-        public int MonthID { get; set; }
-        public int Month1 { get; set; }
-        public int Year { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public int SalaryStatusID { get; set; }
+        public string SalaryStatusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Salary> Salaries { get; set; }

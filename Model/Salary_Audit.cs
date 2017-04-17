@@ -12,9 +12,9 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Salary
+    public partial class Salary_Audit
     {
-        public int SalaryID { get; set; }
+        public int Salary_Audit_ID { get; set; }
         public int EmployeeID { get; set; }
         public int MonthID { get; set; }
         public decimal Basic { get; set; }
@@ -34,7 +34,7 @@ namespace Model
         public decimal Advance { get; set; }
         public decimal YTDS { get; set; }
         public string Note { get; set; }
-        public decimal Salary1 { get; set; }
+        public decimal Salary { get; set; }
         public Nullable<decimal> Total { get; set; }
         public Nullable<decimal> TotalPayment { get; set; }
         public int Days { get; set; }
@@ -42,13 +42,8 @@ namespace Model
         public string BankName { get; set; }
         public int SalaryStatus { get; set; }
         public string CreatedBy { get; set; }
-        public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string SalaryStatusName { get; set; }
-
-        public virtual Employee Employee { get; set; }
-        public virtual Month Month { get; set; }
-        public virtual SalaryStatu SalaryStatu { get; set; }
     }
 }

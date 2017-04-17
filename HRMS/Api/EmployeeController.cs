@@ -32,6 +32,7 @@ namespace Api
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public override object GetModel()
         {
             Employee obj = (Employee)base.GetModel();
@@ -40,6 +41,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public override Employee GetById(int id)
         {
 
@@ -131,6 +133,7 @@ namespace Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
@@ -180,6 +183,7 @@ namespace Api
             return pQuery;
         }
 
+        [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Create(Employee entity)
         {
 
@@ -213,7 +217,7 @@ namespace Api
             return obj;
         }
 
-
+        [Authorize(Roles = "Admin")]
         public static string GenerateStrongPassword(int length)
         {
             string alphaCaps = "QWERTYUIOPASDFGHJKLZXCVBNM";
@@ -253,12 +257,13 @@ namespace Api
             return generatedPassword;
         }
 
-
+        [Authorize(Roles = "Admin")]
         private static string getRandomChar(string fullString)
         {
             return fullString.ToCharArray()[(int)Math.Floor(r.NextDouble() * fullString.Length)].ToString();
         }
 
+        [Authorize(Roles = "Admin")]
         private static int getRandomPosition(ref string posArray)
         {
             int pos;
@@ -269,11 +274,13 @@ namespace Api
             return pos;
         }
 
+        [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Update(Employee entity)
         {
             return base.Update(entity);
         }
 
+        [Authorize(Roles = "Admin")]
         public bool GetCheckEmployeeCode(int EmpCode)
         {
             return service.Context.Employees.ToList().Any(e => e.EmployeeCode.Equals(EmpCode.ToString()));            

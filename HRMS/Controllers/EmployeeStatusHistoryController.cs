@@ -31,6 +31,7 @@ namespace HRMS.Controllers
 
 
         // GET: ManageStatus
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             EmployeeStatusService de = new EmployeeStatusService();
