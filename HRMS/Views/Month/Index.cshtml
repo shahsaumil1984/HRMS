@@ -12,71 +12,72 @@
     <script src="~/Scripts/Services/SalaryService.js"></script>
     <script src="~/Scripts/Services/MonthService.js"></script>
     <script src="~/Scripts/Controllers/MonthController.js"></script>
+    <script src="~/Scripts/Controllers/SalaryController.js"></script>
 
 }
 
-    <div id="monthListView" class="listView">
-        <div class="container">
-            <div class="middlewrap">
-                <h2>Salary</h2>
+<div id="monthListView" class="listView">
+    <div class="container">
+        <div class="middlewrap">
+            <h2>Salary</h2>
 
-                <table id="monthGrid"
-                       data-ui-binding="true"
-                       data-entity-key="MonthID"
-                       data-service-object="monthService"
-                       data-default-orderby="MonthID descending"
-                       class="table table-condensed table-hover"
-                       data-page-size="10">
+            <table id="monthGrid"
+                   data-ui-binding="true"
+                   data-entity-key="MonthID"
+                   data-service-object="monthService"
+                   data-default-orderby="MonthID descending"
+                   class="table table-condensed table-hover"
+                   data-page-size="10">
 
+                <tr>
+                    <td colspan="4">
+                        <div class="form-group m-0">
+                            <select id="yearFilter" data-filter-list="monthGrid" data-filter-field="Year">
+                                <option value="">Select Year</option>
+                                @foreach (var year in Model.Years)
+                                {
+                                    <option>@year</option>
+                                }
+                            </select>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><a href="#" data-sort-field="Month1">Month</a></th>
+                    <th><a href="#" data-sort-field="Year">Year</a></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody ng-repeat="r in rows">
                     <tr>
-                        <td colspan="4">
-                            <div class="form-group m-0">
-                                <select id="yearFilter" data-filter-list="monthGrid" data-filter-field="Year">
-                                    <option value="">Select Year</option>
-                                    @foreach(var year in Model.Years)
-                                    {
-                                        <option>@year</option>
-                                    }
-                                </select>
-
+                        <td class="col-md-1"> <span>{{r.Month}}</span></td>
+                        <td class="col-md-1"> <span>{{r.Year}}</span></td>
+                        <td class="col-md-1">
+                            <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
+                        </td>
+                        <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.DownloadAllPDF(r.MonthID)" class="btn">Download PDF</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.SendAllEmail(r.MonthID)" class="btn">Send Email</button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="9" align="center">
+                            <div id="monthPagination">
+                                <span>{{pageText}}</span>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
+                                @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th><a href="#" data-sort-field="Month1">Month</a></th>
-                        <th><a href="#" data-sort-field="Year">Year</a></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tbody ng-repeat="r in rows">
-                        <tr>
-                            <td class="col-md-1"> <span>{{r.Month}}</span></td>
-                            <td class="col-md-1"> <span>{{r.Year}}</span></td>
-                            <td class="col-md-1">
-                                <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
-                            </td>
-                            <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
-                            <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.DownloadAllPDF(r.MonthID)" class="btn">Download PDF</button></td>
-                            <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.SendEmail(r.MonthID)" class="btn">Send Email</button></td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="9" align="center">
-                                <div id="monthPagination">
-                                    <span>{{pageText}}</span>&nbsp;&nbsp;
-                                    <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
-                                    <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
-                                    <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
-                                    <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
-                                    @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
-                                </div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+                </tfoot>
+            </table>
         </div>
     </div>
+</div>

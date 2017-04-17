@@ -475,6 +475,47 @@ namespace Api
             return Download(approvedSalaryList, true);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage SendAllEmail(int monthID)
+        {
+            try
+            {
+                List<Salary> objLstSalary = new List<Salary>();
+                objLstSalary = service.Context.Salaries.Where(m => m.MonthID == monthID).ToList();
+                Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == monthID).FirstOrDefault();
+                string salaryMonth = string.Empty;
+                string salaryYear = string.Empty;
+                if (objMonth != null)
+                    salaryMonth = new DateTime(objMonth.Year, objMonth.Month1, 1).ToString("MMMM");
+
+                if(objLstSalary!=null&& objLstSalary.Count > 0)
+                {
+                    foreach (var item in objLstSalary)
+                    {
+                        string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
+                        string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
+                        string toEmailAdd = "namrata.negi@alept.com";//item.Employee.Email;
+                        string toEmailUser = item.Employee.FullName;
+                        string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
+                        var body = "Dear " + item.Employee.FirstName + ",</br></br>";
+                        body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
+                        body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
+
+                        string attachment = Convert.ToBase64String(ExportToPdf(item, item.Employee.FullName, salaryMonth));
+                        bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                    }
+                }
+
+               
+                return HttpSuccess();
+            }
+            catch (Exception e)
+            {
+                return HttpError(e);
+            }
+        }
+
         #region Private Methods
         private HttpResponseMessage Download(List<Salary> salList, bool isZip)
         {
