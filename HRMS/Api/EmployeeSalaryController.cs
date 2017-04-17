@@ -1,23 +1,10 @@
 ﻿using Api;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
 using Model;
 using Service;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.Serialization;
-using System.Web;
 using System.Web.Mvc;
-using iTextSharp;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Ionic.Zip;
 
 
 namespace HRMS.Api
@@ -249,92 +236,6 @@ namespace HRMS.Api
             }
             return nextEmpID;
         }
-
-        [HttpGet]
-        [Authorize(Roles = "Accountant")]
-        public HttpResponseMessage GetDownloadPDF(int EmpID, int MonthID)
-        {
-            SalaryService salService = new SalaryService();
-            Salary sObj = salService.Get().Where(s => s.EmployeeID == EmpID && s.MonthID == MonthID).FirstOrDefault();
-            List<Salary> salList = new List<Salary> { sObj };
-            return Download(salList, false);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Accountant")]
-        public HttpResponseMessage GetDownloadPDFZip(int MonthID)
-        {
-            SalaryService salService = new SalaryService();
-            List<Salary> approvedSalaryList = salService.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved && s.Employee.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive).ToList();
-            return Download(approvedSalaryList, true);
-        }
-
-        #region Private Methods
-        private HttpResponseMessage Download(List<Salary> salList, bool isZip)
-        {
-            var ms = new MemoryStream();
-            Byte[] ByteArray = null;
-            string file = string.Empty;
-           
-            string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salList.FirstOrDefault().Month.Month1);
-
-            using (ZipFile zip = new ZipFile())
-            {
-                zip.AlternateEncodingUsage = ZipOption.AsNecessary;
-                //string archiveDirectory = "SalarySlips_" + month;
-                //zip.AddDirectoryByName(archiveDirectory);
-
-
-                foreach (Salary salObj in salList)
-                {
-                    file = salObj.Employee.FirstName + " " + salObj.Employee.LastName + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salObj.Month.Month1) + "-" + (salObj.Month.Year % 100) + ".docx";
-                    using (MemoryStream generatedDocument = new MemoryStream())
-                    {
-                        using (WordprocessingDocument package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
-                        {
-                            GeneratedClass gc = new GeneratedClass();
-                            gc.SalaryObj = salObj;
-                            gc.CreateParts(package);
-
-                        }
-                        ByteArray = generatedDocument.ToArray();
-                        File.WriteAllBytes(file, ByteArray);
-                    }
-                    if (isZip)
-                    {
-                        zip.AddFile(file);
-                    }
-                }              
-
-                if (!isZip)
-                {
-                    var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
-                    var response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StreamContent(stream);
-
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        FileName = file
-                    };
-
-                    return response;
-                }
-                else
-                {
-                    //Download Zip file
-                    var pushStreamContent = new PushStreamContent((stream, content, context) =>
-                    {
-                        zip.Save(stream);
-                        stream.Close();
-                    }, "application/zip");
-
-                    return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
-                    
-                }
-            }          
-
-        }   
-        #endregion
+        
     }
 }

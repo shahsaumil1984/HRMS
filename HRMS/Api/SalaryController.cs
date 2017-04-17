@@ -2,7 +2,6 @@
 using Model;
 using Service;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -10,21 +9,14 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Http;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
+using System.Configuration;
+using static HRMS.Helper;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Globalization;
+using Ionic.Zip;
 using System.Net;
 using System.Net.Http.Headers;
-using SendGrid.Helpers.Mail;
-using System.Configuration;
-using System.Globalization;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.tool.xml;
-using static HRMS.Helper;
-using Ionic.Zip;
-using System.Text.RegularExpressions;
 
 namespace Api
 {
@@ -245,7 +237,7 @@ namespace Api
 
                 //Creating object of datatable  
                 DataTable tblcsv = new DataTable();
-                
+
                 //string CSVFilePath = Path.GetFullPath(filePath);
 
                 //Reading All text  
@@ -326,7 +318,7 @@ namespace Api
                 body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
                 body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
 
-                string attachment = ExportToPdf(objSalary, objEmployee.FullName, salaryMonth);
+                string attachment = Convert.ToBase64String(ExportToPdf(objSalary, objEmployee.FullName, salaryMonth));
                 bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
                 return HttpSuccess();
             }
@@ -337,16 +329,10 @@ namespace Api
         }
 
         [Authorize(Roles = "Accountant")]
-        public string ExportToPdf(Salary objSalary, string employeeName, string month)
+        public byte[] ExportToPdf(Salary objSalary, string employeeName, string month)
         {
-            string result = string.Empty;
-
             try
             {
-
-                //var array = File.ReadAllBytes("E:\\New Text Document.txt");
-                //string data = Convert.ToBase64String(array);
-
                 string pdfbody = string.Empty;
 
                 using (StreamReader reader = new StreamReader(System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["SalaryPDFTemplate"])))
@@ -464,23 +450,84 @@ namespace Api
                 else
                     pdfbody = pdfbody.Replace("{{Note}}", string.Empty);
                 byte[] pdfByte = Helper.CreatePDFFromHTMLFile(pdfbody);
-
-                File.WriteAllBytes("E://Foo.pdf", pdfByte);
-                result = Convert.ToBase64String(pdfByte);
-
-
-
-                return result;
+                return pdfByte;
             }
             catch (Exception ex)
             {
-                return result;
+                return null;
             }
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage GetDownloadPDF(int EmpID, int MonthID)
+        {
+            Salary sObj = service.Get().Where(s => s.EmployeeID == EmpID && s.MonthID == MonthID).FirstOrDefault();
+            List<Salary> salList = new List<Salary> { sObj };
+            return Download(salList, false);
+        }
 
+        [HttpGet]
+        [Authorize(Roles = "Accountant")]
+        public HttpResponseMessage SalarySlip_Zip(int MonthID)
+        {
+            List<Salary> approvedSalaryList = service.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved && s.Employee.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive).ToList();
+            return Download(approvedSalaryList, true);
+        }
 
         #region Private Methods
+        private HttpResponseMessage Download(List<Salary> salList, bool isZip)
+        {
+            Byte[] ByteArray = null;
+            string file = string.Empty;
+
+            string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salList.FirstOrDefault().Month.Month1);
+
+            using (ZipFile zip = new ZipFile())
+            {
+                foreach (Salary salObj in salList)
+                {
+                    file = salObj.Employee.FirstName + " " + salObj.Employee.LastName + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(salObj.Month.Month1) + "-" + (salObj.Month.Year % 100) + ".pdf";
+
+                    ByteArray = ExportToPdf(salObj, salObj.Employee.FullName, Enum.GetName(typeof(Helper.Month), salObj.Month.Month1));
+                    File.WriteAllBytes(file, ByteArray);
+
+                    if (isZip)
+                    {
+                        zip.AlternateEncodingUsage = ZipOption.AsNecessary;
+                        zip.AddFile(file);
+                    }
+                }
+
+                if (!isZip)
+                {
+                    var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    var response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StreamContent(stream);
+
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                    {
+                        FileName = file
+                    };
+
+                    return response;
+                }
+                else
+                {
+                    //Download Zip file
+                    var pushStreamContent = new PushStreamContent((stream, content, context) =>
+                    {
+                        zip.Save(stream);
+                        stream.Close();
+                    }, "application/zip");
+
+                    return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
+                }
+            }
+
+        }
+
         [Authorize(Roles = "Accountant")]
         private HttpResponseMessage InsertCSVRecords(DataTable dt)
         {
