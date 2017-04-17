@@ -130,6 +130,7 @@ namespace HRMS.Api
                          select new
                          {
                              o.EmployeeID,
+                             o.EmployeeCode,
                              o.FirstName,
                              o.LastName,
                              o.FullName,
@@ -167,6 +168,7 @@ namespace HRMS.Api
                          }).AsEnumerable().Select(x => new
                          {
                              EmployeeID = x.EmployeeID,
+                             EmployeeCode = x.EmployeeCode,
                              FirstName = x.FirstName,
                              LastName = x.LastName,
                              FullName = x.FullName,

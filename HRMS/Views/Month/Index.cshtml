@@ -18,7 +18,7 @@
     <div id="monthListView" class="listView">
         <div class="container">
             <div class="middlewrap">
-                <h2>List of months</h2>
+                <h2>Salary</h2>
 
                 <table id="monthGrid"
                        data-ui-binding="true"
@@ -32,7 +32,7 @@
                         <td colspan="4">
                             <div class="form-group m-0">
                                 <select id="yearFilter" data-filter-list="monthGrid" data-filter-field="Year">
-                                    <option value=""></option>
+                                    <option value="">Select Year</option>
                                     @foreach(var year in Model.Years)
                                     {
                                         <option>@year</option>
