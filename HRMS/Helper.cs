@@ -1,9 +1,7 @@
 ﻿using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -74,8 +72,7 @@ namespace HRMS
                 return isMailSent;
             }
         }
-
-
+        
         public static byte[] CreatePDFFromHTMLFile(string HtmlStream)
         {
             try
@@ -95,5 +92,4 @@ namespace HRMS
             }
         }
     }
-
 }

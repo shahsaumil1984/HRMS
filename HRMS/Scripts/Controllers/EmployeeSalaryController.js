@@ -206,7 +206,7 @@ _.UploadCSV = function () {
 
 _.DownloadPDF = function (empID, monthID) {
 
-    window.open('~/../../Api/Salary/GetDownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_blank', '');
+    window.open('~/../../Api/Salary/DownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_blank', '');
 };
 
 // Form Validation

@@ -244,6 +244,7 @@
     <Compile Include="Api\DocumentTypeController.cs" />
     <Compile Include="Api\EmployeeDocumentController.cs" />
     <Compile Include="Api\EmployeeSalaryController.cs" />
+    <Compile Include="Api\EmployeeStatusHistoryExtendController.cs" />
     <Compile Include="Api\EmployeeStatusHistoryController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="Api\MonthController.cs" />
@@ -281,7 +282,6 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HolidayCalendarController.cs" />
     <Compile Include="Controllers\LeaveTypeController.cs" />
-    <Compile Include="WordOpenXML.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -386,6 +386,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Services\EmployeeStatusHistoryExtendService.js" />
     <Content Include="Scripts\Services\EmployeeStatusHistoryService.js" />
     <Content Include="Scripts\Services\EmployeeStatusService.js" />
     <Content Include="Scripts\Services\DocumentTypeService.js" />

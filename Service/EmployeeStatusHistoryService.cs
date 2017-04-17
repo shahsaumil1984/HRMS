@@ -20,11 +20,10 @@ namespace Service
             entity.ModifiedDate = DateTime.Now;
             base.Update(entity);
         }
-
+        
         public override bool Validate(EmployeeStatusHistory entity)
         {
-            // throw ValidationException when an error occurs
-
+            
             return true;
         }
     }
