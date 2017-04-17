@@ -24,5 +24,5 @@ _.GenerateandDownloadCSV = function (monthID) {
 
 _.DownloadAllPDF = function (monthID) {
 
-    window.open('~/../../Api/Salary/SalarySlip_Zip?MonthID=' + monthID, '_blank', '');
+    window.open('~/../../Api/Salary/DownloadPDFZip?MonthID=' + monthID, '_blank', '');
 };
