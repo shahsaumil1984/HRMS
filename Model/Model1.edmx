@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HRMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HRMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -172,7 +172,6 @@
           </Key>
           <Property Name="EmployeeStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="OldStatusID" Type="int" />
           <Property Name="NewStatusID" Type="int" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
@@ -281,8 +280,8 @@
           <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SalaryStatus" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
-          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="SettingTable">
@@ -422,18 +421,6 @@
             </Principal>
             <Dependent Role="EmployeeStatusHistory">
               <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EmployeeStatusHistory_EmployeeStatus">
-          <End Role="EmployeeStatus" Type="Self.EmployeeStatus" Multiplicity="0..1" />
-          <End Role="EmployeeStatusHistory" Type="Self.EmployeeStatusHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeStatus">
-              <PropertyRef Name="StatusID" />
-            </Principal>
-            <Dependent Role="EmployeeStatusHistory">
-              <PropertyRef Name="OldStatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -581,10 +568,6 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK_EmployeeStatusHistory_EmployeeStatus" Association="Self.FK_EmployeeStatusHistory_EmployeeStatus">
-            <End Role="EmployeeStatus" EntitySet="EmployeeStatus" />
-            <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistory" />
-          </AssociationSet>
           <AssociationSet Name="FK_EmployeeStatusHistory_EmployeeStatus1" Association="Self.FK_EmployeeStatusHistory_EmployeeStatus1">
             <End Role="EmployeeStatus" EntitySet="EmployeeStatus" />
             <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistory" />
@@ -614,120 +597,28 @@
             <End Role="Salary" EntitySet="Salary" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HRMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="HRMSEntities" annotation:LazyLoadingEnabled="true">
-          <!--<EntitySet Name="Months" EntityType="HRMSModel.Month" />-->
-          <!--<AssociationSet Name="FK_Salary_Month" Association="HRMSModel.FK_Salary_Month">
-            <End Role="Month" EntitySet="Months" />
-            <End Role="Salary" EntitySet="Salaries" />
-          </AssociationSet>-->
-          <EntitySet Name="AspNetRoles" EntityType="HRMSModel.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="HRMSModel.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="HRMSModel.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="HRMSModel.AspNetUser" />
-          <EntitySet Name="Designations" EntityType="HRMSModel.Designation" />
-          <EntitySet Name="Documents" EntityType="HRMSModel.Document" />
-          <EntitySet Name="DocumentTypes" EntityType="HRMSModel.DocumentType" />
-          <EntitySet Name="Employees" EntityType="HRMSModel.Employee" />
-          <EntitySet Name="EmployeeDocuments" EntityType="HRMSModel.EmployeeDocument" />
-          <EntitySet Name="EmployeeStatus" EntityType="HRMSModel.EmployeeStatu" />
-          <EntitySet Name="EmployeeStatusHistories" EntityType="HRMSModel.EmployeeStatusHistory" />
-          <EntitySet Name="HolidayCalendars" EntityType="HRMSModel.HolidayCalendar" />
-          <EntitySet Name="LeaveMasters" EntityType="HRMSModel.LeaveMaster" />
-          <EntitySet Name="LeaveTakens" EntityType="HRMSModel.LeaveTaken" />
-          <EntitySet Name="LeaveTypes" EntityType="HRMSModel.LeaveType" />
-          <EntitySet Name="Months" EntityType="HRMSModel.Month" />
-          <EntitySet Name="Salaries" EntityType="HRMSModel.Salary" />
-          <EntitySet Name="SettingTables" EntityType="HRMSModel.SettingTable" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Designation" Association="HRMSModel.FK_Employee_Designation">
-            <End Role="Designation" EntitySet="Designations" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeDocument_Document" Association="HRMSModel.FK_EmployeeDocument_Document">
-            <End Role="Document" EntitySet="Documents" />
-            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeDocument_DocumentType" Association="HRMSModel.FK_EmployeeDocument_DocumentType">
-            <End Role="DocumentType" EntitySet="DocumentTypes" />
-            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_EmployeeStatus" Association="HRMSModel.FK_Employee_EmployeeStatus">
-            <End Role="EmployeeStatu" EntitySet="EmployeeStatus" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeDocument_Employee" Association="HRMSModel.FK_EmployeeDocument_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeStatusHistory_Employee" Association="HRMSModel.FK_EmployeeStatusHistory_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveMaster_Employee" Association="HRMSModel.FK_LeaveMaster_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="LeaveMaster" EntitySet="LeaveMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveTaken_Employee" Association="HRMSModel.FK_LeaveTaken_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="LeaveTaken" EntitySet="LeaveTakens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Salary_Employee" Association="HRMSModel.FK_Salary_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="Salary" EntitySet="Salaries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeStatusHistory_EmployeeStatus" Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus">
-            <End Role="EmployeeStatu" EntitySet="EmployeeStatus" />
-            <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeStatusHistory_EmployeeStatus1" Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1">
-            <End Role="EmployeeStatu" EntitySet="EmployeeStatus" />
-            <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveMaster_LeaveType" Association="HRMSModel.FK_LeaveMaster_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="LeaveMaster" EntitySet="LeaveMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LeaveTaken_LeaveType" Association="HRMSModel.FK_LeaveTaken_LeaveType">
-            <End Role="LeaveType" EntitySet="LeaveTypes" />
-            <End Role="LeaveTaken" EntitySet="LeaveTakens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Salary_Month" Association="HRMSModel.FK_Salary_Month">
-            <End Role="Month" EntitySet="Months" />
-            <End Role="Salary" EntitySet="Salaries" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="HRMSModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="HRMSModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -735,16 +626,16 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
@@ -758,10 +649,10 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="AspNetRoles" Relationship="HRMSModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="Designation">
           <Key>
@@ -773,7 +664,7 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Designation" FromRole="Designation" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -786,7 +677,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Document" FromRole="Document" ToRole="EmployeeDocument" />
+          <NavigationProperty Name="EmployeeDocuments" Relationship="Self.FK_EmployeeDocument_Document" FromRole="Document" ToRole="EmployeeDocument" />
         </EntityType>
         <EntityType Name="DocumentType">
           <Key>
@@ -798,16 +689,16 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_DocumentType" FromRole="DocumentType" ToRole="EmployeeDocument" />
+          <NavigationProperty Name="EmployeeDocuments" Relationship="Self.FK_EmployeeDocument_DocumentType" FromRole="DocumentType" ToRole="EmployeeDocument" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PermanentAddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PermanentAddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PermanentAddressLine3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -840,19 +731,19 @@
           <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DesignationID" Type="Int32" />
           <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeStatusID" Type="Int32" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Designation" Relationship="HRMSModel.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
-          <NavigationProperty Name="EmployeeStatu" Relationship="HRMSModel.FK_Employee_EmployeeStatus" FromRole="Employee" ToRole="EmployeeStatu" />
-          <NavigationProperty Name="EmployeeDocuments" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
-          <NavigationProperty Name="EmployeeStatusHistories" Relationship="HRMSModel.FK_EmployeeStatusHistory_Employee" FromRole="Employee" ToRole="EmployeeStatusHistory" />
-          <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
-          <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
-          <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Employee" ToRole="Salary" />
+          <NavigationProperty Name="Designation" Relationship="Self.FK_Employee_Designation" FromRole="Employee" ToRole="Designation" />
+          <NavigationProperty Name="EmployeeStatu" Relationship="Self.FK_Employee_EmployeeStatus" FromRole="Employee" ToRole="EmployeeStatus" />
+          <NavigationProperty Name="EmployeeDocuments" Relationship="Self.FK_EmployeeDocument_Employee" FromRole="Employee" ToRole="EmployeeDocument" />
+          <NavigationProperty Name="EmployeeStatusHistories" Relationship="Self.FK_EmployeeStatusHistory_Employee" FromRole="Employee" ToRole="EmployeeStatusHistory" />
+          <NavigationProperty Name="LeaveMasters" Relationship="Self.FK_LeaveMaster_Employee" FromRole="Employee" ToRole="LeaveMaster" />
+          <NavigationProperty Name="LeaveTakens" Relationship="Self.FK_LeaveTaken_Employee" FromRole="Employee" ToRole="LeaveTaken" />
+          <NavigationProperty Name="Salaries" Relationship="Self.FK_Salary_Employee" FromRole="Employee" ToRole="Salary" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -862,14 +753,14 @@
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DocumentID" Type="Int64" Nullable="false" />
           <Property Name="DocumentTypeID" Type="Int32" Nullable="false" />
-          <Property Name="DocumentName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Document" Relationship="HRMSModel.FK_EmployeeDocument_Document" FromRole="EmployeeDocument" ToRole="Document" />
-          <NavigationProperty Name="DocumentType" Relationship="HRMSModel.FK_EmployeeDocument_DocumentType" FromRole="EmployeeDocument" ToRole="DocumentType" />
-          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_EmployeeDocument_Employee" FromRole="EmployeeDocument" ToRole="Employee" />
+          <NavigationProperty Name="Document" Relationship="Self.FK_EmployeeDocument_Document" FromRole="EmployeeDocument" ToRole="Document" />
+          <NavigationProperty Name="DocumentType" Relationship="Self.FK_EmployeeDocument_DocumentType" FromRole="EmployeeDocument" ToRole="DocumentType" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeDocument_Employee" FromRole="EmployeeDocument" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeStatu">
           <Key>
@@ -882,9 +773,8 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employees" Relationship="HRMSModel.FK_Employee_EmployeeStatus" FromRole="EmployeeStatu" ToRole="Employee" />
-          <NavigationProperty Name="EmployeeStatusHistories" Relationship="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus" FromRole="EmployeeStatu" ToRole="EmployeeStatusHistory" />
-          <NavigationProperty Name="EmployeeStatusHistories1" Relationship="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1" FromRole="EmployeeStatu" ToRole="EmployeeStatusHistory" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_EmployeeStatus" FromRole="EmployeeStatus" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeStatusHistories" Relationship="Self.FK_EmployeeStatusHistory_EmployeeStatus1" FromRole="EmployeeStatus" ToRole="EmployeeStatusHistory" />
         </EntityType>
         <EntityType Name="EmployeeStatusHistory">
           <Key>
@@ -892,7 +782,6 @@
           </Key>
           <Property Name="EmployeeStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="OldStatusID" Type="Int32" />
           <Property Name="NewStatusID" Type="Int32" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
@@ -901,9 +790,8 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_EmployeeStatusHistory_Employee" FromRole="EmployeeStatusHistory" ToRole="Employee" />
-          <NavigationProperty Name="EmployeeStatu" Relationship="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus" FromRole="EmployeeStatusHistory" ToRole="EmployeeStatu" />
-          <NavigationProperty Name="EmployeeStatu1" Relationship="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1" FromRole="EmployeeStatusHistory" ToRole="EmployeeStatu" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeStatusHistory_Employee" FromRole="EmployeeStatusHistory" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeStatu" Relationship="Self.FK_EmployeeStatusHistory_EmployeeStatus1" FromRole="EmployeeStatusHistory" ToRole="EmployeeStatus" />
         </EntityType>
         <EntityType Name="HolidayCalendar">
           <Key>
@@ -931,8 +819,8 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_LeaveMaster_Employee" FromRole="LeaveMaster" ToRole="Employee" />
-          <NavigationProperty Name="LeaveType" Relationship="HRMSModel.FK_LeaveMaster_LeaveType" FromRole="LeaveMaster" ToRole="LeaveType" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_LeaveMaster_Employee" FromRole="LeaveMaster" ToRole="Employee" />
+          <NavigationProperty Name="LeaveType" Relationship="Self.FK_LeaveMaster_LeaveType" FromRole="LeaveMaster" ToRole="LeaveType" />
         </EntityType>
         <EntityType Name="LeaveTaken">
           <Key>
@@ -942,42 +830,42 @@
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="LeaveValue" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="LeaveValue" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="IsHalfDay" Type="Boolean" Nullable="false" />
           <Property Name="LeaveTypeId" Type="Int32" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_LeaveTaken_Employee" FromRole="LeaveTaken" ToRole="Employee" />
-          <NavigationProperty Name="LeaveType" Relationship="HRMSModel.FK_LeaveTaken_LeaveType" FromRole="LeaveTaken" ToRole="LeaveType" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_LeaveTaken_Employee" FromRole="LeaveTaken" ToRole="Employee" />
+          <NavigationProperty Name="LeaveType" Relationship="Self.FK_LeaveTaken_LeaveType" FromRole="LeaveTaken" ToRole="LeaveType" />
         </EntityType>
         <EntityType Name="LeaveType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Symbol" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="LeaveMasters" Relationship="HRMSModel.FK_LeaveMaster_LeaveType" FromRole="LeaveType" ToRole="LeaveMaster" />
-          <NavigationProperty Name="LeaveTakens" Relationship="HRMSModel.FK_LeaveTaken_LeaveType" FromRole="LeaveType" ToRole="LeaveTaken" />
+          <NavigationProperty Name="LeaveMasters" Relationship="Self.FK_LeaveMaster_LeaveType" FromRole="LeaveType" ToRole="LeaveMaster" />
+          <NavigationProperty Name="LeaveTakens" Relationship="Self.FK_LeaveTaken_LeaveType" FromRole="LeaveType" ToRole="LeaveTaken" />
         </EntityType>
         <EntityType Name="Month">
           <Key>
             <PropertyRef Name="MonthID" />
           </Key>
           <Property Name="MonthID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Month1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Month1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Month" FromRole="Month" ToRole="Salary" />
+          <NavigationProperty Name="Salaries" Relationship="Self.FK_Salary_Month" FromRole="Month" ToRole="Salary" />
         </EntityType>
         <EntityType Name="Salary">
           <Key>
@@ -986,80 +874,80 @@
           <Property Name="SalaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="MonthID" Type="Int32" Nullable="false" />
-          <Property Name="Basic" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="HRA" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ConveyanceAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="OtherAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="MedicalReimbursement" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="AdvanceSalary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Incentive" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="PLI" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Exgratia" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ReimbursementOfexp" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="TDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="EPF" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ProfessionalTax" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Leave" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Advance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Basic" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="HRA" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ConveyanceAllowance" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="OtherAllowance" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="MedicalReimbursement" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="AdvanceSalary" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Incentive" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PLI" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Exgratia" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ReimbursementOfexp" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="TDS" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="EPF" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ProfessionalTax" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Leave" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Advance" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="YTDS" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Salary1" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Salary1" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="Days" Type="Int32" Nullable="false" />
-          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BankName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SalaryStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalaryStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Salary" ToRole="Employee" />
-          <NavigationProperty Name="Month" Relationship="HRMSModel.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Salary_Employee" FromRole="Salary" ToRole="Employee" />
+          <NavigationProperty Name="Month" Relationship="Self.FK_Salary_Month" FromRole="Salary" ToRole="Month" />
         </EntityType>
         <EntityType Name="SettingTable">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="LeavesPerMonth" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="LeavesToBeCarriedForward" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="LeavesPerMonth" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="LeavesToBeCarriedForward" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="HRMSModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUser">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaim">
+            <Dependent Role="AspNetUserClaims">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="HRMSModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUser">
+            <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogin">
+            <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Designation">
-          <End Type="HRMSModel.Designation" Role="Designation" Multiplicity="0..1" />
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
+          <End Role="Designation" Type="Self.Designation" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Designation">
               <PropertyRef Name="DesignationID" />
@@ -1070,8 +958,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeDocument_Document">
-          <End Type="HRMSModel.Document" Role="Document" Multiplicity="1" />
-          <End Type="HRMSModel.EmployeeDocument" Role="EmployeeDocument" Multiplicity="*" />
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="EmployeeDocument" Type="Self.EmployeeDocument" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Document">
               <PropertyRef Name="DocumentID" />
@@ -1082,8 +970,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeDocument_DocumentType">
-          <End Type="HRMSModel.DocumentType" Role="DocumentType" Multiplicity="1" />
-          <End Type="HRMSModel.EmployeeDocument" Role="EmployeeDocument" Multiplicity="*" />
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
+          <End Role="EmployeeDocument" Type="Self.EmployeeDocument" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocumentType">
               <PropertyRef Name="DocumentTypeID" />
@@ -1094,10 +982,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_EmployeeStatus">
-          <End Type="HRMSModel.EmployeeStatu" Role="EmployeeStatu" Multiplicity="0..1" />
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="*" />
+          <End Role="EmployeeStatus" Type="Self.EmployeeStatu" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EmployeeStatu">
+            <Principal Role="EmployeeStatus">
               <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="Employee">
@@ -1106,8 +994,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeDocument_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="HRMSModel.EmployeeDocument" Role="EmployeeDocument" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeDocument" Type="Self.EmployeeDocument" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeID" />
@@ -1118,8 +1006,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_EmployeeStatusHistory_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="HRMSModel.EmployeeStatusHistory" Role="EmployeeStatusHistory" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="EmployeeStatusHistory" Type="Self.EmployeeStatusHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeID" />
@@ -1130,8 +1018,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeaveMaster_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="HRMSModel.LeaveMaster" Role="LeaveMaster" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="LeaveMaster" Type="Self.LeaveMaster" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeID" />
@@ -1142,8 +1030,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeaveTaken_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="HRMSModel.LeaveTaken" Role="LeaveTaken" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="LeaveTaken" Type="Self.LeaveTaken" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeID" />
@@ -1154,8 +1042,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salary_Employee">
-          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="HRMSModel.Salary" Role="Salary" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeID" />
@@ -1165,23 +1053,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EmployeeStatusHistory_EmployeeStatus">
-          <End Type="HRMSModel.EmployeeStatu" Role="EmployeeStatu" Multiplicity="0..1" />
-          <End Type="HRMSModel.EmployeeStatusHistory" Role="EmployeeStatusHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeStatu">
-              <PropertyRef Name="StatusID" />
-            </Principal>
-            <Dependent Role="EmployeeStatusHistory">
-              <PropertyRef Name="OldStatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EmployeeStatusHistory_EmployeeStatus1">
-          <End Type="HRMSModel.EmployeeStatu" Role="EmployeeStatu" Multiplicity="0..1" />
-          <End Type="HRMSModel.EmployeeStatusHistory" Role="EmployeeStatusHistory" Multiplicity="*" />
+          <End Role="EmployeeStatus" Type="Self.EmployeeStatu" Multiplicity="0..1" />
+          <End Role="EmployeeStatusHistory" Type="Self.EmployeeStatusHistory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EmployeeStatu">
+            <Principal Role="EmployeeStatus">
               <PropertyRef Name="StatusID" />
             </Principal>
             <Dependent Role="EmployeeStatusHistory">
@@ -1190,8 +1066,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeaveMaster_LeaveType">
-          <End Type="HRMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1" />
-          <End Type="HRMSModel.LeaveMaster" Role="LeaveMaster" Multiplicity="*" />
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="0..1" />
+          <End Role="LeaveMaster" Type="Self.LeaveMaster" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LeaveType">
               <PropertyRef Name="ID" />
@@ -1202,8 +1078,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_LeaveTaken_LeaveType">
-          <End Type="HRMSModel.LeaveType" Role="LeaveType" Multiplicity="0..1" />
-          <End Type="HRMSModel.LeaveTaken" Role="LeaveTaken" Multiplicity="*" />
+          <End Role="LeaveType" Type="Self.LeaveType" Multiplicity="0..1" />
+          <End Role="LeaveTaken" Type="Self.LeaveTaken" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LeaveType">
               <PropertyRef Name="ID" />
@@ -1214,8 +1090,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Salary_Month">
-          <End Type="HRMSModel.Month" Role="Month" Multiplicity="1" />
-          <End Type="HRMSModel.Salary" Role="Salary" Multiplicity="*" />
+          <End Role="Month" Type="Self.Month" Multiplicity="1" />
+          <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Month">
               <PropertyRef Name="MonthID" />
@@ -1226,10 +1102,94 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Type="HRMSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="HRMSModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        </Schema>
+        <EntityContainer Name="HRMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Designations" EntityType="Self.Designation" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="DocumentTypes" EntityType="Self.DocumentType" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeDocuments" EntityType="Self.EmployeeDocument" />
+          <EntitySet Name="EmployeeStatus" EntityType="Self.EmployeeStatu" />
+          <EntitySet Name="EmployeeStatusHistories" EntityType="Self.EmployeeStatusHistory" />
+          <EntitySet Name="HolidayCalendars" EntityType="Self.HolidayCalendar" />
+          <EntitySet Name="LeaveMasters" EntityType="Self.LeaveMaster" />
+          <EntitySet Name="LeaveTakens" EntityType="Self.LeaveTaken" />
+          <EntitySet Name="LeaveTypes" EntityType="Self.LeaveType" />
+          <EntitySet Name="Months" EntityType="Self.Month" />
+          <EntitySet Name="Salaries" EntityType="Self.Salary" />
+          <EntitySet Name="SettingTables" EntityType="Self.SettingTable" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Designation" Association="Self.FK_Employee_Designation">
+            <End Role="Designation" EntitySet="Designations" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDocument_Document" Association="Self.FK_EmployeeDocument_Document">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDocument_DocumentType" Association="Self.FK_EmployeeDocument_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentTypes" />
+            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_EmployeeStatus" Association="Self.FK_Employee_EmployeeStatus">
+            <End Role="EmployeeStatus" EntitySet="EmployeeStatus" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeDocument_Employee" Association="Self.FK_EmployeeDocument_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeDocument" EntitySet="EmployeeDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeStatusHistory_Employee" Association="Self.FK_EmployeeStatusHistory_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveMaster_Employee" Association="Self.FK_LeaveMaster_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="LeaveMaster" EntitySet="LeaveMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveTaken_Employee" Association="Self.FK_LeaveTaken_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="LeaveTaken" EntitySet="LeaveTakens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Employee" Association="Self.FK_Salary_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Salary" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeStatusHistory_EmployeeStatus1" Association="Self.FK_EmployeeStatusHistory_EmployeeStatus1">
+            <End Role="EmployeeStatus" EntitySet="EmployeeStatus" />
+            <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveMaster_LeaveType" Association="Self.FK_LeaveMaster_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="LeaveMaster" EntitySet="LeaveMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeaveTaken_LeaveType" Association="Self.FK_LeaveTaken_LeaveType">
+            <End Role="LeaveType" EntitySet="LeaveTypes" />
+            <End Role="LeaveTaken" EntitySet="LeaveTakens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Salary_Month" Association="Self.FK_Salary_Month">
+            <End Role="Month" EntitySet="Months" />
+            <End Role="Salary" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1238,309 +1198,308 @@
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="HRMSModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="HRMSModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
             <EntityTypeMapping TypeName="HRMSModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="HRMSModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Designations">
             <EntityTypeMapping TypeName="HRMSModel.Designation">
               <MappingFragment StoreEntitySet="Designation">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="HRMSModel.Document">
               <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
-                <ScalarProperty Name="DocumentContent" ColumnName="DocumentContent" />
                 <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentContent" ColumnName="DocumentContent" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocumentTypes">
             <EntityTypeMapping TypeName="HRMSModel.DocumentType">
               <MappingFragment StoreEntitySet="DocumentType">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="HRMSModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="EmployeeStatusID" ColumnName="EmployeeStatusID" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
-                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
-                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
-                <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SalaryAccountIFSCCode" ColumnName="SalaryAccountIFSCCode" />
-                <ScalarProperty Name="SalaryAccountBankAddress" ColumnName="SalaryAccountBankAddress" />
-                <ScalarProperty Name="SalaryAccountBank" ColumnName="SalaryAccountBank" />
-                <ScalarProperty Name="SalaryAccountNumber" ColumnName="SalaryAccountNumber" />
-                <ScalarProperty Name="IDCardType" ColumnName="IDCardType" />
-                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
-                <ScalarProperty Name="PAN" ColumnName="PAN" />
-                <ScalarProperty Name="LastWorkingDay" ColumnName="LastWorkingDay" />
-                <ScalarProperty Name="DateOfResignation" ColumnName="DateOfResignation" />
-                <ScalarProperty Name="HasResigned" ColumnName="HasResigned" />
-                <ScalarProperty Name="ProbationPeriodEndDate" ColumnName="ProbationPeriodEndDate" />
-                <ScalarProperty Name="DateOfjoining" ColumnName="DateOfjoining" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
-                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
-                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
-                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
-                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
-                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
-                <ScalarProperty Name="PermanentAddressZip" ColumnName="PermanentAddressZip" />
-                <ScalarProperty Name="PermanentAddressCountry" ColumnName="PermanentAddressCountry" />
-                <ScalarProperty Name="PermanentAddressState" ColumnName="PermanentAddressState" />
-                <ScalarProperty Name="PermanentAddressLine3" ColumnName="PermanentAddressLine3" />
-                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
-                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
+                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
+                <ScalarProperty Name="PermanentAddressLine3" ColumnName="PermanentAddressLine3" />
+                <ScalarProperty Name="PermanentAddressState" ColumnName="PermanentAddressState" />
+                <ScalarProperty Name="PermanentAddressCountry" ColumnName="PermanentAddressCountry" />
+                <ScalarProperty Name="PermanentAddressZip" ColumnName="PermanentAddressZip" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
+                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="DateOfjoining" ColumnName="DateOfjoining" />
+                <ScalarProperty Name="ProbationPeriodEndDate" ColumnName="ProbationPeriodEndDate" />
+                <ScalarProperty Name="HasResigned" ColumnName="HasResigned" />
+                <ScalarProperty Name="DateOfResignation" ColumnName="DateOfResignation" />
+                <ScalarProperty Name="LastWorkingDay" ColumnName="LastWorkingDay" />
+                <ScalarProperty Name="PAN" ColumnName="PAN" />
+                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
+                <ScalarProperty Name="IDCardType" ColumnName="IDCardType" />
+                <ScalarProperty Name="SalaryAccountNumber" ColumnName="SalaryAccountNumber" />
+                <ScalarProperty Name="SalaryAccountBank" ColumnName="SalaryAccountBank" />
+                <ScalarProperty Name="SalaryAccountBankAddress" ColumnName="SalaryAccountBankAddress" />
+                <ScalarProperty Name="SalaryAccountIFSCCode" ColumnName="SalaryAccountIFSCCode" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="EmployeeStatusID" ColumnName="EmployeeStatusID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeDocuments">
             <EntityTypeMapping TypeName="HRMSModel.EmployeeDocument">
               <MappingFragment StoreEntitySet="EmployeeDocument">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
-                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
-                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeDocumentID" ColumnName="EmployeeDocumentID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeStatus">
             <EntityTypeMapping TypeName="HRMSModel.EmployeeStatu">
               <MappingFragment StoreEntitySet="EmployeeStatus">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeStatusHistories">
             <EntityTypeMapping TypeName="HRMSModel.EmployeeStatusHistory">
               <MappingFragment StoreEntitySet="EmployeeStatusHistory">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="StatusNote" ColumnName="StatusNote" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="NewStatusID" ColumnName="NewStatusID" />
-                <ScalarProperty Name="OldStatusID" ColumnName="OldStatusID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="EmployeeStatusID" ColumnName="EmployeeStatusID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="NewStatusID" ColumnName="NewStatusID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StatusNote" ColumnName="StatusNote" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HolidayCalendars">
             <EntityTypeMapping TypeName="HRMSModel.HolidayCalendar">
               <MappingFragment StoreEntitySet="HolidayCalendar">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HolidayDate" ColumnName="HolidayDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LeaveMasters">
             <EntityTypeMapping TypeName="HRMSModel.LeaveMaster">
               <MappingFragment StoreEntitySet="LeaveMaster">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="LeaveValueDate" ColumnName="LeaveValueDate" />
-                <ScalarProperty Name="LeavesAdded" ColumnName="LeavesAdded" />
-                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="LeavesAdded" ColumnName="LeavesAdded" />
+                <ScalarProperty Name="LeaveValueDate" ColumnName="LeaveValueDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LeaveTakens">
             <EntityTypeMapping TypeName="HRMSModel.LeaveTaken">
               <MappingFragment StoreEntitySet="LeaveTaken">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
-                <ScalarProperty Name="IsHalfDay" ColumnName="IsHalfDay" />
-                <ScalarProperty Name="LeaveValue" ColumnName="LeaveValue" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LeaveValue" ColumnName="LeaveValue" />
+                <ScalarProperty Name="IsHalfDay" ColumnName="IsHalfDay" />
+                <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LeaveTypes">
             <EntityTypeMapping TypeName="HRMSModel.LeaveType">
               <MappingFragment StoreEntitySet="LeaveType">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Months">
             <EntityTypeMapping TypeName="HRMSModel.Month">
               <MappingFragment StoreEntitySet="Month">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Month1" ColumnName="Month" />
                 <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+                <ScalarProperty Name="Month1" ColumnName="Month" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Salaries">
             <EntityTypeMapping TypeName="HRMSModel.Salary">
               <MappingFragment StoreEntitySet="Salary">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="SalaryID" ColumnName="SalaryID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+                <ScalarProperty Name="Basic" ColumnName="Basic" />
+                <ScalarProperty Name="HRA" ColumnName="HRA" />
+                <ScalarProperty Name="ConveyanceAllowance" ColumnName="ConveyanceAllowance" />
+                <ScalarProperty Name="OtherAllowance" ColumnName="OtherAllowance" />
+                <ScalarProperty Name="MedicalReimbursement" ColumnName="MedicalReimbursement" />
+                <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
+                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
+                <ScalarProperty Name="PLI" ColumnName="PLI" />
+                <ScalarProperty Name="Exgratia" ColumnName="Exgratia" />
+                <ScalarProperty Name="ReimbursementOfexp" ColumnName="ReimbursementOfexp" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="EPF" ColumnName="EPF" />
+                <ScalarProperty Name="ProfessionalTax" ColumnName="ProfessionalTax" />
+                <ScalarProperty Name="Leave" ColumnName="Leave" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="YTDS" ColumnName="YTDS" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Salary1" ColumnName="Salary" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="SalaryStatus" ColumnName="SalaryStatus" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="SalaryStatus" ColumnName="SalaryStatus" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Salary1" ColumnName="Salary" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="YTDS" ColumnName="YTDS" />
-                <ScalarProperty Name="Advance" ColumnName="Advance" />
-                <ScalarProperty Name="Leave" ColumnName="Leave" />
-                <ScalarProperty Name="ProfessionalTax" ColumnName="ProfessionalTax" />
-                <ScalarProperty Name="EPF" ColumnName="EPF" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="ReimbursementOfexp" ColumnName="ReimbursementOfexp" />
-                <ScalarProperty Name="Exgratia" ColumnName="Exgratia" />
-                <ScalarProperty Name="PLI" ColumnName="PLI" />
-                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
-                <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
-                <ScalarProperty Name="MedicalReimbursement" ColumnName="MedicalReimbursement" />
-                <ScalarProperty Name="OtherAllowance" ColumnName="OtherAllowance" />
-                <ScalarProperty Name="ConveyanceAllowance" ColumnName="ConveyanceAllowance" />
-                <ScalarProperty Name="HRA" ColumnName="HRA" />
-                <ScalarProperty Name="Basic" ColumnName="Basic" />
-                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="SalaryID" ColumnName="SalaryID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SettingTables">
             <EntityTypeMapping TypeName="HRMSModel.SettingTable">
               <MappingFragment StoreEntitySet="SettingTable">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="LeavesToBeCarriedForward" ColumnName="LeavesToBeCarriedForward" />
-                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LeavesPerMonth" ColumnName="LeavesPerMonth" />
+                <ScalarProperty Name="LeavesToBeCarriedForward" ColumnName="LeavesToBeCarriedForward" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="HRMSModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
+            <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

@@ -12,11 +12,8 @@ namespace HRMS.Api
 {
     public class EmployeeStatusHistoryController  : GenericApiController<EmployeeStatusHistoryService, EmployeeStatusHistory, int>, IGetList
     {
-        // GET: DocumentType
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        
+        HRMSEntities dbContext = new HRMSEntities();
         public override object GetModel()
         {
             EmployeeStatusHistory obj = (EmployeeStatusHistory)base.GetModel();
@@ -28,53 +25,74 @@ namespace HRMS.Api
 
         public override HttpResponseMessage Create(EmployeeStatusHistory entity)
         {
-            entity.CreatedBy = User.Identity.Name;
+
+            try
+            {
+                // IStart To update Employee table for employee's latest status
+                var _employee = dbContext.Employees.Find(entity.EmployeeID);
+                _employee.EmployeeID = entity.EmployeeID;
+                _employee.EmployeeStatusID = entity.NewStatusID;
+
+                dbContext.Entry(_employee).State = System.Data.Entity.EntityState.Modified;
+                dbContext.SaveChanges();
+                // IEnd To update Employee table for employee's latest status
+                
+                entity.CreatedDate = DateTime.Now;
+                entity.ModifiedDate = DateTime.Now;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
             return base.Create(entity);
         }
         public override HttpResponseMessage Update(EmployeeStatusHistory entity)
         {
-            entity.ModifiedBy= User.Identity.Name;
-            return base.Update(entity); 
-        }
+          
+            entity.ModifiedBy = User.Identity.Name;
+            service.Update(entity);
 
+            return HttpSuccess();
+            
+        }
+ 
+        [HttpGet]
         public override EmployeeStatusHistory GetById(int id)
         {
-
-
+            service.Context.Configuration.ProxyCreationEnabled = false;
+            
             EmployeeStatusHistory obj = (from o in service.Context.EmployeeStatusHistories
                                          where o.EmployeeID == id
-                                  select new
+                                  select new 
                                   {
+                                      o.EmployeeID,
                                       o.EmployeeStatusID,
                                       o.EmployeeStatu,
-                                      o.EmployeeStatu1,
-                                      o.Employee,
                                       o.StartDate,
                                       o.EndDate,
                                       o.StatusNote,
-                                      o.CreatedBy,
-                                      o.CreatedDate,
-                                      o.ModifiedBy,
-                                      o.ModifiedDate
-
-                                  }).ToList().Select(o => new EmployeeStatusHistory
+                                      o.NewStatusID
+                                  }).ToList().Select(o => new EmployeeStatusHistoryExtend
                                   {
+                                      EmployeeID = o.EmployeeID,
                                       EmployeeStatusID = o.EmployeeStatusID,
                                       EmployeeStatu = o.EmployeeStatu,
-                                      EmployeeStatu1 = o.EmployeeStatu1,
                                       StartDate = o.StartDate,
                                       EndDate = o.EndDate,
                                       StatusNote = o.StatusNote,
-                                      CreatedBy = o.CreatedBy,
-                                      CreatedDate = o.CreatedDate,
-                                      ModifiedBy = o.ModifiedBy,
-                                      ModifiedDate = o.ModifiedDate
-                                  }).Single<EmployeeStatusHistory>();
-            return obj;
+                                      NewStatusID = o.NewStatusID
+
+                                  }).OrderByDescending(o=>o.EmployeeStatusID).Take(1).Single<EmployeeStatusHistory>();
+            // obj.EmployeeStatusID = 0;
+            
+            return (EmployeeStatusHistoryExtend)obj;
         }
 
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
+            
             IQueryable<EmployeeStatusHistory> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             service.Context.Configuration.ProxyCreationEnabled = false;
             var query = (from o in list
@@ -82,9 +100,8 @@ namespace HRMS.Api
                         {
                             EmployeeStatusID = o.EmployeeStatusID,
                             Employee = o.Employee,
-                            EmployeeStatu = o.EmployeeStatu,
-                            EmployeeStatu1 = o.EmployeeStatu1,
-                            StartDate = o.StartDate,
+                            EmployeeStatus = o.EmployeeStatu,
+                            StartDate = o.StartDate ,
                             EndDate = o.EndDate,
                             CreatedDate = o.CreatedDate,
                             CreatedBy = o.CreatedBy,
@@ -96,8 +113,8 @@ namespace HRMS.Api
                             {
                                 EmployeeStatusID = o.EmployeeStatusID,
                                 Employee = o.Employee.FullName,
-                                EmployeeStatu = o.EmployeeStatu,
-                                EmployeeStatu1 = o.EmployeeStatu1,
+                                EmployeeID = o.Employee.EmployeeID,
+                                EmployeeStatus = o.EmployeeStatus,
                                 StartDate = o.StartDate,
                                 EndDate = o.EndDate,
                                 CreatedDate = o.CreatedDate,
@@ -105,7 +122,6 @@ namespace HRMS.Api
                                 ModifiedBy = o.ModifiedBy,
                                 ModifiedDate = o.ModifiedDate,
                                 StatusNote = o.StatusNote
-
                             }
                         );
 

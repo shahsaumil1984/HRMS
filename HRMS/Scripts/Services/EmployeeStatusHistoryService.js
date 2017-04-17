@@ -13,10 +13,10 @@ EmployeeStatusHistoryService.prototype.MyCustomMethod = function (params, callba
     this.QueryController('MyCustomMethodNameOnThisObject?' + params, callback);
 }
 
-EmployeeStatusHistoryService.prototype.GetById = function (id, callback) {
+//EmployeeStatusHistoryService.prototype.GetById = function (id, callback) {
     
-    this.Query("GetById?id=" + id, null, callback);
-}
+//    this.Query("GetById?id=" + id, null, callback);
+//}
 
 var employeeStatusHistoryService = new EmployeeStatusHistoryService();
 
