@@ -45,7 +45,7 @@ namespace Model
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public string SalaryStatusName { get; set; }
+        
 
         public virtual Employee Employee { get; set; }
         public virtual Month Month { get; set; }

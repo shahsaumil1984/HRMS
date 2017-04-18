@@ -97,6 +97,7 @@
     <Compile Include="Employee_Audit.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extended Class\EmployeeStatusHistoryExtend.cs" />
     <Compile Include="HolidayCalendar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

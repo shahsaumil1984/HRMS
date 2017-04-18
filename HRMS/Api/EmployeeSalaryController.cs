@@ -31,7 +31,7 @@ namespace HRMS.Api
         public override object GetModel()
         {
             Employee obj = (Employee)base.GetModel();
-
+           
             // Set Default Values Here
 
             return obj;
@@ -132,8 +132,9 @@ namespace HRMS.Api
         [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
-            int monthID = Convert.ToInt32(includeProperties.Substring(includeProperties.IndexOf('=') + 1));           
-            IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
+            //int monthID = Convert.ToInt32(includeProperties.Substring(includeProperties.IndexOf('=') + 1));
+            //IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
+            IQueryable<Employee> list = service.GetEmpSalary(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = (from o in list
                          where o.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive
                          select new
@@ -211,7 +212,7 @@ namespace HRMS.Api
                              AddressCity = x.AddressCity,
                              PermanentAddressCity = x.PermanentAddressCity,
                              EmployeePhoto = x.EmployeePhoto,
-                             SalaryStatus = x.Salaries.Where(s => s.MonthID == monthID).FirstOrDefault() == null ? "Pending" : x.Salaries.Where(s => s.MonthID == monthID).FirstOrDefault().SalaryStatu.SalaryStatusName
+                             Salaries = x.Salaries
                          }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);

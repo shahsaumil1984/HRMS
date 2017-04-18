@@ -34,7 +34,7 @@
                    data-entity-key="EmployeeID"
                    data-service-object="employeeSalaryService"
                    data-default-orderby="EmployeeCode"
-                   data-includes="MonthID=@ViewBag.MonthID"
+                   @*data-includes="MonthID=@ViewBag.MonthID"*@
                    cellspacing="0" cellpadding="0" border="0">
                 <thead class="tblaction">
                     <tr>
@@ -55,18 +55,26 @@
                             </div>
 
                         </td>
-                        @*<td>
+                        <td>
                             <div>
+                               
                                 <select data-filter-field="SalaryStatus" id="selSalaryStatus"
                                         data-filter-list="employeeSalaryGrid"
                                         data-default-focus="true">
                                     <option value="">All</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Approved">Approved</option>
-                                </select>                               
+                                    <option value="1">Pending</option>
+                                    <option value="2">Approved</option>
+                                </select>
+                                <select data-filter-field="MonthID" id="selMonthID"
+                                        data-filter-list="employeeSalaryGrid"
+                                        data-default-focus="true">
+                                    <option value="436">All</option>
+                                    @*<option value="1">Pending</option>
+            <option value="2">Approved</option>*@
+                                </select>
                             </div>
 
-                        </td>*@
+                        </td>
                     </tr>
                 </thead>
 
@@ -99,10 +107,10 @@
                             </div>
                         </td>
                         <td class="text-left">{{r.EmployeeCode}}</td>
-                        <td class="text-left">{{r.SalaryStatus}}</td>
+                        <td class="text-left">{{r.Salaries[0].SalaryStatu.SalaryStatusName}}</td>
                         <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
-                        <td class="col-md-1"><button ng-disabled="{{r.SalaryStatus == 'Pending'}}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)" class="btn">Download PDF</button></td>
-                        <td class="col-md-1"><button ng-disabled="{{r.SalaryStatus == 'Pending'}}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)" class="btn">Send Email</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)" class="btn">Download PDF</button></td>
+                        <td class="col-md-1"><button ng-disabled="{{r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)" class="btn">Send Email</button></td>
                 </tbody>
 
             </table>
@@ -156,7 +164,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="SalaryStatus" class="control-label">Salary Status:</label>
-                        <label type="text" name="em_SalaryStatus" id="em_SalaryStatus" ng-bind="model.SalaryStatusName"></label>
+                        <label type="text" name="em_SalaryStatus" id="em_SalaryStatus" ng-bind="model.SalaryStatu.SalaryStatusName"></label>
                     </div>
                 </div>
 
