@@ -43,8 +43,8 @@
                 <td class="col-md-1"> <span>{{r.StatusID}}</span></td>
                 <td class="col-md-1"> <span>{{r.Status}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
-                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" height="20" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
-                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" height="20" ng-click="lb.Delete(r.StatusID, null , ub.EmployeeStatusDeleteCallback)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" title="Edit" height="20" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" title="Delete" height="20" ng-click="lb.Delete(r.StatusID, null , ub.EmployeeStatusDeleteCallback)" /></td>
             </tr>
         </tbody>
         <tfoot>

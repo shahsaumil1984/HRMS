@@ -16,6 +16,17 @@ $(document).ready(function () {
     });
 });
 
+_.SendAllEmail = function (monthID) {
+    salaryService.SendAllEmail(monthID, function (status, data) {
+        if (status) {
+            alert("Email sent successfully!");
+        }
+        else {
+            alert("Email could not be sent.")
+        }
+    })
+}
+
 // Form Validation
 //----------------------------------------------
 

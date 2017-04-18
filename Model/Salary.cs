@@ -45,6 +45,8 @@ namespace Model
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
+        
+
         public Nullable<bool> isFullAndFinal { get; set; }
     
         public virtual Employee Employee { get; set; }

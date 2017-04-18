@@ -11,12 +11,15 @@ namespace HRMS
     {
         public enum EmployeeStatus
         {
-            Active = 1,
-            Probation,
+            Probation = 1,
+            Active,
 
             [EnumMember(Value = "Notice Period")]
             NoticePeriod,
 
+            [EnumMember(Value = "Full And Final")]
+            FullAndFinal,
+            
             [EnumMember(Value = "In Active")]
             InActive
         };
