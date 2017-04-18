@@ -20,6 +20,13 @@ a:focus, a:hover{
   text-decoration: none;
 	color: #1f496d ;
 }
+
+.not-active {
+   pointer-events: none;
+   cursor: default;
+   opacity: 0.2
+}
+
 html, body,
 code, kbd, pre, samp, .popover, .tooltip, input
 {font-weight:normal;}
