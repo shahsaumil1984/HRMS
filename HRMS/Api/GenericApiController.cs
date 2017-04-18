@@ -21,10 +21,7 @@ namespace Api
         where TService : GenericService<TEntity, TKey>, new()
         where TEntity : class, new()
     {
-
-
         
-       
         protected TService service = new TService();
 
         public virtual object GetModel()

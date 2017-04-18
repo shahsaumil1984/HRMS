@@ -13,6 +13,11 @@ SalaryService.prototype.SendEmail = function (employeeID, monthID, callback) {
     this.QueryByPost('SendEmail?' + 'employeeID=' + employeeID + "&monthID=" + monthID, null, callback);
 }
 
+SalaryService.prototype.SendAllEmail = function (monthID, callback) {
+    debugger;
+    this.QueryByPost('SendAllEmail?' + "monthID=" + monthID, null, callback);
+}
+
 
 var salaryService = new SalaryService();
 

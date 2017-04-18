@@ -2,20 +2,19 @@
 @model ViewModel.MasterViewModel
 @using Model
 
-<div class="modal fade" role="dialog" aria-hidden="true">
-
-
-
-    <form id="employeeStatusDetailsForm"
-          name="employeeStatusDetailsForm"
+<div class="modal fade" id="StatusDialog" role="dialog" aria-hidden="true">
+    <form id="employeeStatusHistoryDetailsForm"
+          name="employeeStatusHistoryDetailsForm"
           data-ui-binding="true"
-          data-service-object="EmployeeStatusHistoryService"
-          data-associated-list="EmployeeStatusGrid"
-          @*data-validate-callback="Validate"*@
+          data-service-object="employeeStatusHistoryExtendService"
+          data-associated-list="employeeStatusDetailsForm"
           method="get" class="col-xs-12 col-sm-12" action="" role="form">
 
+        <input type="hidden" name="em_EmployeeID" id="em_EmployeeID" class="form-control" ng-model="model.EmployeeID" />
+
+
         <div class="modal-dialog">
-            <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h3>Status change</h3>
                 </div>
@@ -23,72 +22,98 @@
                     <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
 
                     <div class="row">
-
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="em_EmployeeStatus">Old Status</label>
-                                <select name="em_EmployeeOldStatus" id="em_EmployeeOldStatus" class="form-control required" ng-model="model.EmployeeStatu" value={{model.EmployeeStatu}}>
-                                    <option value="">Please select</option>
-                                    @foreach (var item in Model.EmployeeStatus)
-                                {
-                                        <option value="@(item.StatusID)">@(item.Status)</option>
-                                }
-                                </select>
-
+                                <br />
+                                <span>{{model.CurrentStatus}}</span>
+                                <input type="hidden" name="em_EmployeeOldStatus" id="em_EmployeeOldStatus" class="form-control" ng-model="model.NewStatusID" />
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="form-group">
-                                <label for="em_EmployeeStatus">New Status</label>
-                                <select name="em_EmployeeNewStatus" id="em_EmployeeNewStatus" class="form-control required" ng-model="model.EmployeeStatu1" value={{model.EmployeeStatu1}}>
-                                    <option value="">Please select</option>
-                                    @foreach (var item in Model.EmployeeStatus)
-                                {
-                                        <option value="@(item.StatusID)">@(item.Status)</option>
-                                }
-                                </select>
 
-                            </div>
-                        </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="em_StartDate">Start Date</label>
-                                <input type="text" name="em_StartDate" id="em_StartDate" ng-model="model.StartDate" class="form-control" date-Picker />
+                                <br />
+                                @*<input type="text" name="em_StartDate" id="em_StartDate" ng-model="model.StartDate" class="form-control" date-Picker />*@
+                                @*<span>{{model.StartDate}}</span>*@
+                                <span id="lblStartDate">{{model.StartDate | date:'dd/MM/yyyy'}}</span>
+
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="em_EndDate">End Date</label>
+                                <br />
                                 <input type="text" name="em_EndDate" id="em_EndDate" ng-model="model.EndDate" class="form-control" date-Picker />
+                                @*<span>{{model.EndDate}}</span>*@
+                                @*<label id="lblEndDate"></label>*@
+
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="form-group">
+                                <label for="em_EmployeeStatus">New Status</label>
+                                <select name="em_EmployeeNewStatus" id="em_EmployeeNewStatus" class="form-control required" ng-model="model.Status_New">
+                                    <option value="">Please select</option>
+                                    @foreach (var item in Model.EmployeeStatus)
+                                    {
+                                        <option value="@(item.StatusID)">@(item.Status)</option>
+                                    }
+
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_StartDate">Start Date</label>
+                                <br />
+                                <input type="text" name="em_StartDate_New" id="em_StartDate_New" ng-model="model.StartDate_New" class="form-control" date-Picker />
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="em_EndDate">End Date</label>
+                                <br />
+                                <input type="text" name="em_EndDate" id="em_EndDate" ng-model="model.EndDate_New" class="form-control" date-Picker />
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="form-group">
                                 <label for="em_StartDate">Note</label>
-                                <textarea name="Note" id="statusNote" ng-model="model.StatusNote" class="form-control"></textarea>
+                                <textarea name="Note" style="height:100px;width:170px;" id="statusNote" ng-model="model.StatusNote_New" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
-                
+
+
                 </div>
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-sm" ng-disabled="employeeDetailsForm.$invalid">Save</button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="ub.ResetForm()">Cancel</button>
+                            <div class="form-group">                                
+                                <input type="submit" class="btn btn-primary btn-sm" value="Save changes" />
+                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+
     </form>
 
-
 </div>
+
 
 

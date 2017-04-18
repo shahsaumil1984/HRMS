@@ -38,12 +38,6 @@ namespace HRMS.Controllers
 
             MasterViewModel obj = new MasterViewModel();
             obj.EmployeeStatus = de.Get().ToList();
-
-            
-
-
-
-
             return View(obj);
         }
     }

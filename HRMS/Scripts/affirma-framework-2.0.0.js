@@ -826,13 +826,16 @@ UserInterfaceBinder.prototype.BuildFilter = function (filters) {
 }
 
 UserInterfaceBinder.prototype.LoadForm = function (formName, id, hideList, callback) {
+    
     var fb = this.FormBindings[formName];
     if (fb) {
         if (fb.detailsWindow) {
             fb.ShowForm(hideList);
         }
         fb.Load(id, function (status, data) {
-            callback(status, data);
+            if (callback != null) {
+                callback(status, data);
+            }
         });
     }
     else {
@@ -1177,6 +1180,7 @@ FormBinder.prototype.SaveForm = function () {
 }
 
 FormBinder.prototype.Save = function (callback) {
+    debugger;
     var fb = this;
     fb.ClearError();
 
