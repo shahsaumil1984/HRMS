@@ -1,0 +1,1 @@
+Alter table Salary ADD isFullAndFinal BIT NULL DEFAULT(0)
