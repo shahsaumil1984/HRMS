@@ -4,17 +4,6 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.Serialization;
-using System.Web;
-//using System.Web.Mvc;
-using iTextSharp;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Ionic.Zip;
-using System.Web.Security;
 using System.Web.Http;
 
 namespace HRMS.Api

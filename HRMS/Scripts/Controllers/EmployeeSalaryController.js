@@ -14,9 +14,17 @@ $(document).ready(function () {
 
     });
 
+    _.PopulateData = function (employeeID, monthID) {
+        salaryService.GetByMonth(employeeID, monthID, true, function (status, data) {
+            if (status) {
+                salaryDetailsForm.model(data);
+            }
+        });
+    }
+
     _.LoadSalaryForm = function (employeeID, monthID) {
         $('#employeeidtoedit').val(employeeID);
-        salaryService.GetByMonth(employeeID, monthID, function (status, data) {
+        salaryService.GetByMonth(employeeID, monthID, false, function (status, data) {
             if (status) {
                 employeeSalaryService.GetById(employeeID, function (status, empdata) {
                     $('#empName').text(empdata.FullName);
@@ -147,7 +155,7 @@ var approveSalary = function (monthID) {
     }
     else {
         alert('Kindly check if data entered is correct.');
-    }   
+    }
 }
 
 _.UploadCSV = function () {

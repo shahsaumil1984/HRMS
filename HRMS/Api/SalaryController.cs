@@ -105,7 +105,7 @@ namespace Api
 
         [HttpPost]
         [Authorize(Roles = "Accountant")]
-        public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
+        public Salary GetByMonth(int employeeID, int monthID, bool checkPrevious)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
@@ -177,11 +177,11 @@ namespace Api
 
             if (obj == null)
             {
-                if (CheckPrevious)
+                if (checkPrevious)
                 {
-                    var newMonthID = monthID/*Set new month id*/;
-                    obj = GetByMonth(employeeID, monthID, false);
-                    obj.MonthID = monthID;
+                    var prevMonthID = (monthID - 1);
+                    var currentMonthID = monthID;
+                    obj = GetByMonth(employeeID, prevMonthID, false);                    
                 }
                 else
                 {
@@ -470,7 +470,7 @@ namespace Api
                         body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
                         body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
 
-                        string attachment = Convert.ToBase64String(ExportToPdf(item, item.Employee.FullName, salaryMonth));
+                        string attachment = Convert.ToBase64String(ExportToPdf(item));
                         bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
                     }
                 }
