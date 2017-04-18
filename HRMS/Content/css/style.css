@@ -70,7 +70,7 @@ button:hover, input[type="submit"]:hover, input[type="button"]:hover{
 }
 header{border-bottom: 1px solid #0c7ac9;}
 
-.title { background: url("../images/pattern-stripes.png") repeat scroll 0 0 transparent; overflow: hidden; font-weight: 700; font-size: 18px; margin-top: 15px;}
+.title { background: none repeat scroll 0 0 transparent; overflow: hidden; font-weight: 700; font-size: 18px; margin-top: 15px;}
 
 .title span { background: none repeat scroll 0 0 #FFFFFF; float: left; padding: 0 8px 0 0 !important; }
 .brand {
