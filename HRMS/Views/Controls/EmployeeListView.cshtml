@@ -2,7 +2,7 @@
 @model ViewModel.MasterViewModel
 @using Model
 
-<style>.tbl-scroll{height:350px;overflow-y:auto;}</style>
+<style>.tbl-scroll{height:auto;}</style>
 
 <div class="listView" id="employeeListView">
     <div class="middlewrap">
@@ -48,9 +48,9 @@
                     </thead>
 
                 
-                    <tbody ng-repeat="r in rows">
+                    <tbody>
                         
-                        <tr alt=$index%2>
+                        <tr alt=$index%2  ng-repeat="r in rows">
                             <td>
                                 <div class="media">
                                     <div class="media-left">
@@ -77,25 +77,26 @@
                             @*<td class="text-left">{{r.StatusName}}</td>*@
                             <td class="text-left">
                                 <a href="/EmployeeStatusHistory?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/manage-status-icon.png" alt="Manage Status" title="Manage Status" height="50" />
+                                    <img src="~/Content/images/manage-status-icon.png" alt="Manage Status" title="Manage Status" width="30" />
                                 </a>
                             </td>
                             <td class="text-left">
                                 <a href="/ManageRoles?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/manager-role-icon.png" alt="Manage Roles" title="Manage Roles" height="50" />
+                                    <img src="~/Content/images/manager-role-icon.png" alt="Manage Roles" title="Manage Roles" width="30" />
                                 </a>
                             </td>
                             <td class="text-left">
                                 <a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/manage-document-icon.png" alt="Manage Documents" title="Manage Documents" height="50"/>
+                                    <img src="~/Content/images/manage-document-icon.png" alt="Manage Documents" title="Manage Documents" width="30"/>
                                 </a>
                             </td>
                             <td class="text-left">
                                 <a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, null)">
-                                    <img src="~/Content/images/edit.png" alt="Edit" title="Edit" height="50"/>
+                                    <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30"/>
                                 </a>
                             </td>
-                    </tbody>
+                    
+                            </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="7" align="center">

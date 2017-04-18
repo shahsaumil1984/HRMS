@@ -56,17 +56,17 @@
 
                         </td>
                         @*<td>
-                            <div>
-                                <select data-filter-field="SalaryStatus" id="selSalaryStatus"
-                                        data-filter-list="employeeSalaryGrid"
-                                        data-default-focus="true">
-                                    <option value="">All</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Approved">Approved</option>
-                                </select>                               
-                            </div>
+                                <div>
+                                    <select data-filter-field="SalaryStatus" id="selSalaryStatus"
+                                            data-filter-list="employeeSalaryGrid"
+                                            data-default-focus="true">
+                                        <option value="">All</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Approved">Approved</option>
+                                    </select>
+                                </div>
 
-                        </td>*@
+                            </td>*@
                     </tr>
                 </thead>
 
@@ -100,15 +100,19 @@
                         </td>
                         <td class="text-left">{{r.EmployeeCode}}</td>
                         <td class="text-left">{{r.SalaryStatus}}</td>
-                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
+                        <td class="text-left">
+                            <a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">
+                                <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" />
+                            </a>
+                        </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.SalaryStatus == 'Pending'}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" height="50" />
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="30" />
                             </a>
                         </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.SalaryStatus == 'Pending'}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" height="50" />
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="30" />
                             </a>
                         </td>
                 </tbody>
