@@ -32,12 +32,15 @@ namespace HRMS.Controllers
 
         // GET: ManageStatus
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(int employeeID)
         {
             EmployeeStatusService de = new EmployeeStatusService();
-
+            
+            ViewBag.EmployeeID = employeeID;
+            
             MasterViewModel obj = new MasterViewModel();
             obj.EmployeeStatus = de.Get().ToList();
+            
             return View(obj);
         }
     }

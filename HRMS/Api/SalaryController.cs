@@ -105,7 +105,7 @@ namespace Api
 
         [HttpPost]
         [Authorize(Roles = "Accountant")]
-        public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
+        public Salary GetByMonth(int employeeID, int monthID, bool checkPrevious)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
@@ -179,11 +179,11 @@ namespace Api
 
             if (obj == null)
             {
-                if (CheckPrevious)
+                if (checkPrevious)
                 {
-                    var newMonthID = monthID/*Set new month id*/;
-                    obj = GetByMonth(employeeID, monthID, false);
-                    obj.MonthID = monthID;
+                    var prevMonthID = (monthID - 1);
+                    var currentMonthID = monthID;
+                    obj = GetByMonth(employeeID, prevMonthID, false);                    
                 }
                 else
                 {

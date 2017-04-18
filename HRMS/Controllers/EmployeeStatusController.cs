@@ -13,12 +13,6 @@ namespace HRMS
         public ActionResult Index()
         {
              return View();
-
-
-
-
-
-
         }
     }
 }

@@ -24,8 +24,6 @@ namespace Service
                 EndDate = entity.EndDate,
                 StatusNote = entity.StatusNote,
                 NewStatusID = entity.NewStatusID,
-
-
             };
 
             EmployeeStatusHistoryService serviceHistory = new EmployeeStatusHistoryService();

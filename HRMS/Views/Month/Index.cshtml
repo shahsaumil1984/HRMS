@@ -58,9 +58,21 @@
                         <td class="col-md-1">
                             <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
                         </td>
-                        <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)" class="btn">Generate CSV</button></td>
-                        <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.DownloadAllPDF(r.MonthID)" class="btn">Download PDF</button></td>
-                        <td class="col-md-1"><button ng-disabled="{{r.ButtonDisable}}" ng-click="ub.SendAllEmail(r.MonthID)" class="btn">Send Email</button></td>
+                        <td class="col-md-1">
+                            <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)">
+                                <img src="~/Content/images/csv-export-icon.png" alt="Generate CSV" title="Generate CSV" height="50" />
+                            </a>
+                        </td>
+                        <td class="col-md-1">
+                            <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.DownloadAllPDF(r.MonthID)">
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" height="50" />
+                            </a>
+                        </td>
+                        <td class="col-md-1">
+                            <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.SendEmail(r.MonthID)">
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" height="50" />
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>

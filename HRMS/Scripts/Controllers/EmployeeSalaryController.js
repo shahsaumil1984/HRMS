@@ -13,10 +13,19 @@ $(document).ready(function () {
         // Initialization Code Goes Here
 
     });
+
+    _.PopulateData = function (employeeID, monthID) {
+        salaryService.GetByMonth(employeeID, monthID, true, function (status, data) {
+            if (status) {
+                salaryDetailsForm.model(data);
+            }
+        });
+    }
+
     var SalaryMonthID = null;
     _.LoadSalaryForm = function (employeeID, monthID) {
         $('#employeeidtoedit').val(employeeID);
-        salaryService.GetByMonth(employeeID, monthID, function (status, data) {
+        salaryService.GetByMonth(employeeID, monthID, false, function (status, data) {
             if (status) {
                 employeeSalaryService.GetById(employeeID, function (status, empdata) {
                     $('#empName').text(empdata.FullName);
