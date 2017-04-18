@@ -8,10 +8,8 @@
           data-ui-binding="true"
           data-service-object="employeeStatusHistoryExtendService"
           data-associated-list="employeeStatusDetailsForm"
-          method="get" class="col-xs-12 col-sm-12" action="" role="form">
-
-        <input type="hidden" name="em_EmployeeID" id="em_EmployeeID" class="form-control" ng-model="model.EmployeeID" />
-
+          method="get" class="col-xs-12 col-sm-12" action="" role="form" 
+          data-save-callback="closeStatusHistoryPopup">
 
         <div class="modal-dialog">
             <div class="modal-content">
@@ -25,8 +23,11 @@
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="form-group">
                                 <label for="em_EmployeeStatus">Old Status</label>
+                                
                                 <br />
                                 <span>{{model.CurrentStatus}}</span>
+                                <span id="lblStartDate">{{model.EmployeeID}}</span>
+
                                 <input type="hidden" name="em_EmployeeOldStatus" id="em_EmployeeOldStatus" class="form-control" ng-model="model.NewStatusID" />
                             </div>
                         </div>
@@ -102,7 +103,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">                                
-                                <input type="submit" class="btn btn-primary btn-sm" value="Save changes" />
+                                <input type="submit" id="saveStatus" class="btn btn-primary btn-sm" value="Save changes"/>
                                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                             </div>
                         </div>

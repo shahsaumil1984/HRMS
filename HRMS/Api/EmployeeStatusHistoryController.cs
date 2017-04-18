@@ -85,8 +85,6 @@ namespace HRMS.Api
                                       NewStatusID = o.NewStatusID
 
                                   }).OrderByDescending(o=>o.EmployeeStatusID).Take(1).Single<EmployeeStatusHistory>();
-            // obj.EmployeeStatusID = 0;
-            
             return (EmployeeStatusHistoryExtend)obj;
         }
 
