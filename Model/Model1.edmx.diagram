@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0936870606214418baa7c1b2a2631948" Name="Diagram1" ZoomLevel="51">
+      <Diagram DiagramId="0936870606214418baa7c1b2a2631948" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="HRMSModel.AspNetRole" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="3.75" IsExpanded="true" />
@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="HRMSModel.Document" Width="1.5" PointX="3" PointY="20.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.DocumentType" Width="1.5" PointX="3" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.Employee" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.Employee_Audit" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.EmployeeDocument" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.EmployeeStatu" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.EmployeeStatusHistory" Width="1.5" PointX="8.25" PointY="12.375" IsExpanded="true" />
@@ -40,6 +39,10 @@
         <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="11.25" PointY="10.25" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
+        <EntityTypeShape EntityType="HRMSModel.Employee_Audit" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HRMSModel.Salary_Audit" Width="1.5" PointX="13.375" PointY="11.75" />
+        <EntityTypeShape EntityType="HRMSModel.SalaryStatu" Width="1.5" PointX="11.375" PointY="6.875" />
+        <AssociationConnector Association="HRMSModel.FK_SalaryStatus" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
