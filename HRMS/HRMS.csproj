@@ -245,7 +245,6 @@
     <Compile Include="Api\EmployeeDocumentController.cs" />
     <Compile Include="Api\EmployeeSalaryController.cs" />
     <Compile Include="Api\EmployeeStatusHistoryController.cs" />
-    <Compile Include="Api\EmployeeStatusHistoryExtendController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="Api\MonthController.cs" />
     <Compile Include="Api\SalaryController.cs" />
