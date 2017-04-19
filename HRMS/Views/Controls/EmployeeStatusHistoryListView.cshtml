@@ -26,10 +26,6 @@
                 </td></tr>
         </thead>
         <tr>
-
-            <th><a href="#" data-sort-field="EmplyeeStatusId">EmplyeeStatusId</a></th>
-            <th><a href="#" data-sort-field="Employee">Employee</a></th>
-            <th><a href="#" data-sort-field="Employee">EmployeeID</a></th>
             <th><a href="#" data-sort-field="EmployeeStatus">Employee Status</a></th>
             <th><a href="#" data-sort-field="StartDate">Start Date</a></th>
             <th><a href="#" data-sort-field="EndDate">End Date</a></th>
@@ -37,9 +33,6 @@
         </tr>
         <tbody ng-repeat="r in rows">
             <tr alt=$index%2>
-                <td class="col-md-1"> <span>{{r.EmployeeStatusID}}</span></td>
-                <td class="col-md-1"> <span>{{r.Employee}}</span></td>
-                <td class="col-md-1"> <span>{{r.EmployeeID}}</span></td>
                 <td class="col-md-1"> <span>{{r.EmployeeStatus.Status}}</span></td>
                 <td class="col-md-1"> <span>{{r.StartDate | date:'dd/MM/yyyy'}}</span></td>
                 <td class="col-md-1"> <span>{{r.EndDate | date:'dd/MM/yyyy'}}</span></td>
