@@ -186,8 +186,27 @@ namespace Api
         [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Create(Employee entity)
         {
-
+            // Set Probation Status of Employee, when Create user ID = 1 for Probation
+            entity.EmployeeStatusID = (int)Helper.EmployeeStatus.Probation ;
             HttpResponseMessage obj = base.Create(entity);
+
+            
+            EmployeeStatusHistoryService ehService = new EmployeeStatusHistoryService();
+
+            EmployeeStatusHistory employeeStatusHistory = new EmployeeStatusHistory()
+            {
+                
+                NewStatusID = (int)Helper.EmployeeStatus.Probation,
+                EmployeeID = entity.EmployeeID,
+                StartDate = entity.DateOfjoining,
+                EndDate = entity.ProbationPeriodEndDate,
+                StatusNote = "This is Default Status of Employee",
+                CreatedBy = User.Identity.Name,
+            };
+
+            ehService.Create(employeeStatusHistory);
+            ehService.SaveChanges();
+
             var user = new HRMS.ApplicationUser
             {
                 UserName = entity.Email,
