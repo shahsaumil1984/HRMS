@@ -70,7 +70,7 @@ namespace Api
                               o.AccountNumber,
                               o.SalaryStatus,
                               o.BankName,
-                              o.SalaryStatusName
+                              o.SalaryStatu
 
                           }).ToList().Select(o => new Salary
                           {
@@ -98,14 +98,14 @@ namespace Api
                               AccountNumber = o.AccountNumber,
                               SalaryStatus = o.SalaryStatus,
                               BankName = o.BankName,
-                              SalaryStatusName = o.SalaryStatusName
+                              SalaryStatu = o.SalaryStatu
                           }).Single<Salary>();
             return obj;
         }
 
         [HttpPost]
         [Authorize(Roles = "Accountant")]
-        public Salary GetByMonth(int employeeID, int monthID, bool CheckPrevious = true)
+        public Salary GetByMonth(int employeeID, int monthID, bool checkPrevious)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
@@ -136,10 +136,11 @@ namespace Api
                                  o.TotalPayment,
                                  o.Salary1,
                                  o.Note,
-                                 o.SalaryStatu.SalaryStatusName,
+                                 o.SalaryStatu,
                                  o.BankName,
                                  o.AccountNumber,
-                                 o.Employee.FullName
+
+
                              }).ToList();
 
 
@@ -169,23 +170,24 @@ namespace Api
                 Total = o.Total,
                 TotalPayment = o.TotalPayment,
                 Salary1 = o.Salary1,
-                SalaryStatusName = o.SalaryStatusName,
+                //SalaryStatusName = o.SalaryStatusName,
                 BankName = o.BankName,
                 AccountNumber = o.AccountNumber,
-                Note = o.Note
+                Note = o.Note,
+                SalaryStatu = o.SalaryStatu
             }).SingleOrDefault<Salary>();
 
             if (obj == null)
             {
-                if (CheckPrevious)
+                if (checkPrevious)
                 {
-                    var newMonthID = monthID/*Set new month id*/;
-                    obj = GetByMonth(employeeID, monthID, false);
-                    obj.MonthID = monthID;
+                    var prevMonthID = (monthID - 1);
+                    var currentMonthID = monthID;
+                    obj = GetByMonth(employeeID, prevMonthID, false);                    
                 }
                 else
                 {
-                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID, SalaryStatusName = Helper.SalaryStatus.Pending.ToString() };
+                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
                 }
             }
             return obj;
@@ -288,7 +290,7 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public override HttpResponseMessage Create(Salary entity)
         {
-            if (entity.SalaryStatusName == SalaryStatus.Approved.ToString())
+            if (entity.SalaryStatus == (int)SalaryStatus.Approved)
                 entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
             else
                 entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
@@ -301,7 +303,7 @@ namespace Api
         {
             try
             {
-                Salary objSalary = service.Context.Salaries.Where(m => m.EmployeeID == employeeID && m.MonthID == monthID).FirstOrDefault();               
+                Salary objSalary = service.Context.Salaries.Where(m => m.EmployeeID == employeeID && m.MonthID == monthID).FirstOrDefault();
                 DateTime dt = new DateTime(objSalary.Month.Year, objSalary.Month.Month1, 1);
                 int salaryYear = dt.Year;
                 string salaryMonth = dt.ToString("MMMM");
@@ -341,7 +343,7 @@ namespace Api
                 pdfbody = pdfbody.Replace("{{LogoFooter}}", "http://" + System.Web.HttpContext.Current.Request.Url.Authority + "/File Formats/images/footer.jpg");
 
                 pdfbody = pdfbody.Replace("{{Name}}", objSalary.Employee.FullName);
-                
+
                 string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(objSalary.Month.Month1);
                 int year = (objSalary.Month.Year % 100);
                 string salaryMonth = month + "-" + year;
@@ -349,7 +351,7 @@ namespace Api
                 pdfbody = pdfbody.Replace("{{Month}}", salaryMonth);
                 if (objSalary != null)
                 {
-                    if(objSalary.Total != null)
+                    if (objSalary.Total != null)
                     {
                         pdfbody = pdfbody.Replace("{{Total}}", objSalary.Total.Value.ToString("#,##0.00"));
                     }
@@ -364,7 +366,7 @@ namespace Api
                     }
                     else
                     {
-                        pdfbody = pdfbody.Replace("{{TotalPayment}}", string.Empty);  
+                        pdfbody = pdfbody.Replace("{{TotalPayment}}", string.Empty);
                     }
 
                     if (!string.IsNullOrEmpty(objSalary.Note))
@@ -457,7 +459,7 @@ namespace Api
                 if (objMonth != null)
                     salaryMonth = new DateTime(objMonth.Year, objMonth.Month1, 1).ToString("MMMM");
 
-                if(objLstSalary!=null&& objLstSalary.Count > 0)
+                if (objLstSalary != null && objLstSalary.Count > 0)
                 {
                     foreach (var item in objLstSalary)
                     {
@@ -475,7 +477,7 @@ namespace Api
                     }
                 }
 
-               
+
                 return HttpSuccess();
             }
             catch (Exception e)
@@ -533,7 +535,7 @@ namespace Api
 
                     pushStreamContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                     {
-                        FileName = string.Format("Salary Slip {0} {1}.zip", month,year),
+                        FileName = string.Format("Salary Slip {0} {1}.zip", month, year),
                     };
 
                     return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };

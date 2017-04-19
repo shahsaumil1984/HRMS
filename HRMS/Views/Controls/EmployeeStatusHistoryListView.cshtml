@@ -8,6 +8,9 @@
 
         </form>*@
     @*<div class="form-group mt-md"></div>*@
+    <select id="employeeStatusFilter" data-filter-list="employeeStatusDetailsForm" style="display:none" data-filter-field="EmployeeID">
+        <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
+    </select>
     <table id="employeeStatusDetailsForm"
            data-ui-binding="true"
            data-entity-key="EmployeeStatusID"

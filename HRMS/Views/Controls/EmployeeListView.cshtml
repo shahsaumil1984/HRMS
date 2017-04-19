@@ -23,7 +23,7 @@
                         <td colspan="6">
                             <div class="form-group m-0">
                                 <input type="text"
-                                       data-search-fields="FullName"
+                                       data-search-fields="FullName, Email, Phone"
                                        data-search-list="employeeGrid"
                                        data-default-focus="true" />
                                 &nbsp;
@@ -35,7 +35,7 @@
                 
                     <thead>
                         <tr>
-                            <th>Employee Name</th>
+                            <th><a href="#" data-sort-field="FullName">Employee Name</a></th>
                             @*<th class="text-center">Role</th>
                             <th class="text-center">DOJ</th>
                             <th class="text-left address">Address</th>*@
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="media-body">
                                         <p class="ename">{{r.FullName}}</p>
-                                        <a class="eemail" href="mailto:{{r.Email}}">{{r.Email}}</a> | {{r.EmployeeCode}}
+                                        <a class="eemail" href="mailto:{{r.Email}}">{{r.Email}}</a> {{r.EmployeeCode}}
 
                                     </div>
                                 </div>

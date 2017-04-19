@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="HRMSModel.LeaveTaken" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.LeaveType" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.Month" Width="1.5" PointX="9" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="11.25" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HRMSModel.SettingTable" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
@@ -34,13 +33,13 @@
         <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_EmployeeStatusHistory_EmployeeStatus1" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveMaster_LeaveType" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.FK_LeaveTaken_LeaveType" ManuallyRouted="false" />
-        <AssociationConnector Association="HRMSModel.FK_Salary_Month" ManuallyRouted="false" />
-        <AssociationConnector Association="HRMSModel.FK_SalaryStatus" ManuallyRouted="false" />
         <AssociationConnector Association="HRMSModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="11.25" PointY="10.25" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
+        <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
