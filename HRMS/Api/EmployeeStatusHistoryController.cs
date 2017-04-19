@@ -49,13 +49,11 @@ namespace HRMS.Api
             return base.Create(entity);
         }
         public override HttpResponseMessage Update(EmployeeStatusHistory entity)
-        {
-          
+        {          
             entity.ModifiedBy = User.Identity.Name;
             service.Update(entity);
 
-            return HttpSuccess();
-            
+            return HttpSuccess();            
         }
  
         [HttpGet]

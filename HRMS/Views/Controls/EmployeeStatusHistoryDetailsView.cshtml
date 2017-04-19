@@ -1,7 +1,14 @@
 
 @model ViewModel.MasterViewModel
 @using Model
+<script>
+    var d = new Date();
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+    ];
 
+    var currentMonth = monthNames[d.getMonth()];
+</script>
 <style>
     #employeeStatusHistoryDetailsForm .modal-content {
         width: 700px;
@@ -120,7 +127,7 @@
                             </div>
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="form-group">
-                                    <label>Month: @ViewBag.Month</label>
+                                    <label>Month: @DateTime.Now.ToString("MMMM") </label>
                                 </div>
                             </div>
                         </div>
