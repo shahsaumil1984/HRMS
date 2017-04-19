@@ -14,9 +14,16 @@ namespace Service
         {
             try
             {
+                EmployeeStatusHistoryService serviceHistory = new EmployeeStatusHistoryService();
+
+                var _employee = serviceHistory.Context.Employees.Find(entity.EmployeeID);
+                _employee.EmployeeStatusID = entity.NewStatusID;
+
+                serviceHistory.Context.Entry(_employee).State = System.Data.Entity.EntityState.Modified;
+                serviceHistory.Context.SaveChanges();
+
                 EmployeeStatusHistory empHistory = new EmployeeStatusHistory()
                 {
-
                     EmployeeStatusID = entity.EmployeeStatusID,
                     EmployeeID = entity.EmployeeID,
 
@@ -28,14 +35,12 @@ namespace Service
                     NewStatusID = entity.NewStatusID
                 };
 
-                EmployeeStatusHistoryService serviceHistory = new EmployeeStatusHistoryService();
+                
                 serviceHistory.Update(empHistory);
                 serviceHistory.SaveChanges();
 
-
                 EmployeeStatusHistory empHistoryNew = new EmployeeStatusHistory()
                 {
-
                     CreatedBy = entity.CreatedBy,
                     CreatedDate = DateTime.Now,
                     ModifiedBy = entity.ModifiedBy,
@@ -49,15 +54,17 @@ namespace Service
                 };
                 serviceHistory.Create(empHistoryNew);
                 serviceHistory.SaveChanges();
-
-                SalaryService employeesalary = new SalaryService();
-
-                int count = employeesalary.Context.Salaries.Where(x => x.EmployeeID == entity.EmployeeID).Count();
-                if (count == 0)
+                                                                
+                if (entity.Status_New == 4)
                 {
-                    employeesalary.Create(entity.Employee.Salaries.ToList()[0]);
-                    employeesalary.SaveChanges();
-                }                                
+                    SalaryService employeesalary = new SalaryService();
+                    int count = employeesalary.Context.Salaries.Where(x => x.EmployeeID == entity.EmployeeID).Count();
+                    if (count == 0)
+                    {
+                        employeesalary.Create(entity.Employee.Salaries.ToList()[0]);
+                        employeesalary.SaveChanges();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -69,10 +76,5 @@ namespace Service
         {
             return base.SaveChangesReturnId(entity);
         }
-
-
-
-
-
-    }
+    }    
 }
