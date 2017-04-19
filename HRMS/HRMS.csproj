@@ -315,9 +315,6 @@
     <Content Include="Content\images\loginimg1.jpg" />
     <Content Include="Content\images\loginimg2.jpg" />
     <Content Include="Content\images\logo.png" />
-    <Content Include="Content\images\manage-document-icon.png" />
-    <Content Include="Content\images\manage-status-icon.png" />
-    <Content Include="Content\images\manager-role-icon.png" />
     <Content Include="Content\images\noimg.jpg" />
     <Content Include="Content\images\pattern-stripes.png" />
     <Content Include="Content\images\pdf-download-icon.png" />
