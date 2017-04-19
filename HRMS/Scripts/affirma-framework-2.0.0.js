@@ -701,13 +701,13 @@ UserInterfaceBinder.prototype.SortIndicator = function (lb, listName, field, dir
 
         // Insert span if missing
         if (sortElement.next().length == 0 || sortElement.next()[0].localName != 'span') {
-            sortElement.after('<span></span>');
+            sortElement.after('<i></i>');
         }
 
         // Insert sort icon
-        var icon_dir = 'bottom';
-        if (lb.orderByDirection == 'descending') { icon_dir = 'top'; }
-        sortElement.next().removeClass().addClass('glyphicon glyphicon-triangle-' + icon_dir + ' sort-icon');
+        var icon_dir = 'down';
+        if (lb.orderByDirection == 'descending') { icon_dir = 'up'; }
+        sortElement.next().removeClass().addClass('fa fa-chevron-' + icon_dir);
     }
 }
 
