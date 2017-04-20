@@ -183,7 +183,7 @@ namespace Api
                 {
                     var prevMonthID = (monthID - 1);
                     var currentMonthID = monthID;
-                    obj = GetByMonth(employeeID, prevMonthID, false);                    
+                    obj = GetByMonth(employeeID, prevMonthID, false);
                 }
                 else
                 {
@@ -262,7 +262,7 @@ namespace Api
                         {
                             foreach (string fileHeader in csvRow.Split(','))
                             {
-                                tblcsv.Columns.Add(fileHeader);
+                                tblcsv.Columns.Add(Regex.Replace(fileHeader, @"\t|\n|\r", ""));                                
                             }
                         }
                         else
@@ -290,11 +290,53 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public override HttpResponseMessage Create(Salary entity)
         {
-            if (entity.SalaryStatus == (int)SalaryStatus.Approved)
-                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            int CurrentDay = DateTime.Now.Day;
+            DateTime PreviousMonthDate = DateTime.Now.AddMonths(-1);
+            int PreviousMonth = PreviousMonthDate.Month;
+            int PreviousYear = PreviousMonthDate.Year;
+
+            Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == entity.MonthID).FirstOrDefault();
+            if (objMonth != null && ((objMonth.Month1 == currentMonth && objMonth.Year == currentYear)
+                || (objMonth.Month1 == PreviousMonth && objMonth.Year == PreviousYear && CurrentDay <= 5)))
+            {
+                if (entity.SalaryStatus == (int)SalaryStatus.Approved)
+                    entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
+                else
+                    entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
+
+                entity.isFullAndFinal = false;
+                entity.CreatedBy = User.Identity.Name;
+                entity.CreatedDate = DateTime.Now;
+                entity.ModifiedBy = User.Identity.Name;
+                entity.ModifiedDate = DateTime.Now;
+                return base.Create(entity);
+            }
             else
-                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
-            return base.Create(entity);
+                return HttpError();
+        }
+
+        [Authorize(Roles = "Accountant")]
+        public override HttpResponseMessage Update(Salary entity)
+        {
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            int CurrentDay = DateTime.Now.Day;
+            DateTime PreviousMonthDate = DateTime.Now.AddMonths(-1);
+            int PreviousMonth = PreviousMonthDate.Month;
+            int PreviousYear = PreviousMonthDate.Year;
+            Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == entity.MonthID).FirstOrDefault();
+            if (objMonth != null && ((objMonth.Month1 == currentMonth && objMonth.Year == currentYear)
+                || (objMonth.Month1 == PreviousMonth && objMonth.Year == PreviousYear && CurrentDay <= 5)))
+            {  
+                entity.ModifiedBy = User.Identity.Name;
+                entity.ModifiedDate = DateTime.Now;
+                entity.Month = null;
+                return base.Update(entity);
+            }
+            else
+                return HttpError();
         }
 
         [HttpPost]
