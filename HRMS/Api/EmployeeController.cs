@@ -88,7 +88,8 @@ namespace Api
                                 o.DesignationID,
                                 o.EmployeePhoto,
                                 o.EmployeeStatusID,
-                                o.EmployeeCode
+                                o.EmployeeCode,
+                                o.IsDisabled
 
                             }).ToList().Select(o => new Employee
                             {
@@ -129,7 +130,8 @@ namespace Api
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
                                 EmployeeStatusID = o.EmployeeStatusID,
-                                EmployeeCode = o.EmployeeCode
+                                EmployeeCode = o.EmployeeCode,
+                                IsDisabled =o.IsDisabled
 
                             }).Single<Employee>();
             return obj;
@@ -178,7 +180,8 @@ namespace Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeCode
+                            o.EmployeeCode,
+                            o.IsDisabled
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
@@ -306,6 +309,20 @@ namespace Api
         public bool GetCheckEmployeeCode(int EmpCode)
         {
             return service.Context.Employees.ToList().Any(e => e.EmployeeCode.Equals(EmpCode.ToString()));            
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public bool disableEmployeeByID(int EmployeeID)
+        {
+            bool isSuccess = false;
+            Employee objEmployee = service.GetById(EmployeeID);
+            objEmployee.IsDisabled = true;
+            objEmployee.ModifiedBy = User.Identity.Name;
+            objEmployee.ModifiedDate = DateTime.Now;
+            base.Update(objEmployee);
+            isSuccess = true;
+            return isSuccess;
         }
 
     }

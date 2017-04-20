@@ -92,9 +92,8 @@ namespace Service
                                SalaryAccountIFSCCode = m.SalaryAccountIFSCCode,
                                AddressCity = m.AddressCity,
                                PermanentAddressCity = m.PermanentAddressCity,
-
-
-
+                               EmployeeStatusID = m.EmployeeStatusID,
+                               IsDisabled =m.IsDisabled,
                                EmployeePhoto = m.EmployeePhoto,
                                SalaryStatus = EmpSal != null ? EmpSal.SalaryStatus : SalaryStatusPendingID,
                                MonthID = EmpSal != null ? EmpSal.MonthID : 0,
@@ -106,7 +105,7 @@ namespace Service
             //myQuery = myQuery.Where(EmpSal => EmpSal.MonthID == 0 || EmpSal.MonthID == 436);
             //var salary = Context.Salaries
             var q1 = myQuery.Where(filter);
-
+           
             _totalRowCount = q1.Count();
             if (orderBy != null && orderBy != string.Empty && orderBy != "null")
             {
@@ -156,6 +155,7 @@ namespace Service
                 AddressCity = m.AddressCity,
                 PermanentAddressCity = m.PermanentAddressCity,
                 EmployeePhoto = m.EmployeePhoto,
+                IsDisabled = m.IsDisabled,
                 Salaries = new List<Salary>() { new Salary() { SalaryStatus = m.SalaryStatus, SalaryStatu = new SalaryStatu() { SalaryStatusName = m.SalaryStatusText } } }
             }).AsQueryable();
             return empQuery;

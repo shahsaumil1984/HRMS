@@ -100,5 +100,8 @@ namespace HRMS
                 throw ex;
             }
         }
+
+        public static string ignoreEmployeeStatus = "EmployeeStatusID < 4 and IsDisabled == false";
+        public static string ignoreEmployeeStatus1 = "Employee.EmployeeStatusID < 4 and Employee.IsDisabled == false";
     }
 }

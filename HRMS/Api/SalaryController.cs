@@ -17,6 +17,7 @@ using System.Globalization;
 using Ionic.Zip;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Linq.Dynamic;
 
 namespace Api
 {
@@ -107,6 +108,12 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public Salary GetByMonth(int employeeID, int monthID, bool checkPrevious)
         {
+            if (checkPrevious)
+            {
+                var prevMonthID = (monthID - 1);
+                monthID = prevMonthID;
+            }
+
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
                              where o.EmployeeID == employeeID && o.MonthID == monthID
@@ -176,20 +183,9 @@ namespace Api
                 Note = o.Note,
                 SalaryStatu = o.SalaryStatu
             }).SingleOrDefault<Salary>();
-
-            if (obj == null)
-            {
-                if (checkPrevious)
-                {
-                    var prevMonthID = (monthID - 1);
-                    var currentMonthID = monthID;
-                    obj = GetByMonth(employeeID, prevMonthID, false);
-                }
-                else
-                {
-                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
-                }
-            }
+                        
+            if (obj == null)            
+                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };            
             return obj;
         }
 
@@ -262,7 +258,7 @@ namespace Api
                         {
                             foreach (string fileHeader in csvRow.Split(','))
                             {
-                                tblcsv.Columns.Add(Regex.Replace(fileHeader, @"\t|\n|\r", ""));                                
+                                tblcsv.Columns.Add(Regex.Replace(fileHeader, @"\t|\n|\r", ""));
                             }
                         }
                         else
@@ -329,7 +325,7 @@ namespace Api
             Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == entity.MonthID).FirstOrDefault();
             if (objMonth != null && ((objMonth.Month1 == currentMonth && objMonth.Year == currentYear)
                 || (objMonth.Month1 == PreviousMonth && objMonth.Year == PreviousYear && CurrentDay <= 5)))
-            {  
+            {
                 entity.ModifiedBy = User.Identity.Name;
                 entity.ModifiedDate = DateTime.Now;
                 entity.Month = null;
@@ -483,8 +479,9 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public HttpResponseMessage DownloadPDFZip(int MonthID)
         {
-            List<Salary> approvedSalaryList = service.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved && s.Employee.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive).ToList();
-            return Download(approvedSalaryList, true);
+            List<Salary> approvedSalaryList = service.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved).ToList();
+            List<Salary> approvedSalaryList1 = approvedSalaryList.Where(Helper.ignoreEmployeeStatus1).ToList();
+            return Download(approvedSalaryList1, true);
         }
 
         [HttpPost]
