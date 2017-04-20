@@ -49,10 +49,7 @@ namespace HRMS.Api
             obj.Employee.EmployeeCode = data.Employee.EmployeeCode;
             obj.Employee.Salaries = new List<Salary>();
             obj.Employee.Salaries.Add(new Salary
-            {
-                Employee = null,
-                    
-                                                                    
+            {                                              
                 AccountNumber = data.Employee.SalaryAccountNumber,
                 Advance = 0,
                 AdvanceSalary = 0,

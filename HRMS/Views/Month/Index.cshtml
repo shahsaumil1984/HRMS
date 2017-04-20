@@ -51,26 +51,29 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <tbody ng-repeat="r in rows">
-                    <tr>
+                <tbody ng-repeat="r in rows" class="background-grey">
+                    <tr ng-class="{'background-green':r.Month=='@(ViewBag.Month)' && r.Year=='@(ViewBag.Year)',
+                        'background-yellow':r.Month=='@(ViewBag.PreviousMonth)' && r.Year=='@(ViewBag.PreviousYear)' 
+                        && ('@(ViewBag.CurrentDay)' ==1 || '@(ViewBag.CurrentDay)' ==2 ||'@(ViewBag.CurrentDay)' ==3 
+                        ||'@(ViewBag.CurrentDay)' ==4 ||'@(ViewBag.CurrentDay)' ==5)}">
                         <td class="col-md-1"> <span>{{r.Month}}</span></td>
                         <td class="col-md-1"> <span>{{r.Year}}</span></td>
                         <td class="col-md-1">
                             <a href="/EmployeeSalary?monthID={{r.MonthID}}">Employees Salary</a>
                         </td>
                         <td class="col-md-1">
-                            <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)">
-                                <img src="~/Content/images/csv-export-icon.png" alt="Generate CSV" title="Generate CSV"  width="30" />
+                            <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.GenerateandDownloadCSV(r.MonthID)" id="lnkGenerateCSV">
+                                <img src="~/Content/images/csv-export-icon.png" alt="Generate CSV" title="Generate CSV" width="30" id="imgGenerateCSV" />
                             </a>
                         </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.DownloadAllPDF(r.MonthID)">
-                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF"  width="30" />
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="30" />
                             </a>
                         </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.ButtonDisable}" ng-click="ub.SendEmail(r.MonthID)">
-                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email"  width="30" />
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="30" />
                             </a>
                         </td>
                     </tr>

@@ -25,7 +25,7 @@
     <div class="middlewrap">
         <h2>Employees</h2>
         <label>Set Salary for @ViewBag.Month</label>
-
+        <input type="hidden" id="currentMonth" name="currentMonth" value="@ViewBag.Month" />
         <h3 class="title"> <span>Employees</span> </h3>
         <div class="table-responsive tbl-scroll">
             <table class="table table-condensed table-hover"
@@ -57,7 +57,7 @@
                         </td>
                         <td>
                             <div>
-                               
+
                                 <select data-filter-field="SalaryStatus" id="selSalaryStatus"
                                         data-filter-list="employeeSalaryGrid"
                                         data-default-focus="true">
@@ -70,7 +70,7 @@
                                         data-default-focus="true">
                                     <option value="436">All</option>
                                     @*<option value="1">Pending</option>
-            <option value="2">Approved</option>*@
+                                        <option value="2">Approved</option>*@
                                 </select>
                             </div>
 
@@ -327,15 +327,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary btn-sm" type="button" ng-click="ub.SaveSalary()">Save</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Save & Approve</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Next</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadPrevEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Previous</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approveNextEmployee(@(ViewBag.MonthID));">Approve & Next</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approvePrevEmployee(@(ViewBag.MonthID));">Approve & Previous</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.moveToNextEmployee(model.EmployeeID,@(ViewBag.MonthID));">Next</button>
+                        <button id="btnSave" class="btn btn-primary btn-sm" type="button" ng-click="ub.SaveSalary(@(ViewBag.MonthID))">Save</button>
+                        <button id="btnApprove" type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Approve</button>
+                        @*<button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadPrevEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Previous</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="approveNextEmployee(@(ViewBag.MonthID));">Approve & Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="approvePrevEmployee(@(ViewBag.MonthID));">Approve & Previous</button>*@
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.moveToPrevEmployee(model.EmployeeID,@(ViewBag.MonthID));">Previous</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.moveToNextEmployee(model.EmployeeID,@(ViewBag.MonthID));">Next</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Back</button>
                     </div>
                 </div>
             </div>

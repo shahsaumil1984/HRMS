@@ -8,10 +8,12 @@
 
 // Event Handlers
 //----------------------------------------------
+var SalaryMonthID = null;
+
 $(document).ready(function () {
     _.Initialize(function (status, msg) {
-        // Initialization Code Goes Here
-
+        // Initialization Code Goes Here     
+        showHideActionButtons();
     });
 
     _.PopulateData = function (employeeID, monthID) {
@@ -22,7 +24,38 @@ $(document).ready(function () {
         });
     }
 
-    var SalaryMonthID = null;
+    function showHideActionButtons() {
+        debugger;
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var d = new Date();
+        var currentDate = d.getDate();
+        var currentMonth = monthNames[d.getMonth()];
+        var currentYear = d.getFullYear();
+        var prevMonth;
+        var prevYear;
+        if (currentMonth == "January") {
+            prevMonth = "December";
+            prevYear = parseInt(currentYear) - 1;
+        }
+        else {
+            prevMonth = monthNames[d.getMonth() - 1];
+            prevYear = currentYear;
+        }
+
+        var salaryMonth = $('#currentMonth').val().toString().split(',')[0].trim();
+        var salaryYear = $('#currentMonth').val().toString().split(',')[1].trim();
+            
+        if ((currentMonth == salaryMonth && parseInt(currentYear) == parseInt(salaryYear)) ||
+            (currentDate <= 5 && prevMonth == salaryMonth && parseInt(prevYear) == parseInt(salaryYear))) {
+            $('#btnSave').css('display', 'inline-block');
+            $('#btnApprove').css('display', 'inline-block');
+        }
+        else {
+            $('#btnSave').css('display', 'none');
+            $('#btnApprove').css('display', 'none');
+        }
+    }
+
     _.LoadSalaryForm = function (employeeID, monthID) {
         $('#employeeidtoedit').val(employeeID);
         salaryService.GetByMonth(employeeID, monthID, false, function (status, data) {
@@ -43,6 +76,7 @@ $(document).ready(function () {
                     $("#employeeSalaryListView").hide();
                 })
             }
+            SalaryMonthID = null;// whenn called from savecallback
         });
 
     }
@@ -51,117 +85,116 @@ $(document).ready(function () {
         $("#employeeSalaryListView").show();
     }
 
-    _.SaveSalary = function () {
+    _.SaveSalary = function (monthID) {
         debugger;
         var isvalid = salaryDetailsForm.detailsForm.valid();
         if (isvalid) {
-            if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
+            if (salaryDetailsForm.model().SalaryStatu != null && salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
                 salaryDetailsForm.model().SalaryStatus = 2;
             }
             else
-                salaryDetailsForm.model().SalaryStatu.SalaryStatusName = 1; //Pending
-            salaryDetailsForm.Save();
-            $("#salaryDetailsForm").parent().hide();
-            $("#employeeSalaryListView").show();
+                salaryDetailsForm.model().SalaryStatus = 1; //Pending
+            SalaryMonthID = monthID;
+            salaryDetailsForm.Save(saveCallback);
+            //$("#salaryDetailsForm").parent().hide();
+            //$("#employeeSalaryListView").show();
         }
         else {
-            alert('Kindly check if data entered is correct.');
+            toastr.error('Kindly check if data entered is correct.');
         }
     }
 });
 
-_.loadNextEmployee = function (employeeID, monthID) {
-    debugger;
-    var isvalid = salaryDetailsForm.detailsForm.valid();
-    if (isvalid) {
-        SalaryMonthID = monthID;
-        if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
-            salaryDetailsForm.model().SalaryStatus = 2;
-        }
-        else
-            salaryDetailsForm.model().SalaryStatus = 1; //Pending
-        salaryDetailsForm.Save(loadNextEmployeeCallback);
 
-    }
-    else {
-        alert('Kindly check if data entered is correct.');
-    }
-}
+//_.loadNextEmployee = function (employeeID, monthID) {
+//    debugger;
+//    var isvalid = salaryDetailsForm.detailsForm.valid();
+//    if (isvalid) {
+//        SalaryMonthID = monthID;
+//        if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
+//            salaryDetailsForm.model().SalaryStatus = 2;
+//        }
+//        else
+//            salaryDetailsForm.model().SalaryStatus = 1; //Pending
+//        salaryDetailsForm.Save(loadNextEmployeeCallback);
+//    }
+//    else {
+//        alert('Kindly check if data entered is correct.');
+//    }
+//}
+//function loadNextEmployeeCallback(successStatus, callBackData) {
+//    if (successStatus) {
+//        var employeeID = $('#employeeidtoedit').val();
+//        employeeSalaryService.GetNextEmployeeID(employeeID, function (status, data) {
+//            if (status) {
+//                if (data != -1) {
+//                    _.LoadSalaryForm(data, SalaryMonthID);
+//                } else {
+//                    _.LoadSalaryForm(employeeID, SalaryMonthID);
+//                    alert('No next employee.');
+//                }
+//                SalaryMonthID = null;
+//            }
+//        });
+//    }
+//}
+//_.loadPrevEmployee = function (employeeID, monthID) {
+//    debugger;
+//    var isvalid = salaryDetailsForm.detailsForm.valid();
+//    if (isvalid) {
+//        SalaryMonthID = monthID;
+//        if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
+//            salaryDetailsForm.model().SalaryStatus = 2;
+//        }
+//        else
+//            salaryDetailsForm.model().SalaryStatus = 1; //Pending
+//        salaryDetailsForm.Save(loadPrevEmployeeCallback);
+//    }
+//    else {
+//        alert('Kindly check if data entered is correct.');
+//    }
+//}
 
-function loadNextEmployeeCallback(successStatus, callBackData) {
-    if (successStatus) {
-        var employeeID = $('#employeeidtoedit').val();
-        employeeSalaryService.GetNextEmployeeID(employeeID, function (status, data) {
-            if (status) {
-                if (data != -1) {
-                    _.LoadSalaryForm(data, SalaryMonthID);
-                } else {
-                    _.LoadSalaryForm(employeeID, SalaryMonthID);
-                    alert('No next employee.');
-                }
-                SalaryMonthID = null;
-            }
-        });
-    }
-}
-_.loadPrevEmployee = function (employeeID, monthID) {
-    debugger;
-    var isvalid = salaryDetailsForm.detailsForm.valid();
-    if (isvalid) {
-        SalaryMonthID = monthID;
-        if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
-            salaryDetailsForm.model().SalaryStatus = 2;
-        }
-        else
-            salaryDetailsForm.model().SalaryStatus = 1; //Pending
-        salaryDetailsForm.Save(loadPrevEmployeeCallback);
-    }
-    else {
-        alert('Kindly check if data entered is correct.');
-    }
-}
+//function loadPrevEmployeeCallback(successStatus, callbackData) {
+//    debugger;
+//    if (successStatus) {
+//        var employeeID = $('#employeeidtoedit').val();
+//        employeeSalaryService.GetPrevEmployeeID(employeeID, function (status, data) {
+//            if (status) {
+//                if (data != -1) {
+//                    _.LoadSalaryForm(data, SalaryMonthID);
+//                } else {
+//                    _.LoadSalaryForm(employeeID, SalaryMonthID);
+//                    alert('No previous employee.');
+//                }
+//                SalaryMonthID = null;
+//            }
+//        });
+//    }
+//}
 
-function loadPrevEmployeeCallback(successStatus, callbackData) {
-    debugger;
-    if (successStatus) {
-        var employeeID = $('#employeeidtoedit').val();
-        employeeSalaryService.GetPrevEmployeeID(employeeID, function (status, data) {
-            if (status) {
-                if (data != -1) {
-                    _.LoadSalaryForm(data, SalaryMonthID);
-                } else {
-                    _.LoadSalaryForm(employeeID, SalaryMonthID);
-                    alert('No previous employee.');
+//var approveNextEmployee = function (monthID) {
+//    debugger;
+//    var employeeID = $('#employeeidtoedit').val();
+//    if (salaryDetailsForm.model().SalaryStatu != null) {
+//        salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
+//    }
+//    salaryDetailsForm.model().SalaryStatu.SalaryStatusName = "Approved";
+//    salaryDetailsForm.model().SalaryStatus = 2;
+//    // salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
+//    _.loadNextEmployee(employeeID, monthID);
+//}
 
-                }
-                SalaryMonthID = null;
-            }
-        });
-    }
-}
-
-var approveNextEmployee = function (monthID) {
-    debugger;
-    var employeeID = $('#employeeidtoedit').val();
-    if (salaryDetailsForm.model().SalaryStatu != null) {
-        salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
-    }
-    salaryDetailsForm.model().SalaryStatu.SalaryStatusName = "Approved";
-    salaryDetailsForm.model().SalaryStatus = 2;
-    // salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
-    _.loadNextEmployee(employeeID, monthID);
-}
-
-var approvePrevEmployee = function (monthID) {
-    var employeeID = $('#employeeidtoedit').val();
-    if (salaryDetailsForm.model().SalaryStatu != null) {
-        salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
-    }
-    salaryDetailsForm.model().SalaryStatu.SalaryStatusName = "Approved";
-    salaryDetailsForm.model().SalaryStatus = 2;
-    //salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
-    _.loadPrevEmployee(employeeID, monthID);
-}
+//var approvePrevEmployee = function (monthID) {
+//    var employeeID = $('#employeeidtoedit').val();
+//    if (salaryDetailsForm.model().SalaryStatu != null) {
+//        salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
+//    }
+//    salaryDetailsForm.model().SalaryStatu.SalaryStatusName = "Approved";
+//    salaryDetailsForm.model().SalaryStatus = 2;
+//    //salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
+//    _.loadPrevEmployee(employeeID, monthID);
+//}
 
 var approveSalary = function (monthID) {
     debugger;
@@ -177,7 +210,15 @@ var approveSalary = function (monthID) {
         salaryDetailsForm.Save(approveCallback);
     }
     else {
-        alert('Kindly check if data entered is correct.');
+        toastr.error('Kindly check if data entered is correct.');
+    }
+}
+
+function saveCallback(status, data) {
+    if (status) {
+        var employeeID = $('#employeeidtoedit').val();
+        _.LoadSalaryForm(employeeID, SalaryMonthID);
+        toastr.success('Salary saved successfully!');
     }
 }
 
@@ -185,8 +226,8 @@ function approveCallback(status, data) {
     if (status) {
         var employeeID = $('#employeeidtoedit').val();
         _.LoadSalaryForm(employeeID, SalaryMonthID);
+        toastr.success('Salary saved and approved successfully!');
     }
-    SalaryMonthID = null;
 }
 
 _.UploadCSV = function () {
@@ -269,7 +310,7 @@ _.moveToNextEmployee = function (employeeID, monthID) {
                 _.LoadSalaryForm(data, monthID);
             } else {
                 _.LoadSalaryForm(employeeID, monthID);
-                alert('No next employee.');
+                toastr.info('No next employee.');
             }
         }
     });
@@ -282,7 +323,7 @@ _.moveToPrevEmployee = function (employeeID, monthID) {
                 _.LoadSalaryForm(data, monthID);
             } else {
                 _.LoadSalaryForm(employeeID, monthID);
-                alert('No previous employee.');
+                toastr.info('No previous employee.');
             }
         }
     });
