@@ -327,3 +327,15 @@ padding-bottom:3px;
 	width:100%;
 }
 }
+
+.background-green{
+background-color:lightgreen !important;
+}
+
+.background-yellow{
+background-color:yellow !important;
+}
+
+.background-grey{
+background-color:lightgray !important;
+}
