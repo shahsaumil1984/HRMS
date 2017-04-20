@@ -191,8 +191,9 @@ namespace Api
         {
             // Set Probation Status of Employee, when Create user ID = 1 for Probation
             entity.EmployeeStatusID = (int)Helper.EmployeeStatus.Probation ;
+            entity.CreatedBy = User.Identity.Name;
+            entity.ModifiedBy = User.Identity.Name;
             HttpResponseMessage obj = base.Create(entity);
-
             
             EmployeeStatusHistoryService ehService = new EmployeeStatusHistoryService();
 
@@ -205,6 +206,7 @@ namespace Api
                 EndDate = entity.ProbationPeriodEndDate,
                 StatusNote = "This is Default Status of Employee",
                 CreatedBy = User.Identity.Name,
+                ModifiedBy = User.Identity.Name
             };
 
             ehService.Create(employeeStatusHistory);
@@ -299,6 +301,7 @@ namespace Api
         [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Update(Employee entity)
         {
+            entity.ModifiedBy = User.Identity.Name;
             return base.Update(entity);
         }
 

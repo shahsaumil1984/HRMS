@@ -826,7 +826,7 @@ UserInterfaceBinder.prototype.BuildFilter = function (filters) {
 }
 
 UserInterfaceBinder.prototype.LoadForm = function (formName, id, hideList, callback) {
-    
+    debugger;
     var fb = this.FormBindings[formName];
     if (fb) {
         if (fb.detailsWindow) {

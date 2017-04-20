@@ -453,6 +453,7 @@
     <Content Include="Views\EmployeeStatusHistory\Index.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryListView.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusHistoryEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

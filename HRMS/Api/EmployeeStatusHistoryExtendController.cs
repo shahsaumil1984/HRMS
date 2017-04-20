@@ -35,6 +35,8 @@ namespace HRMS.Api
 
             EmployeeStatusHistoryExtend obj = new EmployeeStatusHistoryExtend();
 
+            obj.CreatedBy = data.CreatedBy;
+            obj.CreatedDate = data.CreatedDate;
             obj.EmployeeID = data.EmployeeID;
             obj.EmployeeStatusID = data.EmployeeStatusID;
             obj.CurrentStatus= data.EmployeeStatu.Status;

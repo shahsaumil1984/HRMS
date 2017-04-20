@@ -12,6 +12,7 @@ namespace Service
         public override void Create(EmployeeStatusHistory entity)
         {
             entity.CreatedDate = DateTime.Now;
+            entity.ModifiedDate = DateTime.Now;
             base.Create(entity);
         }
 

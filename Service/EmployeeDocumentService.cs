@@ -11,14 +11,14 @@ namespace Service
     {
         public override void Create(EmployeeDocument entity)
         {
-            //entity.ModifiedDate = DateTime.Today;
+            //entity.ModifiedDate = DateTime.Now;
             
             base.Create(entity);
         }
 
         public override void Update(EmployeeDocument entity)
         {
-            //entity.ModifiedDate = DateTime.Today;
+            //entity.ModifiedDate = DateTime.Now;
             base.Update(entity);
         }
 

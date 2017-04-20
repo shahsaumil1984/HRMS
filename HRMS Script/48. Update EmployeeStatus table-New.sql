@@ -98,20 +98,6 @@ INSERT INTO [dbo].[EmployeeStatus]
            ,'2017-04-19'
            ,'jay.pithadiya@alept.com'
            ,'2017-04-19')
-INSERT INTO [dbo].[EmployeeStatus]
-           ([Status]
-           ,[Description]
-           ,[CreatedBy]
-           ,[CreatedDate]
-           ,[ModifiedBy]
-           ,[ModifiedDate])
-     VALUES
-           ('InActive'
-           ,'This is InActive'
-           ,'jay.pithadiya@alept.com'
-           ,'2017-04-19'
-           ,'jay.pithadiya@alept.com'
-           ,'2017-04-19')
 
 -- update Employee table to set Probation to all emplyee initially
 update Employee set EmployeeStatusID = 1

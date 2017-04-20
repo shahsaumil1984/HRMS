@@ -46,7 +46,7 @@ namespace HRMS.Api
         [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
-            int CurrentMonth = DateTime.Today.Month;
+            int CurrentMonth = DateTime.Now.Month;
             int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year).FirstOrDefault().MonthID;
             if (string.IsNullOrEmpty(filter))
             {
