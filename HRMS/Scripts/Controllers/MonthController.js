@@ -17,12 +17,16 @@ $(document).ready(function () {
 // Form Validation
 //----------------------------------------------
 
-_.GenerateandDownloadCSV = function (monthID) {
-    
-    window.open('~/../../Api/Month/GetGenerateandDownloadCSV?MonthID=' + monthID, '_blank', '');
+_.GenerateandDownloadCSV = function (monthID) {   
+    var r = confirm("Are you sure you want to generate .csv file for all employees?");
+    if (r == true) {
+        window.open('~/../../Api/Month/GetGenerateandDownloadCSV?MonthID=' + monthID, '_blank', '');
+    } 
 };
 
 _.DownloadAllPDF = function (monthID) {
-
-    window.open('~/../../Api/Salary/DownloadPDFZip?MonthID=' + monthID, '_blank', '');
+    var r = confirm("Are you sure you want to download salary slips for all employees?");
+    if (r == true) {
+        window.open('~/../../Api/Salary/DownloadPDFZip?MonthID=' + monthID, '_blank', '');
+    }
 };

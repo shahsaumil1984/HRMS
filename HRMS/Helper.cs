@@ -67,6 +67,8 @@ namespace HRMS
                     //var plainTextContent = "and easy to do anywhere, even with C#";
                     var htmlContent = Body;
                     var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlContent);
+                    var BccTo = new EmailAddress(ConfigurationManager.AppSettings["BCCToEmail"], ConfigurationManager.AppSettings["BCCToUser"]);
+                    msg.AddBcc(BccTo);
                     msg.AddAttachment("SalarySlip.pdf", attachment);
                     response =  client.SendEmailAsync(msg);
                     isMailSent = true;

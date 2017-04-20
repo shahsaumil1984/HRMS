@@ -50,10 +50,10 @@ namespace Service
 
             //string ActualStatusFilter;
 
-
-
+            int monthid = Convert.ToInt32(filter.Split(new char[] { '=' }).ToList().Last().Trim());
+            
             var myQuery = (from m in Context.Employees
-                           join sal in Context.Salaries on m.EmployeeID equals sal.EmployeeID into Es
+                           join sal in Context.Salaries.Where(m => m.MonthID == monthid) on m.EmployeeID equals sal.EmployeeID into Es
                            from EmpSal in Es.DefaultIfEmpty()
 
                            select new

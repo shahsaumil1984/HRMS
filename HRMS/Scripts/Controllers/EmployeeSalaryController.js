@@ -285,22 +285,27 @@ _.UploadCSV = function () {
 }
 
 _.DownloadPDF = function (empID, monthID) {
-
-    window.open('~/../../Api/Salary/DownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_blank', '');
+    var r = confirm("Are you sure you want to download pdf file?");
+    if (r == true) {
+        window.open('~/../../Api/Salary/DownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_blank', '');
+    }
 };
 
 // Form Validation
 //----------------------------------------------
 
 _.SendEmail = function (empID, monthID) {
-    salaryService.SendEmail(empID, monthID, function (status, data) {
-        if (status) {
-            alert("Email sent successfully!");
-        }
-        else {
-            alert("Email could not be sent.")
-        }
-    })
+    var r = confirm("Are you sure you want to send email?");
+    if (r == true) {
+        salaryService.SendEmail(empID, monthID, function (status, data) {
+            if (status) {
+                toastr.success("Email sent successfully!");
+            }
+            else {
+                toastr.error("Email could not be sent.")
+            }
+        })
+    }
 }
 
 _.moveToNextEmployee = function (employeeID, monthID) {
