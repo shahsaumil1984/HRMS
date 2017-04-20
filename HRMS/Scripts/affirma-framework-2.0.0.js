@@ -1500,7 +1500,6 @@ FormBinder.prototype.DeleteUploadFile = function (index, propertyName) {
 
 
 FormBinder.prototype.SetValue = function (field, value) {
-
     var data = this.model();
     data[field] = value;
     this.model(data);

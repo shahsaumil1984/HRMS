@@ -59,7 +59,13 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="phoneno">Phone No.</label>
-                        <input type="text" class="form-control number" ng-model="model.Phone" id="phoneno" name="phoneno" minlength="10" maxlength="10" pattern="[0-9]{10}">
+                        <input type="text" class="form-control" ng-model="model.Phone" id="phoneno" placeholder="XXX-XXX-XXXX" name="phoneno" minlength="10" maxlength="12" >
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="alternatephone">Alternate Phone No.</label>
+                        <input type="text" class="form-control" ng-model="model.AlternatePhone" id="alternatephone" placeholder="XXX-XXX-XXXX" name="alternatephone" minlength="10" maxlength="12">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -169,6 +175,14 @@
                     <div class="form-group">
                         <label for="em_PermanentAddressZip">Permanent Address Zip</label>
                         <input type="number" name="em_PermanentAddressZip" id="em_PermanentAddressZip" ng-model="model.PermanentAddressZip" class="form-control" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input type="checkbox" name="em_sameAsPermenent" id="em_sameAsPermenent" />
+                        <label>Is Same As Permenent Address</label>
                     </div>
                 </div>
             </div>
