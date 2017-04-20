@@ -67,6 +67,7 @@ namespace Model
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string AlternatePhone { get; set; }
+        public bool IsDisabled { get; set; }
     
         public virtual Designation Designation { get; set; }
         public virtual EmployeeStatu EmployeeStatu { get; set; }

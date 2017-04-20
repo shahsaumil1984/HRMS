@@ -40,10 +40,11 @@
                             <th class="text-center">DOJ</th>
                             <th class="text-left address">Address</th>*@
                             <th class="text-left">Phone</th>         
-                            <th class="text-left">Status</th>                           
+                            <th class="text-left">Status</th>                                                   
                             <th class="text-left">Manage Roles</th>
                             <th class="text-left">Documents</th>
                             <th class="text-left">Edit</th>
+                            <th class="text-left">Disable</th>
                         </tr>
                     </thead>
 
@@ -75,6 +76,7 @@
                             </td>*@
                             <td class="text-left">{{r.Phone}}</td>
                             @*<td class="text-left">{{r.StatusName}}</td>*@
+                                                      
                             <td class="text-left">
                                 <a href="/EmployeeStatusHistory?employeeID={{r.EmployeeID}}">
                                     <img src="~/Content/images/manage-status-icon.png" alt="Manage Status" title="Manage Status" width="30" />
@@ -95,11 +97,15 @@
                                     <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30"/>
                                 </a>
                             </td>
-                    
+                            <td class="text-left">
+                                <a href='javascript:;' ng-click="ub.DisableEmployee(r.EmployeeID)" ng-class="{'not-active':r.IsDisabled}">
+                                    <img src="~/Content/images/delete.png" alt="Disable" title="Disable" width="30" />
+                                </a>
+                            </td>
                             </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="7" align="center">
+                        <td colspan="8" align="center">
                             <div id="monthPagination">
                                 <span>{{pageText}}</span>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>

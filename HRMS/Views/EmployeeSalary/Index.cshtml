@@ -65,12 +65,10 @@
                                     <option value="1">Pending</option>
                                     <option value="2">Approved</option>
                                 </select>
-                                <select data-filter-field="MonthID" id="selMonthID"
+                                <select data-filter-field="MonthID" id="selMonthID" style="display:none"
                                         data-filter-list="employeeSalaryGrid"
                                         data-default-focus="true">
-                                    <option value="436">All</option>
-                                    @*<option value="1">Pending</option>
-                                        <option value="2">Approved</option>*@
+                                    <option value="@(ViewBag.MonthID)">MonthID</option>                                   
                                 </select>
                             </div>
 

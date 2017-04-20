@@ -3,7 +3,17 @@
 @using Model
 
 <div id="documentTypeListView" class="listView">
+<style>
+   
+    .actioncell {
+        width:20%;
 
+    }
+    .normalcell {
+        width:60%;
+
+    }
+</style>
 
     @*<form class="form-inline">
 
@@ -18,7 +28,7 @@
            data-page-size="10">
         <thead class="tblaction">
             <tr>
-                <td colspan="4">
+                <td colspan="3">
                     <div class="form-group m-0">
                         <input type="text"
                                data-search-fields="Description"
@@ -31,14 +41,14 @@
             </tr>
         </thead>
         <tr>
-            <th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>
-            <th><a href="#" data-sort-field="Description">Description</a></th>
-            <th>Edit</th>
-            <th>Delete</th>
+            @*<th><a href="#" data-sort-field="DocumentTypeID">Document Type ID</a></th>*@
+            <th class="normalcell"><a href="#" data-sort-field="Description">Description</a></th>
+            <th class="actioncell">Edit</th>
+            <th class="actioncell">Delete</th>
         </tr>
         <tbody ng-repeat="r in rows">
             <tr alt=$index%2>
-                <td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>
+                @*<td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>*@
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
                 <td class="col-md-1"><img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)" /></td>
                 <td class="col-md-1"><img src="~/Content/images/delete.png" alt="Delete" title="Delete" width="30" ng-click="lb.Delete(r.DocumentTypeID, null , ub.documentTypeDeleteCallback)" /></td>
@@ -46,7 +56,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4" align="center">
+                <td colspan="3" align="center">
                     <div id="documentTypePagination">
                         <span>{{pageText}}</span>&nbsp;&nbsp;
                         <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>

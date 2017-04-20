@@ -17,14 +17,17 @@ $(document).ready(function () {
 });
 
 _.SendAllEmail = function (monthID) {
-    salaryService.SendAllEmail(monthID, function (status, data) {
-        if (status) {
-            alert("Email sent successfully!");
-        }
-        else {
-            alert("Email could not be sent.")
-        }
-    })
+    var r = confirm("Are you sure you want to send email to all employees?");
+    if (r == true) {
+        salaryService.SendAllEmail(monthID, function (status, data) {
+            if (status) {
+                toastr.success("Email sent successfully!");
+            }
+            else {
+                toastr.error("Email could not be sent.")
+            }
+        })
+    }
 }
 
 // Form Validation
