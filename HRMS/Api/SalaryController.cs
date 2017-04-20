@@ -262,7 +262,7 @@ namespace Api
                         {
                             foreach (string fileHeader in csvRow.Split(','))
                             {
-                                tblcsv.Columns.Add(fileHeader);
+                                tblcsv.Columns.Add(Regex.Replace(fileHeader, @"\t|\n|\r", ""));                                
                             }
                         }
                         else

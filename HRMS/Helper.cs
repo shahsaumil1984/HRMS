@@ -12,14 +12,18 @@ namespace HRMS
         public enum EmployeeStatus
         {
             Probation = 1,
-            Active,
+            Active = 2,
 
             [EnumMember(Value = "Notice Period")]
-            NoticePeriod,
+            NoticePeriod = 3,
+
+            
+            Disassociated = 4,
+
 
             [EnumMember(Value = "Full And Final")]
-            FullAndFinal,
-            
+            FullAndFinal = 5,
+
             [EnumMember(Value = "In Active")]
             InActive
         };
