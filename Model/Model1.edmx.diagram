@@ -39,8 +39,6 @@
         <EntityTypeShape EntityType="HRMSModel.Salary" Width="1.5" PointX="11.25" PointY="10.25" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Employee" />
         <AssociationConnector Association="HRMSModel.FK_Salary_Month" />
-        <EntityTypeShape EntityType="HRMSModel.Employee_Audit" Width="1.5" PointX="13.375" PointY="0.75" />
-        <EntityTypeShape EntityType="HRMSModel.Salary_Audit" Width="1.5" PointX="13.375" PointY="11.75" />
         <EntityTypeShape EntityType="HRMSModel.SalaryStatu" Width="1.5" PointX="11.375" PointY="6.875" />
         <AssociationConnector Association="HRMSModel.FK_SalaryStatus" />
       </Diagram>

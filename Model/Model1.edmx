@@ -142,55 +142,6 @@
           <Property Name="AlternatePhone" Type="varchar" MaxLength="15" />
           <Property Name="IsDisabled" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Employee_Audit">
-          <Key>
-            <PropertyRef Name="Employee_Audit_Id" />
-          </Key>
-          <Property Name="Employee_Audit_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="PermanentAddressLine1" Type="nvarchar" MaxLength="500" />
-          <Property Name="PermanentAddressLine2" Type="nvarchar" MaxLength="500" />
-          <Property Name="PermanentAddressLine3" Type="nvarchar" MaxLength="500" />
-          <Property Name="PermanentAddressState" Type="nvarchar" MaxLength="50" />
-          <Property Name="PermanentAddressCountry" Type="nvarchar" MaxLength="50" />
-          <Property Name="PermanentAddressZip" Type="nvarchar" MaxLength="50" />
-          <Property Name="AddressLine1" Type="nchar" MaxLength="100" />
-          <Property Name="AddressLine2" Type="nchar" MaxLength="100" />
-          <Property Name="AddressLine3" Type="nchar" MaxLength="100" />
-          <Property Name="AddressState" Type="nchar" MaxLength="100" />
-          <Property Name="AddressCountry" Type="nchar" MaxLength="10" />
-          <Property Name="AddressZip" Type="nchar" MaxLength="10" />
-          <Property Name="DateOfBirth" Type="datetime" />
-          <Property Name="DateOfjoining" Type="datetime" Nullable="false" />
-          <Property Name="ProbationPeriodEndDate" Type="datetime" Nullable="false" />
-          <Property Name="HasResigned" Type="bit" />
-          <Property Name="DateOfResignation" Type="datetime" />
-          <Property Name="LastWorkingDay" Type="datetime" />
-          <Property Name="PAN" Type="nvarchar" MaxLength="50" />
-          <Property Name="IDCardNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="IDCardType" Type="nvarchar" MaxLength="50" />
-          <Property Name="SalaryAccountNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="SalaryAccountBank" Type="nvarchar" MaxLength="50" />
-          <Property Name="SalaryAccountBankAddress" Type="nvarchar" MaxLength="500" />
-          <Property Name="SalaryAccountIFSCCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="250" />
-          <Property Name="Phone" Type="varchar" MaxLength="15" />
-          <Property Name="UserName" Type="varchar" MaxLength="250" />
-          <Property Name="PermanentAddressCity" Type="nvarchar" MaxLength="50" />
-          <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
-          <Property Name="DesignationID" Type="int" />
-          <Property Name="EmployeePhoto" Type="varbinary(max)" />
-          <Property Name="EmployeeCode" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="EmployeeStatusID" Type="int" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
-          <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="AlternatePhone" Type="varchar" MaxLength="15" />
-        </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
             <PropertyRef Name="EmployeeDocumentID" />
@@ -326,43 +277,6 @@
           <Property Name="Salary" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalPayment" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="Days" Type="int" Nullable="false" />
-          <Property Name="AccountNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="SalaryStatus" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
-          <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="isFullAndFinal" Type="bit" />
-        </EntityType>
-        <EntityType Name="Salary_Audit">
-          <Key>
-            <PropertyRef Name="Salary_Audit_ID" />
-          </Key>
-          <Property Name="Salary_Audit_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="MonthID" Type="int" Nullable="false" />
-          <Property Name="Basic" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="HRA" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="ConveyanceAllowance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="OtherAllowance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="MedicalReimbursement" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="AdvanceSalary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="Incentive" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="PLI" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="Exgratia" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="ReimbursementOfexp" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="TDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="EPF" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="ProfessionalTax" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="Leave" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="Advance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="YTDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="Note" Type="nvarchar" MaxLength="500" />
-          <Property Name="Salary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="Total" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="TotalPayment" Type="decimal" Precision="18" Scale="4" />
           <Property Name="Days" Type="int" Nullable="false" />
           <Property Name="AccountNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
@@ -626,7 +540,6 @@
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee_Audit" EntityType="Self.Employee_Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDocument" EntityType="Self.EmployeeDocument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeStatus" EntityType="Self.EmployeeStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeStatusHistory" EntityType="Self.EmployeeStatusHistory" Schema="dbo" store:Type="Tables" />
@@ -636,7 +549,6 @@
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Month" EntityType="Self.Month" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Salary_Audit" EntityType="Self.Salary_Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalaryStatus" EntityType="Self.SalaryStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SettingTable" EntityType="Self.SettingTable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -1242,8 +1154,6 @@
             <End Role="Month" EntitySet="Months" />
             <End Role="Salary" EntitySet="Salaries" />
           </AssociationSet>
-          <EntitySet Name="Employee_Audit" EntityType="HRMSModel.Employee_Audit" />
-          <EntitySet Name="Salary_Audit" EntityType="HRMSModel.Salary_Audit" />
           <EntitySet Name="SalaryStatus" EntityType="HRMSModel.SalaryStatu" />
           <AssociationSet Name="FK_SalaryStatus" Association="HRMSModel.FK_SalaryStatus">
             <End Role="SalaryStatu" EntitySet="SalaryStatus" />
@@ -1314,92 +1224,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Employee_Audit">
-          <Key>
-            <PropertyRef Name="Employee_Audit_Id" />
-          </Key>
-          <Property Name="Employee_Audit_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="Int32" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressLine3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PermanentAddressZip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressLine3" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressState" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="AddressCountry" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="AddressZip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="DateOfjoining" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProbationPeriodEndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="HasResigned" Type="Boolean" />
-          <Property Name="DateOfResignation" Type="DateTime" Precision="3" />
-          <Property Name="LastWorkingDay" Type="DateTime" Precision="3" />
-          <Property Name="PAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IDCardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountBank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountBankAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SalaryAccountIFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="PermanentAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DesignationID" Type="Int32" />
-          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeStatusID" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="AlternatePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Salary_Audit">
-          <Key>
-            <PropertyRef Name="Salary_Audit_ID" />
-          </Key>
-          <Property Name="Salary_Audit_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="MonthID" Type="Int32" Nullable="false" />
-          <Property Name="Basic" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="HRA" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ConveyanceAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="OtherAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="MedicalReimbursement" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="AdvanceSalary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Incentive" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="PLI" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Exgratia" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ReimbursementOfexp" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="TDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="EPF" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="ProfessionalTax" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Leave" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Advance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Salary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="Days" Type="Int32" Nullable="false" />
-          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BankName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SalaryStatus" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="isFullAndFinal" Type="Boolean" />
-        </EntityType>
         <EntityType Name="SalaryStatu">
           <Key>
             <PropertyRef Name="SalaryStatusID" />
@@ -1733,94 +1557,6 @@
                 <ScalarProperty Name="MonthID" ColumnName="MonthID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="SalaryID" ColumnName="SalaryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Audit">
-            <EntityTypeMapping TypeName="HRMSModel.Employee_Audit">
-              <MappingFragment StoreEntitySet="Employee_Audit">
-                <ScalarProperty Name="AlternatePhone" ColumnName="AlternatePhone" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="EmployeeStatusID" ColumnName="EmployeeStatusID" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
-                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
-                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
-                <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="SalaryAccountIFSCCode" ColumnName="SalaryAccountIFSCCode" />
-                <ScalarProperty Name="SalaryAccountBankAddress" ColumnName="SalaryAccountBankAddress" />
-                <ScalarProperty Name="SalaryAccountBank" ColumnName="SalaryAccountBank" />
-                <ScalarProperty Name="SalaryAccountNumber" ColumnName="SalaryAccountNumber" />
-                <ScalarProperty Name="IDCardType" ColumnName="IDCardType" />
-                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
-                <ScalarProperty Name="PAN" ColumnName="PAN" />
-                <ScalarProperty Name="LastWorkingDay" ColumnName="LastWorkingDay" />
-                <ScalarProperty Name="DateOfResignation" ColumnName="DateOfResignation" />
-                <ScalarProperty Name="HasResigned" ColumnName="HasResigned" />
-                <ScalarProperty Name="ProbationPeriodEndDate" ColumnName="ProbationPeriodEndDate" />
-                <ScalarProperty Name="DateOfjoining" ColumnName="DateOfjoining" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
-                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
-                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
-                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
-                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
-                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
-                <ScalarProperty Name="PermanentAddressZip" ColumnName="PermanentAddressZip" />
-                <ScalarProperty Name="PermanentAddressCountry" ColumnName="PermanentAddressCountry" />
-                <ScalarProperty Name="PermanentAddressState" ColumnName="PermanentAddressState" />
-                <ScalarProperty Name="PermanentAddressLine3" ColumnName="PermanentAddressLine3" />
-                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
-                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Employee_Audit_Id" ColumnName="Employee_Audit_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Salary_Audit">
-            <EntityTypeMapping TypeName="HRMSModel.Salary_Audit">
-              <MappingFragment StoreEntitySet="Salary_Audit">
-                <ScalarProperty Name="isFullAndFinal" ColumnName="isFullAndFinal" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="SalaryStatus" ColumnName="SalaryStatus" />
-                <ScalarProperty Name="BankName" ColumnName="BankName" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="Days" ColumnName="Days" />
-                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="YTDS" ColumnName="YTDS" />
-                <ScalarProperty Name="Advance" ColumnName="Advance" />
-                <ScalarProperty Name="Leave" ColumnName="Leave" />
-                <ScalarProperty Name="ProfessionalTax" ColumnName="ProfessionalTax" />
-                <ScalarProperty Name="EPF" ColumnName="EPF" />
-                <ScalarProperty Name="TDS" ColumnName="TDS" />
-                <ScalarProperty Name="ReimbursementOfexp" ColumnName="ReimbursementOfexp" />
-                <ScalarProperty Name="Exgratia" ColumnName="Exgratia" />
-                <ScalarProperty Name="PLI" ColumnName="PLI" />
-                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
-                <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
-                <ScalarProperty Name="MedicalReimbursement" ColumnName="MedicalReimbursement" />
-                <ScalarProperty Name="OtherAllowance" ColumnName="OtherAllowance" />
-                <ScalarProperty Name="ConveyanceAllowance" ColumnName="ConveyanceAllowance" />
-                <ScalarProperty Name="HRA" ColumnName="HRA" />
-                <ScalarProperty Name="Basic" ColumnName="Basic" />
-                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
-                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
-                <ScalarProperty Name="Salary_Audit_ID" ColumnName="Salary_Audit_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
