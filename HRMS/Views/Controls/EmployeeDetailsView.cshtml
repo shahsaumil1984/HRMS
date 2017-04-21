@@ -27,13 +27,13 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <input type="hidden" ng-model="model.EmployeeID" />
-                        <label for="empcode">Employee Code</label>
+                        <label for="empcode">Employee Code *</label>
                         <input type="text" class="required form-control number" id="empcode" name="empcode" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="Designation">Designation</label>
+                        <label for="Designation">Designation *</label>
                         <select id="em_DesignationID" name="em_DesignationID" class="form-control required" ng-model="model.DesignationID" value={{model.DesignationID}}>                           
                             <option value="">Please select</option>
                             @foreach (var item in Model.Designations)
@@ -45,13 +45,13 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_FirstName">First Name</label>
+                        <label for="em_FirstName">First Name *</label>
                         <input type="text" name="em_FirstName" id="em_FirstName" ng-model="model.FirstName" class="required form-control" maxlength="500" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_LastName">Last Name</label>
+                        <label for="em_LastName">Last Name *</label>
                         <input type="text" name="em_LastName" id="em_LastName" ng-model="model.LastName" class="required form-control" maxlength="500" />
 
                     </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_FullName">Full Name</label>
+                        <label for="em_FullName">Full Name *</label>
                         <input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500" />
                     </div>
                 </div>
@@ -83,8 +83,8 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_Email">Email</label>
-                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" />
+                        <label for="em_Email">Email *</label>
+                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" maxlength="250"/>
                     </div>
                 </div>
             </div>
@@ -283,14 +283,14 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_DateOfjoining">Date of Joining</label>
+                        <label for="em_DateOfjoining">Date of Joining *</label>
                         <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" date-Picker />
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="em_ProbationPeriodEndDate">Probation End Date</label>
+                        <label for="em_ProbationPeriodEndDate">Probation End Date *</label>
                         <input type="text" name="em_ProbationPeriodEndDate" id="em_ProbationPeriodEndDate" ng-model="model.ProbationPeriodEndDate" class="required form-control" date-Picker />
                     </div>
                 </div>
