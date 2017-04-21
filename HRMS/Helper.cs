@@ -22,10 +22,7 @@ namespace HRMS
 
 
             [EnumMember(Value = "Full And Final")]
-            FullAndFinal = 5,
-
-            [EnumMember(Value = "In Active")]
-            InActive
+            FullAndFinal = 5           
         };
 
         public enum SalaryStatus

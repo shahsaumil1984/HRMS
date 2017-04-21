@@ -141,6 +141,7 @@ namespace Api
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
+            service.Context.Configuration.ProxyCreationEnabled = false;
             var query = from o in list
                         select new
                         {
@@ -181,7 +182,8 @@ namespace Api
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
                             o.EmployeeCode,
-                            o.IsDisabled
+                            o.IsDisabled,
+                            o.EmployeeStatu
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);

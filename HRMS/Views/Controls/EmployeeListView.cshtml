@@ -27,6 +27,16 @@
                                        data-search-list="employeeGrid"
                                        data-default-focus="true" />
                                 &nbsp;
+                                <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="EmployeeStatusID">
+                                    <option value="">Select Status</option>
+                                    @foreach (var status in Model.EmployeeStatus)
+                                    {
+                                        <option value="@status.StatusID">@status.Status</option>
+                                    }
+                                </select>
+                                &nbsp;
+                                <input type="checkbox" id="disabledFilter"  data-search-fields="IsDisabled" data-search-list="employeeGrid" />
+                                &nbsp;
                                 <button type="button" ng-click="ub.NewForm('employeeDetailsForm', true, 'EmployeeNewCallback')">Add New</button>                                
                             </div>
                         </td>
@@ -39,8 +49,9 @@
                             @*<th class="text-center">Role</th>
                             <th class="text-center">DOJ</th>
                             <th class="text-left address">Address</th>*@
-                            <th class="text-left">Phone</th>         
-                            <th class="text-left">Status</th>                                                   
+                            <th class="text-left">Phone</th>
+                            <th class="text-left">Status</th>            
+                            <th class="text-left">Manage Status</th>                                                   
                             <th class="text-left">Manage Roles</th>
                             <th class="text-left">Documents</th>
                             <th class="text-left">Edit</th>
@@ -75,7 +86,7 @@
                                 {{r.PermanentAddressLine3}} {{r.PermanentAddressState}},{{r.PermanentAddressZip}}
                             </td>*@
                             <td class="text-left">{{r.Phone}}</td>
-                            @*<td class="text-left">{{r.StatusName}}</td>*@
+                            <td class="text-left">{{r.EmployeeStatu.Status}}</td>
                                                       
                             <td class="text-left">
                                 <a href="/EmployeeStatusHistory?employeeID={{r.EmployeeID}}">
@@ -105,7 +116,7 @@
                             </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" align="center">
+                        <td colspan="9" align="center">
                             <div id="monthPagination">
                                 <span>{{pageText}}</span>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
