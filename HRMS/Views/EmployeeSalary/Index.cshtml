@@ -23,10 +23,11 @@
 <div class="listView" id="employeeSalaryListView">
 
     <div class="middlewrap">
-        <h2>Employees</h2>
-        <label>Set Salary for @ViewBag.Month</label>
         <input type="hidden" id="currentMonth" name="currentMonth" value="@ViewBag.Month" />
-        <h3 class="title"> <span>Employees</span> </h3>
+        <h3 class="title">
+            <span>Employees</span>
+        </h3>
+        <label>Set Salary for @ViewBag.Month</label>
         <div class="table-responsive tbl-scroll">
             <table class="table table-condensed table-hover"
                    id="employeeSalaryGrid"
@@ -109,12 +110,12 @@
                         <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" height="50" />
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="30" />
                             </a>
                         </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" height="50" />
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="30" />
                             </a>
                         </td>
                 </tbody>

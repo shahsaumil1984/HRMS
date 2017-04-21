@@ -25,7 +25,7 @@
     
 	 <tr>
                   <th>
-                     <button type="button" ng-click="ub.NewForm('leaveTypeDetailsForm', true, null)">New LeaveType</button>
+                     <button type="button" ng-click="ub.NewForm('leaveTypeDetailsForm', true, null)">Create</button>
                   </th>
               </tr>
 	
@@ -46,7 +46,9 @@
               
 
               <td class="col-md-1">
-                  <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('leaveTypeGrid',  ID() , true, null)"/>
+                  <a href="#" ng-click="ub.Delete('leaveTypeGrid',  ID() , true, null)">
+                      <img src="~/Images/delete.png" alt="delete" title="Delete" width="30"/>
+                  </a>
               </td>
 
             </tr>

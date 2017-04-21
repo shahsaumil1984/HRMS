@@ -3,17 +3,15 @@
 @using Model
 
 <div id="documentTypeListView" class="listView">
-<style>
-   
-    .actioncell {
-        width:20%;
+    <style>
+        .actioncell {
+            width: 20%;
+        }
 
-    }
-    .normalcell {
-        width:60%;
-
-    }
-</style>
+        .normalcell {
+            width: 60%;
+        }
+    </style>
 
     @*<form class="form-inline">
 
@@ -35,7 +33,7 @@
                                data-search-list="documentTypeGrid"
                                data-default-focus="true" />
                         &nbsp;
-                        <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">New Document Type</button>
+                        <button type="button" class="btn" ng-click="ub.NewForm('documentTypeDetailsForm', true, null)">Create</button>
                     </div>
                 </td>
             </tr>
@@ -50,8 +48,16 @@
             <tr alt=$index%2>
                 @*<td class="col-md-1"> <span>{{r.DocumentTypeID}}</span></td>*@
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
-                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)" /></td>
-                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="Delete" title="Delete" width="30" ng-click="lb.Delete(r.DocumentTypeID, null , ub.documentTypeDeleteCallback)" /></td>
+                <td class="col-md-1">
+                    <a href="" ng-click="ub.LoadForm('documentTypeDetailsForm',  r.DocumentTypeID , true, null)">
+                        <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" />
+                    </a>
+                </td>
+                <td class="col-md-1">
+                    <a href="#" ng-click="lb.Delete(r.DocumentTypeID, null , ub.documentTypeDeleteCallback)" >
+                        <img src="~/Content/images/delete.png" alt="Delete" title="Delete" width="30" />
+                    </a>
+                </td>
             </tr>
         </tbody>
         <tfoot>
@@ -69,4 +75,3 @@
         </tfoot>
     </table>
 </div>
-
