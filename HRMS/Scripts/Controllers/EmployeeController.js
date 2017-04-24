@@ -27,6 +27,14 @@ $(document).ready(function () {
             employeeDetailsForm.SetValue("AddressState", PermanentAddressState);
             employeeDetailsForm.SetValue("AddressCountry", PermanentAddressCountry);
             employeeDetailsForm.SetValue("AddressZip", PermanentAddressZip);
+
+            $('#em_AddressLine1').attr("disabled", "disabled");
+            $('#em_AddressLine2').attr("disabled", "disabled");
+            $('#em_AddressLine3').attr("disabled", "disabled");
+            $('#em_AddressCity').attr("disabled", "disabled");
+            $('#em_AddressState').attr("disabled", "disabled");
+            $('#em_AddressCountry').attr("disabled", "disabled");
+            $('#em_AddressZip').attr("disabled", "disabled");
         }
         else
         {
@@ -37,11 +45,70 @@ $(document).ready(function () {
             employeeDetailsForm.SetValue("AddressState", "");
             employeeDetailsForm.SetValue("AddressCountry", "");
             employeeDetailsForm.SetValue("AddressZip", "");
+
+            $("#em_AddressLine1").removeAttr("disabled");
+            $("#em_AddressLine2").removeAttr("disabled");
+            $("#em_AddressLine3").removeAttr("disabled");
+            $("#em_AddressCity").removeAttr("disabled");
+            $("#em_AddressState").removeAttr("disabled");
+            $("#em_AddressCountry").removeAttr("disabled");
+            $("#em_AddressZip").removeAttr("disabled");
         }
         
 
             
     })
+
+    $("#em_PermanentAddressLine1").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            var PermanentAddressLine1 = employeeDetailsForm.GetValue("PermanentAddressLine1");
+            employeeDetailsForm.SetValue("AddressLine1", PermanentAddressLine1);
+        }
+    });
+
+    $("#em_PermanentAddressLine2").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            var PermanentAddressLine2 = employeeDetailsForm.GetValue("PermanentAddressLine2");
+            employeeDetailsForm.SetValue("AddressLine2", PermanentAddressLine2);
+        }
+    });
+
+    $("#em_PermanentAddressLine3").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            var PermanentAddressLine3 = employeeDetailsForm.GetValue("PermanentAddressLine3");
+            employeeDetailsForm.SetValue("AddressLine3", PermanentAddressLine3);
+        }
+    });
+
+    $("#em_PermanentAddressCity").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            var PermanentAddressCity = employeeDetailsForm.GetValue("PermanentAddressCity");
+            employeeDetailsForm.SetValue("AddressCity", PermanentAddressCity);
+        }
+    });
+
+    $("#em_PermanentAddressState").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            debugger;
+            var PermanentAddressSta = $('#em_PermanentAddressState option:selected').val();
+            //var PermanentAddressState = employeeDetailsForm.GetValue("PermanentAddressState");
+            employeeDetailsForm.SetValue("AddressState", PermanentAddressSta);
+        }
+    });
+
+    $("#em_PermanentAddressCountry").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            var PermanentAddressCountry = employeeDetailsForm.GetValue("PermanentAddressCountry");
+            employeeDetailsForm.SetValue("AddressCountry", PermanentAddressCountry);
+        }
+    });
+
+    $("#em_PermanentAddressZip").change(function () {
+        if ($("#em_sameAsPermenent").is(':checked')) {
+            var PermanentAddressZip = employeeDetailsForm.GetValue("PermanentAddressZip");
+            employeeDetailsForm.SetValue("AddressZip", PermanentAddressZip);
+        }
+    });
 
     $('#phoneno,#alternatephone').keydown(function (e) {
 	    
