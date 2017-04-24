@@ -89,7 +89,12 @@ namespace Api
                                 o.EmployeePhoto,
                                 o.EmployeeStatusID,
                                 o.EmployeeCode,
-                                o.IsDisabled
+                                o.IsDisabled,
+                                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
+                                o.CreatedBy,
+                                o.CreatedDate
+                                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
+
 
                             }).ToList().Select(o => new Employee
                             {
@@ -131,8 +136,11 @@ namespace Api
                                 EmployeePhoto = o.EmployeePhoto,
                                 EmployeeStatusID = o.EmployeeStatusID,
                                 EmployeeCode = o.EmployeeCode,
-                                IsDisabled =o.IsDisabled
-
+                                IsDisabled =o.IsDisabled,
+                                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
+                                CreatedBy = o.CreatedBy,
+                                CreatedDate = o.CreatedDate
+                                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
                             }).Single<Employee>();
             return obj;
         }
@@ -141,7 +149,6 @@ namespace Api
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             IQueryable<Employee> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
-            service.Context.Configuration.ProxyCreationEnabled = false;
             var query = from o in list
                         select new
                         {
@@ -182,8 +189,8 @@ namespace Api
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
                             o.EmployeeCode,
-                            o.IsDisabled,
-                            o.EmployeeStatu
+                            o.IsDisabled
+                            
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);

@@ -1,6 +1,8 @@
 
 @model ViewModel.MasterViewModel
 @using Model
+@using HRMS
+
 
 <div class="middlewrap">
     <div class="row detailsWindow" id="employeeDetailsWindow">
@@ -12,6 +14,13 @@
               data-associated-list="employeeGrid"
               @*data-validate-callback="Validate"*@
               method="get" class="col-xs-12 col-sm-12" action="" role="form">
+                
+            <div ng-show="model.EmployeeID != 0">
+                
+                <h3> {{model.FullName}} /  {{model.EmployeeCode}}</h3>
+                @*<h3>Edit Employee</h3>*@
+            </div>
+            <h3 ng-show="model.EmployeeID == 0">Create New Employee</h3>
 
             <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
             <div class="row">
@@ -22,13 +31,17 @@
             </div>
 
             <p class="midtitle">General Information</p>
-
+            
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <input type="hidden" ng-model="model.EmployeeID" />
+                        @*IStart Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                         <label for="empcode">Employee Code *</label>
-                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
+                        <br />
+                        <span ng-show="model.EmployeeCode != null">{{model.EmployeeCode}}</span>
+                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeCode === null" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
+                        @*IEnd Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -84,7 +97,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_Email">Email *</label>
-                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" maxlength="250"/>
+                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" />
                     </div>
                 </div>
             </div>

@@ -72,7 +72,11 @@ namespace HRMS.Api
                                 o.PermanentAddressCity,
                                 o.DesignationID,
                                 o.EmployeePhoto,
-                                o.EmployeeStatu
+                                o.EmployeeStatu,
+                                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                                o.CreatedBy,
+                                o.CreatedDate,
+                                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
 
                             }).ToList().Select(o => new Employee
                             {
@@ -112,7 +116,11 @@ namespace HRMS.Api
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
                                 EmployeeStatu = o.EmployeeStatu,
-                                EmployeeCode = o.EmployeeCode
+                                EmployeeCode = o.EmployeeCode,
+                                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                                CreatedBy = o.CreatedBy,
+                                CreatedDate = o.CreatedDate,
+                                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
 
                             }).Single<Employee>();
             return obj;

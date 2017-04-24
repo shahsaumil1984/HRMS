@@ -54,7 +54,7 @@ namespace HRMS
                 entity.DocumentContent = new byte[file.InputStream.Length];
                 file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
                 entity.DocumentName = file.FileName;
-                entity.ModifiedBy = "jpithadiya@affirma.com";
+                entity.ModifiedBy = User.Identity.Name;
                 entity.ModifiedDate = DateTime.Now;
                 documentService.Update(entity);
                 id = documentService.SaveChangesReturnId(entity);
@@ -65,9 +65,17 @@ namespace HRMS
                 entity.DocumentContent = new byte[file.InputStream.Length];
                 file.InputStream.Read(entity.DocumentContent, 0, entity.DocumentContent.Length);
                 entity.DocumentName = file.FileName;
-                entity.CreatedBy = "jpithadiya@affirma.com";
+
+                //IStart Jay Pithadiya 21/4/2017, Added modified details when updating docs for employee
+                entity.CreatedBy = User.Identity.Name;
                 entity.CreatedDate = DateTime.Now;
+                entity.ModifiedBy = User.Identity.Name;
+                entity.ModifiedDate = DateTime.Now;
+                //IEnd Jay Pithadiya 21/4/2017, Added modified details when updating docs for employee
+
                 documentService.Create(entity);
+                
+
                 id = documentService.SaveChangesReturnId(entity);
             }
 

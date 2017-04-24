@@ -15,9 +15,7 @@
 
 <div class="container">
     <div class="middlewrap">
-        <h3 class="title">
-            <span>Upload documents for @ViewBag.UserName</span>
-        </h3>
+        <h2>Upload documents for @ViewBag.UserName</h2>
         <div class="btn-group">
             <input type="button" name="UploadDocument" value="UploadDocument" id="uploadDocument" />
             <input type="button" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />
@@ -88,9 +86,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="title">
-                                <span>Upload a file</span>
-                            </h3>
+                            <h4> Upload a file</h4>
                         </div>
                         <div class="modal-body">
                             <fieldset>

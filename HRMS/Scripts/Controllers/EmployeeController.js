@@ -90,11 +90,10 @@ function EmployeeNewCallback(status, data) {
     $("#employeeDetailsWindow").show();
 }
 
-_.ResetForm = function () {    
+_.ResetForm = function () {
     $("label").remove(".error");
     $("span").remove(".error");
-    
-    FormBinder.HideForm(true);
+    employeeDetailsForm.HideForm(true);
 }
 
 _.CheckEmployeeCode = function (EmpCode) {
