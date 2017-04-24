@@ -23,10 +23,10 @@ _.documentTypeDeleteCallback = function (status, data)
 {
     if (status)
     {
-        alert('Successfully deleted document type');
+        toastr.success('Successfully deleted document type');
     }
     else{
         
-        alert('Cannot delete the document type as it is already in use');
+        toastr.error('Cannot delete the document type as it is already in use');
     }
 }
