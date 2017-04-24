@@ -44,7 +44,7 @@ namespace Api
         [Authorize(Roles = "Admin")]
         public override Employee GetById(int id)
         {
-
+            service.Context.Configuration.ProxyCreationEnabled = false;
 
             Employee obj = (from o in service.Context.Employees
                             where o.EmployeeID == id
@@ -92,7 +92,8 @@ namespace Api
                                 o.IsDisabled,
                                 //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
                                 o.CreatedBy,
-                                o.CreatedDate
+                                o.CreatedDate,
+                                o.EmployeeStatu
                                 //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
 
 
@@ -139,7 +140,8 @@ namespace Api
                                 IsDisabled =o.IsDisabled,
                                 //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
                                 CreatedBy = o.CreatedBy,
-                                CreatedDate = o.CreatedDate
+                                CreatedDate = o.CreatedDate,
+                                EmployeeStatu = o.EmployeeStatu
                                 //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
                             }).Single<Employee>();
             return obj;

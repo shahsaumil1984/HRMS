@@ -6,7 +6,6 @@
 
 <div class="middlewrap">
     <div class="row detailsWindow" id="employeeDetailsWindow">
-
         <form id="employeeDetailsForm"
               name="employeeDetailsForm"
               data-ui-binding="true"
@@ -17,7 +16,7 @@
                 
             <div ng-show="model.EmployeeID != 0">
                 
-                <h3> {{model.FullName}} /  {{model.EmployeeCode}}</h3>
+                <h3> {{model.FullName}} / {{model.EmployeeCode}} / {{model.EmployeeStatu.Status}}</h3>
                 @*<h3>Edit Employee</h3>*@
             </div>
             <h3 ng-show="model.EmployeeID == 0">Create New Employee</h3>
@@ -39,8 +38,8 @@
                         @*IStart Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                         <label for="empcode">Employee Code *</label>
                         <br />
-                        <span ng-show="model.EmployeeCode != null">{{model.EmployeeCode}}</span>
-                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeCode === null" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
+                        <span ng-show="model.EmployeeID != 0">{{model.EmployeeCode}}</span>
+                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeID == 0" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
                         @*IEnd Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                     </div>
                 </div>

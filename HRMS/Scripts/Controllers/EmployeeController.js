@@ -43,7 +43,7 @@ $(document).ready(function () {
             
     })
 
-    $('#phoneno').keydown(function (e) {
+    $('#phoneno,#alternatephone').keydown(function (e) {
 	    
 	    var key = e.charCode || e.keyCode || 0;
 	    $phone = $(this);
