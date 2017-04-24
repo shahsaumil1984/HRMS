@@ -21,7 +21,7 @@
                                data-search-list="EmployeeStatusGrid"
                                data-default-focus="true" />
                         &nbsp;
-                        <button type="button" class="btn" ng-click="ub.NewForm('EmployeeStatusDetailsForm', true, null)">Create</button>
+                        <button type="button" class="btn" ng-click="ub.NewForm('EmployeeStatusDetailsForm', true, null)">New Status Type</button>
                     </div>
                 </td>
             </tr>
@@ -38,16 +38,8 @@
                 <td class="col-md-1"> <span>{{r.StatusID}}</span></td>
                 <td class="col-md-1"> <span>{{r.Status}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
-                <td class="col-md-1">
-                    <a href="#" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)">
-                        <img src="~/Content/images/edit.png" alt="edit" title="Edit" width="30" />
-                    </a>
-                </td>
-                <td class="col-md-1">
-                    <a href="#" ng-click="lb.Delete(r.StatusID, null , ub.EmployeeStatusDeleteCallback)">
-                        <img src="~/Content/images/delete.png" alt="delete" title="Delete" width="30" />
-                    </a>
-                </td>
+                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" title="Edit" width="30" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" title="Delete" width="30" ng-click="lb.Delete(r.StatusID, null , ub.EmployeeStatusDeleteCallback)" /></td>
             </tr>
         </tbody>
         <tfoot>

@@ -25,7 +25,7 @@
     
 	 <tr>
                   <th>
-                     <button type="button" class="btn" ng-click="ub.NewForm('holidayCalendarDetailsForm', true, null)">Create</button>
+                     <button type="button" class="btn" ng-click="ub.NewForm('holidayCalendarDetailsForm', true, null)">New HolidayCalendar</button>
                   </th>
               </tr>
 	
@@ -54,9 +54,7 @@
               
 
               <td class="col-md-1">
-                  <a href="#" ng-click="ub.Delete('holidayCalendarGrid',  ID() , true, null)">
-                      <img src="~/Images/delete.png" alt="Delete" title="Delete" width="30" />
-                  </a>
+                  <img src="~/Images/delete.png" alt="delete" height="20" ng-click="ub.Delete('holidayCalendarGrid',  ID() , true, null)"/>
               </td>
 
             </tr>

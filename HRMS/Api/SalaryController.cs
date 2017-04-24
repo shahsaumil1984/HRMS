@@ -146,7 +146,10 @@ namespace Api
                                  o.SalaryStatu,
                                  o.BankName,
                                  o.AccountNumber,
-
+                                 //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                                 o.CreatedBy,
+                                 o.CreatedDate,
+                                 //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
 
                              }).ToList();
 
@@ -181,7 +184,12 @@ namespace Api
                 BankName = o.BankName,
                 AccountNumber = o.AccountNumber,
                 Note = o.Note,
-                SalaryStatu = o.SalaryStatu
+                SalaryStatu = o.SalaryStatu,
+                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                CreatedBy = o.CreatedBy,
+                CreatedDate = o.CreatedDate,
+                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+
             }).SingleOrDefault<Salary>();
                         
             if (obj == null)            
