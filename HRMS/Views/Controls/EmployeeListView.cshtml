@@ -25,6 +25,7 @@
                                 <input type="text"
                                        data-search-fields="FullName, Email, Phone"
                                        data-search-list="employeeGrid"
+
                                        data-default-focus="true" />
                                 &nbsp;
                                 <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="EmployeeStatusID">
@@ -35,7 +36,12 @@
                                     }
                                 </select>
                                 &nbsp;
-                                <input type="checkbox" id="disabledFilter"  data-search-fields="IsDisabled" data-search-list="employeeGrid" />
+                                <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="IsDisabled">
+                                    <option value="">All</option>         
+                                    <option value="true">Disabled</option>
+                                    <option value="false">Enabled</option>                                    
+                                </select>
+                                @*<input type="checkbox" id="disabledFilter"  data-checked-fields="IsDisabled" data-search-list="employeeGrid" data-default-focus="false" />*@
                                 &nbsp;
                                 <button type="button" ng-click="ub.NewForm('employeeDetailsForm', true, 'EmployeeNewCallback')">Add New</button>                                
                             </div>
