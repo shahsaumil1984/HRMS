@@ -14,13 +14,7 @@ namespace Service
         {
             try
             {
-                EmployeeStatusHistoryService serviceHistory = new EmployeeStatusHistoryService();
-
-                var _employee = serviceHistory.Context.Employees.Find(entity.EmployeeID);
-                _employee.EmployeeStatusID = entity.Status_New;
-
-                serviceHistory.Context.Entry(_employee).State = System.Data.Entity.EntityState.Modified;
-                serviceHistory.Context.SaveChanges();
+                EmployeeStatusHistoryService serviceHistory = new EmployeeStatusHistoryService();          
 
                 EmployeeStatusHistory empHistory = new EmployeeStatusHistory()
                 {
@@ -53,17 +47,25 @@ namespace Service
                 };
                 serviceHistory.Create(empHistoryNew);
                 serviceHistory.SaveChanges();
-                                                                
+
+                var _employee = serviceHistory.Context.Employees.Find(entity.EmployeeID);
+                _employee.EmployeeStatusID = entity.Status_New;
+
+                
                 if (entity.Status_New == 5)
                 {
                     SalaryService employeesalary = new SalaryService();
-                    int count = employeesalary.Context.Salaries.Where(x => x.EmployeeID == entity.EmployeeID).Count();
-                    if (count == 0)
-                    {
+                    //int count = employeesalary.Context.Salaries.Where(x => x.EmployeeID == entity.EmployeeID).Count();
+                    //if (count == 0)
+                    //{
                         employeesalary.Create(entity.Employee.Salaries.ToList()[0]);
                         employeesalary.SaveChanges();
-                    }
+                    //}
+                    _employee.IsDisabled = true;
                 }
+                serviceHistory.Context.Entry(_employee).State = System.Data.Entity.EntityState.Modified;
+                serviceHistory.Context.SaveChanges();
+
             }
             catch (Exception ex)
             {

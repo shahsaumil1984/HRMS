@@ -130,17 +130,19 @@ function Validate() {
     });
 }
 
-_.DisableEmployee = function (EmployeeID) {
-    debugger;
-    employeeService.disableEmployeeByID('EmployeeID=' + EmployeeID, function (status, data) {
-        if (status && data) {
-            employeeGrid.RefreshData();
-            toastr.success("Employee disabled successfully!");
-        }
-        else if (status && !data) {
-            toastr.error("Employee could not be disabled!");
-        }
-    });
+_.DisableEmployee = function (EmployeeID) {   
+    var r = confirm("Are you sure you want to disable this employee?");
+    if (r == true) {
+        employeeService.disableEmployeeByID('EmployeeID=' + EmployeeID, function (status, data) {
+            if (status && data) {
+                employeeGrid.RefreshData();
+                toastr.success("Employee disabled successfully!");
+            }
+            else if (status && !data) {
+                toastr.error("Employee could not be disabled!");
+            }
+        });
+    }
 }
 
 
