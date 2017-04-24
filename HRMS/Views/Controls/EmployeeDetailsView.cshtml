@@ -42,19 +42,7 @@
                         <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeID == 0" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
                         @*IEnd Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="Designation">Designation *</label>
-                        <select id="em_DesignationID" name="em_DesignationID" class="form-control required" ng-model="model.DesignationID" value={{model.DesignationID}}>                           
-                            <option value="">Please select</option>
-                            @foreach (var item in Model.Designations)
-                            {
-                                <option value="@(item.DesignationID)">@(item.DesignationName)</option>
-                            }
-                        </select>
-                    </div>
-                </div>
+                </div>               
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_FirstName">First Name *</label>
@@ -70,6 +58,30 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
+                        <label for="em_FullName">Full Name *</label>
+                        <input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="Designation">Designation *</label>
+                        <select id="em_DesignationID" name="em_DesignationID" class="form-control required" ng-model="model.DesignationID" value={{model.DesignationID}}>
+                            <option value="">Please select</option>
+                            @foreach (var item in Model.Designations)
+                            {
+                                <option value="@(item.DesignationID)">@(item.DesignationName)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_Email">Email *</label>
+                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
                         <label for="phoneno">Phone No.</label>
                         <input type="text" class="form-control" ng-model="model.Phone" id="phoneno" placeholder="XXX-XXX-XXXX" name="phoneno" minlength="10" maxlength="12" >
                     </div>
@@ -80,23 +92,14 @@
                         <input type="text" class="form-control" ng-model="model.AlternatePhone" id="alternatephone" placeholder="XXX-XXX-XXXX" name="alternatephone" minlength="10" maxlength="12">
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="em_FullName">Full Name *</label>
-                        <input type="text" name="em_FullName" id="em_FullName" ng-model="model.FullName" class="required form-control" maxlength="500" />
-                    </div>
-                </div>
+               
 
+               
+               
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_DateOfBirth">Date of Birth</label>
                         <input type="text" name="em_DateOfBirth" id="em_DateOfBirth" ng-model="model.DateOfBirth" class="form-control" date-Picker />
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="em_Email">Email *</label>
-                        <input type="email" name="em_Email" id="em_Email" ng-model="model.Email" class="form-control required" />
                     </div>
                 </div>
             </div>
