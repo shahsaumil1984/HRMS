@@ -12,5 +12,10 @@ EmployeeService.prototype.disableEmployeeByID = function (params, callback) {
     this.Query("disableEmployeeByID", params, callback);
 }
 
+EmployeeService.prototype.generateEmployeeCode = function (params, callback) {
+    this.Query("GenerateEmployeeCode",params, callback);
+}
+
+
 var employeeService = new EmployeeService();
 

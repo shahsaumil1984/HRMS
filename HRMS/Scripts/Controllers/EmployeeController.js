@@ -2,15 +2,48 @@
 /// <reference path="../jquery-1.10.2.min.js" />
 // Event Handlers
 //----------------------------------------------
+var dateOfJoining = "";
 $(document).ready(function () {
 
     _.Initialize(function (status, msg) {
-
+        
     });
+     
+    $("#em_DateOfjoining").datepicker({
+        todayBtn: 1,
+        autoclose: true,
+        clearBtn: true
+    }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        $('#em_ProbationPeriodEndDate').datepicker('setStartDate', minDate);
+    });
+
+    $("#em_ProbationPeriodEndDate").datepicker({
+        autoclose: true,
+        clearBtn: true
+    })
+         .on('changeDate', function (selected) {
+
+             if ($("#em_ProbationPeriodEndDate").val() == "") {
+                 $("#em_DateOfjoining").val('');
+                 $('#em_DateOfjoining').datepicker('setEndDate', null);
+             } else {
+
+                 var maxDate = new Date(selected.date.valueOf());
+                 $('#em_DateOfjoining').datepicker('setEndDate', maxDate);
+             }
+         });
+
+
+
+    //$("#em_ProbationPeriodEndDate").on("dp.change", function (e) {
+    //    debugger;
+    //    $("#em_DateOfjoining").data("DatePicker").minDate(e.date);
+    //})
 
     $("#em_sameAsPermenent").change(function () {
 
-        
+
         if ($("#em_sameAsPermenent").is(':checked')) {
             var PermanentAddressLine1 = employeeDetailsForm.GetValue("PermanentAddressLine1");
             var PermanentAddressLine2 = employeeDetailsForm.GetValue("PermanentAddressLine2");
@@ -28,8 +61,7 @@ $(document).ready(function () {
             employeeDetailsForm.SetValue("AddressCountry", PermanentAddressCountry);
             employeeDetailsForm.SetValue("AddressZip", PermanentAddressZip);
         }
-        else
-        {
+        else {
             employeeDetailsForm.SetValue("AddressLine1", "");
             employeeDetailsForm.SetValue("AddressLine2", "");
             employeeDetailsForm.SetValue("AddressLine3", "");
@@ -38,29 +70,29 @@ $(document).ready(function () {
             employeeDetailsForm.SetValue("AddressCountry", "");
             employeeDetailsForm.SetValue("AddressZip", "");
         }
-        
 
-            
+
+
     })
 
     $('#phoneno,#alternatephone').keydown(function (e) {
-	    
-	    var key = e.charCode || e.keyCode || 0;
-	    $phone = $(this);
-	    // Auto-format- do not expose the mask as the user begins to type
-	    if (key !== 8 && key !== 9) {
-	        if ($phone.val().length === 3) {
-	            $phone.val($phone.val() + '-');
-	        }
-	        if ($phone.val().length === 5) {
-	            $phone.val($phone.val() + '');
-	        }
-	        if ($phone.val().length === 7) {
-	            $phone.val($phone.val() + '-');
-	        }
-	    }
-	    return ((key >= 48 && key <= 57) || key == 08 || key == 127 || key != 16)
-	})
+
+        var key = e.charCode || e.keyCode || 0;
+        $phone = $(this);
+        // Auto-format- do not expose the mask as the user begins to type
+        if (key !== 8 && key !== 9) {
+            if ($phone.val().length === 3) {
+                $phone.val($phone.val() + '-');
+            }
+            if ($phone.val().length === 5) {
+                $phone.val($phone.val() + '');
+            }
+            if ($phone.val().length === 7) {
+                $phone.val($phone.val() + '-');
+            }
+        }
+        return ((key >= 48 && key <= 57) || key == 08 || key == 127 || key != 16)
+    })
 
 	.bind('focus click', function () {
 	    $phone = $(this);
@@ -103,15 +135,11 @@ _.CheckEmployeeCode = function (EmpCode) {
             var html = "<label id='EmpCodeError' class='error'>The entered Employee Code already exists.</label>";
             $('#empcode').after(html);
         }
-        else if (status && !data)
-        {
+        else if (status && !data) {
             $('#EmpCodeError').remove();
         }
     });
 }
-
-
-
 
 function Validate() {
     //UserInterfaceBinder.CheckEmployeeCode($('#empcode').val());
@@ -122,7 +150,7 @@ function Validate() {
             return false;
         }
         else if (status && !data) {
-            $('#EmpCodeError').remove(); 
+            $('#EmpCodeError').remove();
             return true;
         }
         else
@@ -130,7 +158,7 @@ function Validate() {
     });
 }
 
-_.DisableEmployee = function (EmployeeID) {   
+_.DisableEmployee = function (EmployeeID) {
     var r = confirm("Are you sure you want to disable this employee?");
     if (r == true) {
         employeeService.disableEmployeeByID('EmployeeID=' + EmployeeID, function (status, data) {
@@ -142,6 +170,24 @@ _.DisableEmployee = function (EmployeeID) {
                 toastr.error("Employee could not be disabled!");
             }
         });
+    }
+}
+
+_.NewEmployeeForm = function (formName, hideList, callback) {
+
+    employeeService.generateEmployeeCode(null, function (status, data) {
+        if (data != "") {
+            employeeDetailsForm.SetValue('EmployeeCode', data);
+        }
+    });
+    var fb = this.FormBindings[formName];
+    if (fb.detailsWindow) {
+        fb.validator.resetForm();
+        fb.ShowForm(hideList);
+    }
+    var df = fb.detailsWindow.find("[data-default-focus='true']");
+    if (df != null && df.length > 0) {
+        setTimeout('$("#' + df[0].id + '").focus()', 400);
     }
 }
 

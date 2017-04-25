@@ -32,14 +32,16 @@
             <p class="midtitle">General Information</p>
             
             <div class="row">
+                
+
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <input type="hidden" ng-model="model.EmployeeID" />
                         @*IStart Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                         <label for="empcode">Employee Code *</label>
-                        <br />
-                        <span ng-show="model.EmployeeID != 0">{{model.EmployeeCode}}</span>
-                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeID == 0" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
+                        <br />                        
+                        <span>{{model.EmployeeCode}}</span>        
+                        @*<input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeID == 0" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">*@
                         @*IEnd Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                     </div>
                 </div>
@@ -291,36 +293,20 @@
 
 
             </div>
-            <p class="midtitle">Joining/Exit Information</p>
-            <div class="row">
+            <p class="midtitle" ng-show="model.EmployeeID == 0" >Joining/Exit Information</p>
+            <div class="row" ng-show="model.EmployeeID == 0">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="em_DateOfjoining">Date of Joining *</label>
                         <input type="text" name="em_DateOfjoining" id="em_DateOfjoining" ng-model="model.DateOfjoining" class="required form-control" date-Picker />
                     </div>
                 </div>
-
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-12">   
                     <div class="form-group">
                         <label for="em_ProbationPeriodEndDate">Probation End Date *</label>
                         <input type="text" name="em_ProbationPeriodEndDate" id="em_ProbationPeriodEndDate" ng-model="model.ProbationPeriodEndDate" class="required form-control" date-Picker />
-                    </div>
-                </div>
-
-                @*<div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="phoneno">Date of Resignation</label>
-                            <input type="text" name="em_DateOfResignation" id="em_DateOfResignation" ng-model="model.DateOfResignation" class="form-control" date-Picker />
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="form-group">
-                            <label for="phoneno">Last Working Day</label>
-                            <input type="text" name="em_LastWorkingDay" id="em_LastWorkingDay" ng-model="model.LastWorkingDay" class="form-control" maxlength="8" date-Picker />
-                        </div>
-                    </div>*@
-
+                    </div>                  
+                 </div>
             </div>
             <p class="midtitle">Bank Account Information</p>
             <div class="row">

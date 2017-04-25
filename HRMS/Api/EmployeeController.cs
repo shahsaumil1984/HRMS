@@ -18,6 +18,7 @@ namespace Api
     public class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
     {
         private ApplicationUserManager _userManager;
+        string initialEmployeeCode = "1000";
         static Random r = new Random();
 
         public ApplicationUserManager UserManager
@@ -207,6 +208,7 @@ namespace Api
             entity.EmployeeStatusID = (int)Helper.EmployeeStatus.Probation ;
             entity.CreatedBy = User.Identity.Name;
             entity.ModifiedBy = User.Identity.Name;
+            //entity.EmployeeCode = service.GenerateEmployeeCode().ToString();
             HttpResponseMessage obj = base.Create(entity);
             
             EmployeeStatusHistoryService ehService = new EmployeeStatusHistoryService();
@@ -337,6 +339,25 @@ namespace Api
             base.Update(objEmployee);
             isSuccess = true;
             return isSuccess;
+        }
+
+        [HttpGet]
+        public int GenerateEmployeeCode()
+        {
+            HRMSEntities Context = new HRMSEntities();
+            var employeeCode = 0;
+            var maxCode = Context.Employees.Max(p => p.EmployeeCode);
+            if (maxCode == "0")
+            {
+                employeeCode = Convert.ToInt32(initialEmployeeCode) + 1;
+            }
+            else
+            {
+                employeeCode = Convert.ToInt32(maxCode) + 1;
+            }
+
+
+            return employeeCode;
         }
 
     }
