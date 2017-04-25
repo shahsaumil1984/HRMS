@@ -17,7 +17,9 @@ $(document).ready(function () {
     });
 
     _.PopulateData = function (employeeID, monthID) {
+        debugger;
         salaryService.GetByMonth(employeeID, monthID, true, function (status, data) {
+            debugger;
             if (status) {
                 salaryDetailsForm.model(data);
             }
@@ -234,20 +236,20 @@ _.UploadCSV = function () {
 
     //Validations on Uploaded File
     if ($('#fileUpload').val() == '') {
-        alert('Please select file to upload');
+        toastr.error('Please select file to upload');
         return false;
     }
 
     var file = $("#fileUpload").get(0).files[0];
     if (file.size > 10000000) {
-        alert('Please select a file of maximum size upto 10MB');
+        toastr.error('Please select a file of maximum size upto 10MB');
         return false;
     }
 
     var fileType = file["type"];
     var ValidImageTypes = ["application/vnd.ms-excel"];
     if ($.inArray(fileType, ValidImageTypes) < 0) {
-        alert('Invalid file type');
+        toastr.error('Invalid file type');
         return false;
     }
     //End
@@ -266,10 +268,10 @@ _.UploadCSV = function () {
         processData: false,
         data: data,
         success: function (response) {
-            alert("Successfully uploaded CSV");
+            toastr.success("Successfully uploaded CSV");
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.responseText);
+            toastr.error(xhr.responseText);
         }
     });
 

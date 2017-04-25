@@ -2,8 +2,8 @@
 @using Model
 
 <div id="EmployeeStatusHistoryListView" class="listView">
- 
-    <h2> @ViewBag.FullName's Status</h2>
+    
+    <h3 class="title"> <span>@ViewBag.FullName's Status</span> </h3>  
     <select id="employeeStatusFilter" data-filter-list="employeeStatusHistoryGrid" style="display:none" data-filter-field="EmployeeID">
         <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
     </select>
@@ -20,6 +20,7 @@
                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#StatusDialog" ng-click="ub.LoadForm('employeeStatusHistoryDetailsForm',rows[0].EmployeeID, false,null)">
                         Change Status
                     </button>
+                    <button type="button" id="btnCancel" class="btn btn-sm" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");">Back</button>
                 </td></tr>
         </thead>
         <tr>
@@ -47,10 +48,10 @@
                 <td colspan="4" align="center">
                     <div id="EmployeeStatusPagination">
                         <span>{{pageText}}</span>&nbsp;&nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>  
                     </div>
                 </td>
             </tr>

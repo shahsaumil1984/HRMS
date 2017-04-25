@@ -2,6 +2,7 @@
 @model EmployeeRoles
 @{
     ViewBag.Title = "Manage Roles";
+    ViewBag.ActiveTab = "ADMIN";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section HeaderIncludes
@@ -58,7 +59,7 @@
                         },
                         success: function (data, status, jqXHR) {
                             debugger;
-                            alert(data);
+                            toastr.success(data);
                         },
                         error: function (jqXHR, status, err) {
 
@@ -66,7 +67,7 @@
                     });
                 }
                 else {
-                    alert("Assign atleast one role.")
+                    toastr.error("Assign atleast one role.")
                 }
             });
         });
@@ -75,7 +76,7 @@
 }
 <div class="container">
     <div class="middlewrap">
-        <h2>Manage Roles for @Model.Name</h2>
+        <h3 class="title"> <span>Manage Roles for @Model.Name</span> </h3>  
         <div class="row mt-md">
             <div class="col-md-3">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })</div>
             <div class="col-md-2 text-center">

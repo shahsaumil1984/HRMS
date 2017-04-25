@@ -9,7 +9,7 @@
            data-ui-binding="true"
            data-entity-key="EmployeeStatusID"
            data-service-object="EmployeeStatusService"
-           data-default-orderby="Description"
+           data-default-orderby="StatusID"
            class="table table-condensed table-hover"
            data-page-size="10">
         <thead class="tblaction">
@@ -17,7 +17,7 @@
                 <td colspan="4">
                     <div class="form-group m-0">
                         <input type="text"
-                               data-search-fields="Description"
+                               data-search-fields="Status, Description"
                                data-search-list="EmployeeStatusGrid"
                                data-default-focus="true" />
                         &nbsp;
@@ -39,18 +39,18 @@
                 <td class="col-md-1"> <span>{{r.Status}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
                 <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" title="Edit" width="30" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
-                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" title="Delete" width="30" ng-click="lb.Delete(r.StatusID, null , ub.EmployeeStatusDeleteCallback)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" title="Delete" width="30" ng-click="lb.Delete(r.StatusID, 'Are you sure you want to delete this Status?' , ub.EmployeeStatusDeleteCallback)" /></td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4" align="center">
+                <td colspan="5" align="center">
                     <div id="EmployeeStatusPagination">
                         <span>{{pageText}}</span>&nbsp;&nbsp;
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><</span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>></span></button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>  
                     </div>
                 </td>
             </tr>

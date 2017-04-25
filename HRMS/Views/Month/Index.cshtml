@@ -1,6 +1,7 @@
 ﻿@model ViewModel.MasterViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Salary-Months";
+    ViewBag.ActiveTab = "ACCOUNT";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,9 +19,8 @@
 
 <div id="monthListView" class="listView">
     <div class="container">
-        <div class="middlewrap">
-            <h2>Salary</h2>
-
+        <div class="middlewrap">            
+            <h3 class="title"> <span>Salary</span> </h3>      
             <table id="monthGrid"
                    data-ui-binding="true"
                    data-entity-key="MonthID"
@@ -83,11 +83,10 @@
                         <td colspan="9" align="center">
                             <div id="monthPagination">
                                 <span>{{pageText}}</span>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
-                                @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>     
                             </div>
                         </td>
                     </tr>

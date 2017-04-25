@@ -671,6 +671,7 @@ namespace Api
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
             salaryObj.SalaryStatus = (int)Helper.SalaryStatus.Pending;
+            salaryObj.isFullAndFinal = false;
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);
