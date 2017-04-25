@@ -14,8 +14,8 @@
 }
 
 <div class="container">
-    <div class="middlewrap">
-        <h2>Upload documents for @ViewBag.UserName</h2>
+    <div class="middlewrap">       
+        <h3 class="title"> <span>Upload documents for @ViewBag.UserName</span> </h3>  
         <div class="btn-group">
             <input type="button" name="UploadDocument" value="Upload Document" id="uploadDocument" />
             <input type="button" value="Back" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");" />

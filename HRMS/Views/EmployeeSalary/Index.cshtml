@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employee Salary";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,7 +23,7 @@
 <div class="listView" id="employeeSalaryListView">
 
     <div class="middlewrap">
-`        <h2>Salary for @ViewBag.Month</h2>        
+         <h3 class="title"> <span>Salary for @ViewBag.Month</span> </h3>  
         <input type="hidden" id="currentMonth" name="currentMonth" value="@ViewBag.Month" />
         @*<h3 class="title"> <span>Employees</span> </h3>*@
         <div class="table-responsive tbl-scroll">
