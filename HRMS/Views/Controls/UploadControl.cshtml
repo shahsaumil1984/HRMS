@@ -16,7 +16,7 @@
                 </div>
                 <div class="modal-footer">
                     <input id="ajaxUploadButton" type="submit"
-                           onclick="if ($('#fileUpload').val() == '') { alert('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { alert('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
+                           onclick="if ($('#fileUpload').val() == '') { toastr.error('Please select file to upload'); return false; } if (document.getElementById('fileUpload').files[0].size > 10000000) { toastr.error('Please select a file of maximum size upto 10MB'); return false; }" value="Submit" class="btn btn-general" />
                     <input id="uploadPath" name="uploadPath" type="hidden" value="" />
                     <button type="button" class="btn btn-bordered" data-dismiss="modal">Cancel</button>
                     

@@ -58,7 +58,7 @@
                         },
                         success: function (data, status, jqXHR) {
                             debugger;
-                            alert(data);
+                            toastr.success(data);
                         },
                         error: function (jqXHR, status, err) {
 
@@ -66,7 +66,7 @@
                     });
                 }
                 else {
-                    alert("Assign atleast one role.")
+                    toastr.error("Assign atleast one role.")
                 }
             });
         });
