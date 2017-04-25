@@ -32,10 +32,10 @@
                             <!-- Naviation -->
                             <div class="nav-collapse nav-collapse_ collapse">
                                 <ul class="nav sf-menu clearfix">
-                                    <li class="active"><a href="/Home/Index">Home</a></li>
+                                    <li @(ViewBag.ActiveTab == "HOME" ? "class=active" : "")><a href="/Home/Index">Home</a></li>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                        <li>
+                                        <li @(ViewBag.ActiveTab == "ADMIN" ? "class=active" : "")>
                                             <a href="#">Admin</a>
                                             <ul class="sub-menu">
                                                 <li><a href="/Employee/Index">Employees</a></li>
@@ -46,7 +46,7 @@
                                     }
                                    @if (User.IsInRole("Accountant"))
                                    {
-                                    <li>
+                                    <li  @(ViewBag.ActiveTab == "ACCOUNT" ? "class=active" : "")>
                                         <a href="#">Account</a>
                                         <ul class="sub-menu">
                                             <li><a href="/Month/Index">Set Salary</a></li>
