@@ -341,3 +341,8 @@ background-color:lightgray !important;
 }
 
 .alignlbls{padding-top:8px;}
+
+.lblRequired{
+    color:red;
+    font-style :normal;
+}

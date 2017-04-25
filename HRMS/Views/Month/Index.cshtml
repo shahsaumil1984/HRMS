@@ -82,11 +82,10 @@
                         <td colspan="9" align="center">
                             <div id="monthPagination">
                                 <span>{{pageText}}</span>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()"><span><<</span></button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()"><span><</span></button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()"><span>></span></button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()"><span>>></span></button>
-                                @*@Html.Partial("~/Views/Controls/PaginationControl.cshtml")*@
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>     
                             </div>
                         </td>
                     </tr>
