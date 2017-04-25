@@ -90,18 +90,18 @@
                         </div>
                         <div class="modal-body">
                             <fieldset>
-                                <label>File to Upload: <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)<i class="lblRequired">*</i></label>
+                                <label>File to Upload: <i class="lblRequired">*</i> <input type="file" name="file" id="fileUpload" class="required" />(10MB max size)</label>
                                 <input type="hidden" id="EmployeeID" name="EmployeeID" value="@ViewBag.EmployeeID" />
                             </fieldset>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-5 document-select">
                                     <select id="DocumentTypeID" name="DocumentTypeID" class="upload-doc-margin-left form-control">
                                         <option value="">Select Document Type</option>
                                         @foreach (var item in Model.DocumentTypes)
                                         {
                                             <option value="@(item.DocumentTypeID)">@(item.Description)</option>
                                         }
-                                    </select>
+                                    </select><i class="lblRequired">*</i>
                                 </div>
                             </div>
                         </div>
@@ -160,8 +160,3 @@
     </script>
 }
 
-<style>
-    .upload-doc-margin-left {
-        margin: 15px 0;
-    }
-</style>

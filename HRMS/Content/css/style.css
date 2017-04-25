@@ -346,3 +346,12 @@ background-color:lightgray !important;
     color:red;
     font-style :normal;
 }
+.upload-doc-margin-left {
+    margin:15px 0;
+    width: 90%;
+    float: left;
+}
+.document-select .lblRequired{    
+    float: left;
+    margin: 15px 0 0 6px;
+}
