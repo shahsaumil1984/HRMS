@@ -117,6 +117,7 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public override TaxComputation GetById(int id)
         {
+            service.Context.Configuration.ProxyCreationEnabled = false;
             TaxComputation obj = (from o in service.Context.TaxComputations
                                   where o.TaxComputationID == id
                                   select new
@@ -137,6 +138,7 @@ namespace Api
                                       o.ConveyanceAllowanceFromJuly,
                                       o.EducationCess,
                                       o.Employee,
+                                      o.EmployeeID,
                                       o.EmployeeContributionToPF,
                                       o.EPF,
                                       o.FourtyPercentOfBasicAprilToJune,
@@ -212,6 +214,7 @@ namespace Api
                                       ConveyanceAllowanceFromJuly = o.ConveyanceAllowanceFromJuly,
                                       EducationCess = o.EducationCess,
                                       Employee = o.Employee,
+                                      EmployeeID = o.EmployeeID,
                                       EmployeeContributionToPF = o.EmployeeContributionToPF,
                                       EPF = o.EPF,
                                       FourtyPercentOfBasicAprilToJune = o.FourtyPercentOfBasicAprilToJune,

@@ -15,9 +15,10 @@ namespace HRMS.Controllers
         {
             ViewBag.EmployeeID = EmployeeID;
             Service.EmployeeService service = new Service.EmployeeService();
-            Employee objEmployee = service.GetById(EmployeeID);
-            ViewBag.DOJ = objEmployee.DateOfjoining.ToShortDateString();
+            Employee objEmployee = service.GetById(EmployeeID);           
             ViewBag.Name = objEmployee.FullName;
+            ViewBag.DOJ = objEmployee.DateOfjoining.ToShortDateString();
+            ViewBag.EmployeeCode = objEmployee.EmployeeCode;
             return View();
         }
     }
