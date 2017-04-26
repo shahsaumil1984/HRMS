@@ -59,9 +59,11 @@
                             <th class="text-left">Status</th>                                                   
                             <th class="text-left">Manage Roles</th>
                             <th class="text-left">Documents</th>
+                            <th class="text-left">Tax Declaration</th>
+                            <th class="text-left">Tax Computation</th>
                             <th class="text-left">IT Declaration</th>
                             <th class="text-left">Edit</th>
-                            <th class="text-left">Disable</th>
+                            <th class="text-left">Disable</th>                          
                         </tr>
                     </thead>
 
@@ -110,6 +112,16 @@
                                 </a>
                             </td>
                             <td class="text-left">
+                                <a href='javascript:;'>
+                                    <img src="~/Content/images/tax-declaration-icon.png" alt="Tax Declaration" title="Tax Declaration" width="30" />
+                                </a>
+                            </td>
+                            <td class="text-left">
+                                <a href="/TaxComputation?EmployeeID={{r.EmployeeID}}">
+                                    <img src="~/Content/images/tax-computation.png" alt="Tax Computation" title="Tax Computation" width="30" />
+                                </a>
+                            </td>
+                            <td class="text-left">
                                 <a href="/ITDeclaration?employeeID={{r.EmployeeID}}">
                                     <img src="~/Content/images/manage-document-icon.png" alt="IT Declaration Form" title="IT Declaration Form" width="30" />
                                 </a>
@@ -118,16 +130,16 @@
                                 <a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, null)">
                                     <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30"/>
                                 </a>
-                            </td>
+                            </td>                           
                             <td class="text-left">
                                 <a href='javascript:;' ng-click="ub.DisableEmployee(r.EmployeeID)" ng-class="{'not-active':r.IsDisabled}">
-                                    <img src="~/Content/images/delete.png" alt="Disable" title="Disable" width="30" />
+                                    <img src="~/Content/images/disable-emp-icon.png" alt="Disable" title="Disable" width="30" />
                                 </a>
-                            </td>
+                            </td>                          
                             </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="8" align="center">
+                        <td colspan="10" align="center">
                             <div id="monthPagination">
                                 <span>{{pageText}}</span>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>

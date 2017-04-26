@@ -319,6 +319,7 @@
     <Content Include="Content\images\bg.jpg" />
     <Content Include="Content\images\csv-export-icon.png" />
     <Content Include="Content\images\delete.png" />
+    <Content Include="Content\images\disable-emp-icon.png" />
     <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\jobopenings.png" />
     <Content Include="Content\images\loginimg1.jpg" />
@@ -332,6 +333,8 @@
     <Content Include="Content\images\pdf-download-icon.png" />
     <Content Include="Content\images\salary-lock-icon.png" />
     <Content Include="Content\images\send-email-icon.png" />
+    <Content Include="Content\images\tax-computation.png" />
+    <Content Include="Content\images\tax-declaration-icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="File Formats\images\footer.jpg" />
     <Content Include="File Formats\images\header.jpg" />
@@ -466,6 +469,9 @@
     <Content Include="Views\Controls\EmployeeStatusHistoryListView.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryEditView.cshtml" />
+    <Content Include="Views\TaxComputation\Index.cshtml" />
+    <Content Include="Views\Controls\TaxComputationListView.cshtml" />
+    <Content Include="Views\Controls\TaxComputationDetailsView.cshtml" />
     <Content Include="Views\ITDeclaration\Index.cshtml" />
     <Content Include="Views\Controls\ITDeclarationDetailsView.cshtml" />
   </ItemGroup>
@@ -475,7 +481,6 @@
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\DocumentUpload\" />
-    <Folder Include="Views\TaxComputation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

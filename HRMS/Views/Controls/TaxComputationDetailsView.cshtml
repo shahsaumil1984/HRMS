@@ -1,0 +1,91 @@
+﻿
+
+@model ViewModel.MasterViewModel
+@using Model
+@using HRMS
+
+
+<div class="middlewrap">
+    <div class="row detailsWindow" id="taxComputationDetailsWindow">
+        <form id="taxComputationDetailsForm"
+              name="taxComputationDetailsForm"
+              data-ui-binding="true"
+              data-service-object="taxComputationService"
+              data-associated-list="taxComputationGrid"
+              @*data-validate-callback="Validate"*@
+              method="get" class="col-xs-12 col-sm-12" action="" role="form">
+
+
+            <h3>Create New Tax Computation</h3>
+
+            <div id="taxComputationrrorDisplay" class="taxComputationrrorDisplay" data-error-display="true"></div>
+
+            <p class="midtitle">Employee Details</p>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Employee Name:</label>
+                        <label>@ViewBag.Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Date of Joining:</label>
+                        <label>@ViewBag.DOJ</label>
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Salary Information</p>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_Basic3mAprilToJune">Basic-3m, April To June</label>
+                        <input type="text" name="em_Basic3mAprilToJune" id="em_Basic3mAprilToJune" ng-model="model.Basic3mAprilToJune" class="form-control number" maxlength="10" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_BasicFromApril">Basic-From April</label>
+                        <input type="text" name="em_BasicFromApril" id="em_BasicFromApril" ng-model="model.BasicFromApril" class="form-control number" maxlength="10" />
+
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_BasicFromJuly">Basic-FromJuly</label>
+                        <input type="text" name="em_BasicFromJuly" id="em_BasicFromJuly" ng-model="model.BasicFromJuly" class="form-control number" maxlength="10" />
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_Basic9mJulyToMarch">Basic-9m, July To March</label>
+                        <input type="text" name="em_Basic9mJulyToMarch" id="em_Basic9mJulyToMarch" ng-model="model.Basic9mJulyToMarch" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_Basic12Month">Basic-12 Month</label>
+                        <input type="text" name="em_Basic12Month" id="em_Basic12Month" ng-model="model.Basic12Month" class="form-control number" />
+                    </div>
+                </div>
+
+
+
+            </div>
+            <p class="midtitle">Address/ Communication</p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="taxComputationDetailsForm.$invalid">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.ResetForm()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
