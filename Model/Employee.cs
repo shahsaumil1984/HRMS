@@ -22,6 +22,7 @@ namespace Model
             this.LeaveMasters = new HashSet<LeaveMaster>();
             this.LeaveTakens = new HashSet<LeaveTaken>();
             this.Salaries = new HashSet<Salary>();
+            this.ItDeclarationForms = new HashSet<ItDeclarationForm>();
             this.TaxComputations = new HashSet<TaxComputation>();
         }
     
@@ -82,6 +83,8 @@ namespace Model
         public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Salary> Salaries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItDeclarationForm> ItDeclarationForms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaxComputation> TaxComputations { get; set; }
     }

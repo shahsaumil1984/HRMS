@@ -251,6 +251,7 @@
     <Compile Include="Api\EmployeeStatusHistoryController.cs" />
     <Compile Include="Api\EmployeeStatusHistoryExtendController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
+    <Compile Include="Api\ITDeclarationController.cs" />
     <Compile Include="Api\MonthController.cs" />
     <Compile Include="Api\SalaryController.cs" />
     <Compile Include="Api\TaxComputationController.cs" />
@@ -271,6 +272,7 @@
     <Compile Include="Controllers\ManageRolesController.cs" />
     <Compile Include="Controllers\MonthController.cs" />
     <Compile Include="Controllers\SalaryController.cs" />
+    <Compile Include="Controllers\ITDeclarationController.cs" />
     <Compile Include="Controllers\TaxComputationController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
@@ -373,6 +375,7 @@
     <Content Include="Scripts\Controllers\MonthController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
     <Content Include="Scripts\Controllers\SalaryController.js" />
+    <Content Include="Scripts\Controllers\ITDeclarationController.js" />
     <Content Include="Scripts\Controllers\TaxComputationController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -413,6 +416,7 @@
     <Content Include="Scripts\Services\HolidayCalendarService.js" />
     <Content Include="Scripts\Services\LeaveTypeService.js" />
     <Content Include="Scripts\Services\SalaryService.js" />
+    <Content Include="Scripts\Services\ITDeclarationService.js" />
     <Content Include="Scripts\Services\TaxComputationService.js" />
     <Content Include="Scripts\sticky.js" />
     <Content Include="Scripts\superfish.js" />
@@ -462,6 +466,7 @@
     <Content Include="Views\Controls\EmployeeStatusHistoryListView.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryEditView.cshtml" />
+    <Content Include="Views\ITDeclaration\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
