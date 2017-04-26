@@ -253,6 +253,7 @@
     <Compile Include="Api\GenericApiController.cs" />
     <Compile Include="Api\MonthController.cs" />
     <Compile Include="Api\SalaryController.cs" />
+    <Compile Include="Api\TaxComputationController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Controllers\ManageRolesController.cs" />
     <Compile Include="Controllers\MonthController.cs" />
     <Compile Include="Controllers\SalaryController.cs" />
+    <Compile Include="Controllers\TaxComputationController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -371,6 +373,7 @@
     <Content Include="Scripts\Controllers\MonthController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
     <Content Include="Scripts\Controllers\SalaryController.js" />
+    <Content Include="Scripts\Controllers\TaxComputationController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -410,6 +413,7 @@
     <Content Include="Scripts\Services\HolidayCalendarService.js" />
     <Content Include="Scripts\Services\LeaveTypeService.js" />
     <Content Include="Scripts\Services\SalaryService.js" />
+    <Content Include="Scripts\Services\TaxComputationService.js" />
     <Content Include="Scripts\sticky.js" />
     <Content Include="Scripts\superfish.js" />
     <Content Include="Scripts\toastr.js" />
@@ -465,6 +469,7 @@
     <Folder Include="Document\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\DocumentUpload\" />
+    <Folder Include="Views\TaxComputation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

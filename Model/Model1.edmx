@@ -142,6 +142,56 @@
           <Property Name="AlternatePhone" Type="varchar" MaxLength="15" />
           <Property Name="IsDisabled" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Employee_Audit">
+          <Key>
+            <PropertyRef Name="Employee_Audit_Id" />
+          </Key>
+          <Property Name="Employee_Audit_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PermanentAddressLine1" Type="nvarchar" MaxLength="500" />
+          <Property Name="PermanentAddressLine2" Type="nvarchar" MaxLength="500" />
+          <Property Name="PermanentAddressLine3" Type="nvarchar" MaxLength="500" />
+          <Property Name="PermanentAddressState" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentAddressCountry" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentAddressZip" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressLine1" Type="nchar" MaxLength="100" />
+          <Property Name="AddressLine2" Type="nchar" MaxLength="100" />
+          <Property Name="AddressLine3" Type="nchar" MaxLength="100" />
+          <Property Name="AddressState" Type="nchar" MaxLength="100" />
+          <Property Name="AddressCountry" Type="nchar" MaxLength="10" />
+          <Property Name="AddressZip" Type="nchar" MaxLength="10" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="DateOfjoining" Type="datetime" Nullable="false" />
+          <Property Name="ProbationPeriodEndDate" Type="datetime" Nullable="false" />
+          <Property Name="HasResigned" Type="bit" />
+          <Property Name="DateOfResignation" Type="datetime" />
+          <Property Name="LastWorkingDay" Type="datetime" />
+          <Property Name="PAN" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCardNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDCardType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SalaryAccountNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SalaryAccountBank" Type="nvarchar" MaxLength="50" />
+          <Property Name="SalaryAccountBankAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="SalaryAccountIFSCCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="UserName" Type="varchar" MaxLength="250" />
+          <Property Name="PermanentAddressCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="DesignationID" Type="int" />
+          <Property Name="EmployeePhoto" Type="varbinary(max)" />
+          <Property Name="EmployeeCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EmployeeStatusID" Type="int" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="AlternatePhone" Type="varchar" MaxLength="15" />
+          <Property Name="IsDisabled" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
             <PropertyRef Name="EmployeeDocumentID" />
@@ -282,8 +332,45 @@
           <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SalaryStatus" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="isFullAndFinal" Type="bit" />
+        </EntityType>
+        <EntityType Name="Salary_Audit">
+          <Key>
+            <PropertyRef Name="Salary_Audit_ID" />
+          </Key>
+          <Property Name="Salary_Audit_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="MonthID" Type="int" Nullable="false" />
+          <Property Name="Basic" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="HRA" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ConveyanceAllowance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="OtherAllowance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="MedicalReimbursement" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="AdvanceSalary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Incentive" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PLI" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Exgratia" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ReimbursementOfexp" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="TDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="EPF" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="ProfessionalTax" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Leave" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Advance" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="YTDS" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="Salary" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="TotalPayment" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Days" Type="int" Nullable="false" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SalaryStatus" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="isFullAndFinal" Type="bit" />
         </EntityType>
@@ -305,6 +392,84 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
           <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaxComputation">
+          <Key>
+            <PropertyRef Name="TaxComputationID" />
+          </Key>
+          <Property Name="TaxComputationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Basic3mAprilToJune" Type="int" />
+          <Property Name="BasicFromApril" Type="int" />
+          <Property Name="BasicFromJuly" Type="int" />
+          <Property Name="Basic9mJulyToMarch" Type="int" />
+          <Property Name="Basic12Month" Type="int" />
+          <Property Name="HRA3mAprilToJune" Type="int" />
+          <Property Name="HRAFromApril" Type="int" />
+          <Property Name="HRAFromJuly" Type="int" />
+          <Property Name="HRA9mJulyToMarch" Type="int" />
+          <Property Name="HRA12Month" Type="int" />
+          <Property Name="ConveyanceAllowance3mAprilToJune" Type="int" />
+          <Property Name="ConveyanceAllowanceFromApril" Type="int" />
+          <Property Name="ConveyanceAllowanceFromJuly" Type="int" />
+          <Property Name="ConveyanceAllowance9mJulyToMarch" Type="int" />
+          <Property Name="ConveyanceAllowance12Month" Type="int" />
+          <Property Name="OtherAllowance3mAprilToJune" Type="int" />
+          <Property Name="OtherAllowanceFromApril" Type="int" />
+          <Property Name="OtherAllowanceFromJuly" Type="int" />
+          <Property Name="OtherAllowance9mJulyToMarch" Type="int" />
+          <Property Name="OtherAllowance12Month" Type="int" />
+          <Property Name="MedicalReimbursement3mAprilToJune" Type="int" />
+          <Property Name="MedicalReimbursementFromApril" Type="int" />
+          <Property Name="MedicalReimbursementFromJuly" Type="int" />
+          <Property Name="MedicalReimbursement9mFromJulyToMarch" Type="int" />
+          <Property Name="MedicalReimbursement12Month" Type="int" />
+          <Property Name="Incentive3mAprilToJune" Type="int" />
+          <Property Name="IncentiveFromApril" Type="int" />
+          <Property Name="IncentiveFromJuly" Type="int" />
+          <Property Name="Incentive9mJulyToMarch" Type="int" />
+          <Property Name="Incentive12Month" Type="int" />
+          <Property Name="Total3mAprilToJune" Type="int" />
+          <Property Name="TotalFromApril" Type="int" />
+          <Property Name="TotalFromJuly" Type="int" />
+          <Property Name="Total9mJulyToMarch" Type="int" />
+          <Property Name="Total12Month" Type="int" />
+          <Property Name="EPF" Type="int" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="LessConveyanceAllowancesAllowed" Type="int" />
+          <Property Name="LessHRA3Months" Type="int" />
+          <Property Name="FourtyPercentOfBasicAprilToJune" Type="int" />
+          <Property Name="ActualHRAReceivedAprilToJune" Type="int" />
+          <Property Name="RentPaidAprilToJune" Type="int" />
+          <Property Name="LessHRA9Months" Type="int" />
+          <Property Name="LessDeduction80C" Type="int" />
+          <Property Name="EmployeeContributionToPF" Type="int" />
+          <Property Name="PPF" Type="int" />
+          <Property Name="MutualFundOrUTI" Type="int" />
+          <Property Name="InsurancePremium" Type="int" />
+          <Property Name="FourtyPercentOfBasicFromJuly" Type="int" />
+          <Property Name="ActualHRAReceivedFromJuly" Type="int" />
+          <Property Name="RentPaidAprilFromJuly" Type="int" />
+          <Property Name="LessDedution80DDeclared" Type="int" />
+          <Property Name="LessMedicalReimbursementAllowanceDeclared" Type="int" />
+          <Property Name="LessProfessionalTax" Type="int" />
+          <Property Name="TotalTaxableIncome" Type="int" />
+          <Property Name="TaxDue" Type="int" />
+          <Property Name="LessAdd87A" Type="int" />
+          <Property Name="TaxDueAfter87A" Type="int" />
+          <Property Name="EducationCess" Type="int" />
+          <Property Name="TotalTaxPayable" Type="int" />
+          <Property Name="TaxTillFebuary" Type="int" />
+          <Property Name="LessDedution80DAllowed" Type="int" />
+          <Property Name="LessMedicalReimbursementAllowanceAllowed" Type="int" />
+          <Property Name="BalanceTaxPayableAfterFebuary" Type="int" />
+          <Property Name="TaxForMarch" Type="int" />
+          <Property Name="Refund" Type="int" />
+          <Property Name="TaxPaid" Type="int" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -530,6 +695,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TaxComputation_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="TaxComputation" Type="Self.TaxComputation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TaxComputation">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HRMSModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -540,6 +717,7 @@
           <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Audit" EntityType="Self.Employee_Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDocument" EntityType="Self.EmployeeDocument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeStatus" EntityType="Self.EmployeeStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeStatusHistory" EntityType="Self.EmployeeStatusHistory" Schema="dbo" store:Type="Tables" />
@@ -549,8 +727,10 @@
           <EntitySet Name="LeaveType" EntityType="Self.LeaveType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Month" EntityType="Self.Month" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary_Audit" EntityType="Self.Salary_Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalaryStatus" EntityType="Self.SalaryStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SettingTable" EntityType="Self.SettingTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaxComputation" EntityType="Self.TaxComputation" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -622,6 +802,10 @@
           <AssociationSet Name="FK_SalaryStatus" Association="Self.FK_SalaryStatus">
             <End Role="SalaryStatus" EntitySet="SalaryStatus" />
             <End Role="Salary" EntitySet="Salary" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxComputation_Employee" Association="Self.FK_TaxComputation_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TaxComputation" EntitySet="TaxComputation" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -772,6 +956,7 @@
           <NavigationProperty Name="Salaries" Relationship="HRMSModel.FK_Salary_Employee" FromRole="Employee" ToRole="Salary" />
           <Property Name="AlternatePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="IsDisabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TaxComputations" Relationship="HRMSModel.FK_TaxComputation_Employee" FromRole="Employee" ToRole="TaxComputation" />
         </EntityType>
         <EntityType Name="EmployeeDocument">
           <Key>
@@ -1159,6 +1344,13 @@
             <End Role="SalaryStatu" EntitySet="SalaryStatus" />
             <End Role="Salary" EntitySet="Salaries" />
           </AssociationSet>
+          <EntitySet Name="Employee_Audit" EntityType="HRMSModel.Employee_Audit" />
+          <EntitySet Name="Salary_Audit" EntityType="HRMSModel.Salary_Audit" />
+          <EntitySet Name="TaxComputations" EntityType="HRMSModel.TaxComputation" />
+          <AssociationSet Name="FK_TaxComputation_Employee" Association="HRMSModel.FK_TaxComputation_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="TaxComputation" EntitySet="TaxComputations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Salary">
           <Key>
@@ -1241,6 +1433,184 @@
             </Principal>
             <Dependent Role="Salary">
               <PropertyRef Name="SalaryStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Employee_Audit">
+          <Key>
+            <PropertyRef Name="Employee_Audit_Id" />
+          </Key>
+          <Property Name="Employee_Audit_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressZip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressLine3" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressState" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="AddressCountry" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AddressZip" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="DateOfjoining" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProbationPeriodEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HasResigned" Type="Boolean" />
+          <Property Name="DateOfResignation" Type="DateTime" Precision="3" />
+          <Property Name="LastWorkingDay" Type="DateTime" Precision="3" />
+          <Property Name="PAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDCardType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountBank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountBankAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SalaryAccountIFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PermanentAddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DesignationID" Type="Int32" />
+          <Property Name="EmployeePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EmployeeCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeStatusID" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="AlternatePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IsDisabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salary_Audit">
+          <Key>
+            <PropertyRef Name="Salary_Audit_ID" />
+          </Key>
+          <Property Name="Salary_Audit_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="MonthID" Type="Int32" Nullable="false" />
+          <Property Name="Basic" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="HRA" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ConveyanceAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="OtherAllowance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="MedicalReimbursement" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="AdvanceSalary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Incentive" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="PLI" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Exgratia" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ReimbursementOfexp" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="TDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="EPF" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="ProfessionalTax" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Leave" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Advance" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="YTDS" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="TotalPayment" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Days" Type="Int32" Nullable="false" />
+          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SalaryStatus" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="isFullAndFinal" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TaxComputation">
+          <Key>
+            <PropertyRef Name="TaxComputationID" />
+          </Key>
+          <Property Name="TaxComputationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Basic3mAprilToJune" Type="Int32" />
+          <Property Name="BasicFromApril" Type="Int32" />
+          <Property Name="BasicFromJuly" Type="Int32" />
+          <Property Name="Basic9mJulyToMarch" Type="Int32" />
+          <Property Name="Basic12Month" Type="Int32" />
+          <Property Name="HRA3mAprilToJune" Type="Int32" />
+          <Property Name="HRAFromApril" Type="Int32" />
+          <Property Name="HRAFromJuly" Type="Int32" />
+          <Property Name="HRA9mJulyToMarch" Type="Int32" />
+          <Property Name="HRA12Month" Type="Int32" />
+          <Property Name="ConveyanceAllowance3mAprilToJune" Type="Int32" />
+          <Property Name="ConveyanceAllowanceFromApril" Type="Int32" />
+          <Property Name="ConveyanceAllowanceFromJuly" Type="Int32" />
+          <Property Name="ConveyanceAllowance9mJulyToMarch" Type="Int32" />
+          <Property Name="ConveyanceAllowance12Month" Type="Int32" />
+          <Property Name="OtherAllowance3mAprilToJune" Type="Int32" />
+          <Property Name="OtherAllowanceFromApril" Type="Int32" />
+          <Property Name="OtherAllowanceFromJuly" Type="Int32" />
+          <Property Name="OtherAllowance9mJulyToMarch" Type="Int32" />
+          <Property Name="OtherAllowance12Month" Type="Int32" />
+          <Property Name="MedicalReimbursement3mAprilToJune" Type="Int32" />
+          <Property Name="MedicalReimbursementFromApril" Type="Int32" />
+          <Property Name="MedicalReimbursementFromJuly" Type="Int32" />
+          <Property Name="MedicalReimbursement9mFromJulyToMarch" Type="Int32" />
+          <Property Name="MedicalReimbursement12Month" Type="Int32" />
+          <Property Name="Incentive3mAprilToJune" Type="Int32" />
+          <Property Name="IncentiveFromApril" Type="Int32" />
+          <Property Name="IncentiveFromJuly" Type="Int32" />
+          <Property Name="Incentive9mJulyToMarch" Type="Int32" />
+          <Property Name="Incentive12Month" Type="Int32" />
+          <Property Name="Total3mAprilToJune" Type="Int32" />
+          <Property Name="TotalFromApril" Type="Int32" />
+          <Property Name="TotalFromJuly" Type="Int32" />
+          <Property Name="Total9mJulyToMarch" Type="Int32" />
+          <Property Name="Total12Month" Type="Int32" />
+          <Property Name="EPF" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="LessConveyanceAllowancesAllowed" Type="Int32" />
+          <Property Name="LessHRA3Months" Type="Int32" />
+          <Property Name="FourtyPercentOfBasicAprilToJune" Type="Int32" />
+          <Property Name="ActualHRAReceivedAprilToJune" Type="Int32" />
+          <Property Name="RentPaidAprilToJune" Type="Int32" />
+          <Property Name="LessHRA9Months" Type="Int32" />
+          <Property Name="LessDeduction80C" Type="Int32" />
+          <Property Name="EmployeeContributionToPF" Type="Int32" />
+          <Property Name="PPF" Type="Int32" />
+          <Property Name="MutualFundOrUTI" Type="Int32" />
+          <Property Name="InsurancePremium" Type="Int32" />
+          <Property Name="FourtyPercentOfBasicFromJuly" Type="Int32" />
+          <Property Name="ActualHRAReceivedFromJuly" Type="Int32" />
+          <Property Name="RentPaidAprilFromJuly" Type="Int32" />
+          <Property Name="LessDedution80DDeclared" Type="Int32" />
+          <Property Name="LessMedicalReimbursementAllowanceDeclared" Type="Int32" />
+          <Property Name="LessProfessionalTax" Type="Int32" />
+          <Property Name="TotalTaxableIncome" Type="Int32" />
+          <Property Name="TaxDue" Type="Int32" />
+          <Property Name="LessAdd87A" Type="Int32" />
+          <Property Name="TaxDueAfter87A" Type="Int32" />
+          <Property Name="EducationCess" Type="Int32" />
+          <Property Name="TotalTaxPayable" Type="Int32" />
+          <Property Name="TaxTillFebuary" Type="Int32" />
+          <Property Name="LessDedution80DAllowed" Type="Int32" />
+          <Property Name="LessMedicalReimbursementAllowanceAllowed" Type="Int32" />
+          <Property Name="BalanceTaxPayableAfterFebuary" Type="Int32" />
+          <Property Name="TaxForMarch" Type="Int32" />
+          <Property Name="Refund" Type="Int32" />
+          <Property Name="TaxPaid" Type="Int32" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_TaxComputation_Employee" FromRole="TaxComputation" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_TaxComputation_Employee">
+          <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HRMSModel.TaxComputation" Role="TaxComputation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TaxComputation">
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1565,6 +1935,174 @@
               <MappingFragment StoreEntitySet="SalaryStatus">
                 <ScalarProperty Name="SalaryStatusName" ColumnName="SalaryStatusName" />
                 <ScalarProperty Name="SalaryStatusID" ColumnName="SalaryStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Audit">
+            <EntityTypeMapping TypeName="HRMSModel.Employee_Audit">
+              <MappingFragment StoreEntitySet="Employee_Audit">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+                <ScalarProperty Name="AlternatePhone" ColumnName="AlternatePhone" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EmployeeStatusID" ColumnName="EmployeeStatusID" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="EmployeePhoto" ColumnName="EmployeePhoto" />
+                <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="PermanentAddressCity" ColumnName="PermanentAddressCity" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SalaryAccountIFSCCode" ColumnName="SalaryAccountIFSCCode" />
+                <ScalarProperty Name="SalaryAccountBankAddress" ColumnName="SalaryAccountBankAddress" />
+                <ScalarProperty Name="SalaryAccountBank" ColumnName="SalaryAccountBank" />
+                <ScalarProperty Name="SalaryAccountNumber" ColumnName="SalaryAccountNumber" />
+                <ScalarProperty Name="IDCardType" ColumnName="IDCardType" />
+                <ScalarProperty Name="IDCardNumber" ColumnName="IDCardNumber" />
+                <ScalarProperty Name="PAN" ColumnName="PAN" />
+                <ScalarProperty Name="LastWorkingDay" ColumnName="LastWorkingDay" />
+                <ScalarProperty Name="DateOfResignation" ColumnName="DateOfResignation" />
+                <ScalarProperty Name="HasResigned" ColumnName="HasResigned" />
+                <ScalarProperty Name="ProbationPeriodEndDate" ColumnName="ProbationPeriodEndDate" />
+                <ScalarProperty Name="DateOfjoining" ColumnName="DateOfjoining" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="AddressZip" ColumnName="AddressZip" />
+                <ScalarProperty Name="AddressCountry" ColumnName="AddressCountry" />
+                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
+                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="PermanentAddressZip" ColumnName="PermanentAddressZip" />
+                <ScalarProperty Name="PermanentAddressCountry" ColumnName="PermanentAddressCountry" />
+                <ScalarProperty Name="PermanentAddressState" ColumnName="PermanentAddressState" />
+                <ScalarProperty Name="PermanentAddressLine3" ColumnName="PermanentAddressLine3" />
+                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
+                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Employee_Audit_Id" ColumnName="Employee_Audit_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salary_Audit">
+            <EntityTypeMapping TypeName="HRMSModel.Salary_Audit">
+              <MappingFragment StoreEntitySet="Salary_Audit">
+                <ScalarProperty Name="isFullAndFinal" ColumnName="isFullAndFinal" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SalaryStatus" ColumnName="SalaryStatus" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="YTDS" ColumnName="YTDS" />
+                <ScalarProperty Name="Advance" ColumnName="Advance" />
+                <ScalarProperty Name="Leave" ColumnName="Leave" />
+                <ScalarProperty Name="ProfessionalTax" ColumnName="ProfessionalTax" />
+                <ScalarProperty Name="EPF" ColumnName="EPF" />
+                <ScalarProperty Name="TDS" ColumnName="TDS" />
+                <ScalarProperty Name="ReimbursementOfexp" ColumnName="ReimbursementOfexp" />
+                <ScalarProperty Name="Exgratia" ColumnName="Exgratia" />
+                <ScalarProperty Name="PLI" ColumnName="PLI" />
+                <ScalarProperty Name="Incentive" ColumnName="Incentive" />
+                <ScalarProperty Name="AdvanceSalary" ColumnName="AdvanceSalary" />
+                <ScalarProperty Name="MedicalReimbursement" ColumnName="MedicalReimbursement" />
+                <ScalarProperty Name="OtherAllowance" ColumnName="OtherAllowance" />
+                <ScalarProperty Name="ConveyanceAllowance" ColumnName="ConveyanceAllowance" />
+                <ScalarProperty Name="HRA" ColumnName="HRA" />
+                <ScalarProperty Name="Basic" ColumnName="Basic" />
+                <ScalarProperty Name="MonthID" ColumnName="MonthID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Salary_Audit_ID" ColumnName="Salary_Audit_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxComputations">
+            <EntityTypeMapping TypeName="HRMSModel.TaxComputation">
+              <MappingFragment StoreEntitySet="TaxComputation">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="TaxPaid" ColumnName="TaxPaid" />
+                <ScalarProperty Name="Refund" ColumnName="Refund" />
+                <ScalarProperty Name="TaxForMarch" ColumnName="TaxForMarch" />
+                <ScalarProperty Name="BalanceTaxPayableAfterFebuary" ColumnName="BalanceTaxPayableAfterFebuary" />
+                <ScalarProperty Name="LessMedicalReimbursementAllowanceAllowed" ColumnName="LessMedicalReimbursementAllowanceAllowed" />
+                <ScalarProperty Name="LessDedution80DAllowed" ColumnName="LessDedution80DAllowed" />
+                <ScalarProperty Name="TaxTillFebuary" ColumnName="TaxTillFebuary" />
+                <ScalarProperty Name="TotalTaxPayable" ColumnName="TotalTaxPayable" />
+                <ScalarProperty Name="EducationCess" ColumnName="EducationCess" />
+                <ScalarProperty Name="TaxDueAfter87A" ColumnName="TaxDueAfter87A" />
+                <ScalarProperty Name="LessAdd87A" ColumnName="LessAdd87A" />
+                <ScalarProperty Name="TaxDue" ColumnName="TaxDue" />
+                <ScalarProperty Name="TotalTaxableIncome" ColumnName="TotalTaxableIncome" />
+                <ScalarProperty Name="LessProfessionalTax" ColumnName="LessProfessionalTax" />
+                <ScalarProperty Name="LessMedicalReimbursementAllowanceDeclared" ColumnName="LessMedicalReimbursementAllowanceDeclared" />
+                <ScalarProperty Name="LessDedution80DDeclared" ColumnName="LessDedution80DDeclared" />
+                <ScalarProperty Name="RentPaidAprilFromJuly" ColumnName="RentPaidAprilFromJuly" />
+                <ScalarProperty Name="ActualHRAReceivedFromJuly" ColumnName="ActualHRAReceivedFromJuly" />
+                <ScalarProperty Name="FourtyPercentOfBasicFromJuly" ColumnName="FourtyPercentOfBasicFromJuly" />
+                <ScalarProperty Name="InsurancePremium" ColumnName="InsurancePremium" />
+                <ScalarProperty Name="MutualFundOrUTI" ColumnName="MutualFundOrUTI" />
+                <ScalarProperty Name="PPF" ColumnName="PPF" />
+                <ScalarProperty Name="EmployeeContributionToPF" ColumnName="EmployeeContributionToPF" />
+                <ScalarProperty Name="LessDeduction80C" ColumnName="LessDeduction80C" />
+                <ScalarProperty Name="LessHRA9Months" ColumnName="LessHRA9Months" />
+                <ScalarProperty Name="RentPaidAprilToJune" ColumnName="RentPaidAprilToJune" />
+                <ScalarProperty Name="ActualHRAReceivedAprilToJune" ColumnName="ActualHRAReceivedAprilToJune" />
+                <ScalarProperty Name="FourtyPercentOfBasicAprilToJune" ColumnName="FourtyPercentOfBasicAprilToJune" />
+                <ScalarProperty Name="LessHRA3Months" ColumnName="LessHRA3Months" />
+                <ScalarProperty Name="LessConveyanceAllowancesAllowed" ColumnName="LessConveyanceAllowancesAllowed" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EPF" ColumnName="EPF" />
+                <ScalarProperty Name="Total12Month" ColumnName="Total12Month" />
+                <ScalarProperty Name="Total9mJulyToMarch" ColumnName="Total9mJulyToMarch" />
+                <ScalarProperty Name="TotalFromJuly" ColumnName="TotalFromJuly" />
+                <ScalarProperty Name="TotalFromApril" ColumnName="TotalFromApril" />
+                <ScalarProperty Name="Total3mAprilToJune" ColumnName="Total3mAprilToJune" />
+                <ScalarProperty Name="Incentive12Month" ColumnName="Incentive12Month" />
+                <ScalarProperty Name="Incentive9mJulyToMarch" ColumnName="Incentive9mJulyToMarch" />
+                <ScalarProperty Name="IncentiveFromJuly" ColumnName="IncentiveFromJuly" />
+                <ScalarProperty Name="IncentiveFromApril" ColumnName="IncentiveFromApril" />
+                <ScalarProperty Name="Incentive3mAprilToJune" ColumnName="Incentive3mAprilToJune" />
+                <ScalarProperty Name="MedicalReimbursement12Month" ColumnName="MedicalReimbursement12Month" />
+                <ScalarProperty Name="MedicalReimbursement9mFromJulyToMarch" ColumnName="MedicalReimbursement9mFromJulyToMarch" />
+                <ScalarProperty Name="MedicalReimbursementFromJuly" ColumnName="MedicalReimbursementFromJuly" />
+                <ScalarProperty Name="MedicalReimbursementFromApril" ColumnName="MedicalReimbursementFromApril" />
+                <ScalarProperty Name="MedicalReimbursement3mAprilToJune" ColumnName="MedicalReimbursement3mAprilToJune" />
+                <ScalarProperty Name="OtherAllowance12Month" ColumnName="OtherAllowance12Month" />
+                <ScalarProperty Name="OtherAllowance9mJulyToMarch" ColumnName="OtherAllowance9mJulyToMarch" />
+                <ScalarProperty Name="OtherAllowanceFromJuly" ColumnName="OtherAllowanceFromJuly" />
+                <ScalarProperty Name="OtherAllowanceFromApril" ColumnName="OtherAllowanceFromApril" />
+                <ScalarProperty Name="OtherAllowance3mAprilToJune" ColumnName="OtherAllowance3mAprilToJune" />
+                <ScalarProperty Name="ConveyanceAllowance12Month" ColumnName="ConveyanceAllowance12Month" />
+                <ScalarProperty Name="ConveyanceAllowance9mJulyToMarch" ColumnName="ConveyanceAllowance9mJulyToMarch" />
+                <ScalarProperty Name="ConveyanceAllowanceFromJuly" ColumnName="ConveyanceAllowanceFromJuly" />
+                <ScalarProperty Name="ConveyanceAllowanceFromApril" ColumnName="ConveyanceAllowanceFromApril" />
+                <ScalarProperty Name="ConveyanceAllowance3mAprilToJune" ColumnName="ConveyanceAllowance3mAprilToJune" />
+                <ScalarProperty Name="HRA12Month" ColumnName="HRA12Month" />
+                <ScalarProperty Name="HRA9mJulyToMarch" ColumnName="HRA9mJulyToMarch" />
+                <ScalarProperty Name="HRAFromJuly" ColumnName="HRAFromJuly" />
+                <ScalarProperty Name="HRAFromApril" ColumnName="HRAFromApril" />
+                <ScalarProperty Name="HRA3mAprilToJune" ColumnName="HRA3mAprilToJune" />
+                <ScalarProperty Name="Basic12Month" ColumnName="Basic12Month" />
+                <ScalarProperty Name="Basic9mJulyToMarch" ColumnName="Basic9mJulyToMarch" />
+                <ScalarProperty Name="BasicFromJuly" ColumnName="BasicFromJuly" />
+                <ScalarProperty Name="BasicFromApril" ColumnName="BasicFromApril" />
+                <ScalarProperty Name="Basic3mAprilToJune" ColumnName="Basic3mAprilToJune" />
+                <ScalarProperty Name="TaxComputationID" ColumnName="TaxComputationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

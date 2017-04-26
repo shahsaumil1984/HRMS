@@ -88,6 +88,7 @@
     <Compile Include="HolidayCalendarService.cs" />
     <Compile Include="LeaveTypeService.cs" />
     <Compile Include="SalaryService.cs" />
+    <Compile Include="TaxComputationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

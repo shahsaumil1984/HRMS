@@ -12,20 +12,10 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Employee_Audit
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
-        {
-            this.EmployeeDocuments = new HashSet<EmployeeDocument>();
-            this.EmployeeStatusHistories = new HashSet<EmployeeStatusHistory>();
-            this.LeaveMasters = new HashSet<LeaveMaster>();
-            this.LeaveTakens = new HashSet<LeaveTaken>();
-            this.Salaries = new HashSet<Salary>();
-            this.TaxComputations = new HashSet<TaxComputation>();
-        }
-    
-        public int EmployeeID { get; set; }
+        public int Employee_Audit_Id { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
@@ -69,20 +59,5 @@ namespace Model
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string AlternatePhone { get; set; }
         public bool IsDisabled { get; set; }
-    
-        public virtual Designation Designation { get; set; }
-        public virtual EmployeeStatu EmployeeStatu { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EmployeeStatusHistory> EmployeeStatusHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LeaveMaster> LeaveMasters { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Salary> Salaries { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TaxComputation> TaxComputations { get; set; }
     }
 }
