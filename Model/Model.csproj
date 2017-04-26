@@ -101,6 +101,9 @@
     <Compile Include="HolidayCalendar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ItDeclarationForm.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="LeaveMaster.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -133,9 +136,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SalaryStatu.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Salary_Audit.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SettingTable.cs">

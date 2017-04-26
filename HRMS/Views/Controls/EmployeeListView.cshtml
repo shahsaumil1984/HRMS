@@ -61,6 +61,7 @@
                             <th class="text-left">Documents</th>
                             <th class="text-left">Tax Declaration</th>
                             <th class="text-left">Tax Computation</th>
+                            <th class="text-left">IT Declaration</th>
                             <th class="text-left">Edit</th>
                             <th class="text-left">Disable</th>                          
                         </tr>
@@ -118,6 +119,11 @@
                             <td class="text-left">
                                 <a href="/TaxComputation?EmployeeID={{r.EmployeeID}}">
                                     <img src="~/Content/images/tax-computation.png" alt="Tax Computation" title="Tax Computation" width="30" />
+                                </a>
+                            </td>
+                            <td class="text-left">
+                                <a href="/ITDeclaration?employeeID={{r.EmployeeID}}">
+                                    <img src="~/Content/images/manage-document-icon.png" alt="IT Declaration Form" title="IT Declaration Form" width="30" />
                                 </a>
                             </td>
                             <td class="text-left">
