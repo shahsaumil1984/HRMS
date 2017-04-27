@@ -1,0 +1,91 @@
+
+@model ViewModel.MasterViewModel
+@using Model
+
+
+
+<div class="listView" id="itDeclarationListView">
+    <div class="middlewrap">
+
+          
+
+        <div class="table-responsive tbl-scroll">
+            <h3 class="title"> <span>IT Declaration for @ViewBag.Name</span> </h3>
+            <table class="table table-condensed table-hover"
+                   id="itDeclarationGrid"
+                   data-ui-binding="true"
+                   data-entity-key="ITDeclarationID"
+                   data-service-object="itDeclarationService"
+                   data-default-orderby="Year"
+                   cellspacing="0" cellpadding="0" border="0"
+                   data-page-size="10">
+                <thead class="tblaction">
+                    <tr>
+                        <td colspan="6">
+                            <div class="form-group m-0">
+                                <input type="text"
+                                       data-search-fields="Year"
+                                       data-search-list="itDeclarationGrid"
+                                       data-default-focus="true" />
+                                &nbsp;
+                                <select id="statusFilter" data-filter-list="taxComputationGrid" data-filter-field="EmployeeID" style="display:none">
+                                    <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
+                                </select>
+                                &nbsp;
+                                <button type="button" ng-click="ub.NewITDeclarationForm('taxComputationDetailsForm', true, '')" class="btn btn-sm">Add New</button>
+                                &nbsp;
+                                <button type="button" id="btnBack" class="btn btn-sm" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");">Back</button>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+
+                <thead>
+                    <tr>
+
+                        <th class="text-left">Year</th>
+                        <th class="text-left">TotalTaxableIncome</th>
+                        <th class="text-left">TotalTaxPayable</th>
+                        <th class="text-left">Refund</th>
+                        <th class="text-left">Edit</th>
+                        <th class="text-left">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr alt=$index%2 ng-repeat="r in rows">
+
+                        <td class="text-left">{{r.Year}}</td>
+                        <td class="text-left">{{r.TotalTaxableIncome}}</td>
+                        <td class="text-left">{{r.TotalTaxPayable}}</td>
+                        <td class="text-left">{{r.Refund}}</td>
+                        <td class="text-left">
+                            <a href='javascript:;' ng-click="ub.LoadForm('taxComputationDetailsForm',  r.EmployeeID , true, null)">
+                                <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" />
+                            </a>
+                        </td>
+                        <td class="text-left">
+                            <a href='javascript:;' ng-click="ub.DisableEmployee(r.EmployeeID)" ng-class="{'not-active':r.IsDisabled}">
+                                <img src="~/Content/images/delete.png" alt="Delete" title="Delete" width="30" />
+                            </a>
+                        </td>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6" align="center">
+                            <div id="monthPagination">
+                                <span>{{pageText}}</span>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><</span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>></span></button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
