@@ -13,7 +13,7 @@ namespace HRMS.Controllers
         [Authorize(Roles = "Accountant")]
         public ActionResult Index(int EmployeeID)
         {
-             
+              
             ViewBag.EmployeeID = EmployeeID;
             Service.EmployeeService service = new Service.EmployeeService();
             Employee objEmployee = service.GetById(EmployeeID);
