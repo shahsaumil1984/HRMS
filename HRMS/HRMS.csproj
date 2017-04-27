@@ -474,6 +474,7 @@
     <Content Include="Views\Controls\TaxComputationDetailsView.cshtml" />
     <Content Include="Views\ITDeclaration\Index.cshtml" />
     <Content Include="Views\Controls\ITDeclarationDetailsView.cshtml" />
+    <Content Include="Views\Controls\ITDeclarationListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
