@@ -426,6 +426,7 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\ITDeclaration\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -472,7 +473,6 @@
     <Content Include="Views\TaxComputation\Index.cshtml" />
     <Content Include="Views\Controls\TaxComputationListView.cshtml" />
     <Content Include="Views\Controls\TaxComputationDetailsView.cshtml" />
-    <Content Include="Views\ITDeclaration\Index.cshtml" />
     <Content Include="Views\Controls\ITDeclarationDetailsView.cshtml" />
     <Content Include="Views\Controls\ITDeclarationListView.cshtml" />
   </ItemGroup>

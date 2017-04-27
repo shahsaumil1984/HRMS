@@ -18,6 +18,7 @@ namespace HRMS.Controllers
             Service.EmployeeService service = new Service.EmployeeService();
             Employee objEmployee = service.GetById(EmployeeID);
             ViewBag.Name = objEmployee.FullName;
+            ViewBag.EmployeeCode = objEmployee.EmployeeCode;
             return View();   
         }
     }

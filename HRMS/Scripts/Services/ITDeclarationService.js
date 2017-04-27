@@ -1,5 +1,5 @@
 ﻿
-function ITDeclarationService() { } ITDeclarationService.prototype = new Proxy('ITDeclarationForm', 'ITDeclarationID');
+function ITDeclarationService() { } ITDeclarationService.prototype = new Proxy('ITDeclaration', 'ItDeclarationID');
   
 
 var itDeclarationService = new ITDeclarationService();

@@ -8,12 +8,13 @@
          
         <div class="table-responsive tbl-scroll">
             <h3 class="title"> <span>IT Declaration for @ViewBag.Name</span> </h3>
+            <input type="hidden" id="hdnEmployeeID" value="@ViewBag.EmployeeID" />
             <table class="table table-condensed table-hover"
                    id="itDeclarationGrid"
                    data-ui-binding="true"
-                   data-entity-key="ITDeclarationID"
+                   data-entity-key="ItDeclarationID"
                    data-service-object="itDeclarationService"
-                   data-default-orderby="Year"
+                   data-default-orderby="ItDeclarationYear"
                    cellspacing="0" cellpadding="0" border="0"
                    data-page-size="10">
                 <thead class="tblaction">
@@ -21,15 +22,15 @@
                         <td colspan="6">
                             <div class="form-group m-0">
                                 <input type="text"
-                                       data-search-fields="Year"
+                                       data-search-fields="ItDeclarationYear"
                                        data-search-list="itDeclarationGrid"
                                        data-default-focus="true" />
                                 &nbsp;
-                                <select id="statusFilter" data-filter-list="taxComputationGrid" data-filter-field="EmployeeID" style="display:none">
+                                <select id="statusFilter" data-filter-list="itDeclarationGrid" data-filter-field="EmployeeID" style="display:none">
                                     <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
                                 </select>
                                 &nbsp;
-                                <button type="button" ng-click="ub.NewITDeclarationForm('taxComputationDetailsForm', true, '')" class="btn btn-sm">Add New</button>
+                                <button type="button" ng-click="ub.NewItDeclarationDetailForm('itDeclarationDetailsForm',true,'')" class="btn btn-sm">Add New</button>
                                 &nbsp;
                                 <button type="button" id="btnBack" class="btn btn-sm" onclick="@(" window.location.href='" + @Url.Action("Index", "Employee") + "' ");">Back</button>
                             </div>
@@ -52,17 +53,17 @@
 
                     <tr alt=$index%2 ng-repeat="r in rows">
 
-                        <td class="text-left">{{r.ItDeclarationYearYear}}</td>
+                        <td class="text-left">{{r.ItDeclarationYear}}</td>
                         <td class="text-left">@ViewBag.Name</td>
                         <td class="text-left">{{r.PanNo}}</td>
                         <td class="text-left">{{r.Date}}</td>
                         <td class="text-left">
-                            <a href='javascript:;' ng-click="ub.LoadForm('taxComputationDetailsForm',  r.EmployeeID , true, null)">
+                            <a href='javascript:;' ng-click="ub.LoadForm('itDeclarationDetailsForm',  r.ItDeclarationID , true, null)">
                                 <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" />
                             </a>
                         </td>
                         <td class="text-left">
-                            <a href='javascript:;' ng-click="ub.DisableEmployee(r.EmployeeID)" ng-class="{'not-active':r.IsDisabled}">
+                            <a href='javascript:;' ng-click="lb.Delete(r.ItDeclarationID, 'Are you sure you want to delete this IT Declaration?' , ub.itDeclarationDeleteCallback)">
                                 <img src="~/Content/images/delete.png" alt="Delete" title="Delete" width="30" />
                             </a>
                         </td>
