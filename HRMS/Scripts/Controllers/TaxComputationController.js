@@ -9,14 +9,14 @@
 // Event Handlers
 //----------------------------------------------
 $(document).ready(function () {
-    _.Initialize(function (status, msg) {       
-        // Initialization Code Goes Here
+    _.Initialize(function (status, msg) {      
     });
 });
 
 // Form Validation
 //----------------------------------------------
 _.NewTaxComputationForm = function (formName, hideList, callback) {
+    
     var fb = this.FormBindings[formName];
     if (fb.detailsWindow) {
         fb.validator.resetForm();
@@ -25,6 +25,10 @@ _.NewTaxComputationForm = function (formName, hideList, callback) {
     var df = fb.detailsWindow.find("[data-default-focus='true']");
     if (df != null && df.length > 0) {
         setTimeout('$("#' + df[0].id + '").focus()', 400);
+    }
+    debugger;
+    if (taxComputationDetailsForm.model().Year == 0) {
+        taxComputationDetailsForm.SetValue('Year', null);
     }
     taxComputationDetailsForm.SetValue('EmployeeID', $('#hdnEmployeeID').val());
 }

@@ -23,10 +23,13 @@
                     <tr>
                         <td colspan="6">
                             <div class="form-group m-0">
-                                <input type="text"
-                                       data-search-fields="Year"
-                                       data-search-list="taxComputationGrid"
-                                       data-default-focus="true" />
+                                <select id="yearFilter" data-filter-list="taxComputationGrid" data-filter-field="Year" >
+                                    <option value="">Select Year</option>
+                                    @foreach (var year in Model.Years)
+                                    {
+                                        <option>@year</option>
+                                    }
+                                </select>
                                 &nbsp;
                                 <select id="statusFilter" data-filter-list="taxComputationGrid" data-filter-field="EmployeeID" style="display:none">
                                     <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>                                   
@@ -44,9 +47,10 @@
                     <tr>
                                
                         <th class="text-left">Year</th>
-                        <th class="text-left">TotalTaxableIncome</th>
-                        <th class="text-left">TotalTaxPayable</th>
+                        <th class="text-left">Total Taxable Income</th>
+                        <th class="text-left">Total Tax Payable</th>
                         <th class="text-left">Refund</th>
+                        <th class="text-left">Tax Paid</th>
                         <th class="text-left">Edit</th>
                         <th class="text-left">Delete</th>                   
                     </tr>
@@ -59,6 +63,7 @@
                         <td class="text-left">{{r.TotalTaxableIncome}}</td>
                         <td class="text-left">{{r.TotalTaxPayable}}</td>
                         <td class="text-left">{{r.Refund}}</td>
+                        <td class="text-left">{{r.TaxPaid}}</td>
                         <td class="text-left">
                             <a href='javascript:;' ng-click="ub.LoadForm('taxComputationDetailsForm',  r.TaxComputationID , true, '')">
                                 <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" />
@@ -72,7 +77,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="6" align="center">
+                        <td colspan="7" align="center">
                             <div id="monthPagination">
                                 <span>{{pageText}}</span>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>

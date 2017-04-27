@@ -826,7 +826,6 @@ UserInterfaceBinder.prototype.BuildFilter = function (filters) {
 }
 
 UserInterfaceBinder.prototype.LoadForm = function (formName, id, hideList, callback) {
-    debugger;
     var fb = this.FormBindings[formName];
     if (fb) {
         if (fb.detailsWindow) {
@@ -1180,7 +1179,6 @@ FormBinder.prototype.SaveForm = function () {
 }
 
 FormBinder.prototype.Save = function (callback) {
-    debugger;
     var fb = this;
     fb.ClearError();
 
