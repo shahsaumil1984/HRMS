@@ -177,7 +177,7 @@ table.table th {
     margin-top: 20px;
 }
 
-.btn-group {
+.btn-group, .btn-grp {
     margin-bottom: 15px;
 }
 
@@ -229,7 +229,8 @@ footer {
     font-family: "Open Sans",sans-serif;
     font-size: 13px;
     line-height: 22px;
-    padding: 31px 0 43px;
+    /*padding: 31px 0 43px;*/
+    padding:8px 15px;
     text-align: center;
     position: fixed;
     bottom: 0;

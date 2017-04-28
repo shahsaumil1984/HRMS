@@ -28,7 +28,7 @@
             <th><a href="#" data-sort-field="StartDate">Start Date</a></th>
             <th><a href="#" data-sort-field="EndDate">End Date</a></th>
             <th><a href="#" data-sort-field="StatusNote">Status Note</a></th>
-            <th class="text-left">Edit</th>
+            <th class="text-center">Edit</th>
         </tr>
         <tbody ng-repeat="r in rows">
             <tr alt=$index%2>
@@ -36,9 +36,9 @@
                 <td class="col-md-1"> <span>{{r.StartDate | date:'dd/MM/yyyy'}}</span></td>
                 <td class="col-md-1"> <span>{{r.EndDate | date:'dd/MM/yyyy'}}</span></td>
                 <td class="col-md-1"> <span>{{r.StatusNote}}</span></td>
-                <td class="col-md-1">
+                <td class="col-md-1 text-center">
                     <a href='javascript:;' ng-click="ub.LoadForm('EmployeeStatusHistoryForm',r.EmployeeStatusID , true, null)">
-                        <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" />
+                        <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="20" />
                     </a>
                 </td>
             </tr>

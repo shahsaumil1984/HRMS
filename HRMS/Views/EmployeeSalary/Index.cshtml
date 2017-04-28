@@ -27,7 +27,7 @@
         <h3 class="title"> <span>Salary for @ViewBag.Month</span> </h3>
         <input type="hidden" id="currentMonth" name="currentMonth" value="@ViewBag.Month" />
         @*<h3 class="title"> <span>Employees</span> </h3>*@
-        <div class="table-responsive tbl-scroll">
+        <div class="table-responsive">
             <table class="table table-condensed table-hover"
                    id="employeeSalaryGrid"
                    data-ui-binding="true"
@@ -41,14 +41,15 @@
                         <td>
                             <div>
                                 <label>File to Upload: <input ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" type="file" name="file" id="fileUpload" class="required" accept=".csv" />(10MB max size)</label>
-                                <button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn btn-primary btn-sm">Upload CSV</button>
+                               
                             </div>
                         </td>
+                        <td><div><button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn btn-primary btn-sm">Upload CSV</button></div></td>
                     </tr>
                     <tr>
                         <td>
                             <div>
-                                <input type="text"
+                                <input type="text" class="form-control"
                                        data-search-fields="FullName"
                                        data-search-list="employeeSalaryGrid"
                                        data-default-focus="true" />
@@ -58,7 +59,7 @@
                         <td>
                             <div>
 
-                                <select data-filter-field="SalaryStatus" id="selSalaryStatus"
+                                <select data-filter-field="SalaryStatus" id="selSalaryStatus" class="form-control" style="width:50%"
                                         data-filter-list="employeeSalaryGrid"
                                         data-default-focus="true">
                                     <option value="">All</option>
@@ -78,12 +79,12 @@
 
                 <thead>
                     <tr>
-                        <th>Employee Name</th>
+                        <th style="width:15%">Employee Name</th>
                         <th class="text-left">Employee Code</th>
                         <th class="text-left">Salary Status</th>
-                        <th class="text-left">Edit</th>
-                        <th>Download PDF</th>
-                        <th>Send Email</th>
+                        <th class="text-center">Edit</th>
+                        <th style="width:15%" class="text-center">Download PDF</th>
+                        <th class="text-center">Send Email</th>
                     </tr>
                 </thead>
 
@@ -106,17 +107,17 @@
                         </td>
                         <td class="text-left">{{r.EmployeeCode}}</td>
                         <td class="text-left">{{r.Salaries[0].SalaryStatu.SalaryStatusName}}</td>
-                        <td class="text-left">
-                            <a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)"><img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" /></a>
+                        <td class="text-center">
+                            <a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)"><img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="20" /></a>
                         </td>
-                        <td class="col-md-1">
+                        <td class="col-md-1 text-center">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="30" />
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="20" />
                             </a>
                         </td>
-                        <td class="col-md-1">
+                        <td class="col-md-1 text-center">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="30" />
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="20" />
                             </a>
                         </td>
                 </tbody>
@@ -191,7 +192,7 @@
             </div>
 
             <div class="row">
-                <button type="button" ng-disabled="model.Basic != 0" class="btn" ng-click="ub.PopulateData(model.EmployeeID,@(ViewBag.MonthID))">Populate Data</button>
+                <button type="button" ng-disabled="model.Basic != 0" class="btn btn-primary btn-sm" ng-click="ub.PopulateData(model.EmployeeID,@(ViewBag.MonthID))">Populate Data</button>
             </div>
 
             <div class="row">

@@ -45,7 +45,7 @@ namespace Model
         public virtual DbSet<Salary> Salaries { get; set; }
         public virtual DbSet<SalaryStatu> SalaryStatus { get; set; }
         public virtual DbSet<Employee_Audit> Employee_Audit { get; set; }
-        public virtual DbSet<ItDeclarationForm> ItDeclarationForms { get; set; }
         public virtual DbSet<TaxComputation> TaxComputations { get; set; }
+        public virtual DbSet<ItDeclarationForm> ItDeclarationForms { get; set; }
     }
 }

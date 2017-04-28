@@ -14,6 +14,7 @@ namespace Model
     
     public partial class ItDeclarationForm
     {
+        public int ItDeclarationID { get; set; }
         public int EmployeeID { get; set; }
         public string ItDeclarationYear { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
@@ -54,7 +55,6 @@ namespace Model
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
-        public int ItDeclarationID { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

@@ -91,7 +91,8 @@ namespace Api
                             o.CreatedBy,
                             o.CreatedDate,
                             o.ModifiedBy,
-                            o.ModifiedDate
+                            o.ModifiedDate,
+                            o.TaxTillMonth
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
@@ -195,7 +196,8 @@ namespace Api
                                       o.CreatedBy,
                                       o.CreatedDate,
                                       o.ModifiedBy,
-                                      o.ModifiedDate
+                                      o.ModifiedDate,
+                                      o.TaxTillMonth
                                   }).ToList().Select(o => new TaxComputation
                                   {
                                       TaxComputationID = o.TaxComputationID,
@@ -271,7 +273,8 @@ namespace Api
                                       CreatedBy = o.CreatedBy,
                                       CreatedDate = o.CreatedDate,
                                       ModifiedBy = o.ModifiedBy,
-                                      ModifiedDate = o.ModifiedDate
+                                      ModifiedDate = o.ModifiedDate,
+                                      TaxTillMonth=o.TaxTillMonth
                                   }).Single<TaxComputation>();
             return obj;
         }

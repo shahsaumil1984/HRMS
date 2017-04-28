@@ -21,30 +21,34 @@
                    data-page-size="10">
                 <thead class="tblaction">
                     <tr>
-                        <td colspan="6">
-                            <div class="form-group m-0">
-                                <input type="text"
+                        <td colspan="9">
+                            <table class="col-md-7">
+                                <tr>
+                                    <td class="col-md-4">
+                                        <input type="text" class="form-control"
                                        data-search-fields="FullName, Email, Phone"
                                        data-search-list="employeeGrid"
                                        data-default-focus="true" />
-                                &nbsp;
-                                <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="EmployeeStatusID">
-                                    <option value="">Select Status</option>
-                                    @foreach (var status in Model.EmployeeStatus)
-                                    {
-                                        <option value="@status.StatusID">@status.Status</option>
-                                    }
-                                </select>
-                                &nbsp;
-                                <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="IsDisabled">
-                                    <option value="">All</option>         
-                                    <option value="true">Disabled</option>
-                                    <option value="false">Enabled</option>                                    
-                                </select>
-                                @*<input type="checkbox" id="disabledFilter"  data-checked-fields="IsDisabled" data-search-list="employeeGrid" data-default-focus="false" />*@
-                                &nbsp;
-                                <button type="button" ng-click="ub.NewEmployeeForm('employeeDetailsForm', true, 'EmployeeNewCallback')" class="btn btn-primary btn-sm">Add New</button>                                
-                            </div>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="EmployeeStatusID" class="form-control">
+                                            <option value="">Select Status</option>
+                                            @foreach (var status in Model.EmployeeStatus)
+                                            {
+                                                <option value="@status.StatusID">@status.Status</option>
+                                            }
+                                        </select>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <select id="statusFilter" data-filter-list="employeeGrid" data-filter-field="IsDisabled" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="true">Disabled</option>
+                                            <option value="false">Enabled</option>
+                                        </select>
+                                    </td>
+                                    <td class="col-md-4"><button type="button" ng-click="ub.NewEmployeeForm('employeeDetailsForm', true, 'EmployeeNewCallback')" class="btn btn-primary">Add New</button>   </td>
+                                </tr>
+                            </table>                          
                         </td>
                     </tr>
                 </thead>
@@ -54,15 +58,15 @@
                             <th><a href="#" data-sort-field="FullName">Employee Name</a></th>
                             @*<th class="text-center">Role</th>
                             <th class="text-center">DOJ</th>
-                            <th class="text-left address">Address</th>*@
-                            <th class="text-left">Phone</th>         
-                            <th class="text-left">Status</th>                                                   
-                            <th class="text-left">Manage Roles</th>
-                            <th class="text-left">Documents</th>
-                            <th class="text-left">IT Declaration</th>
-                            <th class="text-left">Tax Computation</th>                            
-                            <th class="text-left">Edit</th>
-                            <th class="text-left">Disable</th>                          
+                            <th class="text-center address">Address</th>*@
+                            <th class="text-center">Phone</th>         
+                            <th class="text-center">Status</th>                                                   
+                            <th class="text-center">Manage Roles</th>
+                            <th class="text-center">Documents</th>
+                            <th class="text-center">IT Declaration</th>
+                            <th class="text-center">Tax Computation</th>                            
+                            <th class="text-center">Edit</th>
+                            <th class="text-center">Disable</th>                          
                         </tr>
                     </thead>
 
@@ -87,47 +91,47 @@
                             
                             @*<td class="text-center">Team Lead</td>
                             <td class="text-center">{{r.DateOfBirth| date:"MM/dd/yyyy" }}</td>
-                            <td class="text-left address">
+                            <td class="text-center address">
                                 {{r.PermanentAddressLine1}}<br>
                                 {{r.PermanentAddressLine2}}<br>
                                 {{r.PermanentAddressLine3}} {{r.PermanentAddressState}},{{r.PermanentAddressZip}}
                             </td>*@
-                            <td class="text-left">{{r.Phone}}</td>
-                            @*<td class="text-left">{{r.StatusName}}</td>*@
+                            <td class="text-center">{{r.Phone}}</td>
+                            @*<td class="text-center">{{r.StatusName}}</td>*@
                                                       
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href="/EmployeeStatusHistory?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/manage-status-icon.png" alt="Manage Status" title="Manage Status" width="30" />
+                                    <img src="~/Content/images/manage-status-icon.png" alt="Manage Status" title="Manage Status" width="20" />
                                 </a>
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href="/ManageRoles?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/manager-role-icon.png" alt="Manage Roles" title="Manage Roles" width="30" />
+                                    <img src="~/Content/images/manager-role-icon.png" alt="Manage Roles" title="Manage Roles" width="20" />
                                 </a>
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href="/EmployeeDocument?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/manage-document-icon.png" alt="Manage Documents" title="Manage Documents" width="30"/>
+                                    <img src="~/Content/images/manage-document-icon.png" alt="Manage Documents" title="Manage Documents" width="20"/>
                                 </a>
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href="/ITDeclaration?employeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/tax-declaration-icon.png" alt="IT Declaration Form" title="IT Declaration Form" width="30" />
+                                    <img src="~/Content/images/tax-declaration-icon.png" alt="IT Declaration Form" title="IT Declaration Form" width="20" />
                                 </a>                               
                             </td>
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href="/TaxComputation?EmployeeID={{r.EmployeeID}}">
-                                    <img src="~/Content/images/tax-computation.png" alt="Tax Computation" title="Tax Computation" width="30" />
+                                    <img src="~/Content/images/tax-computation.png" alt="Tax Computation" title="Tax Computation" width="20" />
                                 </a>
                             </td>                           
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href='javascript:;' ng-click="ub.LoadForm('employeeDetailsForm',  r.EmployeeID , true, null)">
-                                    <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30"/>
+                                    <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="20"/>
                                 </a>
                             </td>                           
-                            <td class="text-left">
+                            <td class="text-center">
                                 <a href='javascript:;' ng-click="ub.DisableEmployee(r.EmployeeID)" ng-class="{'not-active':r.IsDisabled}">
-                                    <img src="~/Content/images/disable-emp-icon.png" alt="Disable" title="Disable" width="30" />
+                                    <img src="~/Content/images/disable-emp-icon.png" alt="Disable" title="Disable" width="20" />
                                 </a>
                             </td>                          
                             </tbody>

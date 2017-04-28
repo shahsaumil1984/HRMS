@@ -15,14 +15,17 @@
         <thead class="tblaction">
             <tr>
                 <td colspan="4">
-                    <div class="form-group m-0">
-                        <input type="text"
-                               data-search-fields="Status, Description"
-                               data-search-list="EmployeeStatusGrid"
-                               data-default-focus="true" />
-                        &nbsp;
-                        <button type="button" class="btn" ng-click="ub.NewForm('EmployeeStatusDetailsForm', true, null)">New Status Type</button>
-                    </div>
+                    <table class="col-md-5">
+                        <tr>
+                            <td class="col-md-4">
+                                <input type="text" class="form-control"
+                                       data-search-fields="Status, Description"
+                                       data-search-list="EmployeeStatusGrid"
+                                       data-default-focus="true" />
+                            </td>
+                            <td class="col-md-4"><button type="button" class="btn" ng-click="ub.NewForm('EmployeeStatusDetailsForm', true, null)">New Status Type</button></td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </thead>
@@ -38,8 +41,8 @@
                 <td class="col-md-1"> <span>{{r.StatusID}}</span></td>
                 <td class="col-md-1"> <span>{{r.Status}}</span></td>
                 <td class="col-md-1"> <span>{{r.Description}}</span></td>
-                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" title="Edit" width="30" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
-                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" title="Delete" width="30" ng-click="lb.Delete(r.StatusID, 'Are you sure you want to delete this Status?' , ub.EmployeeStatusDeleteCallback)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/edit.png" alt="edit" title="Edit" width="20" ng-click="ub.LoadForm('EmployeeStatusDetailsForm',  r.StatusID , true, null)" /></td>
+                <td class="col-md-1"><img src="~/Content/images/delete.png" alt="delete" title="Delete" width="20" ng-click="lb.Delete(r.StatusID, 'Are you sure you want to delete this Status?' , ub.EmployeeStatusDeleteCallback)" /></td>
             </tr>
         </tbody>
         <tfoot>
@@ -50,7 +53,7 @@
                         <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageFirst()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><<</span></button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PagePrevious()" ng-disabled="TotalRows <= pageSize || pageIndex==0"><span><</span></button>
                         <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageNext()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>></span></button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>  
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="lb.PageLast()" ng-disabled="TotalRows <= pageSize || totalPages==pageIndex+1"><span>>></span></button>
                     </div>
                 </td>
             </tr>

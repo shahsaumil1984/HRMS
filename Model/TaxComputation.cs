@@ -87,6 +87,7 @@ namespace Model
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public string TaxTillMonth { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

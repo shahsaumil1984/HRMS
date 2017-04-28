@@ -11,6 +11,7 @@
 $(document).ready(function () {
     _.Initialize(function (status, msg) {
     });
+ 
 });
 
 // Form Validation

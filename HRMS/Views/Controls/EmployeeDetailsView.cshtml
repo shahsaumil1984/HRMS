@@ -41,7 +41,7 @@
                         <label for="empcode">Employee Code <i class="lblRequired">*</i></label>
                         <br />
                         <span>{{model.EmployeeCode}}</span>
-                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeID == 0" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
+                        <input type="text" class="required form-control number" id="empcode" name="empcode" ng-show="model.EmployeeID == 0" style="display:none" ng-model="model.EmployeeCode" maxlength="7" ng-blur="ub.CheckEmployeeCode(model.EmployeeCode)">
                         @*IEnd Jay Pithadiya 21/4/2017, Added this code to show ready only Employee Code when Edit Employee details and allow user to enter employee code when create new one*@
                     </div>
                 </div>               
