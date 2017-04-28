@@ -21,7 +21,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>Status change</h3>
+                    <h3>Change Status</h3>
                 </div>
                 <div class="modal-body">
                     <div id="employeeErrorDisplay" class="employeeErrorDisplay" data-error-display="true"></div>
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label for="em_EmployeeStatus">New Status</label><i class="lblRequired">*</i>
                                 <select name="em_EmployeeNewStatus" id="em_EmployeeNewStatus" class="form-control required" ng-model="model.Status_New">
-                                    <option value="">Please select</option>
+                                    <option value="">Select Status</option>
                                     @foreach (var item in Model.EmployeeStatus)
                                     {
                                     <option value="@(item.StatusID)">@(item.Status)</option>

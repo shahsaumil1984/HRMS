@@ -24,7 +24,7 @@
 <div class="listView" id="employeeSalaryListView">
 
     <div class="middlewrap">
-         <h3 class="title"> <span>Salary for @ViewBag.Month</span> </h3>  
+        <h3 class="title"> <span>Salary for @ViewBag.Month</span> </h3>
         <input type="hidden" id="currentMonth" name="currentMonth" value="@ViewBag.Month" />
         @*<h3 class="title"> <span>Employees</span> </h3>*@
         <div class="table-responsive tbl-scroll">
@@ -41,7 +41,7 @@
                         <td>
                             <div>
                                 <label>File to Upload: <input ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" type="file" name="file" id="fileUpload" class="required" accept=".csv" />(10MB max size)</label>
-                                <button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn">Upload CSV</button>
+                                <button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn btn-primary btn-sm">Upload CSV</button>
                             </div>
                         </td>
                     </tr>
@@ -68,7 +68,7 @@
                                 <select data-filter-field="MonthID" id="selMonthID" style="display:none"
                                         data-filter-list="employeeSalaryGrid"
                                         data-default-focus="true">
-                                    <option value="@(ViewBag.MonthID)">MonthID</option>                                   
+                                    <option value="@(ViewBag.MonthID)">MonthID</option>
                                 </select>
                             </div>
 
@@ -81,9 +81,9 @@
                         <th>Employee Name</th>
                         <th class="text-left">Employee Code</th>
                         <th class="text-left">Salary Status</th>
-                        <th class="text-left">Action</th>
-                        <th></th>
-                        <th></th>
+                        <th class="text-left">Edit</th>
+                        <th>Download PDF</th>
+                        <th>Send Email</th>
                     </tr>
                 </thead>
 
@@ -106,15 +106,17 @@
                         </td>
                         <td class="text-left">{{r.EmployeeCode}}</td>
                         <td class="text-left">{{r.Salaries[0].SalaryStatu.SalaryStatusName}}</td>
-                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
+                        <td class="text-left">
+                            <a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)"><img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="30" /></a>
+                        </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" height="50" />
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="30" />
                             </a>
                         </td>
                         <td class="col-md-1">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" height="50" />
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="30" />
                             </a>
                         </td>
                 </tbody>

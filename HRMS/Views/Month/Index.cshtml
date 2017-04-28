@@ -46,10 +46,10 @@
                 <tr>
                     <th><a href="#" data-sort-field="Month1">Month</a></th>
                     <th><a href="#" data-sort-field="Year">Year</a></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Salary</th>
+                    <th>Generate CSV</th>
+                    <th>Download PDF</th>
+                    <th>Send Email</th>
                 </tr>
                 <tbody ng-repeat="r in rows" class="background-grey">
                     <tr ng-class="{'background-green':r.Month=='@(ViewBag.Month)' && r.Year=='@(ViewBag.Year)',
