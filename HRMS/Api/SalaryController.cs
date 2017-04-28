@@ -533,6 +533,20 @@ namespace Api
             }
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Accountant")]
+        public int GetTDSbyYear(int employeeID, int monthId)
+        {
+            var Year = service.Context.Months.Find(monthId).Year;
+            var taxCalculation = service.Context.TaxComputations.Where(i => i.Year == Year && i.EmployeeID == employeeID).FirstOrDefault();
+            var Tds = 0;
+            if (taxCalculation != null)
+            {
+                Tds = (int)taxCalculation.TaxForMarch;
+            }
+            return Tds;
+        }
+
         #region Private Methods
         private HttpResponseMessage Download(List<Salary> salList, bool isZip)
         {

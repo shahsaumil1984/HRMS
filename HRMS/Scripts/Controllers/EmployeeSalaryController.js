@@ -17,11 +17,17 @@ $(document).ready(function () {
     });
 
     _.PopulateData = function (employeeID, monthID) {
-        debugger;
         salaryService.GetByMonth(employeeID, monthID, true, function (status, data) {
-            debugger;
             if (status) {
                 salaryDetailsForm.model(data);
+            }
+        });
+    }
+    _.PopulateTDS = function (employeeID, monthID) {
+        
+        salaryService.GetTDSbyYear(employeeID, monthID,function (status, data) {
+            if (status) {
+                salaryDetailsForm.SetValue("TDS", data);
             }
         });
     }
