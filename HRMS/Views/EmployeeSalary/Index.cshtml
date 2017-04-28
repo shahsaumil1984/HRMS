@@ -192,6 +192,7 @@
 
             <div class="row">
                 <button type="button" ng-disabled="model.Basic != 0" class="btn" ng-click="ub.PopulateData(model.EmployeeID,@(ViewBag.MonthID))">Populate Data</button>
+                <button type="button" class="btn" ng-click="ub.PopulateTDS(model.EmployeeID,@(ViewBag.MonthID))">Get TDS</button>
             </div>
 
             <div class="row">
