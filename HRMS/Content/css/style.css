@@ -800,3 +800,5 @@ table.table thead.tblaction td {
     text-align: left;
     border-bottom: 1px dotted #333;
 }
+.form-horizontal .control-label.text-left{text-align:left;}
+.auto-width.form-control{width:auto;}

@@ -20,11 +20,11 @@
             <h3 ng-show="model.TaxComputationID == 0">Create New Tax Computation</h3>
             <div id="taxComputationrrorDisplay" class="taxComputationrrorDisplay" data-error-display="true"></div>
 
-            <div class="row">
+            <div class="row form-horizontal">
                 <div class="col-md-5 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="col-md-4 control-label text-right min-ht-lbl" for="em_Year">Financial Year<i class="lblRequired">*</i> :</label>
-                        <select id="em_Year" name="em_Year" class="required col-md-8 form-control" ng-model="model.Year" value="{{model.Year}}" style="width:50%">
+                        <label class="col-md-4 control-label text-left" for="em_Year">Financial Year <i class="lblRequired">*</i> :</label>
+                        <select id="em_Year" name="em_Year" class="required form-control auto-width" ng-model="model.Year" value="{{model.Year}}">
                             <option value="">Select Financial Year</option>
                             @foreach (var year in Model.Years)
                             {
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label class="col-md-5 control-label text-right" for="em_EPF">EPF:</label>
                         <div class="col-md-7">
-                            <input type="text" name="em_EPF" id="em_EPF" ng-model="model.EPF" class="form-control number" maxlength="4" />
+                            <input type="text" name="em_EPF" id="em_EPF" ng-model="model.EPF" class="form-control number auto-width" maxlength="4" />
                         </div>
                     </div>
                 </div>
@@ -317,119 +317,119 @@
                     <div class="col-md-6 col-sm-6">
                         <p class="midtitle">Deductions</p>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessConveyanceAllowancesAllowed">Less:- Conveyance Allowances Allowed</label>
-                            <div class="col-md-6"><input type="text" name="em_LessConveyanceAllowancesAllowed" id="em_LessConveyanceAllowancesAllowed" ng-model="model.LessConveyanceAllowancesAllowed" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessConveyanceAllowancesAllowed">Less:- Conveyance Allowances Allowed <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessConveyanceAllowancesAllowed" id="em_LessConveyanceAllowancesAllowed" ng-model="model.LessConveyanceAllowancesAllowed" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessHRA3Months">Less:-HRA 3 Months</label>
-                            <div class="col-md-6"><input type="text" name="em_LessHRA3Months" id="em_LessHRA3Months" ng-model="model.LessHRA3Months" class="form-control number" maxlength="10" /></div>
-                        </div>
-                        <h5 class="sub-head">Least of the following is allowed</h5>
-                        <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_FourtyPercentOfBasicAprilToJune">a) 40% of basic salary</label>
-                            <div class="col-md-6"><input type="text" name="em_FourtyPercentOfBasicAprilToJune" id="em_FourtyPercentOfBasicAprilToJune" ng-model="model.FourtyPercentOfBasicAprilToJune" class="form-control number" maxlength="10" /></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_ActualHRAReceivedAprilToJune">b) Actual HRA Received</label>
-                            <div class="col-md-6"><input type="text" name="em_ActualHRAReceivedAprilToJune" id="em_ActualHRAReceivedAprilToJune" ng-model="model.ActualHRAReceivedAprilToJune" class="form-control number" maxlength="10" /></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_RentPaidAprilToJune">c) Rent paid-10% of Basic Salary</label>
-                            <div class="col-md-6"><input type="text" name="em_RentPaidAprilToJune" id="em_RentPaidAprilToJune" ng-model="model.RentPaidAprilToJune" class="form-control number" maxlength="10" /></div>
-                        </div>
-                        <h5 class="sub-head"></h5>
-                        <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessHRA9Months">Less:-HRA 9 Months</label>
-                            <div class="col-md-6"><input type="text" name="em_LessHRA9Months" id="em_LessHRA9Months" ng-model="model.LessHRA9Months" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessHRA3Months">Less:-HRA 3 Months <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessHRA3Months" id="em_LessHRA3Months" ng-model="model.LessHRA3Months" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <h5 class="sub-head">Least of the following is allowed</h5>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_FourtyPercentOfBasicFromJuly">a) 40% of basic salary</label>
-                            <div class="col-md-6"><input type="text" name="em_FourtyPercentOfBasicFromJuly" id="em_FourtyPercentOfBasicFromJuly" ng-model="model.FourtyPercentOfBasicFromJuly" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_FourtyPercentOfBasicAprilToJune">a) 40% of basic salary <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_FourtyPercentOfBasicAprilToJune" id="em_FourtyPercentOfBasicAprilToJune" ng-model="model.FourtyPercentOfBasicAprilToJune" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_ActualHRAReceivedFromJuly">b) Actual HRA Received</label>
-                            <div class="col-md-6"><input type="text" name="em_ActualHRAReceivedFromJuly" id="em_ActualHRAReceivedFromJuly" ng-model="model.ActualHRAReceivedFromJuly" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_ActualHRAReceivedAprilToJune">b) Actual HRA Received <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_ActualHRAReceivedAprilToJune" id="em_ActualHRAReceivedAprilToJune" ng-model="model.ActualHRAReceivedAprilToJune" class="form-control number required " maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_RentPaidAprilFromJuly">c) Rent paid-10% of Basic Salary</label>
-                            <div class="col-md-6"><input type="text" name="em_RentPaidAprilFromJuly" id="em_RentPaidAprilFromJuly" ng-model="model.RentPaidAprilFromJuly" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_RentPaidAprilToJune">c) Rent paid-10% of Basic Salary <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_RentPaidAprilToJune" id="em_RentPaidAprilToJune" ng-model="model.RentPaidAprilToJune" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <h5 class="sub-head"></h5>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessDeduction80C">Less:-Deduction u/s 80C</label>
-                            <div class="col-md-6"><input type="text" name="em_LessDeduction80C" id="em_LessDeduction80C" ng-model="model.LessDeduction80C" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessHRA9Months">Less:-HRA 9 Months <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessHRA9Months" id="em_LessHRA9Months" ng-model="model.LessHRA9Months" class="form-control number required" maxlength="10" /></div>
+                        </div>
+                        <h5 class="sub-head">Least of the following is allowed</h5>
+                        <div class="form-group">
+                            <label class="col-md-6 control-label text-right" for="em_FourtyPercentOfBasicFromJuly">a) 40% of basic salary <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_FourtyPercentOfBasicFromJuly" id="em_FourtyPercentOfBasicFromJuly" ng-model="model.FourtyPercentOfBasicFromJuly" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_EmployeeContributionToPF">Employee Contribution to PF</label>
-                            <div class="col-md-6"><input type="text" name="em_EmployeeContributionToPF" id="em_EmployeeContributionToPF" ng-model="model.EmployeeContributionToPF" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_ActualHRAReceivedFromJuly">b) Actual HRA Received <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_ActualHRAReceivedFromJuly" id="em_ActualHRAReceivedFromJuly" ng-model="model.ActualHRAReceivedFromJuly" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_PPF">PPF</label>
-                            <div class="col-md-6"><input type="text" name="em_PPF" id="em_PPF" ng-model="model.PPF" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_RentPaidAprilFromJuly">c) Rent paid-10% of Basic Salary <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_RentPaidAprilFromJuly" id="em_RentPaidAprilFromJuly" ng-model="model.RentPaidAprilFromJuly" class="form-control number required" maxlength="10" /></div>
+                        </div>
+                        <h5 class="sub-head"></h5>
+                        <div class="form-group">
+                            <label class="col-md-6 control-label text-right" for="em_LessDeduction80C">Less:-Deduction u/s 80C <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessDeduction80C" id="em_LessDeduction80C" ng-model="model.LessDeduction80C" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_MutualFundOrUTI">Mutual fund or UTI</label>
-                            <div class="col-md-6"><input type="text" name="em_MutualFundOrUTI" id="em_MutualFundOrUTI" ng-model="model.MutualFundOrUTI" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_EmployeeContributionToPF">Employee Contribution to PF <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_EmployeeContributionToPF" id="em_EmployeeContributionToPF" ng-model="model.EmployeeContributionToPF" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_InsurancePremium">Insurance Premium</label>
-                            <div class="col-md-6"><input type="text" name="em_InsurancePremium" id="em_InsurancePremium" ng-model="model.InsurancePremium" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_PPF">PPF <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_PPF" id="em_PPF" ng-model="model.PPF" class="form-control number required" maxlength="10" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-6 control-label text-right" for="em_MutualFundOrUTI">Mutual fund or UTI <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_MutualFundOrUTI" id="em_MutualFundOrUTI" ng-model="model.MutualFundOrUTI" class="form-control number required" maxlength="10" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-6 control-label text-right" for="em_InsurancePremium">Insurance Premium <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_InsurancePremium" id="em_InsurancePremium" ng-model="model.InsurancePremium" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <h5 class="sub-head">Less :- Dedution u/s 80D</h5>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessDedution80DDeclared">Declared</label>
-                            <div class="col-md-6"><input type="text" name="em_LessDedution80DDeclared" id="em_LessDedution80DDeclared" ng-model="model.LessDedution80DDeclared" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessDedution80DDeclared">Declared <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessDedution80DDeclared" id="em_LessDedution80DDeclared" ng-model="model.LessDedution80DDeclared" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessDedution80DAllowed">Allowed</label>
-                            <div class="col-md-6"><input type="text" name="em_LessDedution80DAllowed" id="em_LessDedution80DAllowed" ng-model="model.LessDedution80DAllowed" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessDedution80DAllowed">Allowed <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessDedution80DAllowed" id="em_LessDedution80DAllowed" ng-model="model.LessDedution80DAllowed" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <h5 class="sub-head"></h5>
                         <h5 class="sub-head">Less: Medical Reimbursement Allowance</h5>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessMedicalReimbursementAllowanceDeclared">Declared</label>
-                            <div class="col-md-6"><input type="text" name="em_LessMedicalReimbursementAllowanceDeclared" id="em_LessMedicalReimbursementAllowanceDeclared" ng-model="model.LessMedicalReimbursementAllowanceDeclared" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessMedicalReimbursementAllowanceDeclared">Declared <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessMedicalReimbursementAllowanceDeclared" id="em_LessMedicalReimbursementAllowanceDeclared" ng-model="model.LessMedicalReimbursementAllowanceDeclared" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessMedicalReimbursementAllowanceAllowed">Allowed</label>
-                            <div class="col-md-6"><input type="text" name="em_LessMedicalReimbursementAllowanceAllowed" id="em_LessMedicalReimbursementAllowanceAllowed" ng-model="model.LessMedicalReimbursementAllowanceAllowed" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessMedicalReimbursementAllowanceAllowed">Allowed <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessMedicalReimbursementAllowanceAllowed" id="em_LessMedicalReimbursementAllowanceAllowed" ng-model="model.LessMedicalReimbursementAllowanceAllowed" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <h5 class="sub-head"></h5>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessProfessionalTax">Less: Professional Tax</label>
-                            <div class="col-md-6"><input type="text" name="em_LessProfessionalTax" id="em_LessProfessionalTax" ng-model="model.LessProfessionalTax" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessProfessionalTax">Less: Professional Tax <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessProfessionalTax" id="em_LessProfessionalTax" ng-model="model.LessProfessionalTax" class="form-control number required" maxlength="10" /></div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <p class="midtitle">Total Tax Calculation</p>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_TotalTaxableIncome">Total Taxable Income</label>
-                            <div class="col-md-6"><input type="text" name="em_TotalTaxableIncome" id="em_TotalTaxableIncome" ng-model="model.TotalTaxableIncome" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_TotalTaxableIncome">Total Taxable Income <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_TotalTaxableIncome" id="em_TotalTaxableIncome" ng-model="model.TotalTaxableIncome" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_TaxDue">Tax Due</label>
-                            <div class="col-md-6"><input type="text" name="em_TaxDue" id="em_TaxDue" ng-model="model.TaxDue" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_TaxDue">Tax Due <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_TaxDue" id="em_TaxDue" ng-model="model.TaxDue" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_LessAdd87A">Less Add. U/S 87A</label>
-                            <div class="col-md-6"><input type="text" name="em_LessAdd87A" id="em_LessAdd87A" ng-model="model.LessAdd87A" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_LessAdd87A">Less Add. U/S 87A <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_LessAdd87A" id="em_LessAdd87A" ng-model="model.LessAdd87A" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_TaxDueAfter87A">Tax due after  U/S 87A</label>
-                            <div class="col-md-6"><input type="text" name="em_TaxDueAfter87A" id="em_TaxDueAfter87A" ng-model="model.TaxDueAfter87A" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_TaxDueAfter87A">Tax due after  U/S 87A <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_TaxDueAfter87A" id="em_TaxDueAfter87A" ng-model="model.TaxDueAfter87A" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_EducationCess">Education cess</label>
-                            <div class="col-md-6"><input type="text" name="em_EducationCess" id="em_EducationCess" ng-model="model.EducationCess" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_EducationCess">Education cess <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_EducationCess" id="em_EducationCess" ng-model="model.EducationCess" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_TotalTaxPayable">Total Tax Payable</label>
-                            <div class="col-md-6"><input type="text" name="em_TotalTaxPayable" id="em_TotalTaxPayable" ng-model="model.TotalTaxPayable" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_TotalTaxPayable">Total Tax Payable <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_TotalTaxPayable" id="em_TotalTaxPayable" ng-model="model.TotalTaxPayable" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label text-right" for="em_TaxTillFebuary">Tax Till</label>
-                            <select id="em_TaxTillMonth" name="em_TaxTillMonth" class="col-md-4 form-control" ng-model="model.TaxTillMonth" value="{{model.TaxTillMonth}}" style="width:33%">
+                            <label class="col-md-4 control-label text-right" for="em_TaxTillFebuary">Tax Till <i class="lblRequired">*</i></label>
+                            <select id="em_TaxTillMonth" name="em_TaxTillMonth" class="col-md-4 form-control required" ng-model="model.TaxTillMonth" value="{{model.TaxTillMonth}}" style="width:33%">
                                 <option value="">Select Tax Till Month</option>
                                 <option value="January">January</option>
                                 <option value="February">February</option>
@@ -444,23 +444,23 @@
                                 <option value="November">November</option>
                                 <option value="December">December</option>
                             </select>
-                            <div class="col-md-4"><input type="text" name="em_TaxTillFebuary" id="em_TaxTillFebuary" ng-model="model.TaxTillFebuary" class="form-control number" maxlength="10" /></div>
+                            <div class="col-md-4"><input type="text" name="em_TaxTillFebuary" id="em_TaxTillFebuary" ng-model="model.TaxTillFebuary" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_BalanceTaxPayableAfterFebuary">BALANCE TAX PAYABLE</label>
-                            <div class="col-md-6"><input type="text" name="em_BalanceTaxPayableAfterFebuary" id="em_BalanceTaxPayableAfterFebuary" ng-model="model.BalanceTaxPayableAfterFebuary" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_BalanceTaxPayableAfterFebuary">BALANCE TAX PAYABLE <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_BalanceTaxPayableAfterFebuary" id="em_BalanceTaxPayableAfterFebuary" ng-model="model.BalanceTaxPayableAfterFebuary" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_TaxForMarch">Tax for remaining months</label>
-                            <div class="col-md-6"><input type="text" name="em_TaxForMarch" id="em_TaxForMarch" ng-model="model.TaxForMarch" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_TaxForMarch">Tax for remaining months <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_TaxForMarch" id="em_TaxForMarch" ng-model="model.TaxForMarch" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_Refund">Refund</label>
-                            <div class="col-md-6"><input type="text" name="em_Refund" id="em_Refund" ng-model="model.Refund" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_Refund">Refund <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_Refund" id="em_Refund" ng-model="model.Refund" class="form-control number required" maxlength="10" /></div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-6 control-label text-right" for="em_TaxPaid">TAX PAID</label>
-                            <div class="col-md-6"><input type="text" name="em_TaxPaid" id="em_TaxPaid" ng-model="model.TaxPaid" class="form-control number" maxlength="10" /></div>
+                            <label class="col-md-6 control-label text-right" for="em_TaxPaid">TAX PAID <i class="lblRequired">*</i></label>
+                            <div class="col-md-6"><input type="text" name="em_TaxPaid" id="em_TaxPaid" ng-model="model.TaxPaid" class="form-control number required" maxlength="10" /></div>
                         </div>
                     </div>
                 </div>

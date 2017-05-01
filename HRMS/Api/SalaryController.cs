@@ -191,9 +191,9 @@ namespace Api
                 //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
 
             }).SingleOrDefault<Salary>();
-                        
-            if (obj == null)            
-                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };            
+
+            if (obj == null)
+                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
             return obj;
         }
 
@@ -357,6 +357,8 @@ namespace Api
                 string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
                 string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
                 string toEmailAdd = objSalary.Employee.Email;
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]) == false)
+                    toEmailAdd = Convert.ToString(ConfigurationManager.AppSettings["ToEmail"]);
                 string toEmailUser = objSalary.Employee.FullName;
                 string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
                 var body = "Dear " + objSalary.Employee.FirstName + ",</br></br>";
@@ -512,7 +514,9 @@ namespace Api
                     {
                         string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
                         string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
-                        string toEmailAdd = "namrata.negi@alept.com";//item.Employee.Email;
+                        string toEmailAdd = item.Employee.Email;
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]) == false)
+                            toEmailAdd = Convert.ToString(ConfigurationManager.AppSettings["ToEmail"]);
                         string toEmailUser = item.Employee.FullName;
                         string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
                         var body = "Dear " + item.Employee.FirstName + ",</br></br>";
