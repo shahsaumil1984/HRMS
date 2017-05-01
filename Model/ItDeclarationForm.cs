@@ -16,7 +16,7 @@ namespace Model
     {
         public int ItDeclarationID { get; set; }
         public int EmployeeID { get; set; }
-        public string ItDeclarationYear { get; set; }
+        public Nullable<int> ItDeclarationYear { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string PanNo { get; set; }
         public string AddressLine1 { get; set; }
@@ -55,6 +55,12 @@ namespace Model
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public string AddressCity { get; set; }
+        public string HLAddressCity { get; set; }
+        public string HRAddressCity { get; set; }
+        public string MobileNumber { get; set; }
+        public Nullable<int> NPS { get; set; }
+        public Nullable<int> NSC { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

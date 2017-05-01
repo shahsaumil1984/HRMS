@@ -1,9 +1,11 @@
 ﻿using Model;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ViewModel;
 
 namespace HRMS.Controllers
 {
@@ -19,7 +21,21 @@ namespace HRMS.Controllers
             Employee objEmployee = service.GetById(EmployeeID);
             ViewBag.Name = objEmployee.FullName;
             ViewBag.EmployeeCode = objEmployee.EmployeeCode;
-            return View();   
+            ViewBag.Pan = objEmployee.PAN;
+            
+            ViewBag.AddressLine1 = objEmployee.AddressLine1;
+            ViewBag.AddressLine2 = objEmployee.AddressLine2;
+            ViewBag.AddressLine3 = objEmployee.AddressLine3;
+            ViewBag.AddressCity = objEmployee.AddressCity;
+            ViewBag.AddressState = objEmployee.AddressState;
+            ViewBag.AddressZip = objEmployee.AddressZip;
+            ViewBag.AddressCountry = objEmployee.AddressCountry;
+
+            MonthService mService = new MonthService();
+            MasterViewModel mvm = new MasterViewModel();
+            mvm.Years = mService.Get().Select(s => s.Year).Distinct().ToList();
+
+            return View(mvm);   
         }
     }
 }

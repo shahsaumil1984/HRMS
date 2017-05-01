@@ -251,7 +251,7 @@
           </Key>
           <Property Name="ItDeclarationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
-          <Property Name="ItDeclarationYear" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItDeclarationYear" Type="int" />
           <Property Name="Date" Type="datetime" />
           <Property Name="PanNo" Type="varchar" MaxLength="10" />
           <Property Name="AddressLine1" Type="nvarchar" MaxLength="500" />
@@ -290,6 +290,12 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
+          <Property Name="AddressCity" Type="nvarchar" MaxLength="500" />
+          <Property Name="HLAddressCity" Type="nvarchar" MaxLength="500" />
+          <Property Name="HRAddressCity" Type="nvarchar" MaxLength="500" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="12" />
+          <Property Name="NPS" Type="int" />
+          <Property Name="NSC" Type="int" />
         </EntityType>
         <EntityType Name="LeaveMaster">
           <Key>
@@ -378,8 +384,8 @@
           <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SalaryStatus" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
-          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
+          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="isFullAndFinal" Type="bit" />
         </EntityType>
@@ -633,6 +639,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ItDeclarationForm_Employee1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ItDeclarationForm" Type="Self.ItDeclarationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="ItDeclarationForm">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItDeclarationForm_Employee11">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ItDeclarationForm" Type="Self.ItDeclarationForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="ItDeclarationForm">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LeaveMaster_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="LeaveMaster" Type="Self.LeaveMaster" Multiplicity="*" />
@@ -729,6 +759,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TaxComputation_Employee1">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="TaxComputation" Type="Self.TaxComputation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TaxComputation">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HRMSModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -801,6 +843,14 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="ItDeclarationForm" EntitySet="ItDeclarationForm" />
           </AssociationSet>
+          <AssociationSet Name="FK_ItDeclarationForm_Employee1" Association="Self.FK_ItDeclarationForm_Employee1">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ItDeclarationForm" EntitySet="ItDeclarationForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItDeclarationForm_Employee11" Association="Self.FK_ItDeclarationForm_Employee11">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ItDeclarationForm" EntitySet="ItDeclarationForm" />
+          </AssociationSet>
           <AssociationSet Name="FK_LeaveMaster_Employee" Association="Self.FK_LeaveMaster_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="LeaveMaster" EntitySet="LeaveMaster" />
@@ -830,6 +880,10 @@
             <End Role="Salary" EntitySet="Salary" />
           </AssociationSet>
           <AssociationSet Name="FK_TaxComputation_Employee" Association="Self.FK_TaxComputation_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TaxComputation" EntitySet="TaxComputation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaxComputation_Employee1" Association="Self.FK_TaxComputation_Employee1">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="TaxComputation" EntitySet="TaxComputation" />
           </AssociationSet>
@@ -1615,7 +1669,7 @@
           </Key>
           <Property Name="ItDeclarationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="ItDeclarationYear" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItDeclarationYear" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="PanNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="AddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -1655,6 +1709,12 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="HRMSModel.FK_ItDeclarationForm_Employee" FromRole="ItDeclarationForm" ToRole="Employee" />
+          <Property Name="AddressCity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HLAddressCity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="HRAddressCity" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="NPS" Type="Int32" />
+          <Property Name="NSC" Type="Int32" />
         </EntityType>
         <Association Name="FK_ItDeclarationForm_Employee">
           <End Type="HRMSModel.Employee" Role="Employee" Multiplicity="1" />
@@ -2126,6 +2186,12 @@
           <EntitySetMapping Name="ItDeclarationForms">
             <EntityTypeMapping TypeName="HRMSModel.ItDeclarationForm">
               <MappingFragment StoreEntitySet="ItDeclarationForm">
+                <ScalarProperty Name="NSC" ColumnName="NSC" />
+                <ScalarProperty Name="NPS" ColumnName="NPS" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="HRAddressCity" ColumnName="HRAddressCity" />
+                <ScalarProperty Name="HLAddressCity" ColumnName="HLAddressCity" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

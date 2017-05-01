@@ -9,6 +9,15 @@
         <div class="table-responsive tbl-scroll">
             <h3 class="title"> <span>IT Declaration for @ViewBag.Name</span> </h3>
             <input type="hidden" id="hdnEmployeeID" value="@ViewBag.EmployeeID" />
+            <input type="hidden" id="hdnPan" value="@ViewBag.Pan" />
+
+            <input type="hidden" id="hdnAddressLine1" value="@ViewBag.AddressLine1" />
+            <input type="hidden" id="hdnAddressLine2" value="@ViewBag.AddressLine2" />
+            <input type="hidden" id="hdnAddressLine3" value="@ViewBag.AddressLine3" />
+            <input type="hidden" id="hdnAddressCity" value="@ViewBag.AddressCity" />
+            <input type="hidden" id="hdnAddressState" value="@ViewBag.AddressState" />
+            <input type="hidden" id="hdnAddressZip" value="@ViewBag.AddressZip" />
+            <input type="hidden" id="hdnAddressCountry" value="@ViewBag.AddressCountry" />
             <table class="table table-condensed table-hover"
                    id="itDeclarationGrid"
                    data-ui-binding="true"
@@ -23,21 +32,24 @@
                             <table class="col-md-5">
                                 <tr>
                                     <td class="col-md-3">
-                                        <input type="text" class="form-control"
-                                               data-search-fields="ItDeclarationYear"
-                                               data-search-list="itDeclarationGrid"
-                                               data-default-focus="true" />
+                                        <select id="yearFilter" data-filter-list="itDeclarationGrid" data-filter-field="ItDeclarationYear" class="form-control">
+                                            <option value="">Select Financial Year</option>
+                                            @foreach (var year in Model.Years)
+                                            {
+                                                <option value="@year">@year - @(year + 1)</option>
+                                            }
+                                        </select>
                                     </td>
                                     <td class="col-md-2">
-                                    <button type="button" ng-click="ub.NewItDeclarationDetailForm('itDeclarationDetailsForm',true,'')" class="btn btn-primary">Add New</button>
+                                        <button type="button" ng-click="ub.NewItDeclarationDetailForm('itDeclarationDetailsForm',true,'')" class="btn btn-primary">Add New</button>
                                         <button type="button" id="btnBack" class="btn btn-primary" onclick="@(" window.location.href='" + @Url.Action("Index", "Employee") + "' ");">Back</button>
-                                    </td>                                    
+                                    </td>
                                 </tr>
                             </table>
-                            <div class="form-group m-0">                               
+                            <div class="form-group m-0">
                                 <select id="statusFilter" data-filter-list="itDeclarationGrid" data-filter-field="EmployeeID" style="display:none">
                                     <option value="@ViewBag.EmployeeID">@ViewBag.EmployeeID</option>
-                                </select>                               
+                                </select>
                             </div>
                         </td>
                     </tr>
@@ -61,7 +73,7 @@
                         <td class="text-left">{{r.ItDeclarationYear}}</td>
                         <td class="text-left">@ViewBag.Name</td>
                         <td class="text-left">{{r.PanNo}}</td>
-                        <td class="text-left">{{r.Date}}</td>
+                        <td class="text-left">{{r.Date  | date:'dd/MM/yyyy'}}</td>
                         <td class="text-left">
                             <a href='javascript:;' ng-click="ub.LoadForm('itDeclarationDetailsForm',  r.ItDeclarationID , true, null)">
                                 <img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="20" />

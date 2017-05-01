@@ -20,7 +20,7 @@
             <div id="itDeclarationerrorDisplay" class="itDeclarationerrorDisplay" data-error-display="true"></div>
 
             <p class="midtitle">Employee Details</p>
-            
+
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -40,14 +40,35 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label>Pan Number:</label>
-                        <input type="text" name="panno" id="panno" ng-model="model.PanNo" class="form-control" maxlength="10" />
+                        <label>Pan Number<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="panno" id="panno" ng-model="model.PanNo" class="form-control required" maxlength="10" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label>IT Declaration Year:</label>
-                        <input type="text" name="itDeclarationYear" id="itDeclarationYear" ng-model="model.ItDeclarationYear" class="form-control" maxlength="7" />        
+                        <label>IT Declaration Year<i class="lblRequired">*</i> :</label>
+                        @*<input type="text" name="itDeclarationYear" id="itDeclarationYear" ng-model="model.itDeclarationYear" class="form-control" maxlength="7" />*@
+
+                        <select id="itDeclarationYear" name="itDeclarationYear" class="required form-control" ng-model="model.ItDeclarationYear" value="{{model.ItDeclarationYear}}" style="width:80%">
+                            <option value="">Select Financial Year</option>
+                            @foreach (var year in Model.Years)
+                            {
+                                <option value="@year">@year - @(year + 1)</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Date<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="date" id="date" ng-model="model.Date" class="form-control required" maxlength="10" date-Picker />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Mobile Number<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="mobileNumber" id="mobileNumber" placeholder="XXX-XXX-XXXX" ng-model="model.MobileNumber" class="form-control required" maxlength="12" />
                     </div>
                 </div>
             </div>
@@ -55,32 +76,38 @@
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="addressLine1">Address 1:</label>
-                        <input type="text" name="addressLine1" id="addressLine1" ng-model="model.AddressLine1" class="form-control" />
+                        <label for="addressLine1">Address 1<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressLine1" id="addressLine1" ng-model="model.AddressLine1" class="form-control required" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="addressLine2">Address 2:</label>
-                        <input type="text" name="addressLine2" id="addressLine2" ng-model="model.AddressLine2" class="form-control"/>
+                        <label for="addressLine2">Address 2<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressLine2" id="addressLine2" ng-model="model.AddressLine2" class="form-control required" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="addressLine3">Address 3:</label>
-                        <input type="text" name="addressLine3" id="addressLine3" ng-model="model.AddressLine3" class="form-control" />
+                        <label for="addressLine3">Address 3<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressLine3" id="addressLine3" ng-model="model.AddressLine3" class="form-control required" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="addressZip">Address Zip:</label>
-                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number" maxlength="6" />
+                        <label for="addressLine3">Address City<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressCity" id="addressCity" ng-model="model.AddressCity" class="form-control required" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="addressState">Address State:</label>
-                        <select name="addressState" id="addressState" value="model.PermanentAddressState" ng-model="model.AddressState" class="form-control">
+                        <label for="addressZip">Address Zip<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number required" maxlength="6" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressState">Address State <i class="lblRequired">*</i> :</label>
+                        <select name="addressState" id="addressState" value="model.PermanentAddressState" ng-model="model.AddressState" class="form-control required">
                             <option value="">Select</option>
                             <option value="AndamanandNicobar">Andaman and Nicobar</option>
                             <option value="AndhraPradesh">Andhra Pradesh</option>
@@ -122,12 +149,12 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="addressCountry">Address Country:</label>
-                        <input type="text" name="addressCountry" id="addressCountry" ng-model="model.AddressCountry" class="form-control"/>
+                        <label for="addressCountry">Address Country <i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressCountry" id="addressCountry" ng-model="model.AddressCountry" class="form-control required" />
                     </div>
                 </div>
             </div>
-            <p class="midtitle">Investment U/S 80C</p>
+            <p class="midtitle">Investment U/S 80C</p><pre>Maximum Eligible Amount (Rs.150000)</pre>
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -161,7 +188,7 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="mutualfundOrUti">Mutualfund Or UTI: </label>
+                        <label for="mutualfundOrUti">Mutual fund Or UTI: </label>
                         <input type="text" name="mutualfundOrUti" id="mutualfundOrUti" ng-model="model.MutualfundOrUti" class="form-control number" />
                     </div>
                 </div>
@@ -173,14 +200,8 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="bondsOfNabard">Bonds Of Nabard: </label>
-                        <input type="text" name="bondsOfNabard " id="bondsOfNabard " ng-model="model.BondsOfNabard " class="form-control number" />
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="interestOnNSC">Bonds Of Nabard: </label>
-                        <input type="text" name="interestOnNSC" id="interestOnNSC" ng-model="model.InterestOnNSC" class="form-control number" />
+                        <label for="bondsOfNabard">Accrued interest on NSC: </label>
+                        <input type="text" name="Nsc" id="Nsc" ng-model="model.NSC" class="form-control number" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
@@ -202,7 +223,18 @@
                     </div>
                 </div>
             </div>
-            <p class="midtitle">Investment U/S 80D</p>
+
+            <p class="midtitle">Investment U/S 80CCD:</p><pre>(Max amount Rs 50,000)</pre>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="mediclaimPremium">Contribution to NPS:</label>
+                        <input type="text" name="Nps" id="Nps" ng-model="model.NPS" class="form-control number" />
+                    </div>
+                </div>
+            </div>
+
+            <p class="midtitle">Payment U/S 80D </p><pre>Upto Rs 25,000/- (Rs 30,000/-when mediclaim is taken in the name of senior citizen)</pre> 
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -210,6 +242,9 @@
                         <input type="text" name="mediclaimPremium" id="mediclaimPremium" ng-model="model.MediclaimPremium" class="form-control number" />
                     </div>
                 </div>
+            </div>
+            <p class="midtitle">Home Loan U/S 80D</p><pre>Maximum upto Rs 2,00,000</pre> 
+            <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="homeLoan">Home Loan:</label>
@@ -232,6 +267,12 @@
                     <div class="form-group">
                         <label for="hlAddressLine3">Home Loan Address3:</label>
                         <input type="text" name="hlAddressLine3" id="hlAddressLine3" ng-model="model.HLAddressLine3" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressCity">Home Loan Address City:</label>
+                        <input type="text" name="hlAddressCity" id="hlAddressCity" ng-model="model.HLAddressCity" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
@@ -290,9 +331,9 @@
                     </div>
                 </div>
             </div>
-            <p class="midtitle">House Rent</p>
+            <p class="midtitle">House Rent Amount:</p><pre>(Attach rent agreement) & PAN no of Lanlord in case rent exceed Rs 1,00,000/- per annum.</pre> 
             <div class="row">
-                
+
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="homeLoan">Home Rent:</label>
@@ -315,6 +356,12 @@
                     <div class="form-group">
                         <label for="hrAddressLine3">Home Rent Address3:</label>
                         <input type="text" name="hrAddressLine3" id="hrAddressLine3" ng-model="model.HRAddressLine31" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hrAddressLine3">Home Rent Address City:</label>
+                        <input type="text" name="hrAddressCity" id="hrAddressCity" ng-model="model.HRAddressCity" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
@@ -368,7 +415,7 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label for="hrAddressCountry">Home Loan Address Country:</label>
+                        <label for="hrAddressCountry">Home Rent Address Country:</label>
                         <input type="text" name="hrAddressCountry" id="hrAddressCountry" ng-model="model.HRAddressCountry1" class="form-control" />
                     </div>
                 </div>

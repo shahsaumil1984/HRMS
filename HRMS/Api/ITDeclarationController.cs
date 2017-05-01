@@ -91,7 +91,15 @@ namespace Api
                                      o.CreatedBy,
                                      o.CreatedDate,
                                      o.ModifiedBy,
-                                     o.ModifiedDate
+                                     o.ModifiedDate,
+                                     o.Date,
+                                     o.MobileNumber,
+                                     o.AddressCity,
+                                     o.HLAddressCity,
+                                     o.HRAddressCity,
+                                     o.NPS,
+                                     o.NSC
+                                     
                                  }).ToList().Select(o => new ItDeclarationForm
                                  {
                                      EmployeeID = o.EmployeeID,
@@ -133,7 +141,14 @@ namespace Api
                                      CreatedBy=o.CreatedBy,
                                      CreatedDate=o.CreatedDate,
                                      ModifiedBy=o.ModifiedBy,
-                                     ModifiedDate=o.ModifiedDate
+                                     ModifiedDate=o.ModifiedDate,
+                                     Date = o.Date,
+                                     MobileNumber = o.MobileNumber,
+                                     AddressCity = o.AddressCity,
+                                     HLAddressCity = o.HLAddressCity,
+                                     HRAddressCity = o.HRAddressCity,
+                                     NPS = o.NPS,
+                                     NSC = o.NSC
                                  }).Single<ItDeclarationForm>();
 
             // when addnew IT declaration form Assign EmployeeID to object
