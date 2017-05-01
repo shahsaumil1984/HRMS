@@ -150,7 +150,9 @@ namespace Api
                                  o.CreatedBy,
                                  o.CreatedDate,
                                  //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
-
+                                 o.Days,
+                                 o.isFullAndFinal,
+                                 o.SalaryStatus
                              }).ToList();
 
 
@@ -189,7 +191,9 @@ namespace Api
                 CreatedBy = o.CreatedBy,
                 CreatedDate = o.CreatedDate,
                 //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
-
+                Days = o.Days,
+                isFullAndFinal = o.isFullAndFinal,
+                SalaryStatus = o.SalaryStatus
             }).SingleOrDefault<Salary>();
 
             if (obj == null)

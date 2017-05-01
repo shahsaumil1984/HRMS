@@ -41,38 +41,41 @@
                         <td>
                             <div>
                                 <label>File to Upload: <input ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" type="file" name="file" id="fileUpload" class="required" accept=".csv" />(10MB max size)</label>
-                               
+
                             </div>
                         </td>
-                        <td><div><button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn btn-primary btn-sm">Upload CSV</button></div></td>
-                    </tr>
+                        <td colspan="5"><div><button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn btn-primary btn-sm">Upload CSV</button></div></td>
+                    </tr>                 
+
                     <tr>
-                        <td>
-                            <div>
-                                <input type="text" class="form-control"
-                                       data-search-fields="FullName"
-                                       data-search-list="employeeSalaryGrid"
-                                       data-default-focus="true" />
-                            </div>
-
-                        </td>
-                        <td>
-                            <div>
-
-                                <select data-filter-field="SalaryStatus" id="selSalaryStatus" class="form-control" style="width:50%"
-                                        data-filter-list="employeeSalaryGrid"
-                                        data-default-focus="true">
-                                    <option value="">All</option>
-                                    <option value="1">Pending</option>
-                                    <option value="2">Approved</option>
-                                </select>
-                                <select data-filter-field="MonthID" id="selMonthID" style="display:none"
-                                        data-filter-list="employeeSalaryGrid"
-                                        data-default-focus="true">
-                                    <option value="@(ViewBag.MonthID)">MonthID</option>
-                                </select>
-                            </div>
-
+                        <td colspan="6">
+                            <table class="col-md-7">
+                                <tr>
+                                    <td class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               data-search-fields="FullName"
+                                               data-search-list="employeeSalaryGrid"
+                                               data-default-focus="true" />
+                                    </td>
+                                    <td class="col-md-2">
+                                        <select data-filter-field="SalaryStatus" id="selSalaryStatus" class="form-control" style="width:auto"
+                                                data-filter-list="employeeSalaryGrid"
+                                                data-default-focus="true">
+                                            <option value="">All</option>
+                                            <option value="1">Pending</option>
+                                            <option value="2">Approved</option>
+                                        </select>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <button type="button" onclick="@("window.location.href='" + @Url.Action("Index", "Month") + "'");" class="btn btn-primary btn-sm">Back</button>
+                                        <select data-filter-field="MonthID" id="selMonthID" style="display:none"
+                                                data-filter-list="employeeSalaryGrid"
+                                                data-default-focus="true">
+                                            <option value="@(ViewBag.MonthID)">MonthID</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </thead>
@@ -165,7 +168,8 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label>Days: </label><label ng-model="model.Days">@ViewBag.Days</label>
+                        <label>Days: </label>
+                        <label id="lbldays" ng-model="model.Days">@ViewBag.Days</label>
                     </div>
                 </div>
             </div>

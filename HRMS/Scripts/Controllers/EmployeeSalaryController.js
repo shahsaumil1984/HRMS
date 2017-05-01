@@ -17,15 +17,47 @@ $(document).ready(function () {
     });
 
     _.PopulateData = function (employeeID, monthID) {
+        var bankName = salaryDetailsForm.model().BankName;
+        var accNumber = salaryDetailsForm.model().AccountNumber;
+        var salaryID = salaryDetailsForm.model().SalaryID;
+        var salmonthid = monthID;
+        var createdBy = salaryDetailsForm.model().CreatedBy;
+        var createdDate = salaryDetailsForm.model().CreatedDate;
+        var fullnFinal = salaryDetailsForm.model().isFullAndFinal;
+        var salaryStatus = salaryDetailsForm.model().SalaryStatus;
+        var days = salaryDetailsForm.model().Days;     
         salaryService.GetByMonth(employeeID, monthID, true, function (status, data) {
             if (status) {
+                if (data != null && data.BankName == null) {
+                    data.BankName = bankName;
+                }
+                if (data != null && data.AccountNumber == null) {
+                    data.AccountNumber = accNumber;
+                }
+                data.MonthID = salmonthid;
+                data.SalaryID = salaryID;
+                data.CreatedBy = createdBy;
+                data.CreatedDate = createdDate;
+                data.isFullAndFinal = fullnFinal;
+                data.Days = days;
+                data.SalaryStatus = salaryStatus;
+               
+                var arstatus = new Array();
+                if (salaryStatus != null && salaryStatus == 2) {
+                    arstatus.SalaryStatusName = 'Approved';
+                    arstatus.SalaryStatusID = 2;
+                }
+                else {
+                    arstatus.SalaryStatusName = 'Pending';
+                    arstatus.SalaryStatusID = 1;
+                }
+                data.SalaryStatu = arstatus;
                 salaryDetailsForm.model(data);
             }
         });
     }
     _.PopulateTDS = function (employeeID, monthID) {
-        
-        salaryService.GetTDSbyYear(employeeID, monthID,function (status, data) {
+        salaryService.GetTDSbyYear(employeeID, monthID, function (status, data) {
             if (status) {
                 salaryDetailsForm.SetValue("TDS", data);
             }
@@ -33,7 +65,6 @@ $(document).ready(function () {
     }
 
     function showHideActionButtons() {
-        debugger;
         var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var d = new Date();
         var currentDate = d.getDate();
@@ -52,7 +83,7 @@ $(document).ready(function () {
 
         var salaryMonth = $('#currentMonth').val().toString().split(',')[0].trim();
         var salaryYear = $('#currentMonth').val().toString().split(',')[1].trim();
-            
+
         if ((currentMonth == salaryMonth && parseInt(currentYear) == parseInt(salaryYear)) ||
             (currentDate <= 5 && prevMonth == salaryMonth && parseInt(prevYear) == parseInt(salaryYear))) {
             $('#btnSave').css('display', 'inline-block');
@@ -94,7 +125,6 @@ $(document).ready(function () {
     }
 
     _.SaveSalary = function (monthID) {
-        debugger;
         var isvalid = salaryDetailsForm.detailsForm.valid();
         if (isvalid) {
             if (salaryDetailsForm.model().SalaryStatu != null && salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
@@ -103,6 +133,8 @@ $(document).ready(function () {
             else
                 salaryDetailsForm.model().SalaryStatus = 1; //Pending
             SalaryMonthID = monthID;
+
+            salaryDetailsForm.model().Days = $('#lbldays').text();
             salaryDetailsForm.Save(saveCallback);
             //$("#salaryDetailsForm").parent().hide();
             //$("#employeeSalaryListView").show();
@@ -113,99 +145,7 @@ $(document).ready(function () {
     }
 });
 
-
-//_.loadNextEmployee = function (employeeID, monthID) {
-//    debugger;
-//    var isvalid = salaryDetailsForm.detailsForm.valid();
-//    if (isvalid) {
-//        SalaryMonthID = monthID;
-//        if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
-//            salaryDetailsForm.model().SalaryStatus = 2;
-//        }
-//        else
-//            salaryDetailsForm.model().SalaryStatus = 1; //Pending
-//        salaryDetailsForm.Save(loadNextEmployeeCallback);
-//    }
-//    else {
-//        alert('Kindly check if data entered is correct.');
-//    }
-//}
-//function loadNextEmployeeCallback(successStatus, callBackData) {
-//    if (successStatus) {
-//        var employeeID = $('#employeeidtoedit').val();
-//        employeeSalaryService.GetNextEmployeeID(employeeID, function (status, data) {
-//            if (status) {
-//                if (data != -1) {
-//                    _.LoadSalaryForm(data, SalaryMonthID);
-//                } else {
-//                    _.LoadSalaryForm(employeeID, SalaryMonthID);
-//                    alert('No next employee.');
-//                }
-//                SalaryMonthID = null;
-//            }
-//        });
-//    }
-//}
-//_.loadPrevEmployee = function (employeeID, monthID) {
-//    debugger;
-//    var isvalid = salaryDetailsForm.detailsForm.valid();
-//    if (isvalid) {
-//        SalaryMonthID = monthID;
-//        if (salaryDetailsForm.model().SalaryStatu.SalaryStatusName == "Approved") {
-//            salaryDetailsForm.model().SalaryStatus = 2;
-//        }
-//        else
-//            salaryDetailsForm.model().SalaryStatus = 1; //Pending
-//        salaryDetailsForm.Save(loadPrevEmployeeCallback);
-//    }
-//    else {
-//        alert('Kindly check if data entered is correct.');
-//    }
-//}
-
-//function loadPrevEmployeeCallback(successStatus, callbackData) {
-//    debugger;
-//    if (successStatus) {
-//        var employeeID = $('#employeeidtoedit').val();
-//        employeeSalaryService.GetPrevEmployeeID(employeeID, function (status, data) {
-//            if (status) {
-//                if (data != -1) {
-//                    _.LoadSalaryForm(data, SalaryMonthID);
-//                } else {
-//                    _.LoadSalaryForm(employeeID, SalaryMonthID);
-//                    alert('No previous employee.');
-//                }
-//                SalaryMonthID = null;
-//            }
-//        });
-//    }
-//}
-
-//var approveNextEmployee = function (monthID) {
-//    debugger;
-//    var employeeID = $('#employeeidtoedit').val();
-//    if (salaryDetailsForm.model().SalaryStatu != null) {
-//        salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
-//    }
-//    salaryDetailsForm.model().SalaryStatu.SalaryStatusName = "Approved";
-//    salaryDetailsForm.model().SalaryStatus = 2;
-//    // salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
-//    _.loadNextEmployee(employeeID, monthID);
-//}
-
-//var approvePrevEmployee = function (monthID) {
-//    var employeeID = $('#employeeidtoedit').val();
-//    if (salaryDetailsForm.model().SalaryStatu != null) {
-//        salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
-//    }
-//    salaryDetailsForm.model().SalaryStatu.SalaryStatusName = "Approved";
-//    salaryDetailsForm.model().SalaryStatus = 2;
-//    //salaryDetailsForm.SetValue('SalaryStatus', 2);//Approved
-//    _.loadPrevEmployee(employeeID, monthID);
-//}
-
 var approveSalary = function (monthID) {
-    debugger;
     var employeeID = $('#employeeidtoedit').val();
     if (salaryDetailsForm.model().SalaryStatu != null) {
         salaryDetailsForm.model().SalaryStatu.SalaryStatusID = 2;
@@ -215,6 +155,7 @@ var approveSalary = function (monthID) {
     var isvalid = salaryDetailsForm.detailsForm.valid();
     if (isvalid) {
         SalaryMonthID = monthID;
+        salaryDetailsForm.model().Days = $('#lbldays').text();
         salaryDetailsForm.Save(approveCallback);
     }
     else {

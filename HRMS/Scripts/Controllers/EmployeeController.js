@@ -121,7 +121,6 @@ $(document).ready(function () {
 
     $("#em_PermanentAddressState").change(function () {
         if ($("#em_sameAsPermenent").is(':checked')) {
-            debugger;
             var PermanentAddressSta = $('#em_PermanentAddressState option:selected').val();
             //var PermanentAddressState = employeeDetailsForm.GetValue("PermanentAddressState");
             employeeDetailsForm.SetValue("AddressState", PermanentAddressSta);
