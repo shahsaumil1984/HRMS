@@ -32,7 +32,7 @@ namespace HRMS.Api
 
             var data = dbContext.EmployeeStatusHistories.Where(i => i.EmployeeID == id).OrderByDescending(i=>i.EmployeeStatusID).First();
             int monthid = Convert.ToInt32(service.Context.Months.Where(x => x.Month1 == DateTime.Now.Month && x.Year == DateTime.Now.Year).Select(x => x.MonthID).FirstOrDefault());
-
+            int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
             EmployeeStatusHistoryExtend obj = new EmployeeStatusHistoryExtend();
 
             obj.CreatedBy = data.CreatedBy;
@@ -60,7 +60,7 @@ namespace HRMS.Api
                 ConveyanceAllowance = 0,
                 CreatedBy = HttpContext.Current.User.Identity.Name,
                 CreatedDate = Convert.ToDateTime(DateTime.Now),
-                Days = 0,
+                Days = daysInMonth,
                 EmployeeID = data.EmployeeID,
                 EPF = 0,
                 Exgratia = 0,
@@ -76,12 +76,12 @@ namespace HRMS.Api
                 PLI = 0,
                 ProfessionalTax = 0,
                 ReimbursementOfexp = 0,
-                TDS = 0,
+                TDS = 0, 
                 Total = 0,
                 TotalPayment = 0,
                 YTDS = 0,
                 isFullAndFinal = true,
-                SalaryStatus = Convert.ToInt32(Helper.SalaryStatus.Approved)
+                SalaryStatus = Convert.ToInt32(Helper.SalaryStatus.Approved)               
             });
             return obj;
         }
