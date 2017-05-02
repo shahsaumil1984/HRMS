@@ -105,32 +105,43 @@
 
                     <div ng-show="model.Status_New == @Convert.ToInt32(HRMS.Helper.EmployeeStatus.FullAndFinal)">
                         <div class="row" ng-show="model.Employee.Salaries.length > 0">
-                            <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Employee Name:</label>
                                     <label id="empName" ng-bind="model.Employee.FullName"></label>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Employee Code:</label>
                                     <label id="empCode" ng-bind="model.Employee.EmployeeCode"></label>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group">
-                                    <label>Month: @DateTime.Now.ToString("MMMM") </label>
+                                    <label>Month: @(DateTime.Now.ToString("MMMM")), @(DateTime.Now.Year) </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label>Days:</label>
+                                    <label>@(DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row" ng-show="model.Employee.Salaries.length > 0">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label>Salary Status: Approved</label>                                  
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Bank Account Number:</label>
                                     <label id="bankAccNo" ng-bind="model.Employee.SalaryAccountNumber"></label>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Bank Name:</label>
                                     <label id="bankName" ng-bind="model.Employee.SalaryAccountBank"></label>
@@ -147,34 +158,34 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group row">
-                                        <label for="Basic" class="col-sm-4 control-label">Basic</label>
+                                        <label for="Basic" class="col-sm-4 control-label">Basic <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Basic" id="em_Basic" ng-model="m.Basic" class="required number form-control col-md-8" maxlength="500" /></div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="HRA" class="col-sm-4 control-label">HRA</label>
+                                        <label for="HRA" class="col-sm-4 control-label">HRA <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_HRA" id="em_HRA" ng-model="m.HRA" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="ConveyanceAllowance" class="col-sm-4 control-label">Conveyance Allowance</label>
+                                        <label for="ConveyanceAllowance" class="col-sm-4 control-label">Conveyance Allowance <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_ConveyanceAllowance" id="em_ConveyanceAllowance" ng-model="m.ConveyanceAllowance" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="OtherAllowance" class="col-sm-4 control-label">Other Allowance</label>
+                                        <label for="OtherAllowance" class="col-sm-4 control-label">Other Allowance <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_OtherAllowance" id="em_OtherAllowance" ng-model="m.OtherAllowance" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="MedicalReimbursement" class="col-sm-4 control-label">Medical Reimbursement</label>
+                                        <label for="MedicalReimbursement" class="col-sm-4 control-label">Medical Reimbursement<i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_MedicalReimbursement" id="em_MedicalReimbursement" ng-model="m.MedicalReimbursement" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="AdvanceSalary" class="col-sm-4 control-label">Advance/Arrear Salary</label>
+                                        <label for="AdvanceSalary" class="col-sm-4 control-label">Advance/Arrear Salary <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_AdvanceSalary" id="em_AdvanceSalary" ng-model="m.AdvanceSalary" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
@@ -182,31 +193,31 @@
                                 <div class="col-md-6 col-sm-6">
 
                                     <div class="form-group row">
-                                        <label for="Incentive" class="col-sm-4 control-label">Incentive</label>
+                                        <label for="Incentive" class="col-sm-4 control-label">Incentive <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Incentive" id="em_Incentive" ng-model="m.Incentive" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="PLI" class="col-sm-4 control-label">PLI</label>
+                                        <label for="PLI" class="col-sm-4 control-label">PLI <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_PLI" id="em_PLI" ng-model="m.PLI" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="Exgratia" class="col-sm-4 control-label">Ex-gratia/PL Encashed/Other</label>
+                                        <label for="Exgratia" class="col-sm-4 control-label">Ex-gratia/PL Encashed/ Other <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Exgratia" id="em_Exgratia" ng-model="m.Exgratia" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="ReimbursementOfexp" class="col-sm-4 control-label">Reimbursement Of exp</label>
+                                        <label for="ReimbursementOfexp" class="col-sm-4 control-label">Reimbursement Of exp <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_ReimbursementOfexp" id="em_ReimbursementOfexp" ng-model="m.ReimbursementOfexp" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="Total" class="col-sm-4 control-label">Total</label>
+                                        <label for="Total" class="col-sm-4 control-label">Total <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Total" id="em_Total" ng-model="m.Total" class="required number form-control" maxlength="500" /></div>
                                     </div>
                                 </div>
@@ -222,19 +233,19 @@
 
 
                                     <div class="form-group row">
-                                        <label for="TDS" class="col-sm-4 control-label">TDS</label>
+                                        <label for="TDS" class="col-sm-4 control-label">TDS <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_TDS" id="em_TDS" ng-model="m.TDS" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="EPF" class="col-sm-4 control-label">EPF</label>
+                                        <label for="EPF" class="col-sm-4 control-label">EPF <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_EPF" id="em_EPF" ng-model="m.EPF" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="ProfessionalTax" class="col-sm-4 control-label">Professional Tax</label>
+                                        <label for="ProfessionalTax" class="col-sm-4 control-label">Professional Tax <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_ProfessionalTax" id="em_ProfessionalTax" ng-model="m.ProfessionalTax" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
@@ -245,13 +256,13 @@
 
 
                                     <div class="form-group row">
-                                        <label for="Leave" class="col-sm-4 control-label">Leave</label>
+                                        <label for="Leave" class="col-sm-4 control-label">Leave <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Leave" id="em_Leave" ng-model="m.Leave" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="Advance" class="col-sm-4 control-label">Advance</label>
+                                        <label for="Advance" class="col-sm-4 control-label">Advance <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Advance" id="em_Advance" ng-model="m.Advance" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
@@ -263,13 +274,13 @@
                                     <p class="midtitle">Payments</p>
 
                                     <div class="form-group row">
-                                        <label for="Salary" class="col-sm-4 control-label">Salary</label>
+                                        <label for="Salary" class="col-sm-4 control-label">Salary <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_Salary" id="em_Salary" ng-model="m.Salary1" class="required number form-control" maxlength="500" /></div>
                                     </div>
 
 
                                     <div class="form-group row">
-                                        <label for="TotalPayment" class="col-sm-4 control-label">Total Payment</label>
+                                        <label for="TotalPayment" class="col-sm-4 control-label">Total Payment <i class="lblRequired">*</i></label>
                                         <div class="col-sm-8"><input type="text" name="em_TotalPayment" id="em_TotalPayment" ng-model="m.TotalPayment" class="required number form-control" maxlength="500" /></div>
                                     </div>
                                 </div>
@@ -277,8 +288,8 @@
                                     <p class="midtitle">YTD Summary</p>
 
                                     <div class="form-group row">
-                                        <label for="YTDS" class="col-sm-4 control-label">YTDS deducted</label>
-                                        <div class="col-sm-8"><input type="text" name="em_YTDS" id="em_YTDS" ng-model="m.YTDS" class="form-control number" maxlength="500" /></div>
+                                        <label for="YTDS" class="col-sm-4 control-label">YTDS deducted <i class="lblRequired">*</i></label>
+                                        <div class="col-sm-8"><input type="text" name="em_YTDS" id="em_YTDS" ng-model="m.YTDS" class="form-control number required" maxlength="500" /></div>
                                     </div>
 
 
