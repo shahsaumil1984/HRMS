@@ -69,15 +69,15 @@ _.NewItDeclarationDetailForm = function (formName, hideList, callback) {
     itDeclarationDetailsForm.SetValue('EmployeeID', $('#hdnEmployeeID').val());
     itDeclarationDetailsForm.SetValue('PanNo', $('#hdnPan').val());
 
-    itDeclarationDetailsForm.SetValue('AddressLine1', $('#hdnAddressLine1').val());
-    itDeclarationDetailsForm.SetValue('AddressLine2', $('#hdnAddressLine2').val());
-    itDeclarationDetailsForm.SetValue('AddressLine3', $('#hdnAddressLine3').val());
-    itDeclarationDetailsForm.SetValue('AddressCity', $('#hdnAddressCity').val());
-    itDeclarationDetailsForm.SetValue('AddressState', $('#hdnAddressState').val());
-    itDeclarationDetailsForm.SetValue('AddressZip', $('#hdnAddressZip').val());
-    itDeclarationDetailsForm.SetValue('AddressCountry', $('#hdnAddressCountry').val());
+    itDeclarationDetailsForm.SetValue('AddressLine1', $('#hdnAddressLine1').val().trim());
+    itDeclarationDetailsForm.SetValue('AddressLine2', $('#hdnAddressLine2').val().trim());
+    itDeclarationDetailsForm.SetValue('AddressLine3', $('#hdnAddressLine3').val().trim());
+    itDeclarationDetailsForm.SetValue('AddressCity', $('#hdnAddressCity').val().trim());
+    itDeclarationDetailsForm.SetValue('AddressState', $('#hdnAddressState').val().trim());
+    itDeclarationDetailsForm.SetValue('AddressZip', $('#hdnAddressZip').val().trim());
+    itDeclarationDetailsForm.SetValue('AddressCountry', $('#hdnAddressCountry').val().trim());
 
-    itDeclarationDetailsForm.SetValue('MobileNumber', $('#hdnMobileNumber').val());
+    itDeclarationDetailsForm.SetValue('MobileNumber', $('#hdnMobileNumber').val().trim());
     
 }
 _.ResetForm = function () {

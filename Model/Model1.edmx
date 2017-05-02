@@ -290,12 +290,12 @@
           <Property Name="CreatedBy" Type="varchar" MaxLength="100" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="varchar" MaxLength="100" />
-          <Property Name="AddressCity" Type="nvarchar" MaxLength="500" />
           <Property Name="HLAddressCity" Type="nvarchar" MaxLength="500" />
           <Property Name="HRAddressCity" Type="nvarchar" MaxLength="500" />
           <Property Name="MobileNumber" Type="varchar" MaxLength="12" />
           <Property Name="NPS" Type="int" />
           <Property Name="NSC" Type="int" />
+          <Property Name="AddressCity" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="LeaveMaster">
           <Key>
@@ -384,8 +384,8 @@
           <Property Name="BankName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="SalaryStatus" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="250" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
           <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="250" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="isFullAndFinal" Type="bit" />
         </EntityType>
@@ -639,30 +639,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ItDeclarationForm_Employee1">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="ItDeclarationForm" Type="Self.ItDeclarationForm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="ItDeclarationForm">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ItDeclarationForm_Employee11">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="ItDeclarationForm" Type="Self.ItDeclarationForm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeID" />
-            </Principal>
-            <Dependent Role="ItDeclarationForm">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LeaveMaster_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="LeaveMaster" Type="Self.LeaveMaster" Multiplicity="*" />
@@ -840,14 +816,6 @@
             <End Role="EmployeeStatusHistory" EntitySet="EmployeeStatusHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_ItDeclarationForm_Employee" Association="Self.FK_ItDeclarationForm_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="ItDeclarationForm" EntitySet="ItDeclarationForm" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ItDeclarationForm_Employee1" Association="Self.FK_ItDeclarationForm_Employee1">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="ItDeclarationForm" EntitySet="ItDeclarationForm" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ItDeclarationForm_Employee11" Association="Self.FK_ItDeclarationForm_Employee11">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="ItDeclarationForm" EntitySet="ItDeclarationForm" />
           </AssociationSet>

@@ -49,7 +49,7 @@
                         <label>IT Declaration Year<i class="lblRequired">*</i> :</label>
                         @*<input type="text" name="itDeclarationYear" id="itDeclarationYear" ng-model="model.itDeclarationYear" class="form-control" maxlength="7" />*@
 
-                        <select id="itDeclarationYear" name="itDeclarationYear" class="required form-control" ng-model="model.ItDeclarationYear" value="{{model.ItDeclarationYear}}" style="width:80%">
+                        <select id="itDeclarationYear" name="itDeclarationYear" class="required form-control auto-width" ng-model="model.ItDeclarationYear" value="{{model.ItDeclarationYear}}" >
                             <option value="">Select Financial Year</option>
                             @foreach (var year in Model.Years)
                             {
@@ -277,7 +277,7 @@
                     </div>
                 </div>
               
-                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="hlAddressState">Home Loan Address State:</label>
                         <select name="hlAddressState" id="hlAddressState" value="model.HLAddressState" ng-model="model.HLAddressState" class="form-control">
@@ -329,7 +329,7 @@
                 <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
                     <div class="form-group">
                         <label for="hlAddressZip">Home Loan Address Zip:</label>
-                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" />
+                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" maxlength="6"/>
                     </div>
                 </div>
             </div>
@@ -367,7 +367,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="hrAddressState">Home Rent Address State:</label>
                         <select name="hrAddressState" id="hrAddressState" value="model.HRAddressState" ng-model="model.HRAddressState1" class="form-control">
@@ -419,7 +419,7 @@
                 <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
                     <div class="form-group">
                         <label for="hrAddressZip">Home Rent Address Zip:</label>
-                        <input type="text" name="hrAddressZip" id="hrAddressZip" ng-model="model.HRAddressZip1" class="form-control" />
+                        <input type="text" name="hrAddressZip" id="hrAddressZip" ng-model="model.HRAddressZip1" class="form-control" maxlength="6" />
                     </div>
                 </div>
             </div>

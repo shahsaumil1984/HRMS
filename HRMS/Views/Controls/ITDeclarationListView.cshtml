@@ -1,4 +1,4 @@
-@model ViewModel.MasterViewModel
+    @model ViewModel.MasterViewModel
 @using Model
 
 <div class="listView" id="itDeclarationListView">
@@ -73,7 +73,7 @@
 
                     <tr alt=$index%2 ng-repeat="r in rows">
 
-                        <td class="text-left">{{r.ItDeclarationYear}}</td>
+                        <td class="text-left">{{r.ItDeclarationYear}} -{{r.ItDeclarationYear+1}}</td>
                         <td class="text-left">@ViewBag.Name</td>
                         <td class="text-left">{{r.PanNo}}</td>
                         <td class="text-left">{{r.Date  | date:'dd/MM/yyyy'}}</td>
