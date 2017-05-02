@@ -98,12 +98,7 @@
                         <input type="text" name="addressCity" id="addressCity" ng-model="model.AddressCity" class="form-control required" />
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="addressZip">Address Zip<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number required" maxlength="6" />
-                    </div>
-                </div>
+
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressState">Address State <i class="lblRequired">*</i> :</label>
@@ -151,6 +146,12 @@
                     <div class="form-group">
                         <label for="addressCountry">Address Country <i class="lblRequired">*</i> :</label>
                         <input type="text" name="addressCountry" id="addressCountry" ng-model="model.AddressCountry" class="form-control required" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressZip">Address Zip<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number required" maxlength="6" />
                     </div>
                 </div>
             </div>
@@ -275,13 +276,8 @@
                         <input type="text" name="hlAddressCity" id="hlAddressCity" ng-model="model.HLAddressCity" class="form-control" />
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="hlAddressZip">Home Loan Address Zip:</label>
-                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" />
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
+              
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
                     <div class="form-group">
                         <label for="hlAddressState">Home Loan Address State:</label>
                         <select name="hlAddressState" id="hlAddressState" value="model.HLAddressState" ng-model="model.HLAddressState" class="form-control">
@@ -330,6 +326,12 @@
                         <input type="text" name="hlAddressCountry" id="hlAddressCountry" ng-model="model.HLAddressCountry" class="form-control" />
                     </div>
                 </div>
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                    <div class="form-group">
+                        <label for="hlAddressZip">Home Loan Address Zip:</label>
+                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" />
+                    </div>
+                </div>
             </div>
             <p class="midtitle">House Rent Amount:</p><pre>(Attach rent agreement) & PAN no of Lanlord in case rent exceed Rs 1,00,000/- per annum.</pre> 
             <div class="row">
@@ -364,13 +366,8 @@
                         <input type="text" name="hrAddressCity" id="hrAddressCity" ng-model="model.HRAddressCity" class="form-control" />
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                        <label for="hrAddressZip">Home Rent Address Zip:</label>
-                        <input type="text" name="hrAddressZip" id="hrAddressZip" ng-model="model.HRAddressZip1" class="form-control" />
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
+                
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
                     <div class="form-group">
                         <label for="hrAddressState">Home Rent Address State:</label>
                         <select name="hrAddressState" id="hrAddressState" value="model.HRAddressState" ng-model="model.HRAddressState1" class="form-control">
@@ -413,10 +410,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 col-xs-12">
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
                     <div class="form-group">
                         <label for="hrAddressCountry">Home Rent Address Country:</label>
                         <input type="text" name="hrAddressCountry" id="hrAddressCountry" ng-model="model.HRAddressCountry1" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                    <div class="form-group">
+                        <label for="hrAddressZip">Home Rent Address Zip:</label>
+                        <input type="text" name="hrAddressZip" id="hrAddressZip" ng-model="model.HRAddressZip1" class="form-control" />
                     </div>
                 </div>
             </div>

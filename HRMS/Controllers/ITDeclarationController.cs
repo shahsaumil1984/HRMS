@@ -31,6 +31,8 @@ namespace HRMS.Controllers
             ViewBag.AddressZip = objEmployee.AddressZip;
             ViewBag.AddressCountry = objEmployee.AddressCountry;
 
+            ViewBag.MobileNumber = objEmployee.Phone;
+
             MonthService mService = new MonthService();
             MasterViewModel mvm = new MasterViewModel();
             mvm.Years = mService.Get().Select(s => s.Year).Distinct().ToList();

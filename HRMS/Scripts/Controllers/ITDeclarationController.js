@@ -51,7 +51,6 @@ $(document).ready(function () {
            $phone.val('');
        }
    });
-
 });
  
 // Form Validation
@@ -66,17 +65,20 @@ _.NewItDeclarationDetailForm = function (formName, hideList, callback) {
     if (df != null && df.length > 0) {
         setTimeout('$("#' + df[0].id + '").focus()', 400);
     }
-    
+    debugger;
     itDeclarationDetailsForm.SetValue('EmployeeID', $('#hdnEmployeeID').val());
     itDeclarationDetailsForm.SetValue('PanNo', $('#hdnPan').val());
+
     itDeclarationDetailsForm.SetValue('AddressLine1', $('#hdnAddressLine1').val());
     itDeclarationDetailsForm.SetValue('AddressLine2', $('#hdnAddressLine2').val());
     itDeclarationDetailsForm.SetValue('AddressLine3', $('#hdnAddressLine3').val());
     itDeclarationDetailsForm.SetValue('AddressCity', $('#hdnAddressCity').val());
     itDeclarationDetailsForm.SetValue('AddressState', $('#hdnAddressState').val());
     itDeclarationDetailsForm.SetValue('AddressZip', $('#hdnAddressZip').val());
-    itDeclarationDetailsForm.SetValue('AddressCountry', $('#AddressCountry').val());
+    itDeclarationDetailsForm.SetValue('AddressCountry', $('#hdnAddressCountry').val());
 
+    itDeclarationDetailsForm.SetValue('MobileNumber', $('#hdnMobileNumber').val());
+    
 }
 _.ResetForm = function () {
     $("label").remove(".error");
