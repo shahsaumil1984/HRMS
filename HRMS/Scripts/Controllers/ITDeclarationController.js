@@ -57,15 +57,18 @@ $(document).ready(function () {
 //----------------------------------------------
 _.NewItDeclarationDetailForm = function (formName, hideList, callback) {
     var fb = this.FormBindings[formName];
-    if (fb.detailsWindow) {
-        fb.validator.resetForm();
-        fb.ShowForm(hideList);
-    }
-    var df = fb.detailsWindow.find("[data-default-focus='true']");
-    if (df != null && df.length > 0) {
-        setTimeout('$("#' + df[0].id + '").focus()', 400);
-    }
-    debugger;
+    fb.New(function (status, data) {
+
+        if (fb.detailsWindow) {
+            fb.validator.resetForm();
+            fb.ShowForm(hideList);
+        }
+        var df = fb.detailsWindow.find("[data-default-focus='true']");
+        if (df != null && df.length > 0) {
+            setTimeout('$("#' + df[0].id + '").focus()', 400);
+        }      
+    });
+   
     itDeclarationDetailsForm.SetValue('EmployeeID', $('#hdnEmployeeID').val());
     itDeclarationDetailsForm.SetValue('PanNo', $('#hdnPan').val());
 
@@ -74,6 +77,7 @@ _.NewItDeclarationDetailForm = function (formName, hideList, callback) {
     itDeclarationDetailsForm.SetValue('AddressLine3', $('#hdnAddressLine3').val().trim());
     itDeclarationDetailsForm.SetValue('AddressCity', $('#hdnAddressCity').val().trim());
     itDeclarationDetailsForm.SetValue('AddressState', $('#hdnAddressState').val().trim());
+    $('#addressState').val($('#hdnAddressState').val().trim());
     itDeclarationDetailsForm.SetValue('AddressZip', $('#hdnAddressZip').val().trim());
     itDeclarationDetailsForm.SetValue('AddressCountry', $('#hdnAddressCountry').val().trim());
 

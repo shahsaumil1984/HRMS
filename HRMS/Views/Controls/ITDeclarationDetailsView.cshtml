@@ -14,18 +14,27 @@
               data-associated-list="itDeclarationGrid"
               method="get" class="col-xs-12 col-sm-12" action="" role="form">
 
-
-            <h3>Create New IT Declaration</h3>
-
+            <div ng-show="model.ItDeclarationID != 0">
+                <h3>Edit IT Declaration</h3>
+            </div>
+            <h3 ng-show="model.ItDeclarationID == 0">Create New IT Declaration</h3>
             <div id="itDeclarationerrorDisplay" class="itDeclarationerrorDisplay" data-error-display="true"></div>
 
             <p class="midtitle">Employee Details</p>
-
+            <input type="hidden" id="hdnEmployeeID" value="@ViewBag.EmployeeID" />
+            <input type="hidden" id="hdnPan" value="@ViewBag.Pan" />
+            <input type="hidden" id="hdnAddressLine1" value="@ViewBag.AddressLine1" />
+            <input type="hidden" id="hdnAddressLine2" value="@ViewBag.AddressLine2" />
+            <input type="hidden" id="hdnAddressLine3" value="@ViewBag.AddressLine3" />
+            <input type="hidden" id="hdnAddressCity" value="@ViewBag.AddressCity" />
+            <input type="hidden" id="hdnAddressState" value="@ViewBag.AddressState" />
+            <input type="hidden" id="hdnAddressZip" value="@ViewBag.AddressZip" />
+            <input type="hidden" id="hdnAddressCountry" value="@ViewBag.AddressCountry" />
+            <input type="hidden" id="hdnMobileNumber" value="@ViewBag.MobileNumber" />
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label>Employee Name:</label>
-                        <input type="hidden" id="hdnEmployeeID" ng-bind="model.EmployeeID" />
+                        <label>Employee Name:</label>                     
                         @*<input type="hidden" id="hdnItDeclarationID " ng-bind="model.ItDeclarationID" />*@
                         <br />
                         <label>@ViewBag.Name</label>
@@ -41,7 +50,7 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label>Pan Number<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="panno" id="panno" ng-model="model.PanNo" class="form-control required" maxlength="10" />
+                        <input type="text" name="panno" id="panno" ng-model="model.PanNo" class="form-control required" maxlength="10" value="@ViewBag.Pan" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
@@ -49,7 +58,7 @@
                         <label>IT Declaration Year<i class="lblRequired">*</i> :</label>
                         @*<input type="text" name="itDeclarationYear" id="itDeclarationYear" ng-model="model.itDeclarationYear" class="form-control" maxlength="7" />*@
 
-                        <select id="itDeclarationYear" name="itDeclarationYear" class="required form-control auto-width" ng-model="model.ItDeclarationYear" value="{{model.ItDeclarationYear}}" >
+                        <select id="itDeclarationYear" name="itDeclarationYear" class="required form-control auto-width" ng-model="model.ItDeclarationYear" value="{{model.ItDeclarationYear}}">
                             <option value="">Select Financial Year</option>
                             @foreach (var year in Model.Years)
                             {
@@ -62,13 +71,13 @@
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label>Date<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="date" id="date" ng-model="model.Date" class="form-control required" maxlength="10" date-Picker />
+                        <input type="text" name="date" id="date" ng-model="model.Date" class="form-control required" maxlength="10" date-Picker value="@(DateTime.Now.ToString("MM/dd/yyyy"))" />
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label>Mobile Number<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="mobileNumber" id="mobileNumber" placeholder="XXX-XXX-XXXX" ng-model="model.MobileNumber" class="form-control required" maxlength="12" />
+                        <input type="text" name="mobileNumber" id="mobileNumber" placeholder="XXX-XXX-XXXX" ng-model="model.MobileNumber" class="form-control required" maxlength="12" value="@ViewBag.MobileNumber" />
                     </div>
                 </div>
             </div>
@@ -77,32 +86,32 @@
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressLine1">Address 1<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressLine1" id="addressLine1" ng-model="model.AddressLine1" class="form-control required" />
+                        <input type="text" name="addressLine1" id="addressLine1" ng-model="model.AddressLine1" class="form-control required" value="@ViewBag.AddressLine1" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressLine2">Address 2<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressLine2" id="addressLine2" ng-model="model.AddressLine2" class="form-control required" />
+                        <input type="text" name="addressLine2" id="addressLine2" ng-model="model.AddressLine2" class="form-control required" value="@ViewBag.AddressLine2" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressLine3">Address 3<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressLine3" id="addressLine3" ng-model="model.AddressLine3" class="form-control required" />
+                        <input type="text" name="addressLine3" id="addressLine3" ng-model="model.AddressLine3" class="form-control required" value="@ViewBag.AddressLine3" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressLine3">Address City<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressCity" id="addressCity" ng-model="model.AddressCity" class="form-control required" />
+                        <input type="text" name="addressCity" id="addressCity" ng-model="model.AddressCity" class="form-control required" value="@ViewBag.AddressCity" />
                     </div>
                 </div>
-
+                <input type="hidden" id="hdnAddressState" value="@ViewBag.AddressState" />
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressState">Address State <i class="lblRequired">*</i> :</label>
-                        <select name="addressState" id="addressState" value="model.PermanentAddressState" ng-model="model.AddressState" class="form-control required">
+                        <select name="addressState" id="addressState" value="model.AddressState" ng-model="model.AddressState" class="form-control required">
                             <option value="">Select</option>
                             <option value="AndamanandNicobar">Andaman and Nicobar</option>
                             <option value="AndhraPradesh">Andhra Pradesh</option>
@@ -145,13 +154,13 @@
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressCountry">Address Country <i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressCountry" id="addressCountry" ng-model="model.AddressCountry" class="form-control required" />
+                        <input type="text" name="addressCountry" id="addressCountry" ng-model="model.AddressCountry" class="form-control required" value="@ViewBag.AddressCountry" />
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="addressZip">Address Zip<i class="lblRequired">*</i> :</label>
-                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number required" maxlength="6" />
+                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number required" maxlength="6" value="@ViewBag.AddressZip" />
                     </div>
                 </div>
             </div>
@@ -235,7 +244,7 @@
                 </div>
             </div>
 
-            <p class="midtitle">Payment U/S 80D </p><pre>Upto Rs 25,000/- (Rs 30,000/-when mediclaim is taken in the name of senior citizen)</pre> 
+            <p class="midtitle">Payment U/S 80D </p><pre>Upto Rs 25,000/- (Rs 30,000/-when mediclaim is taken in the name of senior citizen)</pre>
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -244,7 +253,7 @@
                     </div>
                 </div>
             </div>
-            <p class="midtitle">Home Loan U/S 80D</p><pre>Maximum upto Rs 2,00,000</pre> 
+            <p class="midtitle">Home Loan U/S 80D</p><pre>Maximum upto Rs 2,00,000</pre>
             <div class="row">
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -276,7 +285,7 @@
                         <input type="text" name="hlAddressCity" id="hlAddressCity" ng-model="model.HLAddressCity" class="form-control" />
                     </div>
                 </div>
-              
+
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="hlAddressState">Home Loan Address State:</label>
@@ -329,11 +338,11 @@
                 <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
                     <div class="form-group">
                         <label for="hlAddressZip">Home Loan Address Zip:</label>
-                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" maxlength="6"/>
+                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" maxlength="6" />
                     </div>
                 </div>
             </div>
-            <p class="midtitle">House Rent Amount:</p><pre>(Attach rent agreement) & PAN no of Lanlord in case rent exceed Rs 1,00,000/- per annum.</pre> 
+            <p class="midtitle">House Rent Amount:</p><pre>(Attach rent agreement) & PAN no of Lanlord in case rent exceed Rs 1,00,000/- per annum.</pre>
             <div class="row">
 
                 <div class="col-md-2 col-sm-6 col-xs-12">
@@ -366,7 +375,7 @@
                         <input type="text" name="hrAddressCity" id="hrAddressCity" ng-model="model.HRAddressCity" class="form-control" />
                     </div>
                 </div>
-                
+
                 <div class="col-md-2 col-sm-6 col-xs-12">
                     <div class="form-group">
                         <label for="hrAddressState">Home Rent Address State:</label>

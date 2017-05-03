@@ -19,19 +19,19 @@ namespace HRMS.Controllers
             ViewBag.EmployeeID = EmployeeID;
             Service.EmployeeService service = new Service.EmployeeService();
             Employee objEmployee = service.GetById(EmployeeID);
-            ViewBag.Name = objEmployee.FullName;
-            ViewBag.EmployeeCode = objEmployee.EmployeeCode;
-            ViewBag.Pan = objEmployee.PAN;
+            ViewBag.Name = objEmployee.FullName.ToString().Trim();
+            ViewBag.EmployeeCode = objEmployee.EmployeeCode.ToString().Trim();
+            ViewBag.Pan = objEmployee.PAN.ToString().Trim();
             
-            ViewBag.AddressLine1 = objEmployee.AddressLine1;
-            ViewBag.AddressLine2 = objEmployee.AddressLine2;
-            ViewBag.AddressLine3 = objEmployee.AddressLine3;
-            ViewBag.AddressCity = objEmployee.AddressCity;
-            ViewBag.AddressState = objEmployee.AddressState;
-            ViewBag.AddressZip = objEmployee.AddressZip;
-            ViewBag.AddressCountry = objEmployee.AddressCountry;
+            ViewBag.AddressLine1 = objEmployee.AddressLine1.ToString().Trim();
+            ViewBag.AddressLine2 = objEmployee.AddressLine2.ToString().Trim();
+            ViewBag.AddressLine3 = objEmployee.AddressLine3.ToString().Trim();
+            ViewBag.AddressCity = objEmployee.AddressCity.ToString().Trim();
+            ViewBag.AddressState = objEmployee.AddressState.ToString().Trim();
+            ViewBag.AddressZip = objEmployee.AddressZip.ToString().Trim();
+            ViewBag.AddressCountry = objEmployee.AddressCountry.ToString().Trim();
 
-            ViewBag.MobileNumber = objEmployee.Phone;
+            ViewBag.MobileNumber = objEmployee.Phone.ToString().Trim();
 
             MonthService mService = new MonthService();
             MasterViewModel mvm = new MasterViewModel();
