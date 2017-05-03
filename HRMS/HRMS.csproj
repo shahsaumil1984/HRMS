@@ -475,6 +475,10 @@
     <Content Include="Views\Controls\TaxComputationDetailsView.cshtml" />
     <Content Include="Views\Controls\ITDeclarationDetailsView.cshtml" />
     <Content Include="Views\Controls\ITDeclarationListView.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
