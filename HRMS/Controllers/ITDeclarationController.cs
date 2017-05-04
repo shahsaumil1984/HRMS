@@ -15,29 +15,29 @@ namespace HRMS.Controllers
         [Authorize(Roles = "Accountant")]
         public ActionResult Index(int EmployeeID)
         {
-              
+
             ViewBag.EmployeeID = EmployeeID;
             Service.EmployeeService service = new Service.EmployeeService();
             Employee objEmployee = service.GetById(EmployeeID);
-            ViewBag.Name = objEmployee.FullName.ToString().Trim();
-            ViewBag.EmployeeCode = objEmployee.EmployeeCode.ToString().Trim();
-            ViewBag.Pan = objEmployee.PAN.ToString().Trim();
-            
-            ViewBag.AddressLine1 = objEmployee.AddressLine1.ToString().Trim();
-            ViewBag.AddressLine2 = objEmployee.AddressLine2.ToString().Trim();
-            ViewBag.AddressLine3 = objEmployee.AddressLine3.ToString().Trim();
-            ViewBag.AddressCity = objEmployee.AddressCity.ToString().Trim();
-            ViewBag.AddressState = objEmployee.AddressState.ToString().Trim();
-            ViewBag.AddressZip = objEmployee.AddressZip.ToString().Trim();
-            ViewBag.AddressCountry = objEmployee.AddressCountry.ToString().Trim();
+            ViewBag.Name = objEmployee != null && objEmployee.FullName != null ? objEmployee.FullName.ToString().Trim() : string.Empty;
+            ViewBag.EmployeeCode = objEmployee != null && objEmployee.EmployeeCode != null ? objEmployee.EmployeeCode.ToString().Trim() : string.Empty;
+            ViewBag.Pan = objEmployee != null && objEmployee.PAN != null ? objEmployee.PAN.ToString().Trim() : string.Empty;
 
-            ViewBag.MobileNumber = objEmployee.Phone.ToString().Trim();
+            ViewBag.AddressLine1 = objEmployee != null && objEmployee.AddressLine1 != null ? objEmployee.AddressLine1.ToString().Trim() : string.Empty;
+            ViewBag.AddressLine2 = objEmployee != null && objEmployee.AddressLine2 != null ? objEmployee.AddressLine2.ToString().Trim() : string.Empty;
+            ViewBag.AddressLine3 = objEmployee != null && objEmployee.AddressLine3 != null ? objEmployee.AddressLine3.ToString().Trim() : string.Empty;
+            ViewBag.AddressCity = objEmployee != null && objEmployee.AddressCity != null ? objEmployee.AddressCity.ToString().Trim() : string.Empty;
+            ViewBag.AddressState = objEmployee != null && objEmployee.AddressState != null ? objEmployee.AddressState.ToString().Trim() : string.Empty;
+            ViewBag.AddressZip = objEmployee != null && objEmployee.AddressZip != null ? objEmployee.AddressZip.ToString().Trim() : string.Empty;
+            ViewBag.AddressCountry = objEmployee != null && objEmployee.AddressCountry != null ? objEmployee.AddressCountry.ToString().Trim() : string.Empty;
+
+            ViewBag.MobileNumber = objEmployee.Phone != null ? objEmployee.Phone.ToString().Trim() : string.Empty;
 
             MonthService mService = new MonthService();
             MasterViewModel mvm = new MasterViewModel();
             mvm.Years = mService.Get().Select(s => s.Year).Distinct().ToList();
 
-            return View(mvm);   
+            return View(mvm);
         }
     }
 }

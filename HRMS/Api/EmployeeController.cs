@@ -138,7 +138,7 @@ namespace Api
                                 EmployeePhoto = o.EmployeePhoto,
                                 EmployeeStatusID = o.EmployeeStatusID,
                                 EmployeeCode = o.EmployeeCode,
-                                IsDisabled =o.IsDisabled,
+                                IsDisabled = o.IsDisabled,
                                 //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
                                 CreatedBy = o.CreatedBy,
                                 CreatedDate = o.CreatedDate,
@@ -193,7 +193,7 @@ namespace Api
                             o.EmployeePhoto,
                             o.EmployeeCode,
                             o.IsDisabled
-                            
+
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
@@ -205,17 +205,17 @@ namespace Api
         public override HttpResponseMessage Create(Employee entity)
         {
             // Set Probation Status of Employee, when Create user ID = 1 for Probation
-            entity.EmployeeStatusID = (int)Helper.EmployeeStatus.Probation ;
+            entity.EmployeeStatusID = (int)Helper.EmployeeStatus.Probation;
             entity.CreatedBy = User.Identity.Name;
             entity.ModifiedBy = User.Identity.Name;
             //entity.EmployeeCode = service.GenerateEmployeeCode().ToString();
             HttpResponseMessage obj = base.Create(entity);
-            
+
             EmployeeStatusHistoryService ehService = new EmployeeStatusHistoryService();
 
             EmployeeStatusHistory employeeStatusHistory = new EmployeeStatusHistory()
             {
-                
+
                 NewStatusID = (int)Helper.EmployeeStatus.Probation,
                 EmployeeID = entity.EmployeeID,
                 StartDate = entity.DateOfjoining,
@@ -324,7 +324,7 @@ namespace Api
         [Authorize(Roles = "Admin")]
         public bool GetCheckEmployeeCode(int EmpCode)
         {
-            return service.Context.Employees.ToList().Any(e => e.EmployeeCode.Equals(EmpCode.ToString()));            
+            return service.Context.Employees.ToList().Any(e => e.EmployeeCode.Equals(EmpCode.ToString()));
         }
 
         [Authorize(Roles = "Admin")]
@@ -347,7 +347,7 @@ namespace Api
             HRMSEntities Context = new HRMSEntities();
             var employeeCode = 0;
             var maxCode = Context.Employees.Max(p => p.EmployeeCode);
-            if (maxCode == "0")
+            if (maxCode == null || maxCode == "0")
             {
                 employeeCode = Convert.ToInt32(initialEmployeeCode) + 1;
             }
