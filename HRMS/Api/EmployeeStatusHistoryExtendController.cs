@@ -15,7 +15,8 @@ namespace HRMS.Api
         
         HRMSEntities dbContext = new HRMSEntities();
         AspNetUserService aspNetUserService = new AspNetUserService();
-        
+
+        [Authorize(Roles = "Admin")]
         public override object GetModel()
         {
             EmployeeStatusHistoryExtend obj = (EmployeeStatusHistoryExtend)base.GetModel();
@@ -25,7 +26,7 @@ namespace HRMS.Api
             return obj;
         }
 
-        
+        [Authorize(Roles = "Admin")]
         public override EmployeeStatusHistoryExtend GetById(int id)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
@@ -86,6 +87,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Update(EmployeeStatusHistoryExtend entity)
         {
             
@@ -95,6 +97,8 @@ namespace HRMS.Api
             service.Update(entity);
             return HttpSuccess(); //base.Update(entity); 
         }
+
+        [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Create(EmployeeStatusHistoryExtend entity)
         {
             AspNetUser objAspNetUser = aspNetUserService.Get().Where(m => m.EmployeeId == entity.EmployeeID).FirstOrDefault();

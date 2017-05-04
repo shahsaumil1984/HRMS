@@ -341,6 +341,7 @@ namespace Api
             return isSuccess;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public int GenerateEmployeeCode()
         {
