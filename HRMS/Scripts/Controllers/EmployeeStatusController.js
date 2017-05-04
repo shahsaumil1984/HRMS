@@ -24,10 +24,10 @@ _.EmployeeStatusDeleteCallback = function (status, data)
 {
     if (status)
     {
-        alert('Successfully deleted status type');
+        toastr.success('Successfully deleted status type');
     }
     else{
         
-        alert('Cannot delete the status type as it is already in use');
+        toastr.error('Cannot delete the status type as it is already in use');
     }
 }

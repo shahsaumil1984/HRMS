@@ -22,6 +22,8 @@ namespace Model
             this.LeaveMasters = new HashSet<LeaveMaster>();
             this.LeaveTakens = new HashSet<LeaveTaken>();
             this.Salaries = new HashSet<Salary>();
+            this.TaxComputations = new HashSet<TaxComputation>();
+            this.ItDeclarationForms = new HashSet<ItDeclarationForm>();
         }
     
         public int EmployeeID { get; set; }
@@ -67,6 +69,7 @@ namespace Model
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string AlternatePhone { get; set; }
+        public bool IsDisabled { get; set; }
     
         public virtual Designation Designation { get; set; }
         public virtual EmployeeStatu EmployeeStatu { get; set; }
@@ -80,5 +83,9 @@ namespace Model
         public virtual ICollection<LeaveTaken> LeaveTakens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Salary> Salaries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaxComputation> TaxComputations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItDeclarationForm> ItDeclarationForms { get; set; }
     }
 }

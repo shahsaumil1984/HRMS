@@ -1,0 +1,448 @@
+
+
+@model ViewModel.MasterViewModel
+@using Model
+@using HRMS
+
+
+<div class="middlewrap">
+    <div class="row detailsWindow" id="itDeclarationDetailsWindow">
+        <form id="itDeclarationDetailsForm"
+              name="itDeclarationDetailsForm"
+              data-ui-binding="true"
+              data-service-object="itDeclarationService"
+              data-associated-list="itDeclarationGrid"
+              method="get" class="col-xs-12 col-sm-12" action="" role="form">
+
+            <div ng-show="model.ItDeclarationID != 0">
+                <h3>Edit IT Declaration</h3>
+            </div>
+            <h3 ng-show="model.ItDeclarationID == 0">Create New IT Declaration</h3>
+            <div id="itDeclarationerrorDisplay" class="itDeclarationerrorDisplay" data-error-display="true"></div>
+
+            <p class="midtitle">Employee Details</p>
+            <input type="hidden" id="hdnEmployeeID" value="@ViewBag.EmployeeID" />
+            <input type="hidden" id="hdnPan" value="@ViewBag.Pan" />
+            <input type="hidden" id="hdnAddressLine1" value="@ViewBag.AddressLine1" />
+            <input type="hidden" id="hdnAddressLine2" value="@ViewBag.AddressLine2" />
+            <input type="hidden" id="hdnAddressLine3" value="@ViewBag.AddressLine3" />
+            <input type="hidden" id="hdnAddressCity" value="@ViewBag.AddressCity" />
+            <input type="hidden" id="hdnAddressState" value="@ViewBag.AddressState" />
+            <input type="hidden" id="hdnAddressZip" value="@ViewBag.AddressZip" />
+            <input type="hidden" id="hdnAddressCountry" value="@ViewBag.AddressCountry" />
+            <input type="hidden" id="hdnMobileNumber" value="@ViewBag.MobileNumber" />
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Employee Name:</label>                     
+                        @*<input type="hidden" id="hdnItDeclarationID " ng-bind="model.ItDeclarationID" />*@
+                        <br />
+                        <label>@ViewBag.Name</label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Employee Code:</label>
+                        <br />
+                        <label>@ViewBag.EmployeeCode</label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Pan Number<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="panno" id="panno" ng-model="model.PanNo" class="form-control required" maxlength="10" value="@ViewBag.Pan" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>IT Declaration Year<i class="lblRequired">*</i> :</label>
+                        @*<input type="text" name="itDeclarationYear" id="itDeclarationYear" ng-model="model.itDeclarationYear" class="form-control" maxlength="7" />*@
+
+                        <select id="itDeclarationYear" name="itDeclarationYear" class="required form-control auto-width" ng-model="model.ItDeclarationYear" value="{{model.ItDeclarationYear}}">
+                            <option value="">Select Financial Year</option>
+                            @foreach (var year in Model.Years)
+                            {
+                                <option value="@year">@year - @(year + 1)</option>
+                            }
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Date<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="date" id="date" ng-model="model.Date" class="form-control required" maxlength="10" date-Picker value="@(DateTime.Now.ToString("MM/dd/yyyy"))" />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label>Mobile Number<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="mobileNumber" id="mobileNumber" placeholder="XXX-XXX-XXXX" ng-model="model.MobileNumber" class="form-control required" maxlength="12" value="@ViewBag.MobileNumber" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Address Details</p>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressLine1">Address 1<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressLine1" id="addressLine1" ng-model="model.AddressLine1" class="form-control required" value="@ViewBag.AddressLine1" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressLine2">Address 2<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressLine2" id="addressLine2" ng-model="model.AddressLine2" class="form-control required" value="@ViewBag.AddressLine2" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressLine3">Address 3<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressLine3" id="addressLine3" ng-model="model.AddressLine3" class="form-control required" value="@ViewBag.AddressLine3" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressLine3">Address City<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressCity" id="addressCity" ng-model="model.AddressCity" class="form-control required" value="@ViewBag.AddressCity" />
+                    </div>
+                </div>
+                <input type="hidden" id="hdnAddressState" value="@ViewBag.AddressState" />
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressState">Address State <i class="lblRequired">*</i> :</label>
+                        <select name="addressState" id="addressState" value="model.AddressState" ng-model="model.AddressState" class="form-control required">
+                            <option value="">Select</option>
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressCountry">Address Country <i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressCountry" id="addressCountry" ng-model="model.AddressCountry" class="form-control required" value="@ViewBag.AddressCountry" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="addressZip">Address Zip<i class="lblRequired">*</i> :</label>
+                        <input type="text" name="addressZip" id="addressZip" ng-model="model.AddressZip " class="form-control number required" maxlength="6" value="@ViewBag.AddressZip" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Investment U/S 80C</p><pre>Maximum Eligible Amount (Rs.150000)</pre>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="purchaseOfNSC ">Purchase Of NSC: </label>
+                        <input type="text" name="purchaseOfNSC " id="purchaseOfNSC" ng-model="model.PurchaseOfNSC" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="insurancePremium">Insurance Premium: </label>
+                        <input type="text" name="insurancePremium" id="insurancePremium" ng-model="model.InsurancePremium" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="PPF">PPF: </label>
+                        <input type="text" name="PPF" id="PPF" ng-model="model.PPF" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="housingLoan">Housing Loan: </label>
+                        <input type="text" name="housingLoan" id="housingLoan" ng-model="model.HousingLoan" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="childrenTutionFee">Children Tution Fee: </label>
+                        <input type="text" name="childrenTutionFee" id="childrenTutionFee" ng-model="model.ChildrenTutionFee" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="mutualfundOrUti">Mutual fund Or UTI: </label>
+                        <input type="text" name="mutualfundOrUti" id="mutualfundOrUti" ng-model="model.MutualfundOrUti" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="bondsOfNabard">Bonds Of Nabard: </label>
+                        <input type="text" name="bondsOfNabard " id="bondsOfNabard " ng-model="model.BondsOfNabard " class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="bondsOfNabard">Accrued interest on NSC: </label>
+                        <input type="text" name="Nsc" id="Nsc" ng-model="model.NSC" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="FDR">Tax Saving FDR: </label>
+                        <input type="text" name="FDR" id="FDR" ng-model="model.FDR" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="ULIPofUTI">ULIP of UTI: </label>
+                        <input type="text" name="ULIPofUTI" id="ULIPofUTI" ng-model="model.ULIPofUTI" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="PF">PF: </label>
+                        <input type="text" name="PF" id="PF" ng-model="model.PF" class="form-control number" />
+                    </div>
+                </div>
+            </div>
+
+            <p class="midtitle">Investment U/S 80CCD:</p><pre>(Max amount Rs 50,000)</pre>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="mediclaimPremium">Contribution to NPS:</label>
+                        <input type="text" name="Nps" id="Nps" ng-model="model.NPS" class="form-control number" />
+                    </div>
+                </div>
+            </div>
+
+            <p class="midtitle">Payment U/S 80D </p><pre>Upto Rs 25,000/- (Rs 30,000/-when mediclaim is taken in the name of senior citizen)</pre>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="mediclaimPremium">Mediclaim Premium:</label>
+                        <input type="text" name="mediclaimPremium" id="mediclaimPremium" ng-model="model.MediclaimPremium" class="form-control number" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">Home Loan U/S 80D</p><pre>Maximum upto Rs 2,00,000</pre>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="homeLoan">Home Loan:</label>
+                        <input type="text" name="homeLoan" id="homeLoan" ng-model="model.HomeLoan" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressLine1">Home Loan Address1:</label>
+                        <input type="text" name="hlAddressLine1" id="hlAddressLine1" ng-model="model.HLAddressLine1" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressLine2">Home Loan Address2:</label>
+                        <input type="text" name="hlAddressLine2" id="hlAddressLine2" ng-model="model.HLAddressLine2" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressLine3">Home Loan Address3:</label>
+                        <input type="text" name="hlAddressLine3" id="hlAddressLine3" ng-model="model.HLAddressLine3" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressCity">Home Loan Address City:</label>
+                        <input type="text" name="hlAddressCity" id="hlAddressCity" ng-model="model.HLAddressCity" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressState">Home Loan Address State:</label>
+                        <select name="hlAddressState" id="hlAddressState" value="model.HLAddressState" ng-model="model.HLAddressState" class="form-control">
+                            <option value="">Select</option>
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hlAddressCountry">Home Loan Address Country:</label>
+                        <input type="text" name="hlAddressCountry" id="hlAddressCountry" ng-model="model.HLAddressCountry" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                    <div class="form-group">
+                        <label for="hlAddressZip">Home Loan Address Zip:</label>
+                        <input type="text" name="hlAddressZip" id="hlAddressZip" ng-model="model.HLAddressZip" class="form-control" maxlength="6" />
+                    </div>
+                </div>
+            </div>
+            <p class="midtitle">House Rent Amount:</p><pre>(Attach rent agreement) & PAN no of Lanlord in case rent exceed Rs 1,00,000/- per annum.</pre>
+            <div class="row">
+
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="homeLoan">Home Rent:</label>
+                        <input type="text" name="homeRent" id="homeRent" ng-model="model.HomeRent" class="form-control number" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hrAddressLine1">Home Rent Address1:</label>
+                        <input type="text" name="hrAddressLine1" id="hrAddressLine1" ng-model="model.HRAddressLine11" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hrAddressLine2">Home Rent Address2:</label>
+                        <input type="text" name="hrAddressLine2" id="hrAddressLine2" ng-model="model.HRAddressLine21" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hrAddressLine3">Home Rent Address3:</label>
+                        <input type="text" name="hrAddressLine3" id="hrAddressLine3" ng-model="model.HRAddressLine31" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hrAddressLine3">Home Rent Address City:</label>
+                        <input type="text" name="hrAddressCity" id="hrAddressCity" ng-model="model.HRAddressCity" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="hrAddressState">Home Rent Address State:</label>
+                        <select name="hrAddressState" id="hrAddressState" value="model.HRAddressState" ng-model="model.HRAddressState1" class="form-control">
+                            <option value="">Select</option>
+                            <option value="AndamanandNicobar">Andaman and Nicobar</option>
+                            <option value="AndhraPradesh">Andhra Pradesh</option>
+                            <option value="ArunachalPradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="DadraandNagarHaveli">Dadra and Nagar Haveli</option>
+                            <option value="DamanandDiu ">Daman and Diu</option>
+                            <option value="NewDelhi">New Delhi</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="HimachalPradesh">Himachal Pradesh</option>
+                            <option value="JammuandKashmir">Jammu and Kashmir </option>
+                            <option value="Jharkhand">Jharkhand </option>
+                            <option value="Karnataka">Karnataka </option>
+                            <option value="Kerala">Kerala </option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra </option>
+                            <option value="Manipur">Manipur </option>
+                            <option value="Meghalaya">Meghalaya </option>
+                            <option value="Mizoram">Mizoram </option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Punjab">Punjab </option>
+                            <option value="Rajasthan">Rajasthan </option>
+                            <option value="Sikkim">Sikkim </option>
+                            <option value="TamilNadu">Tamil Nadu </option>
+                            <option value="Telangana">Telangana </option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="UttarPradesh">Uttar Pradesh </option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                    <div class="form-group">
+                        <label for="hrAddressCountry">Home Rent Address Country:</label>
+                        <input type="text" name="hrAddressCountry" id="hrAddressCountry" ng-model="model.HRAddressCountry1" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-12 min-ht-lbl">
+                    <div class="form-group">
+                        <label for="hrAddressZip">Home Rent Address Zip:</label>
+                        <input type="text" name="hrAddressZip" id="hrAddressZip" ng-model="model.HRAddressZip1" class="form-control" maxlength="6" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm" ng-disabled="itDeclarationDetailsForm.$invalid">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.ResetForm()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+

@@ -6,51 +6,53 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Login</title>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.form.js"></script>        
+    <script src="~/Scripts/jquery.form.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet">
-    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />            
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/style.css" rel="stylesheet" />
 </head>
 <body>
-@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmLogin" }))
-{
-        @Html.AntiForgeryToken()        
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmLogin" }))
+    {
+        @Html.AntiForgeryToken()
         <div class="loginwrap row">
-        <div class="col-sm-5 loginimg">
-            <div class="text-center logimg"><img src="~/Content/images/loginimg2.jpg"></div>
-        </div>
-        <div class="col-sm-7">
-            <div class="loginfrm">
-                <h2><img src="~/Content/images/logo.png">&nbsp;&nbsp;User Login</h2>
-                <div class="form-group">
-                    <label><i class="fa fa-user"></i>&nbsp;&nbsp;User Name</label>                    
-                    <input type="text" id="Email" name="Email" class="required form-control" />
-                </div>
-                <div class="form-group">
-                    <label><i class="fa fa-key"></i>&nbsp;&nbsp;Password</label>                    
-                    <input type="password" id="Password" name="Password"  class="required form-control"/>
-                    <div class="my-error-class">
-                        @Html.ValidationMessage("Error")
+            <div class="col-sm-5 loginimg">
+                <div class="text-center logimg"><img src="~/Content/images/loginimg2.jpg"></div>
+            </div>
+            <div class="col-sm-7">
+                <div class="loginfrm">
+                    <h2><img src="~/Content/images/logo.png">&nbsp;&nbsp;User Login</h2>
+                    <div class="form-group">
+                        <label><i class="fa fa-user"></i>&nbsp;&nbsp;User Name</label>
+                        <input type="text" id="Email" name="Email" class="required form-control" />
                     </div>
-                </div>
-                <div class="form-group">                    
-                    <input type="submit" value="Login" id = "frmLogin" name="frmLogin"  class="btn btn-primary btn-sm" />                
-                </div>
-
+                    <div class="form-group">
+                        <label><i class="fa fa-key"></i>&nbsp;&nbsp;Password</label>
+                        <input type="password" id="Password" name="Password" class="required form-control" />
+                        <div class="my-error-class">
+                            @Html.ValidationMessage("Error")
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" id="frmLogin" name="frmLogin" class="btn btn-primary btn-sm" />
+                    </div>
+                    <div class="form-group">
+                      @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </div>
+                </div>               
             </div>
         </div>
-    </div>
-}    
+    }
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
     <script src="~/Scripts/bootstrap-select.js"></script>
     <script>
-        $(document).ready(function () {            
+        $(document).ready(function () {
             $("#frmLogin").validate({
                 errorClass: "my-error-class",
                 rules: {
@@ -61,15 +63,14 @@
                     Email: "User Name required",
                     Password: "Password required"
                 }
-            });            
-        });                                  
+            });
+        });
     </script>
 </body>
 </html>
 
 <style>
     .my-error-class {
-    color:red;
-}
+        color: red;
+    }
 </style>
-

@@ -51,18 +51,14 @@ namespace HRMS.Api
         public override HttpResponseMessage Update(EmployeeStatusHistory entity)
         {          
             entity.ModifiedBy = User.Identity.Name;
-            service.Update(entity);
-
-            return HttpSuccess();            
+            return base.Update(entity);  
         }
- 
-        [HttpGet]
         public override EmployeeStatusHistory GetById(int id)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
             
             EmployeeStatusHistory obj = (from o in service.Context.EmployeeStatusHistories
-                                         where o.EmployeeID == id
+                                         where o.EmployeeStatusID == id
                                   select new 
                                   {
                                       o.EmployeeID,
@@ -71,8 +67,10 @@ namespace HRMS.Api
                                       o.StartDate,
                                       o.EndDate,
                                       o.StatusNote,
-                                      o.NewStatusID
-                                  }).ToList().Select(o => new EmployeeStatusHistoryExtend
+                                      o.NewStatusID,
+                                      o.CreatedBy,
+                                      o.CreatedDate
+                                  }).ToList().Select(o => new EmployeeStatusHistory
                                   {
                                       EmployeeID = o.EmployeeID,
                                       EmployeeStatusID = o.EmployeeStatusID,
@@ -80,10 +78,11 @@ namespace HRMS.Api
                                       StartDate = o.StartDate,
                                       EndDate = o.EndDate,
                                       StatusNote = o.StatusNote,
-                                      NewStatusID = o.NewStatusID
-
+                                      NewStatusID = o.NewStatusID,
+                                      CreatedBy =o.CreatedBy,
+                                      CreatedDate = o.CreatedDate,
                                   }).OrderByDescending(o=>o.EmployeeStatusID).Take(1).Single<EmployeeStatusHistory>();
-            return (EmployeeStatusHistoryExtend)obj;
+            return obj;
         }
 
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")

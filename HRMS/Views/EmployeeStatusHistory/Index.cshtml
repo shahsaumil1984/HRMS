@@ -3,6 +3,7 @@
 @using Model
 @{
     ViewBag.Title = "Manage Employee Status";
+    ViewBag.ActiveTab = "ADMIN";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section HeaderIncludes
@@ -13,11 +14,10 @@
 }
 <div class="container">
     <div class="middlewrap">
-        <h2>Employee Status</h2>
         
         @Html.Partial("~/Views/Controls/EmployeeStatusHistoryListView.cshtml")
         @Html.Partial("~/Views/Controls/EmployeeStatusHistoryDetailsView.cshtml")
-
+        @Html.Partial("~/Views/Controls/EmployeeStatusHistoryEditView.cshtml")
     </div>
 </div>
 

@@ -120,6 +120,10 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.5840.25917, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Repository\bin\Debug\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -247,8 +251,10 @@
     <Compile Include="Api\EmployeeStatusHistoryController.cs" />
     <Compile Include="Api\EmployeeStatusHistoryExtendController.cs" />
     <Compile Include="Api\GenericApiController.cs" />
+    <Compile Include="Api\ITDeclarationController.cs" />
     <Compile Include="Api\MonthController.cs" />
     <Compile Include="Api\SalaryController.cs" />
+    <Compile Include="Api\TaxComputationController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -266,6 +272,8 @@
     <Compile Include="Controllers\ManageRolesController.cs" />
     <Compile Include="Controllers\MonthController.cs" />
     <Compile Include="Controllers\SalaryController.cs" />
+    <Compile Include="Controllers\ITDeclarationController.cs" />
+    <Compile Include="Controllers\TaxComputationController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -311,6 +319,7 @@
     <Content Include="Content\images\bg.jpg" />
     <Content Include="Content\images\csv-export-icon.png" />
     <Content Include="Content\images\delete.png" />
+    <Content Include="Content\images\disable-emp-icon.png" />
     <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\jobopenings.png" />
     <Content Include="Content\images\loginimg1.jpg" />
@@ -324,6 +333,8 @@
     <Content Include="Content\images\pdf-download-icon.png" />
     <Content Include="Content\images\salary-lock-icon.png" />
     <Content Include="Content\images\send-email-icon.png" />
+    <Content Include="Content\images\tax-computation.png" />
+    <Content Include="Content\images\tax-declaration-icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="File Formats\images\footer.jpg" />
     <Content Include="File Formats\images\header.jpg" />
@@ -367,6 +378,8 @@
     <Content Include="Scripts\Controllers\MonthController.js" />
     <Content Include="Scripts\Controllers\ProjectController.js" />
     <Content Include="Scripts\Controllers\SalaryController.js" />
+    <Content Include="Scripts\Controllers\ITDeclarationController.js" />
+    <Content Include="Scripts\Controllers\TaxComputationController.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -406,11 +419,14 @@
     <Content Include="Scripts\Services\HolidayCalendarService.js" />
     <Content Include="Scripts\Services\LeaveTypeService.js" />
     <Content Include="Scripts\Services\SalaryService.js" />
+    <Content Include="Scripts\Services\ITDeclarationService.js" />
+    <Content Include="Scripts\Services\TaxComputationService.js" />
     <Content Include="Scripts\sticky.js" />
     <Content Include="Scripts\superfish.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\ITDeclaration\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -453,6 +469,16 @@
     <Content Include="Views\EmployeeStatusHistory\Index.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryListView.cshtml" />
     <Content Include="Views\Controls\EmployeeStatusHistoryDetailsView.cshtml" />
+    <Content Include="Views\Controls\EmployeeStatusHistoryEditView.cshtml" />
+    <Content Include="Views\TaxComputation\Index.cshtml" />
+    <Content Include="Views\Controls\TaxComputationListView.cshtml" />
+    <Content Include="Views\Controls\TaxComputationDetailsView.cshtml" />
+    <Content Include="Views\Controls\ITDeclarationDetailsView.cshtml" />
+    <Content Include="Views\Controls\ITDeclarationListView.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

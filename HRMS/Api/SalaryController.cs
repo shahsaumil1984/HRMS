@@ -17,6 +17,7 @@ using System.Globalization;
 using Ionic.Zip;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Linq.Dynamic;
 
 namespace Api
 {
@@ -107,6 +108,12 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public Salary GetByMonth(int employeeID, int monthID, bool checkPrevious)
         {
+            if (checkPrevious)
+            {
+                var prevMonthID = (monthID - 1);
+                monthID = prevMonthID;
+            }
+
             service.Context.Configuration.ProxyCreationEnabled = false;
             var objSalary = (from o in service.Context.Salaries
                              where o.EmployeeID == employeeID && o.MonthID == monthID
@@ -139,8 +146,13 @@ namespace Api
                                  o.SalaryStatu,
                                  o.BankName,
                                  o.AccountNumber,
-
-
+                                 //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                                 o.CreatedBy,
+                                 o.CreatedDate,
+                                 //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                                 o.Days,
+                                 o.isFullAndFinal,
+                                 o.SalaryStatus
                              }).ToList();
 
 
@@ -174,22 +186,18 @@ namespace Api
                 BankName = o.BankName,
                 AccountNumber = o.AccountNumber,
                 Note = o.Note,
-                SalaryStatu = o.SalaryStatu
+                SalaryStatu = o.SalaryStatu,
+                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                CreatedBy = o.CreatedBy,
+                CreatedDate = o.CreatedDate,
+                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Salary details
+                Days = o.Days,
+                isFullAndFinal = o.isFullAndFinal,
+                SalaryStatus = o.SalaryStatus
             }).SingleOrDefault<Salary>();
 
             if (obj == null)
-            {
-                if (checkPrevious)
-                {
-                    var prevMonthID = (monthID - 1);
-                    var currentMonthID = monthID;
-                    obj = GetByMonth(employeeID, prevMonthID, false);                    
-                }
-                else
-                {
-                    obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
-                }
-            }
+                obj = new Salary() { EmployeeID = employeeID, MonthID = monthID };
             return obj;
         }
 
@@ -262,7 +270,7 @@ namespace Api
                         {
                             foreach (string fileHeader in csvRow.Split(','))
                             {
-                                tblcsv.Columns.Add(fileHeader);
+                                tblcsv.Columns.Add(Regex.Replace(fileHeader, @"\t|\n|\r", ""));
                             }
                         }
                         else
@@ -290,11 +298,53 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public override HttpResponseMessage Create(Salary entity)
         {
-            if (entity.SalaryStatus == (int)SalaryStatus.Approved)
-                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            int CurrentDay = DateTime.Now.Day;
+            DateTime PreviousMonthDate = DateTime.Now.AddMonths(-1);
+            int PreviousMonth = PreviousMonthDate.Month;
+            int PreviousYear = PreviousMonthDate.Year;
+
+            Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == entity.MonthID).FirstOrDefault();
+            if (objMonth != null && ((objMonth.Month1 == currentMonth && objMonth.Year == currentYear)
+                || (objMonth.Month1 == PreviousMonth && objMonth.Year == PreviousYear && CurrentDay <= 5)))
+            {
+                if (entity.SalaryStatus == (int)SalaryStatus.Approved)
+                    entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Approved);
+                else
+                    entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
+
+                entity.isFullAndFinal = false;
+                entity.CreatedBy = User.Identity.Name;
+                entity.CreatedDate = DateTime.Now;
+                entity.ModifiedBy = User.Identity.Name;
+                entity.ModifiedDate = DateTime.Now;
+                return base.Create(entity);
+            }
             else
-                entity.SalaryStatus = Convert.ToInt32(SalaryStatus.Pending);
-            return base.Create(entity);
+                return HttpError();
+        }
+
+        [Authorize(Roles = "Accountant")]
+        public override HttpResponseMessage Update(Salary entity)
+        {
+            int currentMonth = DateTime.Now.Month;
+            int currentYear = DateTime.Now.Year;
+            int CurrentDay = DateTime.Now.Day;
+            DateTime PreviousMonthDate = DateTime.Now.AddMonths(-1);
+            int PreviousMonth = PreviousMonthDate.Month;
+            int PreviousYear = PreviousMonthDate.Year;
+            Model.Month objMonth = service.Context.Months.Where(m => m.MonthID == entity.MonthID).FirstOrDefault();
+            if (objMonth != null && ((objMonth.Month1 == currentMonth && objMonth.Year == currentYear)
+                || (objMonth.Month1 == PreviousMonth && objMonth.Year == PreviousYear && CurrentDay <= 5)))
+            {
+                entity.ModifiedBy = User.Identity.Name;
+                entity.ModifiedDate = DateTime.Now;
+                entity.Month = null;
+                return base.Update(entity);
+            }
+            else
+                return HttpError();
         }
 
         [HttpPost]
@@ -311,6 +361,8 @@ namespace Api
                 string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
                 string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
                 string toEmailAdd = objSalary.Employee.Email;
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]) == false)
+                    toEmailAdd = Convert.ToString(ConfigurationManager.AppSettings["ToEmail"]);
                 string toEmailUser = objSalary.Employee.FullName;
                 string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
                 var body = "Dear " + objSalary.Employee.FirstName + ",</br></br>";
@@ -441,8 +493,9 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public HttpResponseMessage DownloadPDFZip(int MonthID)
         {
-            List<Salary> approvedSalaryList = service.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved && s.Employee.EmployeeStatusID != (int)Helper.EmployeeStatus.InActive).ToList();
-            return Download(approvedSalaryList, true);
+            List<Salary> approvedSalaryList = service.Get().Where(s => s.MonthID == MonthID && s.SalaryStatus == (int)Helper.SalaryStatus.Approved).ToList();
+            List<Salary> approvedSalaryList1 = approvedSalaryList.Where(Helper.ignoreEmployeeStatus1).ToList();
+            return Download(approvedSalaryList1, true);
         }
 
         [HttpPost]
@@ -465,7 +518,9 @@ namespace Api
                     {
                         string fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"];
                         string fromEmailUser = ConfigurationManager.AppSettings["FromEmailUser"];
-                        string toEmailAdd = "namrata.negi@alept.com";//item.Employee.Email;
+                        string toEmailAdd = item.Employee.Email;
+                        if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]) == false)
+                            toEmailAdd = Convert.ToString(ConfigurationManager.AppSettings["ToEmail"]);
                         string toEmailUser = item.Employee.FullName;
                         string Subject = "Salary Slip for the month of " + salaryMonth + " " + salaryYear;
                         var body = "Dear " + item.Employee.FirstName + ",</br></br>";
@@ -484,6 +539,20 @@ namespace Api
             {
                 return HttpError(e);
             }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Accountant")]
+        public int GetTDSbyYear(int employeeID, int monthId)
+        {
+            var Year = service.Context.Months.Find(monthId).Year;
+            var taxCalculation = service.Context.TaxComputations.Where(i => i.Year == Year && i.EmployeeID == employeeID).FirstOrDefault();
+            var Tds = 0;
+            if (taxCalculation != null)
+            {
+                Tds = (int)taxCalculation.TaxForMarch;
+            }
+            return Tds;
         }
 
         #region Private Methods
@@ -624,6 +693,7 @@ namespace Api
             salaryObj.AccountNumber = row["AccountNumber"].ToString();
             salaryObj.BankName = row["BankName"].ToString();
             salaryObj.SalaryStatus = (int)Helper.SalaryStatus.Pending;
+            salaryObj.isFullAndFinal = false;
             salaryObj.CreatedBy = row["CreatedBy"].ToString();
             salaryObj.ModifiedBy = row["ModifiedBy"].ToString();
             salaryObj.CreatedDate = row["CreatedDate"].ToString() == "" ? DateTime.Now : Convert.ToDateTime(row["CreatedDate"]);

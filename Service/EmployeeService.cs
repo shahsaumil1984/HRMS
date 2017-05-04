@@ -12,14 +12,14 @@ namespace Service
     {
         public override void Create(Employee entity)
         {
-            //entity.ModifiedDate = DateTime.Today;
-            //entity.CreatedDate = DateTime.Today;
+            entity.ModifiedDate = DateTime.Now;
+            entity.CreatedDate = DateTime.Now;
             base.Create(entity);
         }
 
         public override void Update(Employee entity)
         {
-            //entity.ModifiedDate = DateTime.Today;
+            entity.ModifiedDate = DateTime.Now;
             base.Update(entity);
         }
 
@@ -50,10 +50,10 @@ namespace Service
 
             //string ActualStatusFilter;
 
-
-
+            int monthid = Convert.ToInt32(filter.Split(new char[] { '=' }).ToList().Last().Trim());
+            
             var myQuery = (from m in Context.Employees
-                           join sal in Context.Salaries on m.EmployeeID equals sal.EmployeeID into Es
+                           join sal in Context.Salaries.Where(m => m.MonthID == monthid) on m.EmployeeID equals sal.EmployeeID into Es
                            from EmpSal in Es.DefaultIfEmpty()
 
                            select new
@@ -92,9 +92,8 @@ namespace Service
                                SalaryAccountIFSCCode = m.SalaryAccountIFSCCode,
                                AddressCity = m.AddressCity,
                                PermanentAddressCity = m.PermanentAddressCity,
-
-
-
+                               EmployeeStatusID = m.EmployeeStatusID,
+                               IsDisabled =m.IsDisabled,
                                EmployeePhoto = m.EmployeePhoto,
                                SalaryStatus = EmpSal != null ? EmpSal.SalaryStatus : SalaryStatusPendingID,
                                MonthID = EmpSal != null ? EmpSal.MonthID : 0,
@@ -106,7 +105,7 @@ namespace Service
             //myQuery = myQuery.Where(EmpSal => EmpSal.MonthID == 0 || EmpSal.MonthID == 436);
             //var salary = Context.Salaries
             var q1 = myQuery.Where(filter);
-
+           
             _totalRowCount = q1.Count();
             if (orderBy != null && orderBy != string.Empty && orderBy != "null")
             {
@@ -156,12 +155,13 @@ namespace Service
                 AddressCity = m.AddressCity,
                 PermanentAddressCity = m.PermanentAddressCity,
                 EmployeePhoto = m.EmployeePhoto,
+                IsDisabled = m.IsDisabled,
                 Salaries = new List<Salary>() { new Salary() { SalaryStatus = m.SalaryStatus, SalaryStatu = new SalaryStatu() { SalaryStatusName = m.SalaryStatusText } } }
             }).AsQueryable();
             return empQuery;
 
 
         }
-
+        
     }
 }

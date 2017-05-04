@@ -1,6 +1,7 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employee Salary";
+    ViewBag.ActiveTab = "ACCOUNT";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,11 +24,10 @@
 <div class="listView" id="employeeSalaryListView">
 
     <div class="middlewrap">
-        <h2>Employees</h2>
-        <label>Set Salary for @ViewBag.Month</label>
-
-        <h3 class="title"> <span>Employees</span> </h3>
-        <div class="table-responsive tbl-scroll">
+        <h3 class="title"> <span>Salary for @ViewBag.Month</span> </h3>
+        <input type="hidden" id="currentMonth" name="currentMonth" value="@ViewBag.Month" />
+        @*<h3 class="title"> <span>Employees</span> </h3>*@
+        <div class="table-responsive">
             <table class="table table-condensed table-hover"
                    id="employeeSalaryGrid"
                    data-ui-binding="true"
@@ -41,51 +41,53 @@
                         <td>
                             <div>
                                 <label>File to Upload: <input ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" type="file" name="file" id="fileUpload" class="required" accept=".csv" />(10MB max size)</label>
-                                <button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn">Upload CSV</button>
+
                             </div>
                         </td>
-                    </tr>
+                        <td colspan="5"><div><button id="uploadCSVButton" ng-disabled="{{@ViewBag.CurrentMonthID > @ViewBag.MonthID}}" ng-click="ub.UploadCSV()" class="btn btn-primary btn-sm">Upload CSV</button></div></td>
+                    </tr>                 
+
                     <tr>
-                        <td>
-                            <div>
-                                <input type="text"
-                                       data-search-fields="FullName"
-                                       data-search-list="employeeSalaryGrid"
-                                       data-default-focus="true" />
-                            </div>
-
-                        </td>
-                        <td>
-                            <div>
-                               
-                                <select data-filter-field="SalaryStatus" id="selSalaryStatus"
-                                        data-filter-list="employeeSalaryGrid"
-                                        data-default-focus="true">
-                                    <option value="">All</option>
-                                    <option value="1">Pending</option>
-                                    <option value="2">Approved</option>
-                                </select>
-                                <select data-filter-field="MonthID" id="selMonthID"
-                                        data-filter-list="employeeSalaryGrid"
-                                        data-default-focus="true">
-                                    <option value="436">All</option>
-                                    @*<option value="1">Pending</option>
-            <option value="2">Approved</option>*@
-                                </select>
-                            </div>
-
+                        <td colspan="6">
+                            <table class="col-md-7">
+                                <tr>
+                                    <td class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               data-search-fields="FullName"
+                                               data-search-list="employeeSalaryGrid"
+                                               data-default-focus="true" />
+                                    </td>
+                                    <td class="col-md-2">
+                                        <select data-filter-field="SalaryStatus" id="selSalaryStatus" class="form-control" style="width:auto"
+                                                data-filter-list="employeeSalaryGrid"
+                                                data-default-focus="true">
+                                            <option value="">All</option>
+                                            <option value="1">Pending</option>
+                                            <option value="2">Approved</option>
+                                        </select>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <button type="button" onclick="@("window.location.href='" + @Url.Action("Index", "Month") + "'");" class="btn btn-primary btn-sm">Back</button>
+                                        <select data-filter-field="MonthID" id="selMonthID" style="display:none"
+                                                data-filter-list="employeeSalaryGrid"
+                                                data-default-focus="true">
+                                            <option value="@(ViewBag.MonthID)">MonthID</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </thead>
 
                 <thead>
                     <tr>
-                        <th>Employee Name</th>
+                        <th style="width:15%">Employee Name</th>
                         <th class="text-left">Employee Code</th>
                         <th class="text-left">Salary Status</th>
-                        <th class="text-left">Action</th>
-                        <th></th>
-                        <th></th>
+                        <th class="text-center">Edit</th>
+                        <th style="width:15%" class="text-center">Download PDF</th>
+                        <th class="text-center">Send Email</th>
                     </tr>
                 </thead>
 
@@ -108,15 +110,17 @@
                         </td>
                         <td class="text-left">{{r.EmployeeCode}}</td>
                         <td class="text-left">{{r.Salaries[0].SalaryStatu.SalaryStatusName}}</td>
-                        <td class="text-left"><a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)">Edit</a></td>
-                        <td class="col-md-1">
+                        <td class="text-center">
+                            <a href='javascript:;' ng-click="ub.LoadSalaryForm(r.EmployeeID, @ViewBag.MonthID)"><img src="~/Content/images/edit.png" alt="Edit" title="Edit" width="20" /></a>
+                        </td>
+                        <td class="col-md-1 text-center">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.DownloadPDF(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" height="50" />
+                                <img src="~/Content/images/pdf-download-icon.png" alt="Download PDF" title="Download PDF" width="20" />
                             </a>
                         </td>
-                        <td class="col-md-1">
+                        <td class="col-md-1 text-center">
                             <a href="" ng-class="{'not-active':r.Salaries[0].SalaryStatu.SalaryStatusName == 'Pending'}" ng-click="ub.SendEmail(r.EmployeeID,@ViewBag.MonthID)">
-                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" height="50" />
+                                <img src="~/Content/images/send-email-icon.png" alt="Send Email" title="Send Email" width="20" />
                             </a>
                         </td>
                 </tbody>
@@ -164,7 +168,8 @@
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label>Days: </label><label ng-model="model.Days">@ViewBag.Days</label>
+                        <label>Days: </label>
+                        <label id="lbldays" ng-model="model.Days">@ViewBag.Days</label>
                     </div>
                 </div>
             </div>
@@ -191,72 +196,73 @@
             </div>
 
             <div class="row">
-                <button type="button" ng-disabled="model.Basic != 0" class="btn" ng-click="ub.PopulateData(model.EmployeeID,@(ViewBag.MonthID))">Populate Data</button>
+                <button type="button" ng-disabled="model.Basic != 0" class="btn btn-primary btn-sm" ng-click="ub.PopulateData(model.EmployeeID,@(ViewBag.MonthID))">Populate Data</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="ub.PopulateTDS(model.EmployeeID,@(ViewBag.MonthID))">Get TDS</button>
             </div>
 
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <p class="midtitle">General Details</p>
                     <div class="form-group">
-                        <label for="Basic" class="col-sm-4 control-label">Basic</label>
+                        <label for="Basic" class="col-sm-4 control-label">Basic <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Basic" id="em_Basic" ng-model="model.Basic" class="required form-control col-md-8 number" maxlength="10" /></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="HRA" class="col-sm-4 control-label">HRA</label>
+                        <label for="HRA" class="col-sm-4 control-label">HRA <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_HRA" id="em_HRA" ng-model="model.HRA" class="required form-control number" maxlength="10" /></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ConveyanceAllowance" class="col-sm-4 control-label">Conveyance Allowance</label>
+                        <label for="ConveyanceAllowance" class="col-sm-4 control-label">Conveyance Allowance <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_ConveyanceAllowance" id="em_ConveyanceAllowance" ng-model="model.ConveyanceAllowance" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="OtherAllowance" class="col-sm-4 control-label">Other Allowance</label>
+                        <label for="OtherAllowance" class="col-sm-4 control-label">Other Allowance <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_OtherAllowance" id="em_OtherAllowance" ng-model="model.OtherAllowance" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="MedicalReimbursement" class="col-sm-4 control-label">MedicalReimbursement</label>
+                        <label for="MedicalReimbursement" class="col-sm-4 control-label">MedicalReimbursement <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_MedicalReimbursement" id="em_MedicalReimbursement" ng-model="model.MedicalReimbursement" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="AdvanceSalary" class="col-sm-4 control-label">Advance/Arrear Salary</label>
+                        <label for="AdvanceSalary" class="col-sm-4 control-label">Advance/Arrear Salary <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_AdvanceSalary" id="em_AdvanceSalary" ng-model="model.AdvanceSalary" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="Incentive" class="col-sm-4 control-label">Incentive</label>
+                        <label for="Incentive" class="col-sm-4 control-label">Incentive <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Incentive" id="em_Incentive" ng-model="model.Incentive" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="PLI" class="col-sm-4 control-label">PLI</label>
+                        <label for="PLI" class="col-sm-4 control-label">PLI <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_PLI" id="em_PLI" ng-model="model.PLI" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="Exgratia" class="col-sm-4 control-label">Ex-gratia/PL Encashed/Other</label>
+                        <label for="Exgratia" class="col-sm-4 control-label">Ex-gratia/PL Encashed/Other <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Exgratia" id="em_Exgratia" ng-model="model.Exgratia" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="ReimbursementOfexp" class="col-sm-4 control-label">Reimbursement Of exp</label>
+                        <label for="ReimbursementOfexp" class="col-sm-4 control-label">Reimbursement Of exp <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_ReimbursementOfexp" id="em_ReimbursementOfexp" ng-model="model.ReimbursementOfexp" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="Total" class="col-sm-4 control-label">Total</label>
+                        <label for="Total" class="col-sm-4 control-label">Total <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Total" id="em_Total" ng-model="model.Total" class="required form-control number" maxlength="10" /></div>
                     </div>
 
@@ -266,31 +272,31 @@
                     <p class="midtitle">Deductions</p>
 
                     <div class="form-group">
-                        <label for="TDS" class="col-sm-4 control-label">TDS</label>
+                        <label for="TDS" class="col-sm-4 control-label">TDS <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_TDS" id="em_TDS" ng-model="model.TDS" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="EPF" class="col-sm-4 control-label">EPF</label>
+                        <label for="EPF" class="col-sm-4 control-label">EPF <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_EPF" id="em_EPF" ng-model="model.EPF" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="ProfessionalTax" class="col-sm-4 control-label">Professional Tax</label>
+                        <label for="ProfessionalTax" class="col-sm-4 control-label">Professional Tax <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_ProfessionalTax" id="em_ProfessionalTax" ng-model="model.ProfessionalTax" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="Leave" class="col-sm-4 control-label">Leave</label>
+                        <label for="Leave" class="col-sm-4 control-label">Leave <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Leave" id="em_Leave" ng-model="model.Leave" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="Advance" class="col-sm-4 control-label">Advance</label>
+                        <label for="Advance" class="col-sm-4 control-label">Advance <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Advance" id="em_Advance" ng-model="model.Advance" class="required form-control number" maxlength="10" /></div>
                     </div>
 
@@ -298,13 +304,13 @@
                     <p class="midtitle">Payments</p>
 
                     <div class="form-group">
-                        <label for="Salary" class="col-sm-4 control-label">Salary</label>
+                        <label for="Salary" class="col-sm-4 control-label">Salary <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_Salary" id="em_Salary" ng-model="model.Salary1" class="required form-control number" maxlength="10" /></div>
                     </div>
 
 
                     <div class="form-group">
-                        <label for="TotalPayment" class="col-sm-4 control-label">Total Payment</label>
+                        <label for="TotalPayment" class="col-sm-4 control-label">Total Payment <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_TotalPayment" id="em_TotalPayment" ng-model="model.TotalPayment" class="required form-control number" maxlength="10" /></div>
                     </div>
 
@@ -312,7 +318,7 @@
                     <p class="midtitle">YTD Summary</p>
 
                     <div class="form-group">
-                        <label for="YTDS" class="col-sm-4 control-label">YTDS deducted</label>
+                        <label for="YTDS" class="col-sm-4 control-label">YTDS deducted <i class="lblRequired">*</i></label>
                         <div class="col-sm-8"><input type="text" name="em_YTDS" id="em_YTDS" ng-model="model.YTDS" class="form-control number" maxlength="10" /></div>
                     </div>
 
@@ -327,15 +333,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn btn-primary btn-sm" type="button" ng-click="ub.SaveSalary()">Save</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Save & Approve</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Next</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadPrevEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Previous</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approveNextEmployee(@(ViewBag.MonthID));">Approve & Next</button>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="approvePrevEmployee(@(ViewBag.MonthID));">Approve & Previous</button>
-                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.moveToNextEmployee(model.EmployeeID,@(ViewBag.MonthID));">Next</button>
+                        <button id="btnSave" class="btn btn-primary btn-sm" type="button" ng-click="ub.SaveSalary(@(ViewBag.MonthID))">Save</button>
+                        <button id="btnApprove" type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Approve</button>
+                        @*<button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadPrevEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Previous</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="approveNextEmployee(@(ViewBag.MonthID));">Approve & Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="approvePrevEmployee(@(ViewBag.MonthID));">Approve & Previous</button>*@
                         <button type="button" class="btn btn-primary btn-sm" ng-click="ub.moveToPrevEmployee(model.EmployeeID,@(ViewBag.MonthID));">Previous</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.moveToNextEmployee(model.EmployeeID,@(ViewBag.MonthID));">Next</button>
+                        <button type="button" class="btn btn-primary btn-sm" ng-click="ub.HideSalaryForm(true)">Back</button>
                     </div>
                 </div>
             </div>

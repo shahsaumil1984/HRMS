@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Globalization;
 using System.Data;
 using System.Web.Http;
+using System.Linq.Dynamic;
 
 namespace HRMS.Api
 {
@@ -46,7 +47,7 @@ namespace HRMS.Api
         [Authorize(Roles = "Accountant")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
-            int CurrentMonth = DateTime.Today.Month;
+            int CurrentMonth = DateTime.Now.Month;
             int currentMonthID = service.Get().Where(m => m.Month1 == CurrentMonth && m.Year == DateTime.Now.Year).FirstOrDefault().MonthID;
             if (string.IsNullOrEmpty(filter))
             {
@@ -62,20 +63,20 @@ namespace HRMS.Api
 
             IQueryable<Month> list = service.Get(pageIndex, pageSize, filter, orderBy, includeProperties);
             var query = (from o in list
-                            //where o.MonthID <= currentMonthID                      
-                            //orderby o.MonthID ascending
-                        select new
-                        {
-                            o.MonthID,
-                            o.Month1,
-                            o.Year
-                        }).AsEnumerable().Select(x=> new
-                        {
-                            Month = Enum.GetName(typeof(Helper.Month), x.Month1),
-                            MonthID = x.MonthID,
-                            Year = x.Year,
-                            ButtonDisable = sService.Get().Where(s => s.MonthID == x.MonthID).Any(s => s.SalaryStatu.SalaryStatusName == Helper.SalaryStatus.Approved.ToString()) ? false: true
-        }).AsQueryable();
+                             //where o.MonthID <= currentMonthID                      
+                             //orderby o.MonthID ascending
+                         select new
+                         {
+                             o.MonthID,
+                             o.Month1,
+                             o.Year
+                         }).AsEnumerable().Select(x => new
+                         {
+                             Month = Enum.GetName(typeof(Helper.Month), x.Month1),
+                             MonthID = x.MonthID,
+                             Year = x.Year,
+                             ButtonDisable = sService.Get().Where(s => s.MonthID == x.MonthID).Any(s => s.SalaryStatu.SalaryStatusName == Helper.SalaryStatus.Approved.ToString()) ? false : true
+                         }).AsQueryable();
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
 
@@ -92,8 +93,8 @@ namespace HRMS.Api
 
             var newLine = string.Format("{0},{1},{2},{3}", "EmployeeCode", "Salary", "Credit/Debit", "Note");
             csv.AppendLine(newLine);
-
-            var EmpList = empService.Get().Where(e => e.EmployeeStatusID == (int)Helper.EmployeeStatus.Active);
+         
+            var EmpList = empService.Get().Where(Helper.ignoreEmployeeStatus);
 
             foreach (var emp in EmpList)
             {
@@ -129,6 +130,6 @@ namespace HRMS.Api
             return response;
 
         }
-        
+
     }
 }

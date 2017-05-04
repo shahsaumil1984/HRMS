@@ -2,6 +2,7 @@
 @model EmployeeRoles
 @{
     ViewBag.Title = "Manage Roles";
+    ViewBag.ActiveTab = "ADMIN";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section HeaderIncludes
@@ -57,8 +58,7 @@
                         beforeSend: function () {
                         },
                         success: function (data, status, jqXHR) {
-                            debugger;
-                            alert(data);
+                            toastr.success(data);
                         },
                         error: function (jqXHR, status, err) {
 
@@ -66,7 +66,7 @@
                     });
                 }
                 else {
-                    alert("Assign atleast one role.")
+                    toastr.error("Assign atleast one role.")
                 }
             });
         });
@@ -75,7 +75,7 @@
 }
 <div class="container">
     <div class="middlewrap">
-        <h2>Manage Roles for @Model.Name</h2>
+        <h3 class="title"> <span>Manage Roles for @Model.Name</span> </h3>  
         <div class="row mt-md">
             <div class="col-md-3">@Html.ListBoxFor(m => m.lstRoles, new MultiSelectList(Model.lstRoles, "", ""), new { Multiple = "multiple", @style = "min-width:100%;" })</div>
             <div class="col-md-2 text-center">
@@ -88,8 +88,8 @@
         </div>
         <div class="row mt-md">
             <div class="col-md-12">
-                <button type="button" id="btnSave" class="btn">Save</button>
-                <button type="button" id="btnCancel" class="btn" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");">Go back to Employees</button>
+                <button type="button" id="btnSave" class="btn btn-primary btn-sm">Save</button>
+                <button type="button" id="btnCancel" class="btn btn-primary btn-sm" onclick="@("window.location.href='" + @Url.Action("Index", "Employee") + "'");">Back</button>
             </div>
         </div>
         <input id="employeeID" type="hidden" value="@ViewBag.EmployeeID" />

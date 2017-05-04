@@ -16,9 +16,15 @@ $(document).ready(function () {
         // Initialization Code Goes Here
 
     });
+
+    $("#btnCloseFileUpload").click(function () {       
+        $('#fileUpload').val('');
+        $('#DocumentTypeID').val('');
+        $('#fileUploadPopUp').modal('hide');
+    });
+   
 });
 
 // Form Validation
 //----------------------------------------------
-
 

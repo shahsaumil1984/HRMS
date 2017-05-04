@@ -12,14 +12,18 @@ namespace HRMS
         public enum EmployeeStatus
         {
             Probation = 1,
-            Active,
+            Active = 2,
 
             [EnumMember(Value = "Notice Period")]
-            NoticePeriod,
+            NoticePeriod = 3,
+
+            
+            Disassociated = 4,
+
 
             [EnumMember(Value = "Full And Final")]
-            FullAndFinal,
-            
+            FullAndFinal = 5,
+
             [EnumMember(Value = "In Active")]
             InActive
         };
@@ -63,6 +67,8 @@ namespace HRMS
                     //var plainTextContent = "and easy to do anywhere, even with C#";
                     var htmlContent = Body;
                     var msg = MailHelper.CreateSingleEmail(from, to, subject, null, htmlContent);
+                    var BccTo = new EmailAddress(ConfigurationManager.AppSettings["BCCToEmail"], ConfigurationManager.AppSettings["BCCToUser"]);
+                    msg.AddBcc(BccTo);
                     msg.AddAttachment("SalarySlip.pdf", attachment);
                     response =  client.SendEmailAsync(msg);
                     isMailSent = true;
@@ -94,5 +100,8 @@ namespace HRMS
                 throw ex;
             }
         }
+
+        public static string ignoreEmployeeStatus = "EmployeeStatusID < 4 and IsDisabled == false";
+        public static string ignoreEmployeeStatus1 = "Employee.EmployeeStatusID < 4 and Employee.IsDisabled == false";
     }
 }

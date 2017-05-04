@@ -18,6 +18,7 @@ namespace Api
     public class EmployeeController : GenericApiController<EmployeeService, Employee, int>, IGetList
     {
         private ApplicationUserManager _userManager;
+        string initialEmployeeCode = "1000";
         static Random r = new Random();
 
         public ApplicationUserManager UserManager
@@ -44,7 +45,7 @@ namespace Api
         [Authorize(Roles = "Admin")]
         public override Employee GetById(int id)
         {
-
+            service.Context.Configuration.ProxyCreationEnabled = false;
 
             Employee obj = (from o in service.Context.Employees
                             where o.EmployeeID == id
@@ -88,7 +89,14 @@ namespace Api
                                 o.DesignationID,
                                 o.EmployeePhoto,
                                 o.EmployeeStatusID,
-                                o.EmployeeCode
+                                o.EmployeeCode,
+                                o.IsDisabled,
+                                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
+                                o.CreatedBy,
+                                o.CreatedDate,
+                                o.EmployeeStatu
+                                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
+
 
                             }).ToList().Select(o => new Employee
                             {
@@ -129,8 +137,13 @@ namespace Api
                                 DesignationID = o.DesignationID,
                                 EmployeePhoto = o.EmployeePhoto,
                                 EmployeeStatusID = o.EmployeeStatusID,
-                                EmployeeCode = o.EmployeeCode
-
+                                EmployeeCode = o.EmployeeCode,
+                                IsDisabled =o.IsDisabled,
+                                //IStart Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
+                                CreatedBy = o.CreatedBy,
+                                CreatedDate = o.CreatedDate,
+                                EmployeeStatu = o.EmployeeStatu
+                                //IEnd Jay Pithadiya 21/4/2017, Added this to keep created by when editing Employee details
                             }).Single<Employee>();
             return obj;
         }
@@ -178,7 +191,9 @@ namespace Api
                             o.AddressCity,
                             o.PermanentAddressCity,
                             o.EmployeePhoto,
-                            o.EmployeeCode
+                            o.EmployeeCode,
+                            o.IsDisabled
+                            
                         };
 
             PaginationQueryable pQuery = new PaginationQueryable(query, pageIndex, pageSize, service.TotalRowCount);
@@ -191,8 +206,10 @@ namespace Api
         {
             // Set Probation Status of Employee, when Create user ID = 1 for Probation
             entity.EmployeeStatusID = (int)Helper.EmployeeStatus.Probation ;
+            entity.CreatedBy = User.Identity.Name;
+            entity.ModifiedBy = User.Identity.Name;
+            //entity.EmployeeCode = service.GenerateEmployeeCode().ToString();
             HttpResponseMessage obj = base.Create(entity);
-
             
             EmployeeStatusHistoryService ehService = new EmployeeStatusHistoryService();
 
@@ -205,6 +222,7 @@ namespace Api
                 EndDate = entity.ProbationPeriodEndDate,
                 StatusNote = "This is Default Status of Employee",
                 CreatedBy = User.Identity.Name,
+                ModifiedBy = User.Identity.Name
             };
 
             ehService.Create(employeeStatusHistory);
@@ -299,6 +317,7 @@ namespace Api
         [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Update(Employee entity)
         {
+            entity.ModifiedBy = User.Identity.Name;
             return base.Update(entity);
         }
 
@@ -306,6 +325,39 @@ namespace Api
         public bool GetCheckEmployeeCode(int EmpCode)
         {
             return service.Context.Employees.ToList().Any(e => e.EmployeeCode.Equals(EmpCode.ToString()));            
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public bool disableEmployeeByID(int EmployeeID)
+        {
+            bool isSuccess = false;
+            Employee objEmployee = service.GetById(EmployeeID);
+            objEmployee.IsDisabled = true;
+            objEmployee.ModifiedBy = User.Identity.Name;
+            objEmployee.ModifiedDate = DateTime.Now;
+            base.Update(objEmployee);
+            isSuccess = true;
+            return isSuccess;
+        }
+
+        [HttpGet]
+        public int GenerateEmployeeCode()
+        {
+            HRMSEntities Context = new HRMSEntities();
+            var employeeCode = 0;
+            var maxCode = Context.Employees.Max(p => p.EmployeeCode);
+            if (maxCode == "0")
+            {
+                employeeCode = Convert.ToInt32(initialEmployeeCode) + 1;
+            }
+            else
+            {
+                employeeCode = Convert.ToInt32(maxCode) + 1;
+            }
+
+
+            return employeeCode;
         }
 
     }

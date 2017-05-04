@@ -1,0 +1,56 @@
+@model ViewModel.MasterViewModel
+@using Model
+
+
+
+<div id="EmployeeStatusHistoryEditWindow" class="detailsWindow">
+
+    <form id="EmployeeStatusHistoryForm"
+          name="EmployeeStatusHistoryForm"
+          data-ui-binding="true"
+          data-service-object="employeeStatusHistoryService"
+          data-associated-list="employeeStatusHistoryGrid"
+          method="get" action="" class="form-horizontal" role="form">
+
+        <div class="modal-body">
+
+            <div id="EmployeeStatusErrorDisplay" class="EmployeeStatusErrorDisplay" data-error-display="true"></div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <input type="hidden" ng-model="model.EmployeeStatusID" />
+
+                        <label for="empcode">Employee Status</label><br />
+                        <spam>{{model.EmployeeStatu.Status}}</spam>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-md-3">
+                    <div class="form-group">
+                        <label for="em_StartDate">Start Date</label>
+                        <input type="text" name="em_StartDate" id="em_StartDate" ng-model="model.StartDate" class="form-control date-width" date-Picker />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="em_EndDate">End Date</label>
+                        <input type="text" name="em_EndDate" id="em_EndDate" ng-model="model.EndDate" class="form-control date-width" date-Picker />
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label for="statusNote">Note</label>
+                        <textarea name="Note" style="height:100px;width:170px;" id="statusNote" ng-model="model.StatusNote" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="editor-label">
+                <button class="btn btn-primary btn-sm">Save</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="fb.HideForm(true)">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+

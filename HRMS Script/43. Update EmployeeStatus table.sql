@@ -92,8 +92,8 @@ INSERT INTO [dbo].[EmployeeStatus]
            ,[ModifiedBy]
            ,[ModifiedDate])
      VALUES
-           ('Active'
-           ,'This is Active'
+           ('InActive'
+           ,'This is InActive'
            ,'jay.pithadiya@alept.com'
            ,'2017-04-19'
            ,'jay.pithadiya@alept.com'

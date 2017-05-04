@@ -35,14 +35,19 @@ namespace HRMS.Controllers
         public ActionResult Index(int employeeID)
         {
             EmployeeStatusService de = new EmployeeStatusService();
-            
+            HRMSEntities entity = new HRMSEntities();
+            var d = entity.Employees.Find(employeeID);
+            if (d != null)
+            {
+                ViewBag.FullName = d.FullName;
+            }
             ViewBag.EmployeeID = employeeID;
             
             MasterViewModel obj = new MasterViewModel();
             obj.EmployeeStatus = de.Get().ToList();
-            
             return View(obj);
         }
+
     }
     public class ManageEmployeeStatus: Controller
     {
