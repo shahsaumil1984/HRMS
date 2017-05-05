@@ -558,6 +558,7 @@ namespace Api
         #region Private Methods
         private HttpResponseMessage Download(List<Salary> salList, bool isZip)
         {
+            
             Byte[] ByteArray = null;
             string file = string.Empty;
 
@@ -569,21 +570,32 @@ namespace Api
                 {
                     file = salObj.Employee.FullName + " - " + month + "-" + year + ".pdf";
 
+                    //ByteArray = ExportToPdf(salObj);
+                    //File.WriteAllBytes(file, ByteArray);
+
                     ByteArray = ExportToPdf(salObj);
-                    File.WriteAllBytes(file, ByteArray);
+                    MemoryStream ms = new MemoryStream(ByteArray);                   
+                   
 
                     if (isZip)
                     {
+                        //zip.AlternateEncodingUsage = ZipOption.AsNecessary;                      
+                        //zip.AddFile(file);
+
                         zip.AlternateEncodingUsage = ZipOption.AsNecessary;
-                        zip.AddFile(file);
+                        zip.AddEntry(file,ByteArray);                        
                     }
                 }
 
                 if (!isZip)
                 {
-                    var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    //var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    //var response = Request.CreateResponse(HttpStatusCode.OK);
+                    //response.Content = new StreamContent(stream);
+
                     var response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StreamContent(stream);
+                    MemoryStream ms = new MemoryStream(ByteArray);
+                    response.Content = new StreamContent(ms);
 
                     response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                     response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")

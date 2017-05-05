@@ -115,12 +115,17 @@ namespace HRMS.Api
             Month monthObj = mservice.GetById(MonthID);
             string fileName = "ALE57SAL" + DateTime.Now.Day.ToString("00") + monthObj.Month1.ToString("00") + ".001.csv";
 
-            File.WriteAllText(fileName, csv.ToString());
+            //File.WriteAllText(fileName, csv.ToString());
 
             //Download CSV file
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            //var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            //var response = Request.CreateResponse(HttpStatusCode.OK);
+            //response.Content = new StreamContent(stream);
+            byte[] ByteArray = Encoding.ASCII.GetBytes(csv.ToString());
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StreamContent(stream);
+            MemoryStream ms = new MemoryStream(ByteArray);
+            response.Content = new StreamContent(ms);
+
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
             {
