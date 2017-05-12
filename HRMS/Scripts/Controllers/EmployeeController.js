@@ -51,7 +51,8 @@ $(document).ready(function () {
             var PermanentAddressCity = employeeDetailsForm.GetValue("PermanentAddressCity");
             var PermanentAddressState = employeeDetailsForm.GetValue("PermanentAddressState");
             var PermanentAddressCountry = employeeDetailsForm.GetValue("PermanentAddressCountry");
-            var PermanentAddressZip = employeeDetailsForm.GetValue("PermanentAddressZip");
+            //var PermanentAddressZip = employeeDetailsForm.GetValue("PermanentAddressZip");
+            var PermanentAddressZip = $('#em_PermanentAddressZip').val();
 
             employeeDetailsForm.SetValue("AddressLine1", PermanentAddressLine1);
             employeeDetailsForm.SetValue("AddressLine2", PermanentAddressLine2);
@@ -60,6 +61,7 @@ $(document).ready(function () {
             employeeDetailsForm.SetValue("AddressState", PermanentAddressState);
             employeeDetailsForm.SetValue("AddressCountry", PermanentAddressCountry);
             employeeDetailsForm.SetValue("AddressZip", PermanentAddressZip);
+            $('#em_AddressZip').val(PermanentAddressZip);
 
             $('#em_AddressLine1').attr("disabled", "disabled");
             $('#em_AddressLine2').attr("disabled", "disabled");
@@ -271,6 +273,8 @@ _.loadEmployeeForm = function (formName, id, hideList) {
         }
         fb.Load(id, function (status, data) {
             $('#em_DesignationID').val(employeeDetailsForm.model().DesignationID);
+            $('#em_PermanentAddressZip').val(employeeDetailsForm.model().PermanentAddressZip);
+            $('#em_AddressZip').val(employeeDetailsForm.model().AddressZip.trim());            
         });
     }
     else {
