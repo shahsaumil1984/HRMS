@@ -6,9 +6,9 @@ var dateOfJoining = "";
 $(document).ready(function () {
 
     _.Initialize(function (status, msg) {
-        
+
     });
-     
+
     $("#em_DateOfjoining").datepicker({
         todayBtn: 1,
         autoclose: true,
@@ -184,6 +184,7 @@ $(document).ready(function () {
 });
 
 function EmployeeNewCallback(status, data) {
+    debugger;
     $("#employeeListView").hide();
     $("#employeeDetailsWindow").show();
 }
@@ -257,12 +258,24 @@ _.NewEmployeeForm = function (formName, hideList, callback) {
         var df = fb.detailsWindow.find("[data-default-focus='true']");
         if (df != null && df.length > 0) {
             setTimeout('$("#' + df[0].id + '").focus()', 400);
-        }        
+        }
     });
 
 }
 
-
-
+_.loadEmployeeForm = function (formName, id, hideList) {    
+    var fb = this.FormBindings[formName];
+    if (fb) {
+        if (fb.detailsWindow) {
+            fb.ShowForm(hideList);
+        }
+        fb.Load(id, function (status, data) {
+            $('#em_DesignationID').val(employeeDetailsForm.model().DesignationID);
+        });
+    }
+    else {
+        alert('Framework: Form Binding [' + formName + '] was not found');
+    }
+}
 
 
