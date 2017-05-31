@@ -216,9 +216,11 @@ _.UploadCSV = function () {
         data: data,
         success: function (response) {
             toastr.success("Successfully uploaded CSV");
+            $('#fileUpload').val('');
         },
         error: function (xhr, ajaxOptions, thrownError) {
             toastr.error(xhr.responseText);
+            $('#fileUpload').val('');
         }
     });
 
@@ -236,7 +238,7 @@ _.UploadCSV = function () {
 _.DownloadPDF = function (empID, monthID) {
     var r = confirm("Are you sure you want to download pdf file?");
     if (r == true) {
-        window.open('~/../../Api/Salary/DownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_blank', '');
+        window.open('~/../../Api/Salary/DownloadPDF?EmpID=' + empID + '&MonthID=' + monthID, '_self', '');
     }
 };
 

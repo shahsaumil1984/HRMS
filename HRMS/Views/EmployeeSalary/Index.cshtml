@@ -55,7 +55,7 @@
                                         <input type="text" class="form-control"
                                                data-search-fields="FullName"
                                                data-search-list="employeeSalaryGrid"
-                                               data-default-focus="true" />
+                                               data-default-focus="true" placeholder="Employee Full Name"/>
                                     </td>
                                     <td class="col-md-2">
                                         <select data-filter-field="SalaryStatus" id="selSalaryStatus" class="form-control" style="width:auto"
@@ -205,7 +205,7 @@
                     <p class="midtitle">General Details</p>
                     <div class="form-group">
                         <label for="Basic" class="col-sm-4 control-label">Basic <i class="lblRequired">*</i></label>
-                        <div class="col-sm-8"><input type="text" name="em_Basic" id="em_Basic" ng-model="model.Basic" class="required form-control col-md-8 number" maxlength="10" /></div>
+                        <div class="col-sm-8"><input type="text" name="em_Basic" id="em_Basic" ng-model="model.Basic" class="required form-control number" maxlength="10" /></div>
                     </div>
 
                     <div class="form-group">
@@ -319,7 +319,7 @@
 
                     <div class="form-group">
                         <label for="YTDS" class="col-sm-4 control-label">YTDS deducted <i class="lblRequired">*</i></label>
-                        <div class="col-sm-8"><input type="text" name="em_YTDS" id="em_YTDS" ng-model="model.YTDS" class="form-control number" maxlength="10" /></div>
+                        <div class="col-sm-8"><input type="text" name="em_YTDS" id="em_YTDS" ng-model="model.YTDS" class="required form-control number" maxlength="10" /></div>
                     </div>
 
                     <input type="hidden" id="employeeidtoedit" name="employeeidtoedit" ng-model="model.EmployeeID" />
