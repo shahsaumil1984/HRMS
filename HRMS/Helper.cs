@@ -2,6 +2,8 @@
 using SendGrid.Helpers.Mail;
 using System;
 using System.Configuration;
+using System.IO;
+using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -17,7 +19,7 @@ namespace HRMS
             [EnumMember(Value = "Notice Period")]
             NoticePeriod = 3,
 
-            
+
             Disassociated = 4,
 
 
@@ -51,9 +53,9 @@ namespace HRMS
             December = 12
         }
 
-        public static bool SendEmailToEmployee(string Subject, string Body, string FromAddress, string FromUser, string ToAddress, string ToUser,string attachment)
+        public static bool SendEmailToEmployee(string Subject, string Body, string FromAddress, string FromUser, string ToAddress, string ToUser, string attachment)
         {
-            bool isMailSent = false;            
+            bool isMailSent = false;
             try
             {
                 if (Convert.ToBoolean(ConfigurationManager.AppSettings["SendEmail"]))
@@ -70,7 +72,7 @@ namespace HRMS
                     var BccTo = new EmailAddress(ConfigurationManager.AppSettings["BCCToEmail"], ConfigurationManager.AppSettings["BCCToUser"]);
                     msg.AddBcc(BccTo);
                     msg.AddAttachment("SalarySlip.pdf", attachment);
-                    response =  client.SendEmailAsync(msg);
+                    response = client.SendEmailAsync(msg);
                     isMailSent = true;
                 }
                 return isMailSent;
@@ -81,7 +83,7 @@ namespace HRMS
                 return isMailSent;
             }
         }
-        
+
         public static byte[] CreatePDFFromHTMLFile(string HtmlStream)
         {
             try
@@ -103,5 +105,43 @@ namespace HRMS
 
         public static string ignoreEmployeeStatus = "EmployeeStatusID < 4 and IsDisabled == false";
         public static string ignoreEmployeeStatus1 = "Employee.EmployeeStatusID < 4 and Employee.IsDisabled == false";
+
+        public static bool SendMail(string subject, string body, string from, string toList, byte[] attachment)
+        {
+            bool isMailSent = false;
+            MailMessage message = new MailMessage();
+            SmtpClient smtpClient = new SmtpClient();
+            string msg = string.Empty;
+            try
+            {
+                MailAddress fromAddress = new MailAddress(from);
+                message.From = fromAddress;
+                message.To.Add(toList);
+                string BccTo = ConfigurationManager.AppSettings["BCCToEmail"].ToString();
+                MailAddress BCCAddress = new MailAddress(BccTo);
+                message.Bcc.Add(BCCAddress);
+                message.Subject = subject;
+                message.IsBodyHtml = true;
+                message.Body = body;
+                if (attachment != null)
+                    message.Attachments.Add(new System.Net.Mail.Attachment(new MemoryStream(attachment), "SalarySlip.pdf"));
+               
+                smtpClient.EnableSsl = true;
+                smtpClient.UseDefaultCredentials = false;
+                string gmailUserID = ConfigurationManager.AppSettings["gmailUserID"].ToString();
+                string gmailPassword = ConfigurationManager.AppSettings["gmailPassword"].ToString();
+                smtpClient.Credentials = new System.Net.NetworkCredential(gmailUserID, gmailPassword);
+                smtpClient.Host = "smtp.gmail.com";   // We use gmail as our smtp client
+                smtpClient.Port = 587;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.Send(message);
+                isMailSent = true;
+            }
+            catch (Exception ex)
+            {
+                isMailSent = false;
+            }
+            return isMailSent;
+        }
     }
 }

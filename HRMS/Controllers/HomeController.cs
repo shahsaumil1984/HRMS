@@ -9,7 +9,7 @@ namespace HRMS.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-        [Authorize(Roles= "Admin,Accountant")]
+        [Authorize(Roles= "Admin,Accountant,Employee")]
         public ActionResult Index()
         {
             return View();

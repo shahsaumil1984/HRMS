@@ -211,7 +211,8 @@ namespace HRMS.Controllers
                 var body = "Dear " + user.FirstName + ",</br></br>";
                 body = body + "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a></br></br>";
                 body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
-                bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, null);
+               // bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, null);
+                bool isMailSent = Helper.SendMail(Subject, body, fromEmailAddress,  toEmailAdd,  null);
 
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
