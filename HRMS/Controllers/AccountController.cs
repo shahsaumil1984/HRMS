@@ -165,7 +165,7 @@ namespace HRMS.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError("CustomError", error);
             }
         }
 

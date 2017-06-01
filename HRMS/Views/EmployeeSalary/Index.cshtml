@@ -334,7 +334,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <button id="btnSave" class="btn btn-primary btn-sm" type="button" ng-click="ub.SaveSalary(@(ViewBag.MonthID))">Save</button>
-                        <button id="btnApprove" type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Approve</button>
+                        <button id="btnApprove" ng-disabled="model.SalaryStatu.SalaryStatusName=='Approved'" type="button" class="btn btn-primary btn-sm" onclick="approveSalary(@(ViewBag.MonthID));">Approve</button>
                         @*<button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadNextEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Next</button>
                             <button type="button" class="btn btn-primary btn-sm" ng-click="ub.loadPrevEmployee(model.EmployeeID,@(ViewBag.MonthID))">Save & Previous</button>
                             <button type="button" class="btn btn-primary btn-sm" onclick="approveNextEmployee(@(ViewBag.MonthID));">Approve & Next</button>
