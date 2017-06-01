@@ -60,10 +60,14 @@
                         </div>
                     </div>
                 </div>
-            </div>           
+            </div>             
         </header>
         @*<div class="container banner"> <img src="~/Content/images/jobopenings.png"> </div>*@
-
+        <div style="width: 1170px;margin: 0 auto;">
+            <div class="loggedinUser">
+                <img class="user-img" src="~/Content/images/noimg.jpg" alt="personimg"><label class="loggerInUser-lbl"> @(((Model.AspNetUser)(Session["UserDetails"])).UserName) </label>               
+            </div>
+        </div>
         <div class="container content">
             @RenderBody()
         </div>

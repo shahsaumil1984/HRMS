@@ -230,7 +230,7 @@ footer {
     font-size: 13px;
     line-height: 22px;
     /*padding: 31px 0 43px;*/
-    padding:8px 15px;
+    padding: 8px 15px;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -800,5 +800,27 @@ table.table thead.tblaction td {
     text-align: left;
     border-bottom: 1px dotted #333;
 }
-.form-horizontal .control-label.text-left{text-align:left;}
-.auto-width.form-control{width:auto;}
+
+.form-horizontal .control-label.text-left {
+    text-align: left;
+}
+
+.auto-width.form-control {
+    width: auto;
+}
+
+.loggedinUser {
+    text-align: right;
+}
+
+.loggerInUser-lbl {
+    color: #286090;
+    margin-right: 15px;
+    float:right;
+}
+
+.user-img{
+    color: #286090;     
+     height:20px;
+     width:20px;
+}
