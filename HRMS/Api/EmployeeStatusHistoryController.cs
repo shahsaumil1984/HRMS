@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Net.Http;
+using System.Web.Http;
 
 namespace HRMS.Api
 {
@@ -14,6 +14,7 @@ namespace HRMS.Api
     {
         
         HRMSEntities dbContext = new HRMSEntities();
+        [Authorize(Roles = "Admin")]
         public override object GetModel()
         {
             EmployeeStatusHistory obj = (EmployeeStatusHistory)base.GetModel();
@@ -23,6 +24,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Create(EmployeeStatusHistory entity)
         {
 
@@ -48,11 +50,15 @@ namespace HRMS.Api
             
             return base.Create(entity);
         }
+
+        [Authorize(Roles = "Admin")]
         public override HttpResponseMessage Update(EmployeeStatusHistory entity)
         {          
             entity.ModifiedBy = User.Identity.Name;
             return base.Update(entity);  
         }
+
+        [Authorize(Roles = "Admin")]
         public override EmployeeStatusHistory GetById(int id)
         {
             service.Context.Configuration.ProxyCreationEnabled = false;
@@ -85,6 +91,7 @@ namespace HRMS.Api
             return obj;
         }
 
+        [Authorize(Roles = "Admin")]
         public PaginationQueryable GetList(int? pageIndex = null, int? pageSize = null, string filter = null, string orderBy = null, string includeProperties = "")
         {
             

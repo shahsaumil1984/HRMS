@@ -369,9 +369,14 @@ namespace Api
                 body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
                 body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
 
-                string attachment = Convert.ToBase64String(ExportToPdf(objSalary));
-                bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
-                return HttpSuccess();
+                //string attachment = Convert.ToBase64String(ExportToPdf(objSalary));
+                //bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                byte[] attachment = ExportToPdf(objSalary);
+                bool isMailSent = Helper.SendMail(Subject, body, fromEmailAddress, toEmailAdd, attachment);
+                if (isMailSent)
+                    return HttpSuccess();
+                else
+                    return HttpError();
             }
             catch (Exception e)
             {
@@ -502,6 +507,7 @@ namespace Api
         [Authorize(Roles = "Accountant")]
         public HttpResponseMessage SendAllEmail(int monthID)
         {
+            bool isMailSent = false;
             try
             {
                 List<Salary> objLstSalary = new List<Salary>();
@@ -527,13 +533,18 @@ namespace Api
                         body = body + "PFA for the salary slip for the month of " + salaryMonth + " " + salaryYear + ".</br></br>";
                         body = body + "Thanks & Regards,</br>Richa Nair</br>Practice Lead – HR</br>Alept Consulting Private LimitedPh: +91 7574853588 | URL: www.alept.com</br>B - 307/8/9, Mondeal Square, S.G.Highway Road, Prahladnagar, Ahmedabad, Gujarat - 380015";
 
-                        string attachment = Convert.ToBase64String(ExportToPdf(item));
-                        bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                        //string attachment = Convert.ToBase64String(ExportToPdf(item));
+                        //bool isMailSent = Helper.SendEmailToEmployee(Subject, body, fromEmailAddress, fromEmailUser, toEmailAdd, toEmailUser, attachment);
+                        byte[] attachment = ExportToPdf(item);
+                        isMailSent = Helper.SendMail(Subject, body, fromEmailAddress, toEmailAdd, attachment);
                     }
                 }
 
+                if (isMailSent)
+                    return HttpSuccess();
+                else
+                    return HttpError();
 
-                return HttpSuccess();
             }
             catch (Exception e)
             {
@@ -558,6 +569,7 @@ namespace Api
         #region Private Methods
         private HttpResponseMessage Download(List<Salary> salList, bool isZip)
         {
+
             Byte[] ByteArray = null;
             string file = string.Empty;
 
@@ -569,21 +581,32 @@ namespace Api
                 {
                     file = salObj.Employee.FullName + " - " + month + "-" + year + ".pdf";
 
+                    //ByteArray = ExportToPdf(salObj);
+                    //File.WriteAllBytes(file, ByteArray);
+
                     ByteArray = ExportToPdf(salObj);
-                    File.WriteAllBytes(file, ByteArray);
+                    MemoryStream ms = new MemoryStream(ByteArray);
+
 
                     if (isZip)
                     {
+                        //zip.AlternateEncodingUsage = ZipOption.AsNecessary;                      
+                        //zip.AddFile(file);
+
                         zip.AlternateEncodingUsage = ZipOption.AsNecessary;
-                        zip.AddFile(file);
+                        zip.AddEntry(file, ByteArray);
                     }
                 }
 
                 if (!isZip)
                 {
-                    var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    //var stream = new FileStream(file, FileMode.Open, FileAccess.Read);
+                    //var response = Request.CreateResponse(HttpStatusCode.OK);
+                    //response.Content = new StreamContent(stream);
+
                     var response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StreamContent(stream);
+                    MemoryStream ms = new MemoryStream(ByteArray);
+                    response.Content = new StreamContent(ms);
 
                     response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
                     response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")

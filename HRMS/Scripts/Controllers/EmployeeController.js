@@ -6,9 +6,9 @@ var dateOfJoining = "";
 $(document).ready(function () {
 
     _.Initialize(function (status, msg) {
-        
+
     });
-     
+
     $("#em_DateOfjoining").datepicker({
         todayBtn: 1,
         autoclose: true,
@@ -51,7 +51,8 @@ $(document).ready(function () {
             var PermanentAddressCity = employeeDetailsForm.GetValue("PermanentAddressCity");
             var PermanentAddressState = employeeDetailsForm.GetValue("PermanentAddressState");
             var PermanentAddressCountry = employeeDetailsForm.GetValue("PermanentAddressCountry");
-            var PermanentAddressZip = employeeDetailsForm.GetValue("PermanentAddressZip");
+            //var PermanentAddressZip = employeeDetailsForm.GetValue("PermanentAddressZip");
+            var PermanentAddressZip = $('#em_PermanentAddressZip').val();
 
             employeeDetailsForm.SetValue("AddressLine1", PermanentAddressLine1);
             employeeDetailsForm.SetValue("AddressLine2", PermanentAddressLine2);
@@ -60,6 +61,7 @@ $(document).ready(function () {
             employeeDetailsForm.SetValue("AddressState", PermanentAddressState);
             employeeDetailsForm.SetValue("AddressCountry", PermanentAddressCountry);
             employeeDetailsForm.SetValue("AddressZip", PermanentAddressZip);
+            $('#em_AddressZip').val(PermanentAddressZip);
 
             $('#em_AddressLine1').attr("disabled", "disabled");
             $('#em_AddressLine2').attr("disabled", "disabled");
@@ -184,6 +186,7 @@ $(document).ready(function () {
 });
 
 function EmployeeNewCallback(status, data) {
+    debugger;
     $("#employeeListView").hide();
     $("#employeeDetailsWindow").show();
 }
@@ -257,12 +260,26 @@ _.NewEmployeeForm = function (formName, hideList, callback) {
         var df = fb.detailsWindow.find("[data-default-focus='true']");
         if (df != null && df.length > 0) {
             setTimeout('$("#' + df[0].id + '").focus()', 400);
-        }        
+        }
     });
 
 }
 
-
-
+_.loadEmployeeForm = function (formName, id, hideList) {    
+    var fb = this.FormBindings[formName];
+    if (fb) {
+        if (fb.detailsWindow) {
+            fb.ShowForm(hideList);
+        }
+        fb.Load(id, function (status, data) {
+            $('#em_DesignationID').val(employeeDetailsForm.model().DesignationID);
+            $('#em_PermanentAddressZip').val(employeeDetailsForm.model().PermanentAddressZip);
+            $('#em_AddressZip').val(employeeDetailsForm.model().AddressZip.trim());            
+        });
+    }
+    else {
+        alert('Framework: Form Binding [' + formName + '] was not found');
+    }
+}
 
 

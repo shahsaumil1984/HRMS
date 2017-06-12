@@ -62,3 +62,19 @@ _.taxComputationDeleteCallback = function (status, data) {
         toastr.error('Tax Computation could not be deleted.');
     }
 }
+
+
+_.loadTaxComputationForm = function (formName, id, hideList) {
+    var fb = this.FormBindings[formName];
+    if (fb) {
+        if (fb.detailsWindow) {
+            fb.ShowForm(hideList);
+        }
+        fb.Load(id, function (status, data) {
+            $('#em_Year').val(taxComputationDetailsForm.model().Year)
+        });
+    }
+    else {
+        alert('Framework: Form Binding [' + formName + '] was not found');
+    }
+}
