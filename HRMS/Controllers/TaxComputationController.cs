@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using ViewModel;
 
-namespace HRMS.Controllers
+namespace HRMS
 {
-    public class TaxComputationController : Controller
+    public class TaxComputationController : BaseController
     {
         // GET: TaxComputation
         [Authorize(Roles = "Accountant")]

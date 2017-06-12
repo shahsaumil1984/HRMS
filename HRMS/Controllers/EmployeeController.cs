@@ -10,8 +10,8 @@ using Service;
 
 namespace HRMS
 {
-  public class EmployeeController : Controller
-  {
+  public class EmployeeController : BaseController
+    {
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {

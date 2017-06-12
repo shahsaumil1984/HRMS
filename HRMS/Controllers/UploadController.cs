@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.DirectoryServices.AccountManagement;
 namespace HRMS
 {
-    public class UploadController : Controller
+    public class UploadController : BaseController
     {
         /// <summary>
         /// Upload a file and return a JSON result

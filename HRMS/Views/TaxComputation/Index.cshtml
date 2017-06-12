@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Tax Computation";
+    ViewBag.ActiveTab = "ACCOUNT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@section HeaderIncludes
+{
+    <script type="text/javascript" src="~/Scripts/Services/TaxComputationService.js"></script>
+    <script type="text/javascript" src="~/Scripts/Controllers/TaxComputationController.js"></script>
+}
+
+@Html.Partial("~/Views/Controls/TaxComputationListView.cshtml")
+@Html.Partial("~/Views/Controls/TaxComputationDetailsView.cshtml")
+

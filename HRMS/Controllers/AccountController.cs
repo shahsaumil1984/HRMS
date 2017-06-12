@@ -14,7 +14,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System.Configuration;
 
-namespace HRMS.Controllers
+namespace HRMS
 {
     public class AccountController : Controller
     {
@@ -70,7 +70,8 @@ namespace HRMS.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             try
-            {                
+            {  
+                              
                 var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
@@ -102,7 +103,7 @@ namespace HRMS.Controllers
         {
             AuthenticationManager.SignOut();
             Session.Clear();
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
         }
 
         private ActionResult RedirectToLocal(string returnUrl)

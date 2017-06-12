@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HRMS
 {
-    public class DocumentTypeController : Controller
+    public class DocumentTypeController : BaseController
     {
         // GET: DocumentType
         [Authorize(Roles = "Admin")]

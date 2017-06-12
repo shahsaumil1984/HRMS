@@ -8,7 +8,7 @@ using Service;
 using Model;
 namespace HRMS
 {
-    public class EmployeeDocumentController : Controller
+    public class EmployeeDocumentController : BaseController
     {
         // GET: EmployeeDocument
         [Authorize(Roles = "Admin")]
