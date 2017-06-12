@@ -11,9 +11,9 @@ using Model;
 using Service;
 using ViewModel;
 
-namespace HRMS.Controllers
+namespace HRMS
 {
-    public class EmployeeStatusHistoryController : Controller
+    public class EmployeeStatusHistoryController : BaseController
     {
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager

@@ -11,9 +11,9 @@ using Model;
 using Service;
 using ViewModel;
 
-namespace HRMS.Controllers
+namespace HRMS
 {
-    public class ManageRolesController : Controller
+    public class ManageRolesController : BaseController
     {
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager

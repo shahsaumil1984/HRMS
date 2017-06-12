@@ -143,5 +143,17 @@ namespace HRMS
             }
             return isMailSent;
         }
+
+        public static int GetFinancialYear(int monthId, int year)
+        {
+            if (monthId == 1 || monthId == 2 || monthId == 3)
+            {
+                return year - 1;
+            }
+            else
+            {
+                return year;
+            }
+        }
     }
 }

@@ -1,0 +1,24 @@
+﻿
+@model ViewModel.MasterViewModel
+@using Model
+
+@{
+    ViewBag.Title = "IT Declaration";
+    ViewBag.ActiveTab = "ADMIN";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderIncludes 
+{
+    <script type="text/javascript" src="/Scripts/Services/ITDeclarationService.js"></script>
+    <script type="text/javascript" src="/Scripts/Controllers/ITDeclarationController.js"></script> 
+} 
+
+<div>
+    @Html.Partial("~/Views/Controls/ITDeclarationListView.cshtml")
+
+
+    @Html.Partial("~/Views/Controls/ITDeclarationDetailsView.cshtml")
+</div>
+
+

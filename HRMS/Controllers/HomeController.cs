@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HRMS.Controllers
+namespace HRMS
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET: Home
         [Authorize(Roles= "Admin,Accountant,Employee")]

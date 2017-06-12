@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HRMS
 {
-    public class EmployeeSalaryController : Controller
+    public class EmployeeSalaryController : BaseController
     {
         // GET: EmployeeSalary
         [Authorize(Roles = "Accountant")]

@@ -8,7 +8,7 @@ using Service;
 
 namespace HRMS
 {
-    public class MonthController : Controller
+    public class MonthController : BaseController
     {
         // GET: Month
         [Authorize(Roles = "Accountant")]

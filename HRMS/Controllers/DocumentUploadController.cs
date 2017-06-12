@@ -7,9 +7,9 @@ using System.Web.Mvc;
 using Model;
 using ViewModel;
 using Service;
-namespace HRMS.Controllers
+namespace HRMS
 {
-    public class DocumentUploadController : Controller
+    public class DocumentUploadController : BaseController
     {
         // GET: DocumentUpload
         HRMSEntities dbContext = new HRMSEntities();

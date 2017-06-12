@@ -557,7 +557,9 @@ namespace Api
         public int GetTDSbyYear(int employeeID, int monthId)
         {
             var Year = service.Context.Months.Find(monthId).Year;
-            var taxCalculation = service.Context.TaxComputations.Where(i => i.Year == Year && i.EmployeeID == employeeID).FirstOrDefault();
+            var Month = service.Context.Months.Find(monthId).Month1;
+            var FinincialYear = Helper.GetFinancialYear(Month, Year);
+            var taxCalculation = service.Context.TaxComputations.Where(i => i.Year == FinincialYear && i.EmployeeID == employeeID).FirstOrDefault();
             var Tds = 0;
             if (taxCalculation != null)
             {
